@@ -1,0 +1,14 @@
+.layout-header-row {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+}
+.layout-header-row dsb-header {
+  flex: 1;
+}
+.main-content {
+  min-height: calc(100vh - 56px - 120px);
+  padding: 32px 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}

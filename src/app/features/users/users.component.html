@@ -1,0 +1,164 @@
+<div class="users-header">
+  <div>
+    <h1 class="users-title">Users</h1>
+    <p class="users-subtitle">Manage team members and their access</p>
+  </div>
+  <dsb-button variant="primary" (onClick)="inviteModalOpen = true">+ Invite Member</dsb-button>
+</div>
+
+<div class="table-wrapper">
+  <dsb-table [rows]="users" [striped]="true">
+
+    <dsb-column key="avatar" header="">
+      <ng-template #cell let-row="row">
+        <dsb-avatar [name]="$any(row)['name']" size="sm" shape="circle"></dsb-avatar>
+      </ng-template>
+    </dsb-column>
+
+    <dsb-column key="name"       label="Name"></dsb-column>
+    <dsb-column key="email"      label="Email"></dsb-column>
+
+    <dsb-column key="role" header="Role">
+      <ng-template #cell let-row="row">
+        <dsb-tag [variant]="roleVariant($any(row)['role'])" size="sm">{{ $any(row)['role'] }}</dsb-tag>
+      </ng-template>
+    </dsb-column>
+
+    <dsb-column key="status" header="Status">
+      <ng-template #cell let-row="row">
+        <dsb-tag [variant]="$any(row)['status'] === 'Active' ? 'success' : 'warning'" size="sm">
+          {{ $any(row)['status'] }}
+        </dsb-tag>
+      </ng-template>
+    </dsb-column>
+
+    <dsb-column key="joinedDate" header="Joined"></dsb-column>
+
+    <dsb-column key="id" header="Actions">
+      <ng-template #cell let-row="row">
+        <div class="actions-cell">
+          <dsb-button variant="ghost"     size="sm" (onClick)="openDetails($any(row))">Details</dsb-button>
+          <dsb-button variant="secondary" size="sm" (onClick)="openEdit($any(row))">Edit</dsb-button>
+          <dsb-button variant="danger"    size="sm" (onClick)="openDeleteConfirm($any(row))">Delete</dsb-button>
+        </div>
+      </ng-template>
+    </dsb-column>
+
+  </dsb-table>
+</div>
+
+<!-- ── DELETE MODAL ─────────────────────────────────────────────────────── -->
+<dsb-modal title="Confirm Deletion" size="sm" [open]="deleteModalOpen" (closed)="deleteModalOpen = false">
+  <p>Are you sure you want to delete <strong>{{ selectedUser?.name }}</strong>? This action cannot be undone.</p>
+  <div slot="modal-footer" class="modal-footer-right">
+    <dsb-button variant="secondary" (onClick)="deleteModalOpen = false">Cancel</dsb-button>
+    <dsb-button variant="danger"    (onClick)="confirmDelete()">Delete</dsb-button>
+  </div>
+</dsb-modal>
+
+<!-- ── DETAILS MODAL ────────────────────────────────────────────────────── -->
+<dsb-modal size="md" [open]="detailsModalOpen" (closed)="detailsModalOpen = false">
+  <div slot="modal-title" class="details-modal-title">
+    <span>Member Details</span>
+    <span class="readonly-badge">Read-only</span>
+  </div>
+
+  <div class="modal-content" *ngIf="selectedUser">
+    <div class="modal-user-row">
+      <div class="modal-avatar-circle">{{ getInitials(selectedUser.name) }}</div>
+      <div>
+        <div class="modal-display-field">{{ selectedUser.name }}</div>
+        <div class="modal-display-field" style="color: var(--ds-decisions-color-text-secondary, #666)">{{ selectedUser.email }}</div>
+      </div>
+    </div>
+    <div class="modal-grid-row">
+      <div class="modal-field-wrapper">
+        <span class="modal-label">Role</span>
+        <div class="modal-display-field">{{ selectedUser.role }}</div>
+      </div>
+      <div class="modal-field-wrapper">
+        <span class="modal-label">Status</span>
+        <div class="modal-display-field">{{ selectedUser.status }}</div>
+      </div>
+      <div class="modal-field-wrapper">
+        <span class="modal-label">Member Since</span>
+        <div class="modal-display-field">{{ formatJoinedMonth(selectedUser.joinedDate) }}</div>
+      </div>
+    </div>
+  </div>
+
+  <div slot="modal-footer" class="modal-footer-split">
+    <span class="modal-footer-note">User ID: {{ selectedUser?.id }}</span>
+    <dsb-button variant="secondary" (onClick)="detailsModalOpen = false">Close</dsb-button>
+  </div>
+</dsb-modal>
+
+<!-- ── EDIT MODAL ───────────────────────────────────────────────────────── -->
+<dsb-modal title="Edit Member" size="md" [open]="editModalOpen" (closed)="editModalOpen = false">
+  <form [formGroup]="editForm" class="modal-form" *ngIf="selectedUser">
+    <div class="modal-grid-row">
+      <div class="modal-field-wrapper">
+        <label class="modal-label">First Name</label>
+        <input class="modal-input" formControlName="firstName" />
+      </div>
+      <div class="modal-field-wrapper">
+        <label class="modal-label">Last Name</label>
+        <input class="modal-input" formControlName="lastName" />
+      </div>
+    </div>
+    <div class="modal-field-wrapper">
+      <label class="modal-label">Email</label>
+      <input class="modal-input" type="email" formControlName="email" />
+    </div>
+    <div class="modal-field-wrapper">
+      <label class="modal-label">Role</label>
+      <select class="modal-select" formControlName="role">
+        <option value="Admin">Admin</option>
+        <option value="Editor">Editor</option>
+        <option value="Viewer">Viewer</option>
+      </select>
+    </div>
+  </form>
+
+  <div slot="modal-footer" class="modal-footer-split">
+    <button class="btn-delete-outline" type="button" (click)="deleteFromEdit()">Delete Member</button>
+    <div class="modal-footer-right">
+      <dsb-button variant="secondary" (onClick)="editModalOpen = false">Cancel</dsb-button>
+      <dsb-button variant="primary"   (onClick)="confirmEdit()">Save Changes</dsb-button>
+    </div>
+  </div>
+</dsb-modal>
+
+<!-- ── INVITE MODAL ─────────────────────────────────────────────────────── -->
+<dsb-modal title="Invite Member" size="md" [open]="inviteModalOpen" (closed)="inviteModalOpen = false">
+  <form [formGroup]="inviteForm" class="modal-form">
+    <div class="modal-grid-row">
+      <div class="modal-field-wrapper">
+        <label class="modal-label">First Name</label>
+        <input class="modal-input" formControlName="firstName" />
+      </div>
+      <div class="modal-field-wrapper">
+        <label class="modal-label">Last Name</label>
+        <input class="modal-input" formControlName="lastName" />
+      </div>
+    </div>
+    <div class="modal-field-wrapper">
+      <label class="modal-label">Email</label>
+      <input class="modal-input" type="email" formControlName="email" />
+    </div>
+    <div class="modal-field-wrapper">
+      <label class="modal-label">Role</label>
+      <select class="modal-select" formControlName="role">
+        <option value="" disabled selected>Select role</option>
+        <option value="Admin">Admin</option>
+        <option value="Editor">Editor</option>
+        <option value="Viewer">Viewer</option>
+      </select>
+    </div>
+  </form>
+
+  <div slot="modal-footer" class="modal-footer-right">
+    <dsb-button variant="secondary" (onClick)="inviteModalOpen = false">Cancel</dsb-button>
+    <dsb-button variant="primary"   (onClick)="confirmInvite()">Send Invite</dsb-button>
+  </div>
+</dsb-modal>

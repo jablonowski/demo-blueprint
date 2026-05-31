@@ -1,0 +1,9 @@
+<div class="profile-trigger" (click)="toggleMenu($event)">
+  <dsb-avatar name="Admin User" size="sm" shape="circle"></dsb-avatar>
+  <span class="profile-name">Admin User</span>
+  <span class="chevron">&#9662;</span>
+</div>
+<div class="menu-panel" *ngIf="isOpen">
+  <button class="menu-item" type="button" (click)="onMyProfile()">My Profile</button>
+  <button class="menu-item" type="button" (click)="onSignOut()">Sign Out</button>
+</div>

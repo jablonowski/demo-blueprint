@@ -1,0 +1,21 @@
+.auth-heading {
+  font-size: var(--ds-decisions-font-size-2xl, 24px);
+  font-weight: var(--ds-decisions-font-weight-semibold, 600);
+  color: var(--ds-decisions-color-text-primary, #111);
+  margin: 0 0 6px;
+}
+.auth-subtitle {
+  font-size: var(--ds-decisions-font-size-md, 14px);
+  color: var(--ds-decisions-color-text-secondary, #666);
+  margin: 0 0 24px;
+}
+.auth-form { display: flex; flex-direction: column; gap: 16px; }
+.remember-row { display: flex; align-items: center; justify-content: space-between; }
+.forgot-link {
+  font-size: 13px;
+  color: var(--ds-decisions-color-text-primary, #111);
+  text-decoration: underline;
+}
+.login-error { font-size: 12px; color: #d93025; margin: 0; }
+.signup-prompt { text-align: center; font-size: 13px; color: var(--ds-decisions-color-text-secondary, #666); margin: 20px 0 0; }
+.signup-link { color: var(--ds-decisions-color-text-primary, #111); text-decoration: underline; }

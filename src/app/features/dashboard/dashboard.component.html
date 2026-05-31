@@ -1,0 +1,54 @@
+<div class="dashboard-grid">
+
+  <!-- 1. Active Users -->
+  <app-metric-card title="Active Users" value="1,284"
+    trend="+12%" trendVariant="success" subLabel="vs last 7 days">
+  </app-metric-card>
+
+  <!-- 2. Avg Response Time -->
+  <app-metric-card title="Avg Response Time" value="142ms"
+    trend="-8ms" trendVariant="success" subLabel="vs last 7 days">
+  </app-metric-card>
+
+  <!-- 3. Error Rate -->
+  <app-metric-card title="Error Rate" value="0.04%"
+    trend="+0.01%" trendVariant="danger" subLabel="vs last 7 days">
+  </app-metric-card>
+
+  <!-- 4. Uptime -->
+  <app-metric-card title="Uptime (30d)" value="99.97%"
+    trend="Stable" trendVariant="success" subLabel="last 30 days">
+  </app-metric-card>
+
+  <!-- 5. Request Throughput -->
+  <app-metric-card title="Request Throughput">
+    <app-throughput-chart></app-throughput-chart>
+  </app-metric-card>
+
+  <!-- 6. Service Health -->
+  <app-metric-card title="Service Health">
+    <div class="service-list">
+      <div class="service-row"><span class="service-name">API Gateway</span>      <dsb-tag variant="success" size="sm">Online</dsb-tag></div>
+      <div class="service-row"><span class="service-name">Auth Service</span>     <dsb-tag variant="success" size="sm">Online</dsb-tag></div>
+      <div class="service-row"><span class="service-name">Storage Service</span>  <dsb-tag variant="success" size="sm">Online</dsb-tag></div>
+      <div class="service-row"><span class="service-name">Analytics Engine</span> <dsb-tag variant="danger"  size="sm">Offline</dsb-tag></div>
+      <div class="service-row"><span class="service-name">Cache Layer</span>      <dsb-tag variant="success" size="sm">Online</dsb-tag></div>
+    </div>
+  </app-metric-card>
+
+  <!-- 7. Data Summary -->
+  <app-metric-card title="Data Summary">
+    <dsb-list [divided]="true">
+      <dsb-list-item label="Requests/min"  meta="4,820"></dsb-list-item>
+      <dsb-list-item label="Avg Response"  meta="142 ms"></dsb-list-item>
+      <dsb-list-item label="Error Rate"    meta="0.04%"></dsb-list-item>
+      <dsb-list-item label="Uptime (30d)"  meta="99.97%"></dsb-list-item>
+    </dsb-list>
+  </app-metric-card>
+
+  <!-- 8. System Logs -->
+  <app-metric-card title="System Logs">
+    <app-logs-card></app-logs-card>
+  </app-metric-card>
+
+</div>

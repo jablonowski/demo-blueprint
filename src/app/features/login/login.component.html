@@ -1,0 +1,38 @@
+<app-auth-card>
+  <h1 class="auth-heading">Welcome back</h1>
+  <p class="auth-subtitle">Sign in to your account to continue</p>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" class="auth-form" novalidate>
+
+    <dsb-input
+      label="Username"
+      placeholder="Enter your username"
+      [hasError]="usernameError()"
+      errorMessage="Username is required"
+      (valueChange)="onUsernameChange($event)">
+    </dsb-input>
+
+    <dsb-input
+      label="Password"
+      type="password"
+      placeholder="Enter your password"
+      [hasError]="passwordError()"
+      errorMessage="Password is required"
+      (valueChange)="onPasswordChange($event)">
+    </dsb-input>
+
+    @if (loginError) {
+      <p class="login-error">Invalid username or password.</p>
+    }
+
+    <div class="remember-row">
+      <dsb-checkbox label="Remember me"></dsb-checkbox>
+      <a href="#" class="forgot-link">Forgot password?</a>
+    </div>
+
+    <dsb-button variant="primary" [fullWidth]="true" type="submit">Sign In</dsb-button>
+
+  </form>
+
+  <p class="signup-prompt">Don&apos;t have an account? <a href="#" class="signup-link">Sign up</a></p>
+</app-auth-card>

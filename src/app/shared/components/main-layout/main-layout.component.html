@@ -1,0 +1,21 @@
+<div class="layout-header-row">
+  <dsb-header
+    brandName="Blueprint"
+    [navItems]="navItems">
+  </dsb-header>
+  <app-user-profile-menu
+    style="position:absolute; right:24px; top:50%; transform:translateY(-50%)"
+    (signOut)="onSignOut()">
+  </app-user-profile-menu>
+</div>
+
+<main class="main-content">
+  <router-outlet />
+</main>
+
+<dsb-footer
+  brandName="Blueprint"
+  copyright="&copy; 2025 Blueprint"
+  [columns]="footerColumns"
+  [legalLinks]="legalLinks">
+</dsb-footer>
