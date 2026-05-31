@@ -1,4 +1,4 @@
-"mcp": {
+{
   "servers": {
     "Framelink_Figma_MCP": {
       "type": "stdio",
