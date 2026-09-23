@@ -59,14 +59,28 @@ credential() {
     if [[ "$value" == "..." || "$value" == "sk-ant-..." || "$value" == changeme* || "$value" == XXX* ]]; then
       die "$name is set to the placeholder [$value]. Replace it with a real one:
 
-    export CLAUDE_CODE_OAUTH_TOKEN=\$(claude setup-token)
-    export ANTHROPIC_API_KEY=sk-ant-..."
+    claude setup-token     # run it plainly; it is interactive, so do not wrap it in \$( )
+    export $name='<paste the token>'"
     fi
-    if (( ${#value} < 20 )); then
-      die "$name is ${#value} characters long, which is not a credential:
 
-    export CLAUDE_CODE_OAUTH_TOKEN=\$(claude setup-token)"
+    # A token is one opaque word. Anything with whitespace, an escape sequence or a
+    # thousand characters in it is the output of an interactive command that was captured
+    # with \$( ) — banner, instructions and all — rather than a credential.
+    if [[ "$value" == *[$'\n\r\t ']* || "$value" == *$'\033'* ]]; then
+      die "$name contains whitespace or terminal escape codes, so it is console output,
+  not a token. 'claude setup-token' is interactive in this version:
+
+    claude setup-token     # run it plainly, read the output, copy the token
+    export $name='<paste it here, in single quotes>'
+
+  Or skip the token entirely:  BARE=0 ./run.sh preflight"
     fi
+
+    if (( ${#value} < 20 || ${#value} > 500 )); then
+      die "$name is ${#value} characters long, which is not a credential.
+  See 'claude setup-token', or run with BARE=0 to use the logged-in session."
+    fi
+
     echo "$name"; return
   done
   echo ""
