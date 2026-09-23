@@ -172,12 +172,31 @@ assert_isolation() {
   esac
 }
 
+# Which tools an arm may use.
+#
+# The pilot exposed this: --allowedTools "Read,Write,Edit,Bash" does not cover MCP tools, so
+# every mcp__dsb-tokens__resolve_token call was denied and arm D ran as arm C with a server
+# attached that it could not reach. The denials are in the result, but nothing about the
+# generated application looks wrong, which is how a run can measure the wrong condition and
+# still produce a clean score.
+#
+# Tools are named individually rather than by wildcard, so an arm cannot silently acquire a
+# capability when a server adds one.
+allowed_tools_for() {
+  local arm="$1"
+  local base="Read,Write,Edit,Bash"
+  local figma="mcp__figma__get_figma_data,mcp__figma__download_figma_images"
+  local resolver="mcp__dsb-tokens__resolve_token,mcp__dsb-tokens__explain_component_tokens"
+
+  if [[ "$arm" == "D" ]]; then echo "$base,$figma,$resolver"; else echo "$base,$figma"; fi
+}
+
 # The flags every invocation shares. --bare is conditional; everything else is not.
 claude_flags() {
-  local cfg="$1"
+  local cfg="$1" arm="${2:-A}"
   [[ "$BARE" == "1" ]] && printf '%s ' --bare
   printf '%s ' --model "$MODEL" --mcp-config "$cfg" --strict-mcp-config \
-    --allowedTools "Read,Write,Edit,Bash" --permission-mode dontAsk --output-format json
+    --allowedTools "$(allowed_tools_for "$arm")" --permission-mode dontAsk --output-format json
   if [[ "$BARE" != "1" ]]; then
     # An empty settings file so a hook or a permission rule from ~/.claude cannot quietly
     # differ between the run you did on Monday and the one you did on Friday.
@@ -227,7 +246,7 @@ preflight() {
   echo '{}' > "$EVAL_DIR/.empty-settings.json"
   local out
   # shellcheck disable=SC2046
-  out="$(cd "$dir" && claude -p 'Run: npm init -y. Then write hello.txt containing the word ok. Do nothing else.' $(claude_flags "$cfg") 2>&1)" || true
+  out="$(cd "$dir" && claude -p 'Run: npm init -y. Then write hello.txt containing the word ok. Do nothing else.' $(claude_flags "$cfg" A) 2>&1)" || true
 
   printf '%s' "$out" > "$dir/result.json"
 
@@ -279,7 +298,7 @@ one() {
   echo '{}' > "$EVAL_DIR/.empty-settings.json"
   local out
   # shellcheck disable=SC2046
-  out="$(cd "$dir" && claude -p "$(cat "$prompt")" $(claude_flags "$cfg") 2>&1)" || true
+  out="$(cd "$dir" && claude -p "$(cat "$prompt")" $(claude_flags "$cfg" "$arm") 2>&1)" || true
 
   assert_isolation "$arm" "$dir" "after the run"
 
@@ -316,6 +335,20 @@ one() {
         }, null, 2) + "\n");
       });
     '
+
+  local denied
+  denied="$(printf '%s' "$out" | node -e '
+    let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{
+      try {
+        const j = JSON.parse(s);
+        const names = (j.permission_denials || []).map(d => d.tool_name);
+        console.log([...new Set(names)].join(", "));
+      } catch { console.log(""); }
+    })' 2>/dev/null)"
+  if [[ -n "$denied" ]]; then
+    note "$arm/$n — WARNING: tools were denied: $denied"
+    note "         this run did not have what its arm is defined by. Treat it as void."
+  fi
 
   archive "$arm" "$n" "$dir"
   note "$arm/$n — done, $RESULTS/$arm-$n.json"

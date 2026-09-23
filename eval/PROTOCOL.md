@@ -275,6 +275,42 @@ cost axis is weaker than even its demoted position assumed.
 
 Twenty-five runs at this rate: roughly $59 and 2.7 hours.
 
+### What the pilot's denied tools showed
+
+`permission_denials` in the pilot result lists eleven entries. Ten are
+`mcp__dsb-tokens__resolve_token`; one is `mcp__figma__get_figma_data`.
+
+`--allowedTools "Read,Write,Edit,Bash"` does not cover MCP tools. The resolver was attached
+and unreachable for the whole run. **D-1 was not arm D.** It is a clean arm C run with a
+server bolted on that never answered — which also means arm C, unaided, used 13 of 13
+component slots and wrote no raw design values.
+
+Nothing about the generated application looks wrong. It builds, it is clean, it scores well.
+A run can measure the wrong condition and produce a perfect score, and the only trace is a
+field nobody reads. The runner now grants each arm the MCP tools its definition requires,
+names them individually so an arm cannot silently acquire a capability when a server adds
+one, and prints a warning that declares the run void when anything was denied.
+
+The denials are also a free record of what the agent wanted to ask, and it asked well:
+
+```
+fill colour of bars in a bar chart, darkest foreground colour available (pure black)
+font family monospace for code / log text
+terminal-style log viewer background (dark console)
+read-only disabled boxed field background
+small uppercase de-emphasised title label on a metric tile
+floating menu panel elevation shadow
+large focal metric value font size (display number)
+background of a dashboard metric card / tile
+page background behind cards
+border of a card
+```
+
+The first two are precisely the two token gaps pre-registered in `SCORERS.md` — no pure
+black, no font family. The agent found both without the resolver, and handled the first by
+composing rather than by hardcoding. When arm D is run properly, the question becomes
+whether ten answers change any of that.
+
 ### Results
 
 Filled in after the runs. Do not edit anything above this line.
