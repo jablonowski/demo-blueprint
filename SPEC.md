@@ -592,8 +592,12 @@ The package outputs CSS custom properties. CSS file: `dist/css/variables.css`.
 
 **Global import in `styles.css`:**
 ```css
-@import '@jablonowski/dsb-tokens/dist/css/variables.css';
+@import '@jablonowski/dsb-tokens/css';
 ```
+
+That is the supported entry point. It declares the decision tokens this application writes
+against, and the component-level tokens the library needs in order to render. It does not
+contain the raw palette, and it is not reachable by a deep path — `exports` refuses those.
 
 **Token naming:** `--ds-{tier}-{category}-{name}`
 
