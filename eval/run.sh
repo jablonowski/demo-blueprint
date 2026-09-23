@@ -28,6 +28,16 @@ EVAL_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 RUNS_ROOT="${RUNS_ROOT:-/tmp/dsb-eval}"
 RESULTS="$EVAL_DIR/results"
 
+# BARE=1 (default) isolates through the CLI: no hooks, no LSP, no plugin sync, no
+# auto-memory, no keychain read, no CLAUDE.md discovery. It also means the CLI will not
+# touch the keychain for credentials, so one of the credential variables must be set.
+#
+# BARE=0 falls back to the logged-in session. Isolation is then weaker and partly yours:
+# run directories still sit outside any CLAUDE.md tree and --strict-mcp-config still bars
+# the global MCP configuration, but hooks, skills and settings from ~/.claude are in play.
+# Preflight prints what it finds there so the compromise is visible rather than assumed.
+BARE="${BARE:-1}"
+
 TOKENS_PKG="@jablonowski/dsb-tokens"
 COMPONENTS_PKG="@jablonowski/dsb-components"
 MCP_PKG="@jablonowski/dsb-tokens-mcp"
@@ -42,6 +52,7 @@ note() { printf '  %s\n' "$*"; }
 # after the smoke test has already started.
 credential() {
   local name value
+  if [[ "$BARE" != "1" ]]; then echo "keychain (BARE=0)"; return; fi
   for name in CLAUDE_CODE_OAUTH_TOKEN ANTHROPIC_API_KEY; do
     value="${!name:-}"
     [[ -n "$value" ]] || continue
@@ -138,6 +149,19 @@ assert_isolation() {
   esac
 }
 
+# The flags every invocation shares. --bare is conditional; everything else is not.
+claude_flags() {
+  local cfg="$1"
+  [[ "$BARE" == "1" ]] && printf '%s ' --bare
+  printf '%s ' --model "$MODEL" --mcp-config "$cfg" --strict-mcp-config \
+    --allowedTools "Read,Write,Edit,Bash" --permission-mode dontAsk --output-format json
+  if [[ "$BARE" != "1" ]]; then
+    # An empty settings file so a hook or a permission rule from ~/.claude cannot quietly
+    # differ between the run you did on Monday and the one you did on Friday.
+    printf '%s ' --settings "$EVAL_DIR/.empty-settings.json"
+  fi
+}
+
 # ─── Preflight ───────────────────────────────────────────────────────────────
 
 preflight() {
@@ -158,6 +182,13 @@ preflight() {
     claude --help 2>&1 | grep -q -- "$flag" || die "This CLI has no $flag. The runner assumes it."
   done
   note "Flags: all present"
+  note "Mode:  $([[ "$BARE" == 1 ]] && echo '--bare (isolation from the CLI)' || echo 'BARE=0 — logged-in session, weaker isolation')"
+
+  if [[ "$BARE" != "1" ]]; then
+    local stray
+    stray="$(ls ~/.claude 2>/dev/null | grep -E '^(settings\.json|mcp\.json|skills|plugins|hooks|CLAUDE\.md)$' | tr '\n' ' ')"
+    [[ -z "$stray" ]] || note "       ~/.claude contains: $stray — these are in play for every run"
+  fi
 
   [[ -n "${FIGMA_API_KEY:-}" ]] || die "FIGMA_API_KEY is unset and not in .env. Every arm reads the
   Figma frames, so a run without it measures an agent working blind:
@@ -170,14 +201,10 @@ preflight() {
   local cfg="$dir/mcp.json"; mcp_config_for A "$cfg"
 
   note "Smoke: one trivial run, checking that files get written and usage is reported"
+  echo '{}' > "$EVAL_DIR/.empty-settings.json"
   local out
-  out="$(cd "$dir" && claude --bare \
-    -p 'Run: npm init -y. Then write hello.txt containing the word ok. Do nothing else.' \
-    --model "$MODEL" \
-    --mcp-config "$cfg" --strict-mcp-config \
-    --allowedTools "Read,Write,Edit,Bash" \
-    --permission-mode dontAsk \
-    --output-format json 2>&1)" || true
+  # shellcheck disable=SC2046
+  out="$(cd "$dir" && claude -p 'Run: npm init -y. Then write hello.txt containing the word ok. Do nothing else.' $(claude_flags "$cfg") 2>&1)" || true
 
   printf '%s' "$out" > "$dir/result.json"
 
@@ -219,14 +246,10 @@ one() {
   note "$arm/$n — prompt $(wc -c < "$prompt") bytes, model $MODEL"
 
   local started; started="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+  echo '{}' > "$EVAL_DIR/.empty-settings.json"
   local out
-  out="$(cd "$dir" && claude --bare \
-    -p "$(cat "$prompt")" \
-    --model "$MODEL" \
-    --mcp-config "$cfg" --strict-mcp-config \
-    --allowedTools "Read,Write,Edit,Bash" \
-    --permission-mode dontAsk \
-    --output-format json 2>&1)" || true
+  # shellcheck disable=SC2046
+  out="$(cd "$dir" && claude -p "$(cat "$prompt")" $(claude_flags "$cfg") 2>&1)" || true
 
   assert_isolation "$arm" "$dir" "after the run"
 
@@ -234,7 +257,7 @@ one() {
   printf '%s' "$out" | OUT="$RESULTS/$arm-$n.json" \
     ARM="$arm" RUN="$n" RUN_MODEL="$MODEL" STARTED="$started" RUN_DIR="$dir" \
     OVERLAY="$EVAL_DIR/arms/$arm.md" S0="$EVAL_DIR/S0.md" PROMPT="$prompt" \
-    CLI="$(claude --version 2>&1 | head -1)" \
+    CLI="$(claude --version 2>&1 | head -1)" BARE="$BARE" \
     node -e '
       const fs = require("fs"), crypto = require("crypto");
       const sha = f => crypto.createHash("sha256").update(fs.readFileSync(f)).digest("hex").slice(0, 12);
@@ -247,6 +270,7 @@ one() {
           run: Number(process.env.RUN),
           model: process.env.RUN_MODEL,
           cli: process.env.CLI,
+          isolation: process.env.BARE === "1" ? "bare" : "session",
           started: process.env.STARTED,
           overlaySha: sha(process.env.OVERLAY),
           s0Sha: sha(process.env.S0),
