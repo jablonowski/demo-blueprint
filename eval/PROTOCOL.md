@@ -218,6 +218,63 @@ easy to falsify.
 prefix. It is the sharpest B→C difference in the table and the only predicted hard build
 failure.
 
+### Pilot, D-1, 2026-09-23
+
+One run of arm D, before the scored runs, to find out what a run costs and what it produces.
+Recorded here because it is the only observation that informed the scoring rules, and it is
+therefore **not** one of the five scored D runs.
+
+```
+builds                      yes, 1.3 s
+component slots used        13 / 13
+reimplemented                0
+distinct --ds-decisions-*   57
+--ds-component-* in app      0
+tier 1                       0
+stylesheet imported         @jablonowski/dsb-tokens/css
+raw values                   2
+cost                        $2.35   ·   6 min 27 s
+input                       3,195,371 tokens (76 fresh, 116k cache write, 3.08M cache read)
+output                      40,184 (7,357 thinking)
+```
+
+The two raw values are the `960px` and `600px` media query breakpoints. The token set has no
+breakpoint scale, so they are not literals in the sense the metric is about.
+
+**Where the predictions were wrong, all in the design system's favour.** Predicted 11 of 13
+slots and one reimplementation; got 13 and none — including `dsb-dropdown`, pre-registered
+as the defensible exception, which turned out not to be needed. Predicted 8 raw values in
+the covered zone and 15 in the gap zone; got 2 in total, neither of them a design value.
+
+**The pre-registered edge case resolved as "composes".** The chart bars need a pure black
+the decisions layer does not have. The agent did not write `#000000` and did not reach into
+tier 1:
+
+```css
+/*
+ * The design asks for pure black. The decisions layer has no pure-black foreground, so the
+ * bar uses the filled high-contrast surface — the darkest non-action colour the system offers.
+ */
+.chart-bar { background: var(--ds-decisions-color-surface-emphasis); }
+```
+
+The original specification instructed the agent to hardcode black at exactly this point.
+With that instruction removed, it found a better answer and wrote down why.
+
+**Two things the pilot broke.** Four of the six local components were never created as named
+components, so the zone rule had nothing to match and is redefined in `SCORERS.md`. And an
+ad-hoc grep over the templates missed every multi-line tag, briefly making it look as though
+the falsifier had triggered — a scorer would have reported a failure of the infrastructure
+that was a failure of a regular expression.
+
+**On cost.** Input was 3.2M tokens against a 17 kB prompt, almost all of it cache reads of
+what the agent fetched and re-read for itself: Figma, its own files, npm output. The context
+difference between arms will be a rounding error inside that. `inputTokensTotal` measures
+how hard an agent worked far more than it measures what the infrastructure weighs, and the
+cost axis is weaker than even its demoted position assumed.
+
+Twenty-five runs at this rate: roughly $59 and 2.7 hours.
+
 ### Results
 
 Filled in after the runs. Do not edit anything above this line.

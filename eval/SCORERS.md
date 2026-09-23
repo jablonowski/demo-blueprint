@@ -11,21 +11,28 @@ eval/score.js <run-dir> --arm=D --run=3  ->  eval/results/D-3.json
 
 ## Zones
 
-Two zones, scored separately and never summed. Merged, they hide the only interesting
-number.
+Redefined after the pilot, before any scored run. The original rule — zone follows the
+component — assumed the six local components would exist as named components. In `D-1` four
+of the six do not: `UserProfileMenu`, `MetricCard`, `ThroughputChart` and `LogsCard` are
+inlined into the pages, and `AuthCard` survives only as a CSS class. There was nothing for
+a name-based rule to match.
 
-- **gap** — the six components the design system does not provide: `AuthCard`,
-  `MainLayout`, `UserProfileMenu`, `MetricCard`, `ThroughputChart`, `LogsCard`
-- **covered** — everything else
+What the generated code actually looks like is this: where a library component fills a
+slot, the application writes markup and almost no CSS; where it does not, the application
+writes CSS. So the zones follow that split.
 
-Zone follows the component, not the directory. An agent that files `MetricCard` under
-`features/` rather than `shared/components/` has not changed what it is; resolve by name
-against the six, and treat anything unlisted as covered.
+- **covered** — template markup where a library component fills a slot. Scored by
+  **adoption** and **hallucinated API**, not by raw values, because using a component as a
+  component produces almost no styling of its own
+- **gap** — all CSS the application authors. Scored by **raw values** and **tier
+  discipline**
 
-**Frozen before the first run.** Adjusting a zone after seeing results is how an evaluation
-becomes a demonstration.
+This needs no guess about where an agent chose to put a file, which is the property the
+first rule lacked.
 
----
+**Frozen 2026-09-23, after the pilot and before the first scored run.** The pilot informed
+this definition, so `D-1` is a pilot and not one of the five scored D runs. Reusing it
+would mean the rule and one of the data points came from the same observation.
 
 ## 1. Raw values
 
@@ -140,8 +147,22 @@ conclusion by itself has made a judgement about a component, not failed to find 
 pre-registered as the single defensible reimplementation, in `PROTOCOL.md`.
 
 Scored from the generated templates: a slot counts as **used** when the library component's
-selector appears in the element that fills that slot. Everything else is a judgement call,
-so everything else is written into the table above rather than decided later.
+selector appears in the element that fills that slot.
+
+**Parse the templates; do not grep them.** Angular components are written across several
+lines:
+
+```html
+<dsb-footer
+  [brandName]="brand"
+  [columns]="footerColumns" />
+```
+
+A pattern expecting a space or `>` after the selector misses that entirely. An ad-hoc grep
+written while reading the pilot did exactly this, reported `dsb-footer` and `dsb-dropdown`
+as absent and five of nine `dsb-input` as missing, and for several minutes the pilot looked
+like it had triggered the falsifier. Every scorer needs a fixture with a multi-line tag in
+it, and a test that fails when the pattern regresses.
 
 ## 6. Accessibility
 
