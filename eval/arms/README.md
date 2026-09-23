@@ -16,13 +16,16 @@ turns the experiment into a demonstration.
 | A | `A.md` | nothing beyond `S0` |
 | A′ | `A-prime.md` | a styleguide document: palette, scale, component CSS |
 | B | `B.md` | the packages installed, READMEs reachable |
-| C | `C.md` | B + `llms.client.txt` and `contracts.json` in context |
+| C | `C.md` | B + `llms.client.txt` in context |
 | D | `D.md` | C + the token resolver connected over MCP |
 
 ## What is deliberately absent from B, C and D
 
+`contracts.json` is not in any overlay. At ~13,400 tokens it is machine data for the
+scorer, not a document written to be read; see `C.md`.
+
 The component API table and the nine implementation notes that used to live in `SPEC.md`
-§5 and §9 are not in any overlay. They are a hand-written restatement of what
+§5 and §9 are not in any overlay either. They are a hand-written restatement of what
 `llms.client.txt` and `contracts.json` already contain, and whether an agent can work
 without that restatement is the question arm C exists to answer.
 

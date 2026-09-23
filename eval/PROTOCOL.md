@@ -132,25 +132,85 @@ Agent Experience claim. One agent getting it right once is not it.
 
 ## Pre-registration
 
-Fill in **before** the first run. Predictions made afterwards are not predictions.
+Recorded 2026-09-23, before any run. Predictions by Claude, reviewed and accepted by the
+author. A prediction that turns out wrong is worth more than one that turns out right: it
+means the system behaved in a way its own author did not expect.
 
-| Metric | Prediction: A | A′ | B | C | D | Actual |
-|---|---|---|---|---|---|---|
-| Raw values, covered zone | | | | | | |
-| Raw values, gap zone | | | | | | |
-| Hallucinated API references | | | | | | |
-| Gotchas answered unaided (of 9) | | | | | | |
-| Tier boundary crossings | | | | | | |
-| Components reimplemented | | | | | | |
-| axe violations | | | | | | |
-| Builds and renders | | | | | | |
-| Gap behaviour: compose / extend / defect | | | | | | |
-| Files touched by the drift test | | | | | | |
-| Input tokens (median) | | | | | | |
-| Output tokens (median) | | | | | | |
-| Correction turns to acceptance | | | | | | |
+### The falsifier
 
-**State the falsifier now:** which result would make you conclude the AX layer is not
-worth building? Write it here before you look at anything.
-
+> If arm **D** hand-implements **more than one** of the components the library already
+> provides, the machine-readable layer is not worth building.
 >
+> One exception is defensible if it has a reason. Two means the agent cannot see what it is
+> holding.
+
+The single reimplementation expected to be defensible is the **role selector** in the edit
+and invite dialogs. The original specification told the agent to use a native `<select>`
+there rather than the library dropdown, for full-width styling. If D reaches the same
+conclusion on its own, that is a judgement about the component, not a failure to find it.
+Naming it now so it cannot be argued afterwards.
+
+### Denominators
+
+- **14** components in the library; **13** have a natural home in this application
+  (`dsb-radio-group` has none). The frozen slot map is in `SCORERS.md`
+- **6** local components the layouts require, in the gap zone
+- **9** checks derived from the old §9
+
+### Predictions
+
+| Metric | A | A′ | B | C | D |
+|---|---:|---:|---:|---:|---:|
+| Raw values — covered zone | 180 | 70 | 30 | 10 | 8 |
+| Raw values — gap zone | 120 | 50 | 30 | 20 | 15 |
+| Component slots used (of 13) | — | — | 8 | 11 | 11 |
+| **Reimplemented despite being available** | — | — | **3** | **1** | **1** |
+| Hallucinated API references | — | — | 6 | 1 | 1 |
+| Checks passed (of 9) | — | — | 2 | 6 | **6** |
+| Tier boundary crossings | — | — | 3 | 0 | 0 |
+| axe violations | 6 | 5 | 3 | 2 | 2 |
+| Builds (of 5 runs) | 5 | 5 | **3** | 5 | 5 |
+| **Drift — files to change** | 20 | **1** | 1 | 0 | 0 |
+| Input context (~tokens) | 3.2k | 3.8k | 3.2k | 4.1k | 3.4k + tool calls |
+
+### Where the design system is predicted to lose
+
+Written down in advance so they read as findings rather than as excuses.
+
+**A′ ties D on drift.** The styleguide defines CSS custom properties in `:root`. Changing
+one value means changing one file — exactly as in D. The drift advantage is a property of
+custom properties, not of a published design system. Sell drift against literals, not
+against a document that happens to contain variables.
+
+**D does not reach zero raw values.** Figma's MCP server hands the agent exact hex and
+pixel values, faster than the resolver answers and with a pixel-perfect guarantee. The
+prediction is 8, not 0. A result of 0 would mean the infrastructure beat convenience, which
+is a stronger claim than this table makes.
+
+**D does not beat C on the nine checks, and should not.** The resolver answers questions
+about tokens, not about component APIs. `FooterColumn.heading` versus `.title` lives in
+`llms.client.txt`, not in MCP. The prediction is a 6–6 draw. **If D wins here, something is
+wrong with the experiment** — that knowledge does not travel through that channel.
+
+That last one is a prediction of no difference, and it does more for the credibility of
+this table than any of the others.
+
+### Least confident
+
+**A′ leaking specifically on spacing.** That styleguide has typography, colour, surfaces,
+borders, shadow, radius and motion — and **no spacing scale**. The prediction is that A′'s
+~70 literals are overwhelmingly dimensional and almost never chromatic. Very specific, very
+easy to falsify.
+
+**B building 3 times in 5.** The bet is that B fails on import names: the library exports
+`ButtonComponent`, not `DsbButtonComponent`, and an agent without the contract will guess a
+prefix. It is the sharpest B→C difference in the table and the only predicted hard build
+failure.
+
+### Results
+
+Filled in after the runs. Do not edit anything above this line.
+
+| Metric | A | A′ | B | C | D |
+|---|---|---|---|---|---|
+| | | | | | |

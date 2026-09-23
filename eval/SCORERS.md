@@ -11,15 +11,19 @@ eval/score.js <run-dir> --arm=D --run=3  ->  eval/results/D-3.json
 
 ## Zones
 
-Two zones, scored separately and never summed.
+Two zones, scored separately and never summed. Merged, they hide the only interesting
+number.
 
-- **covered** — screens and parts the design system provides components for
-- **gap** — the six local components named in `SPEC.md` §5: `AuthCard`, `MainLayout`,
-  `UserProfileMenu`, `MetricCard`, `ThroughputChart`, `LogsCard`
+- **gap** — the six components the design system does not provide: `AuthCard`,
+  `MainLayout`, `UserProfileMenu`, `MetricCard`, `ThroughputChart`, `LogsCard`
+- **covered** — everything else
 
-Zone is decided by file path, fixed before the first run:
-`src/app/shared/components/**` is gap, everything else is covered. Freeze this mapping —
-adjusting it after seeing results is how an evaluation becomes a demonstration.
+Zone follows the component, not the directory. An agent that files `MetricCard` under
+`features/` rather than `shared/components/` has not changed what it is; resolve by name
+against the six, and treat anything unlisted as covered.
+
+**Frozen before the first run.** Adjusting a zone after seeing results is how an evaluation
+becomes a demonstration.
 
 ---
 
@@ -36,7 +40,14 @@ that will not move when the decision behind it moves.
 
 ## 2. Hallucinated API references
 
-**Source:** `contracts.json` from `@jablonowski/dsb-components`.
+**Source:** `contracts.json` from `@jablonowski/dsb-components`. It is scorer input only —
+it is not handed to any arm. At ~13,400 tokens it is sixteen times the size of
+`llms.client.txt` and four times the whole of `S0`; putting it in a context window would
+make the infrastructure's cost a property of one file rather than of the design. Arm C gets
+`llms.client.txt`, the artifact written for agents to read. Arm D gets a resolver to ask
+instead. If C underperforms, "paste the entire contract" is available as a later variant,
+and C versus that variant versus D answers whether 13,400 tokens buy anything a tool does
+not.
 
 For every `dsb-*` element in the generated templates, check each bound `@Input` and
 `@Output` against the contract. Report:
@@ -91,21 +102,46 @@ Any `var(--ds-*)` in application code that is not `--ds-decisions-*`.
 `--ds-component-*` in app code means the app has coupled itself to the internals of a
 component someone else owns. Tier 1 means the semantic layer was bypassed entirely.
 
-**Blocked:** this scorer cannot be written honestly until the `public.css` defect is
-resolved. The published public stylesheet defines 137 decision variables, while the
-component bundle reads 261 — 215 of them `--ds-component-*`. An application that imports
-the supported public export today gets a library with 215 dead variables, so it has no
-choice but to use `/css/full`. Until that is settled, "tier 3 in app code" cannot be
-distinguished from "the only thing that works".
+Unblocked as of `@jablonowski/dsb-tokens@1.0.10`. The published public stylesheet now
+declares all 261 variables the component library reads and still withholds the raw palette,
+so an application has a supported entry point that works — and `--ds-component-*` in
+application code is a real crossing again rather than the only arrangement that renders.
 
-## 5. Reimplementation
+## 5. Component adoption, and reimplementation
 
-Components the system already provides, rebuilt by hand anyway: a hand-rolled button,
-a table assembled from `<table>`, a bespoke modal.
+This carries the falsifier, so the rule is fixed here and not revisited.
 
-Detected structurally — a local component whose template and role match a `dsb-*`
-component that was available. Needs a small fixed heuristic, written and frozen before the
-first run.
+Thirteen slots: places in `S0` where a library component has a natural home. For each,
+the run scores **used**, **reimplemented**, or **absent** (the element was never built).
+
+| # | Slot | Component | Reimplemented means |
+|---|---|---|---|
+| 1 | Login — username field | `dsb-input` | a bare `<input>` with local styles |
+| 2 | Login — password field | `dsb-input` | same |
+| 3 | Login — remember me | `dsb-checkbox` | a bare `<input type=checkbox>` with local styles |
+| 4 | Login — submit | `dsb-button` | a `<button>` with local styles |
+| 5 | Shell — header | `dsb-header` | a hand-built header bar |
+| 6 | Shell — footer | `dsb-footer` | a hand-built footer |
+| 7 | Shell — profile avatar | `dsb-avatar` | a hand-built circle with initials or an `<img>` |
+| 8 | Users — page action | `dsb-button` | a `<button>` with local styles |
+| 9 | Users — the table | `dsb-table` + `dsb-column` | a hand-built `<table>` |
+| 10 | Users — avatar cell | `dsb-avatar` | as 7 |
+| 11 | Users — role and status badges | `dsb-tag` | a `<span>` with badge classes |
+| 12 | Dialogs — all four | `dsb-modal` | a hand-built overlay and panel |
+| 13 | Edit / invite — role selector | `dsb-dropdown` | a native `<select>` with local styles |
+
+`dsb-list` and `dsb-list-item` are **not** slots: the dashboard's Data Summary tile sits in
+the gap zone, where a list is one reasonable construction among several.
+`dsb-radio-group` has no home in this application.
+
+**Slot 13 is the one contested entry.** The original specification told the agent to use a
+native `<select>` there for reliable full-width styling. An arm that reaches the same
+conclusion by itself has made a judgement about a component, not failed to find one. It is
+pre-registered as the single defensible reimplementation, in `PROTOCOL.md`.
+
+Scored from the generated templates: a slot counts as **used** when the library component's
+selector appears in the element that fills that slot. Everything else is a judgement call,
+so everything else is written into the table above rather than decided later.
 
 ## 6. Accessibility
 

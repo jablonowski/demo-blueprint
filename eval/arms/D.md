@@ -1,6 +1,7 @@
 # Arm D — the resolver in the loop
 
-Arm C, plus `@jablonowski/dsb-tokens-mcp` connected as an MCP server for the session:
+Arm C — `S0`, the packages, `llms.client.txt` — plus `@jablonowski/dsb-tokens-mcp`
+connected as an MCP server for the session:
 
 ```json
 {
@@ -23,6 +24,11 @@ Not whether the resolver returns correct answers — 23 tests already assert tha
 run on every pull request.
 
 **Whether an answer, or a refusal, changes what the agent writes.**
+
+And a second question the sizes make unavoidable: a resolver asked three times costs a few
+hundred tokens; the contract file it stands in for costs 13,400 whether the agent reads it
+or not. If D matches an arm holding the whole contract in context, the argument for the
+resolver is not better answers — it is the same answers without carrying the encyclopedia.
 
 The resolver's central behaviour is that it returns `no-coverage` rather than guessing when
 an intent has no semantic token behind it. The demo application contains at least one such
