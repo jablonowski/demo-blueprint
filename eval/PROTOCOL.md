@@ -117,6 +117,17 @@ Agent Experience claim. One agent getting it right once is not it.
 - **Pre-register the metrics** — fill the table below *before* the first run. You built
   this system, you are writing a book about it, and you want a particular answer. This is
   the only protection against picking the metric that won
+- **Harness.** Claude Code 2.1.281, headless, one fresh directory per run under `/tmp`,
+  outside any tree containing a `CLAUDE.md`. `--strict-mcp-config` so the global MCP
+  configuration cannot add a server an arm was not meant to have, and an empty `--settings`
+  file so no hook or permission rule from `~/.claude` differs between one run and the next.
+
+  Runs use `BARE=0` — the logged-in session rather than a token — which leaves `~/.claude`
+  in play. Inspected on 2026-09-23 and recorded here rather than assumed: `settings.json`
+  contains `{"theme": "dark"}` and nothing else, and `plugins/` holds only the marketplace
+  catalogue with no plugin enabled. Nothing there contributes a skill, a tool or a rule to
+  a run. If that changes mid-experiment, the runs before and after are not comparable
+
 - **Report the arm where the design system loses.** There will be one. A chapter without
   it reads like a brochure
 
