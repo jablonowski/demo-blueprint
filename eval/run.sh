@@ -232,7 +232,14 @@ preflight() {
   printf '%s' "$out" | node -e '
     let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{
       const j=JSON.parse(s), u=j.usage||{};
-      console.log("  Usage: in="+(u.input_tokens??"?")+" out="+(u.output_tokens??"?")+
+      // input_tokens alone counts only what was neither cached nor being cached, which on a
+      // long prompt is almost nothing. The number that means "context this run consumed" is
+      // the sum.
+      const inTotal = (u.input_tokens||0) + (u.cache_creation_input_tokens||0) + (u.cache_read_input_tokens||0);
+      console.log("  Usage: in="+inTotal+" (fresh "+(u.input_tokens||0)+
+                  ", cache-write "+(u.cache_creation_input_tokens||0)+
+                  ", cache-read "+(u.cache_read_input_tokens||0)+")"+
+                  " out="+(u.output_tokens??"?")+
                   " cost="+(j.total_cost_usd??"?")+" turns="+(j.num_turns??"?"));
       if(!u.output_tokens) console.log("  Note: usage reports zero — the cost axis will not be measurable on this credential.");
     })'
@@ -290,6 +297,12 @@ one() {
           s0Sha: sha(process.env.S0),
           promptBytes: fs.statSync(process.env.PROMPT).size,
           runDir: process.env.RUN_DIR,
+          // Derived here so every consumer of these files agrees on what "input" means.
+          inputTokensTotal: (() => {
+            const u = (result && result.usage) || {};
+            return (u.input_tokens || 0) + (u.cache_creation_input_tokens || 0) + (u.cache_read_input_tokens || 0);
+          })(),
+          outputTokens: ((result && result.usage) || {}).output_tokens || 0,
           result
         }, null, 2) + "\n");
       });
