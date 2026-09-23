@@ -1,0 +1,41 @@
+# Arms
+
+A run is `S0.md` plus exactly one overlay from this directory, handed to a fresh session
+with no memory of any other run.
+
+```
+S0.md  +  arms/<arm>.md  ->  fresh session  ->  generated application
+```
+
+`S0.md` is identical in every arm, byte for byte. If a run fails for want of information
+that belongs in `S0`, add it to `S0` and **re-run every arm**. Adding it to one overlay
+turns the experiment into a demonstration.
+
+| Arm | Overlay | What the agent has |
+|---|---|---|
+| A | `A.md` | nothing beyond `S0` |
+| A′ | `A-prime.md` | a styleguide document: palette, scale, component CSS |
+| B | `B.md` | the packages installed, READMEs reachable |
+| C | `C.md` | B + `llms.client.txt` and `contracts.json` in context |
+| D | `D.md` | C + the token resolver connected over MCP |
+
+## What is deliberately absent from B, C and D
+
+The component API table and the nine implementation notes that used to live in `SPEC.md`
+§5 and §9 are not in any overlay. They are a hand-written restatement of what
+`llms.client.txt` and `contracts.json` already contain, and whether an agent can work
+without that restatement is the question arm C exists to answer.
+
+Each of those notes is a scored check in `../SCORERS.md`. A failure there is a gap in the
+machine-readable layer, not a gap in the agent — and the repair is to put the information
+into `llms.client.txt` and measure the second run.
+
+## Recording a run
+
+```
+eval/runs/<arm>-<n>/          the generated application
+eval/results/<arm>-<n>.json   the scorer output
+```
+
+Record the model, the date, and the exact overlay file hash with each run. An arm re-run
+after an overlay changed is a different arm.

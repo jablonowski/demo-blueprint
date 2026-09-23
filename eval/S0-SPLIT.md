@@ -87,10 +87,31 @@ measures the repair.
 
 ## Order of work
 
-1. Settle the `public.css` defect. Until an application can import a supported export and
-   get a working library, arms B–D cannot be set up honestly
-2. Rewrite §3 and §4 into `S0` — the slice above is the pattern, ~470 lines to go
-3. Extract the four overlays
-4. Freeze the zone mapping and the reimplementation heuristic
-5. Fill in the pre-registration table in `PROTOCOL.md`, including the falsifier
-6. Only then run anything
+1. ~~Settle the `public.css` defect~~ — done. `@jablonowski/dsb-tokens@1.0.10` ships a
+   public stylesheet that resolves all 261 variables the component library reads, with the
+   raw palette still withheld
+2. ~~Rewrite §3 and §4 into `S0`~~ — done. `S0.md`, 245 lines, no component name, no token
+   name, no colour and no measurement anywhere in it
+3. ~~Extract the overlays~~ — done. `arms/A.md`, `arms/A-prime.md`, `arms/B.md`,
+   `arms/C.md`, `arms/D.md`
+4. **Review `S0.md` line by line.** Every sentence in it reaches all five arms at once
+5. Freeze the zone mapping and the reimplementation heuristic
+6. Fill in the pre-registration table in `PROTOCOL.md`, including the falsifier
+7. Only then run anything
+
+## What was checked after the rewrite
+
+- 36 distinct user-facing strings appear in `SPEC.md` §3–§4 — copy, labels, placeholders,
+  column headers. All 36 survive in `S0.md`
+- `S0.md` contains no hex colour, no `px`, no `rgba()`, no `dsb-*` and no `--ds-*`
+
+The second check matters more than it looks. The old §3 shipped a complete
+`UserProfileMenuComponent` — TypeScript, template and CSS carrying `#fff`, `#e5e5e5`,
+`rgba(0,0,0,.10)`, `8px` and `160px` — and §4 shipped ~60 lines of modal CSS in the same
+style. Every arm would have inherited those literals from the prompt and scored them on the
+raw-value metric, including the arms that exist to show the metric going to zero.
+
+What survives is the requirement that produced the hack. The spec said "do not use the
+library's dropdown here, it clips at the right edge, here is a hand-rolled one instead";
+`S0` says the menu sits at the right edge and must open leftward and stay visible. Whether
+an arm walks into the clipping problem is now something the run finds out.
