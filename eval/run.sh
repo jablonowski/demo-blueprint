@@ -37,10 +37,40 @@ MCP_PKG="@jablonowski/dsb-tokens-mcp"
 die()  { printf '\n  %s\n\n' "$*" >&2; exit 1; }
 note() { printf '  %s\n' "$*"; }
 
+# A credential that is set but nonsense is worse than one that is missing: the missing one
+# stops the run here, the nonsense one reaches the API and comes back as "Not logged in"
+# after the smoke test has already started.
 credential() {
-  if [[ -n "${CLAUDE_CODE_OAUTH_TOKEN:-}" ]]; then echo "CLAUDE_CODE_OAUTH_TOKEN"; return; fi
-  if [[ -n "${ANTHROPIC_API_KEY:-}"       ]]; then echo "ANTHROPIC_API_KEY";       return; fi
+  local name value
+  for name in CLAUDE_CODE_OAUTH_TOKEN ANTHROPIC_API_KEY; do
+    value="${!name:-}"
+    [[ -n "$value" ]] || continue
+    if [[ "$value" == "..." || "$value" == "sk-ant-..." || "$value" == changeme* || "$value" == XXX* ]]; then
+      die "$name is set to the placeholder [$value]. Replace it with a real one:
+
+    export CLAUDE_CODE_OAUTH_TOKEN=\$(claude setup-token)
+    export ANTHROPIC_API_KEY=sk-ant-..."
+    fi
+    if (( ${#value} < 20 )); then
+      die "$name is ${#value} characters long, which is not a credential:
+
+    export CLAUDE_CODE_OAUTH_TOKEN=\$(claude setup-token)"
+    fi
+    echo "$name"; return
+  done
   echo ""
+}
+
+# FIGMA_API_KEY usually sits in .env, unexported. Every arm reads the Figma frames, because
+# S0 names them as the visual truth for all of them.
+load_env() {
+  local env_file="$EVAL_DIR/../.env" value
+  [[ -f "$env_file" ]] || return 0
+  [[ -z "${FIGMA_API_KEY:-}" ]] || return 0
+  value="$(grep -E '^FIGMA_(API_KEY|ACCESS_TOKEN)=' "$env_file" | head -1 | cut -d= -f2- | tr -d '\042\047 \t\r')"
+  [[ -n "$value" ]] || return 0
+  export FIGMA_API_KEY="$value"
+  note "Figma: key read from .env"
 }
 
 # Figma is the visual truth for every arm, so every arm gets it.
@@ -112,6 +142,7 @@ assert_isolation() {
 
 preflight() {
   note "CLI:   $(claude --version 2>&1 | head -1)"
+  load_env
 
   local cred; cred="$(credential)"
   [[ -n "$cred" ]] || die "No credential in the environment.
@@ -128,7 +159,11 @@ preflight() {
   done
   note "Flags: all present"
 
-  [[ -n "${FIGMA_API_KEY:-}" ]] || note "Warning: FIGMA_API_KEY is unset — the Figma server will fail to authenticate."
+  [[ -n "${FIGMA_API_KEY:-}" ]] || die "FIGMA_API_KEY is unset and not in .env. Every arm reads the
+  Figma frames, so a run without it measures an agent working blind:
+
+    export FIGMA_API_KEY=..."
+  note "Figma: key present"
 
   local dir="$RUNS_ROOT/preflight"
   rm -rf "$dir"; mkdir -p "$dir"
@@ -168,6 +203,7 @@ preflight() {
 
 one() {
   local arm="$1" n="$2"
+  load_env
   [[ -f "$EVAL_DIR/arms/$arm.md" ]] || die "No overlay for arm $arm"
 
   local dir="$RUNS_ROOT/$arm-$n"
