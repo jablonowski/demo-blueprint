@@ -28,6 +28,15 @@ EVAL_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 RUNS_ROOT="${RUNS_ROOT:-/tmp/dsb-eval}"
 RESULTS="$EVAL_DIR/results"
 
+# Generated applications live in RUNS_ROOT, deliberately outside this repository: a run has
+# Bash and Read, and eval/ is two directories above it. One `cat ../../SPEC.md` would hand
+# the agent the component API table and the nine checks it is being scored on, and nothing
+# in the results would show it happened.
+#
+# So the source is copied here afterwards instead, for the scorers and for review. Copies
+# only — never the directory the agent works in.
+ARCHIVE="$EVAL_DIR/runs"
+
 # BARE=1 (default) isolates through the CLI: no hooks, no LSP, no plugin sync, no
 # auto-memory, no keychain read, no CLAUDE.md discovery. It also means the CLI will not
 # touch the keychain for credentials, so one of the credential variables must be set.
@@ -308,7 +317,26 @@ one() {
       });
     '
 
+  archive "$arm" "$n" "$dir"
   note "$arm/$n — done, $RESULTS/$arm-$n.json"
+}
+
+# Keep what the scorers read and what a human would review; leave the 300 MB of
+# dependencies where they were installed.
+archive() {
+  local arm="$1" n="$2" dir="$3"
+  local dest="$ARCHIVE/$arm-$n"
+  rm -rf "$dest"; mkdir -p "$dest"
+
+  local item
+  for item in src angular.json package.json tsconfig.json tsconfig.app.json README.md; do
+    [[ -e "$dir/$item" ]] && cp -R "$dir/$item" "$dest/"
+  done
+  # The assembled prompt, so a result can always be traced back to exactly what was asked.
+  [[ -f "$dir/.prompt.md" ]] && cp "$dir/.prompt.md" "$dest/prompt.md"
+
+  local files; files="$(find "$dest" -type f | wc -l | tr -d ' ')"
+  note "$arm/$n — archived $files files to $ARCHIVE/$arm-$n"
 }
 
 # ─── Entry ───────────────────────────────────────────────────────────────────
