@@ -30,6 +30,17 @@ Each of those notes is a scored check in `../SCORERS.md`. A failure there is a g
 machine-readable layer, not a gap in the agent — and the repair is to put the information
 into `llms.client.txt` and measure the second run.
 
+## Isolation
+
+Each run gets a fresh, empty directory. Nothing carries over — not a `node_modules`, not a
+lockfile, not a partially generated app.
+
+Arm A must not have the packages installed. If `@jablonowski/dsb-components` is anywhere in
+the tree, arm A is not arm A. Check before the run, not after.
+
+Arms B, C and D install the two packages and nothing else beyond what `S0` names. Arm D
+additionally registers the MCP server. A′ installs nothing; its styleguide is text.
+
 ## Recording a run
 
 ```
