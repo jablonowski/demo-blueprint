@@ -1,0 +1,16 @@
+/* A stale note mentioning #deadbe, which is not a value anyone set. */
+.role-select {
+  border: 1px solid var(--ds-decisions-color-border-control);
+  padding: 14px;
+  margin: 0;
+  color: #112233;
+  background: rgba(0, 0, 0, 0.4);
+  outline-color: var(--ds-color-options-neutral-900);
+  gap: var(--ds-component-modal-gap);
+  border-radius: var(--ds-decisions-border-radius-md);
+}
+.role-select:hover { border-color: var(--ds-decisions-color-border-control); }
+
+@media (max-width: 900px) {
+  .role-select { padding: 0; }
+}

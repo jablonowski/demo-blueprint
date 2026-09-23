@@ -1,0 +1,11 @@
+<dsb-button variant="primary">Invite Member</dsb-button>
+<dsb-table [rows]="rows">
+  <dsb-column key="name" header="Name" />
+</dsb-table>
+<dsb-avatar [src]="row.avatar" />
+<dsb-tag variant="success">Active</dsb-tag>
+<dsb-modal [(open)]="editOpen" title="Edit Member">
+  <select class="role-select">
+    <option value="Admin">Admin</option>
+  </select>
+</dsb-modal>
