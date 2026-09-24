@@ -394,16 +394,58 @@ archive() {
   note "$arm/$n — archived $files files to $ARCHIVE/$arm-$n"
 }
 
+# What has been run, and what each run is worth. Piecemeal running is fine — the runs are
+# independent — but only if it stays obvious which cells are filled and which are void.
+status() {
+  printf '\n  %-6s' ''
+  for n in $(seq 1 "$RUNS"); do printf ' %-10s' "run $n"; done
+  printf '\n'
+
+  for arm in "${ARMS[@]}"; do
+    printf '  %-6s' "$arm"
+    for n in $(seq 1 "$RUNS"); do
+      local f="$RESULTS/$arm-$n.json" cell="—"
+      if [[ -f "$f" ]]; then
+        cell="$(node -e '
+          const j = require(process.argv[1]);
+          const r = j.result || {};
+          const denied = (r.permission_denials || []).length;
+          if (r.is_error) process.stdout.write("error");
+          else if (denied) process.stdout.write("VOID:" + denied);
+          else {
+            const build = require("fs").existsSync(j.runDir + "/build.json")
+              ? require(j.runDir + "/build.json").ok : null;
+            process.stdout.write(build === false ? "no-build" : "ok");
+          }
+        ' "$f" 2>/dev/null || echo '?')"
+      fi
+      printf ' %-10s' "$cell"
+    done
+    printf '\n'
+  done
+
+  local done_count; done_count="$(ls "$RESULTS"/*.json 2>/dev/null | grep -cv '\.score\.json$' || true)"
+  printf '\n  %s of %s runs recorded.  VOID means a tool the arm is defined by was denied.\n\n' \
+    "${done_count:-0}" "$(( ${#ARMS[@]} * RUNS ))"
+}
+
 # ─── Entry ───────────────────────────────────────────────────────────────────
 
 case "${1:-}" in
   preflight) preflight ;;
+  status) status ;;
   all)
     preflight
     for arm in "${ARMS[@]}"; do
       for n in $(seq 1 "$RUNS"); do one "$arm" "$n"; done
     done
     ;;
-  "") die "Usage: ./run.sh preflight | ./run.sh <arm> <n> | ./run.sh all" ;;
+  "") die "Usage:
+    ./run.sh preflight      check credentials, flags and permissions
+    ./run.sh status         what has been run so far
+    ./run.sh <arm> <n>      one run
+    ./run.sh all            every arm, RUNS times each
+
+  Arms: ${ARMS[*]}" ;;
   *) one "$1" "${2:-1}" ;;
 esac
