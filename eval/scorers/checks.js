@@ -151,7 +151,23 @@ const CHECKS = [
   },
 ];
 
-function score(appRoot) {
+/** Arms that were given the library. The checks are all about its API. */
+const HAS_LIBRARY = new Set(['B', 'C', 'D']);
+
+/**
+ * @param arm  without it every check is computed for every arm, and the baseline gets
+ *             graded on an API it was never given. Arm A defining its own FooterColumn
+ *             with a `title` field is correct for arm A, and was scored as a failure.
+ */
+function score(appRoot, arm) {
+  if (!HAS_LIBRARY.has(arm)) {
+    return {
+      passed: 0, failed: 0, na: CHECKS.length, of: CHECKS.length, applicable: false,
+      results: CHECKS.map((c) => ({ id: c.id, what: c.what, verdict: 'na',
+        detail: ['the arm had no component library'] })),
+    };
+  }
+
   const html = templates(appRoot).map((t) => ({ file: path.relative(appRoot, t.file), source: t.source }));
   const css = stylesheets(appRoot);
   const ts = walk(appRoot, ['.ts']).map((file) => ({
@@ -162,6 +178,7 @@ function score(appRoot) {
   const results = CHECKS.map((c) => ({ id: c.id, what: c.what, ...c.run({ html, css, ts }) }));
 
   return {
+    applicable: true,
     passed: results.filter((r) => r.verdict === 'pass').length,
     failed: results.filter((r) => r.verdict === 'fail').length,
     na: results.filter((r) => r.verdict === 'na').length,

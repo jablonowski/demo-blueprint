@@ -15,6 +15,9 @@
 
 const { templates, elements, region } = require('./lib/source');
 
+/** Arms that were given the component library, and could therefore decline to use it. */
+const HAS_LIBRARY = new Set(['B', 'C', 'D']);
+
 const SLOTS = [
   { id: 1,  slot: 'login — username field',    selector: 'dsb-input',    where: 'login',
     byHand: /<input(?=[\s/>])/ },
@@ -46,7 +49,14 @@ const SLOTS = [
     byHand: /<select(?=[\s/>])/, defensible: true },
 ];
 
-function score(appRoot) {
+/**
+ * @param appRoot  the generated src/
+ * @param arm      which arm produced it. The falsifier asks whether an arm that HAD the
+ *                 library chose not to use it; in A and A' there is nothing to decline, so
+ *                 thirteen hand-built components are the definition of the arm rather than
+ *                 a result. Evaluating it there would print FALSIFIER against the baseline.
+ */
+function score(appRoot, arm) {
   const files = templates(appRoot);
   const all = files.map((f) => f.source).join('\n');
   const byRegion = {};
@@ -87,8 +97,9 @@ function score(appRoot) {
     reimplemented: reimplemented.length,
     absent: results.filter((r) => r.verdict === 'absent').length,
     of: SLOTS.length,
-    // The falsifier, evaluated rather than eyeballed.
-    falsifierTriggered: indefensible.length > 1,
+    // The falsifier, evaluated rather than eyeballed — and only where it means anything.
+    hadLibrary: HAS_LIBRARY.has(arm),
+    falsifierTriggered: HAS_LIBRARY.has(arm) ? indefensible.length > 1 : null,
   };
 }
 

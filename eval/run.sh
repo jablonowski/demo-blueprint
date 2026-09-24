@@ -17,6 +17,11 @@ set -euo pipefail
 # ─── Configuration ───────────────────────────────────────────────────────────
 
 MODEL="${MODEL:-claude-opus-5-5}"
+
+# The model is a second factor, not a setting. Runs of the same arm on two models are two
+# different conditions, so they are kept apart by path — otherwise the cheaper grid
+# silently overwrites the expensive one and the only trace is a field inside the JSON.
+MODEL_SLUG="$(printf '%s' "$MODEL" | sed 's/^claude-//; s/-\?20[0-9]\{6\}$//')"
 RUNS="${RUNS:-5}"
 ARMS=(A A-prime B C D)
 
@@ -26,7 +31,7 @@ EVAL_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # discovery anyway; this is the belt to that pair of braces, and it keeps a run from ever
 # seeing the design system's own repository by accident.
 RUNS_ROOT="${RUNS_ROOT:-/tmp/dsb-eval}"
-RESULTS="$EVAL_DIR/results"
+RESULTS="$EVAL_DIR/results/$MODEL_SLUG"
 
 # Generated applications live in RUNS_ROOT, deliberately outside this repository: a run has
 # Bash and Read, and eval/ is two directories above it. One `cat ../../SPEC.md` would hand
@@ -35,7 +40,7 @@ RESULTS="$EVAL_DIR/results"
 #
 # So the source is copied here afterwards instead, for the scorers and for review. Copies
 # only — never the directory the agent works in.
-ARCHIVE="$EVAL_DIR/runs"
+ARCHIVE="$EVAL_DIR/runs/$MODEL_SLUG"
 
 # BARE=1 (default) isolates through the CLI: no hooks, no LSP, no plugin sync, no
 # auto-memory, no keychain read, no CLAUDE.md discovery. It also means the CLI will not
@@ -224,6 +229,7 @@ preflight() {
     claude --help 2>&1 | grep -q -- "$flag" || die "This CLI has no $flag. The runner assumes it."
   done
   note "Flags: all present"
+  note "Model: $MODEL   →   results/$MODEL_SLUG/"
   note "Mode:  $([[ "$BARE" == 1 ]] && echo '--bare (isolation from the CLI)' || echo 'BARE=0 — logged-in session, weaker isolation')"
 
   if [[ "$BARE" != "1" ]]; then
@@ -238,7 +244,7 @@ preflight() {
     export FIGMA_API_KEY=..."
   note "Figma: key present"
 
-  local dir="$RUNS_ROOT/preflight"
+  local dir="$RUNS_ROOT/$MODEL_SLUG/preflight"
   rm -rf "$dir"; mkdir -p "$dir"
   local cfg="$dir/mcp.json"; mcp_config_for A "$cfg"
 
@@ -282,7 +288,7 @@ one() {
   load_env
   [[ -f "$EVAL_DIR/arms/$arm.md" ]] || die "No overlay for arm $arm"
 
-  local dir="$RUNS_ROOT/$arm-$n"
+  local dir="$RUNS_ROOT/$MODEL_SLUG/$arm-$n"
   rm -rf "$dir"; mkdir -p "$dir" "$RESULTS"
 
   assert_isolation "$arm" "$dir" "before install"
@@ -397,7 +403,8 @@ archive() {
 # What has been run, and what each run is worth. Piecemeal running is fine — the runs are
 # independent — but only if it stays obvious which cells are filled and which are void.
 status() {
-  printf '\n  %-6s' ''
+  printf '\n  model: %s\n' "$MODEL_SLUG"
+  printf '  %-6s' ''
   for n in $(seq 1 "$RUNS"); do printf ' %-10s' "run $n"; done
   printf '\n'
 
@@ -425,6 +432,10 @@ status() {
   done
 
   local done_count; done_count="$(ls "$RESULTS"/*.json 2>/dev/null | grep -cv '\.score\.json$' || true)"
+  local others
+  others="$(ls -d "$EVAL_DIR"/results/*/ 2>/dev/null | xargs -n1 basename 2>/dev/null | grep -v "^$MODEL_SLUG$" | tr '\n' ' ')"
+  [[ -z "$others" ]] || printf '\n  other models with recorded runs: %s\n' "$others"
+
   printf '\n  %s of %s runs recorded.  VOID means a tool the arm is defined by was denied.\n\n' \
     "${done_count:-0}" "$(( ${#ARMS[@]} * RUNS ))"
 }

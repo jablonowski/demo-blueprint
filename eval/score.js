@@ -21,8 +21,12 @@ const fs = require('fs');
 const path = require('path');
 
 const EVAL = __dirname;
-const RUNS = path.join(EVAL, 'runs');
-const RESULTS = path.join(EVAL, 'results');
+// Runs are grouped by model: the same arm on two models is two conditions, and flattening
+// them would make one overwrite the other.
+const MODEL = process.env.MODEL || 'opus-5-5';
+const SLUG = MODEL.replace(/^claude-/, '').replace(/-?20\d{6}$/, '');
+const RUNS = path.join(EVAL, 'runs', SLUG);
+const RESULTS = path.join(EVAL, 'results', SLUG);
 
 const slots = require('./scorers/slots');
 const rawValues = require('./scorers/raw-values');
@@ -43,11 +47,11 @@ function scoreRun(arm, run) {
     ? JSON.parse(fs.readFileSync(harnessFile, 'utf8'))
     : null;
 
-  const adoption = slots.score(appRoot);
+  const adoption = slots.score(appRoot, arm);
   const raw = rawValues.score(appRoot);
   const tier = tiers.score(appRoot);
   const hallucinations = api.score(appRoot);
-  const nine = checks.score(appRoot);
+  const nine = checks.score(appRoot, arm);
   const build = readIfPresent(path.join(dir, 'build.json'));
   const a11y = readIfPresent(path.join(dir, 'a11y.json'));
 
@@ -65,6 +69,7 @@ function scoreRun(arm, run) {
       slotsOf: adoption.of,
       reimplemented: adoption.reimplemented,
       absent: adoption.absent,
+      hadLibrary: adoption.hadLibrary,
       falsifierTriggered: adoption.falsifierTriggered,
       hallucinatedApi: hallucinations.total,
       hallucinatedProps: hallucinations.unknownProps,
@@ -87,7 +92,8 @@ function scoreRun(arm, run) {
       importedPublicSurface: tier.importedPublicSurface,
     },
 
-    checks: { passed: nine.passed, failed: nine.failed, na: nine.na, of: nine.of },
+    checks: { applicable: nine.applicable, passed: nine.passed, failed: nine.failed,
+              na: nine.na, of: nine.of },
 
     a11y: a11y && (a11y.available
       ? { total: a11y.total, critical: a11y.critical, serious: a11y.serious,
@@ -133,10 +139,10 @@ function line(r) {
     `crossings ${g.tierCrossings}`.padEnd(14),
     `decisions ${r.tokens.decisionsUsed}`.padEnd(15),
     `api ${r.covered.hallucinatedApi}`.padEnd(8),
-    `checks ${r.checks.passed}/${r.checks.of}`.padEnd(12),
+    (r.checks.applicable ? `checks ${r.checks.passed}/${r.checks.of}` : 'checks n/a').padEnd(12),
     (r.build && r.build.ok === true ? 'builds' : r.build && r.build.ok === false ? 'BROKEN' : 'build?').padEnd(8),
     r.cost && r.cost.usd ? `$${r.cost.usd.toFixed(2)}` : '',
-    c.falsifierTriggered ? '  FALSIFIER' : '',
+    c.falsifierTriggered === true ? '  FALSIFIER' : '',
   ].join('');
 }
 
@@ -156,5 +162,6 @@ if (args[0] === '--all') {
   console.log('  → ' + write(row));
 } else {
   console.error('  Usage: node score.js <arm> <run>   |   node score.js --all');
+  console.error('  Model comes from $MODEL (currently ' + SLUG + ').');
   process.exit(1);
 }

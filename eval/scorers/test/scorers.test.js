@@ -20,7 +20,7 @@ const tiers = require('../tiers');
 // ─── The regression that started this ────────────────────────────────────────
 
 test('a multi-line tag counts as used', () => {
-  const result = slots.score(FIXTURE);
+  const result = slots.score(FIXTURE, 'D');
   const footer = result.slots.find((s) => s.selector === 'dsb-footer');
   assert.equal(footer.verdict, 'used', 'dsb-footer is written across three lines in the fixture');
 });
@@ -33,7 +33,7 @@ test('dsb-list does not swallow dsb-list-item', () => {
 });
 
 test('a component used in an inline template counts', () => {
-  const result = slots.score(FIXTURE);
+  const result = slots.score(FIXTURE, 'D');
   const header = result.slots.find((s) => s.selector === 'dsb-header');
   assert.equal(header.verdict, 'used', 'dsb-header is in a template: `` string, not an .html file');
 });
@@ -41,7 +41,7 @@ test('a component used in an inline template counts', () => {
 // ─── Reimplementation, which carries the falsifier ───────────────────────────
 
 test('a native select in place of the dropdown is a reimplementation', () => {
-  const result = slots.score(FIXTURE);
+  const result = slots.score(FIXTURE, 'D');
   const dropdown = result.slots.find((s) => s.selector === 'dsb-dropdown');
   assert.equal(dropdown.verdict, 'reimplemented');
   assert.equal(dropdown.defensible, true, 'slot 13 is pre-registered as the defensible one');
@@ -49,7 +49,25 @@ test('a native select in place of the dropdown is a reimplementation', () => {
 
 test('one defensible reimplementation does not trigger the falsifier', () => {
   // The fixture reimplements only slot 13. The falsifier needs two indefensible ones.
-  assert.equal(slots.score(FIXTURE).falsifierTriggered, false);
+  assert.equal(slots.score(FIXTURE, 'D').falsifierTriggered, false);
+});
+
+test('the checks are not applied to an arm that had no library', () => {
+  // The eight checks are all about the library's API. Arm A declaring its own FooterColumn
+  // with a title field is correct for arm A, and the first version scored it as a failure.
+  const result = checks.score(BAD, 'A');
+  assert.equal(result.applicable, false);
+  assert.equal(result.na, result.of);
+  assert.equal(result.failed, 0);
+});
+
+test('the falsifier is not evaluated for an arm that had no library', () => {
+  // Arm A hand-builds all thirteen because there is nothing to decline. Printing FALSIFIER
+  // against the baseline would make the control look like a failure of the thing it is the
+  // control for.
+  const result = slots.score(FIXTURE, 'A');
+  assert.equal(result.falsifierTriggered, null);
+  assert.equal(result.hadLibrary, false);
 });
 
 // ─── Raw values ──────────────────────────────────────────────────────────────
@@ -145,7 +163,7 @@ const BAD = path.join(__dirname, 'fixture', 'bad');
 
 test('every check fails on a fixture built to fail it', () => {
   // A scorer that only ever returns pass is indistinguishable from one that is broken.
-  const by = Object.fromEntries(checks.score(BAD).results.map((r) => [r.id, r]));
+  const by = Object.fromEntries(checks.score(BAD, 'D').results.map((r) => [r.id, r]));
 
   assert.equal(by['9.1'].verdict, 'fail', 'DsbHeaderComponent does not exist');
   assert.equal(by['9.2'].verdict, 'fail', 'let-row without ="row" binds the cell value');
@@ -157,7 +175,7 @@ test('every check fails on a fixture built to fail it', () => {
 });
 
 test('9.6 fails when a split footer has no flex:1', () => {
-  const by = Object.fromEntries(checks.score(BAD).results.map((r) => [r.id, r]));
+  const by = Object.fromEntries(checks.score(BAD, 'D').results.map((r) => [r.id, r]));
   assert.equal(by['9.6'].verdict, 'fail');
 });
 
@@ -166,7 +184,7 @@ test('a check reports na rather than pass when the thing was never built', () =>
   // score well by omitting work.
   const empty = path.join(__dirname, 'fixture', 'empty');
   require('fs').mkdirSync(empty, { recursive: true });
-  const by = Object.fromEntries(checks.score(empty).results.map((r) => [r.id, r]));
+  const by = Object.fromEntries(checks.score(empty, 'D').results.map((r) => [r.id, r]));
   assert.equal(by['9.2'].verdict, 'na');
   assert.equal(by['9.3'].verdict, 'na');
   assert.equal(by['standalone'].verdict, 'na');
