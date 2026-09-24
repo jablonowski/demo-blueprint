@@ -443,9 +443,21 @@ case "${1:-}" in
   "") die "Usage:
     ./run.sh preflight      check credentials, flags and permissions
     ./run.sh status         what has been run so far
-    ./run.sh <arm> <n>      one run
-    ./run.sh all            every arm, RUNS times each
+    ./run.sh <arm>          all $RUNS runs of one arm
+    ./run.sh <arm> <n>      run number <n> of one arm, on its own
+    ./run.sh all            every arm
 
-  Arms: ${ARMS[*]}" ;;
-  *) one "$1" "${2:-1}" ;;
+  Arms: ${ARMS[*]}
+
+  The second argument is which run, not how many. Comparing arms across days compares the
+  days as well, so a whole arm in one sitting is the safer habit." ;;
+  *)
+    if [[ $# -eq 1 ]]; then
+      # A whole arm in one sitting: the runs of an arm should share their conditions.
+      printf '\n  %s — %s runs\n\n' "$1" "$RUNS"
+      for n in $(seq 1 "$RUNS"); do one "$1" "$n"; done
+    else
+      one "$1" "$2"
+    fi
+    ;;
 esac
