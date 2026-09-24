@@ -1,0 +1,13 @@
+{
+  "name": "dsb-eval",
+  "private": true,
+  "description": "Scorers for the design-system-as-AI-infrastructure evaluation",
+  "scripts": {
+    "test": "node --test scorers/test/*.test.js",
+    "score": "node score.js --all"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.10.0",
+    "playwright": "^1.49.0"
+  }
+}

@@ -1,0 +1,20 @@
+<dsb-table [rows]="rows">
+  <dsb-column key="role" header="Role">
+    <ng-template let-row>
+      <dsb-tag>{{ row }}</dsb-tag>
+    </ng-template>
+  </dsb-column>
+</dsb-table>
+
+<dsb-modal [(open)]="detailsOpen" title="Member Details">
+  <div modal-title>Member Details <span>Read only</span></div>
+  <div modal-footer class="modal-footer-split" style="justify-content: space-between">
+    <span>To make changes, request Admin access.</span>
+    <dsb-button variant="secondary">Close</dsb-button>
+  </div>
+</dsb-modal>
+
+<div class="user-profile-menu">
+  <dsb-avatar name="Admin User" />
+  <dsb-dropdown [options]="menuOptions" />
+</div>

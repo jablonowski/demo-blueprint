@@ -11,9 +11,10 @@
  * eval/results/<arm>-<n>.score.json. Every arm is reduced by the same code, and the code is
  * committed, so the reduction is reviewable rather than remembered.
  *
- * Four of the eight scorers are here. The nine checks, the API contract comparison, axe and
- * cost-per-accepted-screen are not written yet and are reported as pending rather than as
- * zero — a missing measurement must not read as a clean one.
+ * All eight. Build and accessibility run in the run directory at generation time, because
+ * that is where node_modules and the build output are; this reads what they wrote. If
+ * either is missing it reports unavailable rather than clean — a measurement that did not
+ * happen must not read as a pass.
  */
 
 const fs = require('fs');
@@ -26,6 +27,11 @@ const RESULTS = path.join(EVAL, 'results');
 const slots = require('./scorers/slots');
 const rawValues = require('./scorers/raw-values');
 const tiers = require('./scorers/tiers');
+const api = require('./scorers/api');
+const checks = require('./scorers/checks');
+
+const readIfPresent = (file) =>
+  fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, 'utf8')) : null;
 
 function scoreRun(arm, run) {
   const dir = path.join(RUNS, `${arm}-${run}`);
@@ -40,6 +46,10 @@ function scoreRun(arm, run) {
   const adoption = slots.score(appRoot);
   const raw = rawValues.score(appRoot);
   const tier = tiers.score(appRoot);
+  const hallucinations = api.score(appRoot);
+  const nine = checks.score(appRoot);
+  const build = readIfPresent(path.join(dir, 'build.json'));
+  const a11y = readIfPresent(path.join(dir, 'a11y.json'));
 
   return {
     arm,
@@ -56,7 +66,9 @@ function scoreRun(arm, run) {
       reimplemented: adoption.reimplemented,
       absent: adoption.absent,
       falsifierTriggered: adoption.falsifierTriggered,
-      hallucinatedApi: null,        // scorer 2, not written
+      hallucinatedApi: hallucinations.total,
+      hallucinatedProps: hallucinations.unknownProps,
+      hallucinatedImports: hallucinations.unknownImports,
     },
 
     gap: {
@@ -75,9 +87,14 @@ function scoreRun(arm, run) {
       importedPublicSurface: tier.importedPublicSurface,
     },
 
-    checks: null,                   // scorer 3, not written
-    a11y: null,                     // scorer 6, not written
-    build: null,                    // scorer 7, not written
+    checks: { passed: nine.passed, failed: nine.failed, na: nine.na, of: nine.of },
+
+    a11y: a11y && (a11y.available
+      ? { total: a11y.total, critical: a11y.critical, serious: a11y.serious,
+          moderate: a11y.moderate, minor: a11y.minor }
+      : { unavailable: a11y.reason }),
+
+    build: build || { unavailable: 'build.json not written for this run' },
 
     cost: harness && {
       inputTokensTotal: harness.inputTokensTotal,
@@ -88,7 +105,14 @@ function scoreRun(arm, run) {
       permissionDenials: harness.result && harness.result.permission_denials,
     },
 
-    detail: { slots: adoption.slots, rawValues: raw.detail, tiers: tier.detail },
+    detail: {
+      slots: adoption.slots,
+      rawValues: raw.detail,
+      tiers: tier.detail,
+      hallucinations: hallucinations.detail,
+      checks: nine.results,
+      a11yPages: a11y && a11y.pages,
+    },
   };
 }
 
@@ -108,6 +132,9 @@ function line(r) {
     `raw ${g.rawValues}`.padEnd(9),
     `crossings ${g.tierCrossings}`.padEnd(14),
     `decisions ${r.tokens.decisionsUsed}`.padEnd(15),
+    `api ${r.covered.hallucinatedApi}`.padEnd(8),
+    `checks ${r.checks.passed}/${r.checks.of}`.padEnd(12),
+    (r.build && r.build.ok === true ? 'builds' : r.build && r.build.ok === false ? 'BROKEN' : 'build?').padEnd(8),
     r.cost && r.cost.usd ? `$${r.cost.usd.toFixed(2)}` : '',
     c.falsifierTriggered ? '  FALSIFIER' : '',
   ].join('');

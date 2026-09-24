@@ -96,3 +96,78 @@ test('a deep import is not the public surface', () => {
   assert.equal(result.importedPublicSurface, false);
   assert.deepEqual(result.tokenImports, ['@jablonowski/dsb-tokens/dist/css/variables.css']);
 });
+
+// ─── Hallucinated API ────────────────────────────────────────────────────────
+
+const api = require('../api');
+
+test('an attribute the component does not declare is a hallucination', () => {
+  const result = api.score(FIXTURE);
+  const bad = result.detail.unknownProps.find((p) => p.attribute === 'color');
+  assert.ok(bad, 'dsb-tag has variant and size, not color');
+  assert.equal(bad.selector, 'dsb-tag');
+});
+
+test('a native DOM event on a component is not a hallucination', () => {
+  // The first version of this scorer reported twelve of these in the pilot, every one a
+  // (click) on a dsb-button. A scorer that invents the finding is worse than no scorer.
+  const result = api.score(FIXTURE);
+  assert.ok(!result.detail.unknownProps.some((p) => p.attribute === 'click'));
+  assert.ok(!result.detail.unknownProps.some((p) => p.attribute === 'disabled'),
+    'disabled is a real prop on dsb-button');
+});
+
+test('an import the package does not export is a hallucination', () => {
+  const result = api.score(FIXTURE);
+  assert.ok(result.detail.unknownImports.some((i) => i.name === 'DsbButtonComponent'),
+    'the Dsb prefix does not exist');
+});
+
+test('a type export that is not a component is not a hallucination', () => {
+  // contracts.json lists 16 components. The package also exports FooterColumn, NavItem,
+  // TagVariant, DropdownOption and ColumnDefDirective, and checking imports against the
+  // component list alone reported all seven of the pilot's valid type imports as invented.
+  const result = api.score(FIXTURE);
+  for (const name of ['TagComponent', 'FooterColumn']) {
+    assert.ok(!result.detail.unknownImports.some((i) => i.name === name), `${name} is exported`);
+  }
+});
+
+test('an attribute value containing > does not end the tag early', () => {
+  const tags = api.openingTags('<dsb-button [disabled]="a > b" variant="primary">x</dsb-button>', 'dsb-button');
+  assert.deepEqual(tags[0].attrs, ['disabled', 'variant']);
+});
+
+// ─── The nine checks, proven in both directions ──────────────────────────────
+
+const checks = require('../checks');
+const BAD = path.join(__dirname, 'fixture', 'bad');
+
+test('every check fails on a fixture built to fail it', () => {
+  // A scorer that only ever returns pass is indistinguishable from one that is broken.
+  const by = Object.fromEntries(checks.score(BAD).results.map((r) => [r.id, r]));
+
+  assert.equal(by['9.1'].verdict, 'fail', 'DsbHeaderComponent does not exist');
+  assert.equal(by['9.2'].verdict, 'fail', 'let-row without ="row" binds the cell value');
+  assert.equal(by['9.3'].verdict, 'fail', 'content projected into a slotless dsb-header');
+  assert.equal(by['9.4'].verdict, 'fail', 'FooterColumn declared with title instead of heading');
+  assert.equal(by['9.5'].verdict, 'fail', 'title input and [modal-title] slot together');
+  assert.equal(by['9.7'].verdict, 'fail', 'dsb-dropdown inside the right-edge profile menu');
+  assert.equal(by['standalone'].verdict, 'fail', 'components used without being imported');
+});
+
+test('9.6 fails when a split footer has no flex:1', () => {
+  const by = Object.fromEntries(checks.score(BAD).results.map((r) => [r.id, r]));
+  assert.equal(by['9.6'].verdict, 'fail');
+});
+
+test('a check reports na rather than pass when the thing was never built', () => {
+  // Never built and got right are different results, and collapsing them would let an arm
+  // score well by omitting work.
+  const empty = path.join(__dirname, 'fixture', 'empty');
+  require('fs').mkdirSync(empty, { recursive: true });
+  const by = Object.fromEntries(checks.score(empty).results.map((r) => [r.id, r]));
+  assert.equal(by['9.2'].verdict, 'na');
+  assert.equal(by['9.3'].verdict, 'na');
+  assert.equal(by['standalone'].verdict, 'na');
+});

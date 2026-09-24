@@ -350,8 +350,30 @@ one() {
     note "         this run did not have what its arm is defined by. Treat it as void."
   fi
 
+  # Build and accessibility run here, where node_modules and the build output are. Both
+  # write into the archive, so scoring later needs nothing but the archived directory.
+  measure "$arm" "$n" "$dir"
   archive "$arm" "$n" "$dir"
   note "$arm/$n — done, $RESULTS/$arm-$n.json"
+}
+
+# A build that fails is a failed run, not a run with zeroes, so this happens before
+# anything is scored and its verdict travels with the archive.
+measure() {
+  local arm="$1" n="$2" dir="$3"
+  local scorers="$EVAL_DIR/scorers"
+
+  node "$scorers/build.js" "$dir" > "$dir/build.json" 2>/dev/null || true
+  local built; built="$(node -p "require('$dir/build.json').ok" 2>/dev/null || echo false)"
+  note "$arm/$n — build: $built"
+
+  if [[ "$built" == "true" ]]; then
+    node "$scorers/a11y.js" "$dir" > "$dir/a11y.json" 2>/dev/null || true
+    local total; total="$(node -p "const a=require('$dir/a11y.json'); a.available? a.total : a.reason" 2>/dev/null || echo '?')"
+    note "$arm/$n — axe: $total"
+  else
+    echo '{"available":false,"reason":"the application does not build"}' > "$dir/a11y.json"
+  fi
 }
 
 # Keep what the scorers read and what a human would review; leave the 300 MB of
@@ -362,7 +384,7 @@ archive() {
   rm -rf "$dest"; mkdir -p "$dest"
 
   local item
-  for item in src angular.json package.json tsconfig.json tsconfig.app.json README.md; do
+  for item in src angular.json package.json tsconfig.json tsconfig.app.json README.md build.json a11y.json; do
     [[ -e "$dir/$item" ]] && cp -R "$dir/$item" "$dest/"
   done
   # The assembled prompt, so a result can always be traced back to exactly what was asked.
