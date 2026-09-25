@@ -7,7 +7,7 @@ The design system under test is [**design-system-blueprint**](https://github.com
 a three-tier token pipeline, an Angular component library, machine-readable contracts for
 agents, and npm publishing.
 
-> **Status: the study is still running.** 
+> **Status: the study is still running.** It's rather an initial state - stay tuned and give it a ⭐ if you like it! Thanks 👍
 
 ---
 
