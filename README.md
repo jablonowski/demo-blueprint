@@ -240,5 +240,4 @@ eval/
 
 ---
 
-Part of the research for *Lean Design System Engineering: From Token Pipeline to AI-Ready
-Infrastructure*.
+Part of broader research :)
