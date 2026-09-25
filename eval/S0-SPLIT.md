@@ -1,5 +1,12 @@
 # Splitting the spec into `S0` + arm overlays
 
+> **The two specifications this document takes apart no longer exist in the working tree.**
+> `SPEC.md` and `spec-no-ds.md` were the parallel drafts that `S0.md` and the arm overlays
+> were derived from; they were removed once the derivation was complete, because a reader
+> arriving from the README would reasonably mistake them for the current specification.
+> They remain in history and can be read with `git show c2006f2:SPEC.md` and
+> `git show c2006f2:spec-no-ds.md`. This document is the record of how the split was made.
+
 `SPEC.md` (694 lines) and `spec-no-ds.md` (934 lines) are parallel rewrites of the same
 application. They differ by 4 KB and, more importantly, by content — so a difference in
 outcome is attributable to the prose as readily as to the infrastructure.

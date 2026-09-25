@@ -1,0 +1,306 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-decisions-space-xl);
+}
+
+.page-head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-decisions-space-2xs);
+}
+
+.page-title {
+  margin: 0;
+  font-size: var(--ds-decisions-font-size-3xl);
+  font-weight: var(--ds-decisions-font-weight-semibold);
+  letter-spacing: var(--ds-decisions-font-tracking-heading);
+  line-height: var(--ds-decisions-font-line-height-tight);
+  color: var(--ds-decisions-color-text-primary);
+}
+
+.page-meta {
+  margin: 0;
+  font-size: var(--ds-decisions-font-size-sm);
+  color: var(--ds-decisions-color-text-muted);
+}
+
+/*
+ * 20-track grid: four metric tiles span 5 each; the second row splits 9 / 11,
+ * the proportion of the Health and Throughput frames in Figma (538 / 658).
+ */
+.dash-grid {
+  display: grid;
+  grid-template-columns: repeat(20, minmax(0, 1fr));
+  gap: var(--ds-decisions-space-2xl);
+  align-items: start;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: var(--ds-decisions-space-2xl);
+  background: var(--ds-decisions-color-surface-base);
+  border: var(--ds-decisions-border-width-hairline) solid var(--ds-decisions-color-border-subtle);
+  border-radius: var(--ds-decisions-border-radius-2xl);
+  box-shadow: var(--ds-decisions-shadow-dropdown);
+}
+
+.metric {
+  grid-column: span 5;
+  gap: var(--ds-decisions-space-sm);
+}
+
+.card--health {
+  grid-column: span 9;
+}
+
+.card--throughput {
+  grid-column: span 11;
+  gap: var(--ds-decisions-space-lg);
+}
+
+.card--logs {
+  grid-column: 1 / -1;
+}
+
+.card-title {
+  margin: 0;
+  font-size: var(--ds-decisions-font-size-sm);
+  font-weight: var(--ds-decisions-font-weight-semibold);
+  color: var(--ds-decisions-color-text-primary);
+  line-height: var(--ds-decisions-font-line-height-tight);
+}
+
+.card-sub {
+  margin: var(--ds-decisions-space-2xs) 0 0;
+  font-size: var(--ds-decisions-font-size-xs);
+  color: var(--ds-decisions-color-text-muted);
+}
+
+.divider {
+  width: 100%;
+  margin: 0;
+  border: none;
+  border-top: var(--ds-decisions-border-width-hairline) solid var(--ds-decisions-color-border-hairline);
+}
+
+/* Metric tiles */
+.metric-title {
+  margin: 0;
+  font-size: var(--ds-decisions-font-size-2xs);
+  font-weight: var(--ds-decisions-font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--ds-decisions-font-tracking-caps);
+  color: var(--ds-decisions-color-text-muted);
+  line-height: var(--ds-decisions-font-line-height-tight);
+}
+
+.metric-value-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--ds-decisions-space-md);
+}
+
+.metric-value {
+  font-size: var(--ds-decisions-font-size-3xl);
+  font-weight: var(--ds-decisions-font-weight-semibold);
+  letter-spacing: var(--ds-decisions-font-tracking-heading);
+  line-height: var(--ds-decisions-font-line-height-none);
+  color: var(--ds-decisions-color-text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.metric-sub {
+  margin: 0;
+  font-size: var(--ds-decisions-font-size-xs);
+  color: var(--ds-decisions-color-text-subtle);
+}
+
+/* Service health */
+.card--health .card-title {
+  padding-bottom: var(--ds-decisions-space-md);
+  border-bottom: var(--ds-decisions-border-width-hairline) solid var(--ds-decisions-color-border-hairline);
+}
+
+.health-list {
+  display: block;
+}
+
+/* Request throughput — plain CSS bars, no charting library. */
+.chart {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--ds-decisions-space-sm);
+}
+
+.chart-col {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--ds-decisions-space-2xs);
+}
+
+/* Plot height composed from the spacing scale: 64 + 16 = the tallest bar in Figma. */
+.chart-track {
+  width: 100%;
+  height: calc(var(--ds-decisions-space-7xl) + var(--ds-decisions-space-xl));
+  display: flex;
+  align-items: flex-end;
+}
+
+/*
+ * The spec asks for the darkest foreground available. resolve_token returned
+ * no-coverage for "pure black"; rephrased as an emphasis surface for a data mark
+ * it resolved to surface-emphasis (#111111, also the Figma bar fill).
+ */
+.chart-bar {
+  width: 100%;
+  min-height: var(--ds-decisions-space-3xs);
+  background-color: var(--ds-decisions-color-surface-emphasis);
+  border-radius: var(--ds-decisions-border-radius-xs);
+  transition: height var(--ds-decisions-motion-duration-slow) var(--ds-decisions-motion-easing-standard);
+}
+
+.chart-label {
+  font-size: var(--ds-decisions-font-size-2xs);
+  color: var(--ds-decisions-color-text-subtle);
+}
+
+/* Data summary */
+.summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ds-decisions-space-lg) var(--ds-decisions-space-4xl);
+  margin: 0;
+  padding-top: var(--ds-decisions-space-lg);
+  border-top: var(--ds-decisions-border-width-hairline) solid var(--ds-decisions-color-border-hairline);
+}
+
+.summary-item {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: var(--ds-decisions-space-3xs);
+}
+
+.summary-label {
+  font-size: var(--ds-decisions-font-size-2xs);
+  color: var(--ds-decisions-color-text-muted);
+}
+
+.summary-value {
+  margin: 0;
+  font-size: var(--ds-decisions-font-size-lg);
+  font-weight: var(--ds-decisions-font-weight-semibold);
+  color: var(--ds-decisions-color-text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+/* System logs */
+.logs-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: var(--ds-decisions-space-md);
+}
+
+/*
+ * Monospace has no font-family decision token (resolve_token: no-coverage),
+ * so the generic family keyword is used directly.
+ * Viewport height composed from the spacing scale (4 × 64).
+ */
+.logs {
+  height: calc(var(--ds-decisions-space-7xl) * 4);
+  overflow-y: auto;
+  padding: var(--ds-decisions-space-sm) 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: var(--ds-decisions-font-size-xs);
+  line-height: var(--ds-decisions-font-line-height-relaxed);
+  color: var(--ds-decisions-color-text-body);
+  border-radius: var(--ds-decisions-border-radius-sm);
+}
+
+.logs:focus-visible {
+  outline: none;
+  box-shadow: var(--ds-decisions-shadow-focus);
+}
+
+.log-line {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-decisions-space-lg);
+  padding: var(--ds-decisions-space-3xs) var(--ds-decisions-space-2xs);
+  white-space: nowrap;
+}
+
+.log-line:hover {
+  background: var(--ds-decisions-color-surface-row-hover);
+}
+
+.log-dot {
+  flex-shrink: 0;
+  width: var(--ds-decisions-size-glyph-xs);
+  height: var(--ds-decisions-size-glyph-xs);
+  border-radius: var(--ds-decisions-border-radius-full);
+  background: var(--ds-decisions-color-border-control);
+}
+
+.log-time {
+  color: var(--ds-decisions-color-text-placeholder);
+  font-variant-numeric: tabular-nums;
+}
+
+.log-level {
+  flex-shrink: 0;
+  min-width: calc(var(--ds-decisions-space-6xl) - var(--ds-decisions-space-sm));
+  font-weight: var(--ds-decisions-font-weight-semibold);
+  color: var(--ds-decisions-color-text-muted);
+}
+
+.log-source {
+  flex-shrink: 0;
+  min-width: var(--ds-decisions-layout-width-3xs);
+  color: var(--ds-decisions-color-text-secondary);
+}
+
+.log-message {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--ds-decisions-color-text-primary);
+}
+
+/* Level indicators reuse the dsb-list indicator precedent (feedback-*-text). */
+.log-dot[data-level='OK'] { background: var(--ds-decisions-color-feedback-success-text); }
+.log-dot[data-level='INFO'] { background: var(--ds-decisions-color-feedback-info-text); }
+.log-dot[data-level='WARN'] { background: var(--ds-decisions-color-feedback-warning-text); }
+.log-dot[data-level='ERROR'] { background: var(--ds-decisions-color-feedback-error-text); }
+.log-level[data-level='OK'] { color: var(--ds-decisions-color-feedback-success-text); }
+.log-level[data-level='INFO'] { color: var(--ds-decisions-color-feedback-info-text); }
+.log-level[data-level='WARN'] { color: var(--ds-decisions-color-feedback-warning-text); }
+.log-level[data-level='ERROR'] { color: var(--ds-decisions-color-feedback-error-text); }
+
+.sr-only {
+  position: absolute;
+  width: var(--ds-decisions-space-4xs);
+  height: var(--ds-decisions-space-4xs);
+  padding: 0;
+  margin: calc(-1 * var(--ds-decisions-space-4xs));
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 1024px) {
+  .metric { grid-column: span 10; }
+  .card--health,
+  .card--throughput { grid-column: 1 / -1; }
+}
+
+@media (max-width: 600px) {
+  .metric { grid-column: 1 / -1; }
+}

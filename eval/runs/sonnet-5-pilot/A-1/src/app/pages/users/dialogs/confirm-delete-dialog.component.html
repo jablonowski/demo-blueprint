@@ -1,0 +1,17 @@
+<app-modal size="sm" [closeOnBackdrop]="true" (backdropClose)="cancel.emit()">
+  <div class="modal-header">
+    <span class="modal-header__title">Confirm Deletion</span>
+  </div>
+  <hr class="modal-divider" />
+  <div class="modal-body">
+    <p>
+      Are you sure you want to remove <strong>{{ userName }}</strong
+      >? This action cannot be undone.
+    </p>
+  </div>
+  <hr class="modal-divider" />
+  <div class="modal-footer">
+    <button type="button" class="btn btn--outline" (click)="cancel.emit()">Cancel</button>
+    <button type="button" class="btn btn--danger" (click)="confirm.emit()">Delete</button>
+  </div>
+</app-modal>

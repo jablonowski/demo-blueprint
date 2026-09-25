@@ -1,0 +1,67 @@
+<div class="dashboard">
+  @for (metric of metrics; track metric.title) {
+    <section class="card tile">
+      <h2 class="tile__title">{{ metric.title }}</h2>
+      <div class="tile__value-row">
+        <span class="tile__value">{{ metric.value }}</span>
+        <span class="badge" [class.badge--positive]="metric.positive" [class.badge--negative]="!metric.positive">
+          {{ metric.trend }}
+        </span>
+      </div>
+      <p class="tile__caption">{{ metric.caption }}</p>
+    </section>
+  }
+
+  <section class="card tile tile--wide">
+    <h2 class="tile__title">Request Throughput</h2>
+    <div class="chart" role="img" aria-label="Weekly request throughput, Monday to Sunday">
+      @for (bar of throughput; track bar.day) {
+        <div class="chart__col">
+          <div class="chart__track">
+            <div class="chart__bar" [style.height.%]="bar.percent" [attr.title]="bar.value + ' req/min'"></div>
+          </div>
+          <span class="chart__label">{{ bar.day }}</span>
+        </div>
+      }
+    </div>
+  </section>
+
+  <section class="card tile">
+    <h2 class="tile__title">Service Health</h2>
+    <ul class="list">
+      @for (service of services; track service.name) {
+        <li class="list__row">
+          <span>{{ service.name }}</span>
+          <span class="badge" [class.badge--positive]="service.online" [class.badge--negative]="!service.online">
+            <span class="dot"></span>{{ service.online ? 'Online' : 'Offline' }}
+          </span>
+        </li>
+      }
+    </ul>
+  </section>
+
+  <section class="card tile">
+    <h2 class="tile__title">Data Summary</h2>
+    <dl class="list">
+      @for (item of summary; track item.label) {
+        <div class="list__row">
+          <dt class="text-muted">{{ item.label }}</dt>
+          <dd class="list__value">{{ item.value }}</dd>
+        </div>
+      }
+    </dl>
+  </section>
+
+  <section class="card tile tile--full">
+    <h2 class="tile__title">System Logs</h2>
+    <div class="terminal" #logViewport (scroll)="onLogScroll()">
+      @for (line of logs(); track $index) {
+        <div class="terminal__line">
+          <span class="terminal__time">{{ line.time }}</span>
+          <span class="terminal__level terminal__level--{{ line.level.toLowerCase() }}">{{ line.level }}</span>
+          <span>{{ line.message }}</span>
+        </div>
+      }
+    </div>
+  </section>
+</div>

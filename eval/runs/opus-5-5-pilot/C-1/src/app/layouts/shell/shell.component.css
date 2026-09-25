@@ -1,0 +1,129 @@
+.shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.shell-header {
+  position: relative;
+}
+
+/* dsb-header has no trailing slot, so the profile control sits on a layer
+   that mirrors the header's own width and height. */
+.shell-header-overlay {
+  position: absolute;
+  inset: 0;
+  max-width: var(--ds-decisions-layout-width-3xl);
+  height: var(--ds-decisions-size-bar-md);
+  margin: 0 auto;
+  padding: 0 var(--ds-decisions-space-3xl);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  pointer-events: none;
+}
+
+.profile {
+  position: relative;
+  pointer-events: auto;
+}
+
+.profile-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ds-decisions-space-sm);
+  height: var(--ds-decisions-size-control-md);
+  padding: 0 var(--ds-decisions-space-sm) 0 var(--ds-decisions-space-2xs);
+  font: inherit;
+  font-size: var(--ds-decisions-font-size-md);
+  font-weight: var(--ds-decisions-font-weight-medium);
+  color: var(--ds-decisions-color-text-primary);
+  background: var(--ds-decisions-color-action-ghost-background);
+  border: none;
+  border-radius: var(--ds-decisions-border-radius-lg);
+  cursor: pointer;
+  transition: background var(--ds-decisions-motion-duration-base) var(--ds-decisions-motion-easing-standard);
+}
+
+.profile-trigger:hover {
+  background: var(--ds-decisions-color-action-ghost-background-hover);
+}
+
+.profile-trigger:focus-visible {
+  outline: none;
+  box-shadow: var(--ds-decisions-shadow-focus);
+}
+
+.profile-caret {
+  width: var(--ds-decisions-size-glyph-md);
+  height: var(--ds-decisions-size-glyph-md);
+  color: var(--ds-decisions-color-text-secondary);
+  transition: transform var(--ds-decisions-motion-duration-base) var(--ds-decisions-motion-easing-standard);
+}
+
+.profile-caret--open {
+  transform: rotate(180deg);
+}
+
+/* Anchored to the trigger's right edge so it grows leftward and stays on screen. */
+.profile-menu {
+  position: absolute;
+  top: calc(100% + var(--ds-decisions-space-2xs));
+  right: 0;
+  z-index: var(--ds-decisions-z-index-dropdown);
+  min-width: var(--ds-decisions-layout-width-2xs);
+  max-width: calc(100vw - 2 * var(--ds-decisions-space-xl));
+  padding: var(--ds-decisions-space-2xs);
+  background: var(--ds-decisions-color-surface-base);
+  border: var(--ds-decisions-border-width-hairline) solid var(--ds-decisions-color-border-subtle);
+  border-radius: var(--ds-decisions-border-radius-xl);
+  box-shadow: var(--ds-decisions-shadow-dropdown);
+}
+
+.profile-menu-item {
+  display: block;
+  width: 100%;
+  padding: var(--ds-decisions-space-sm) var(--ds-decisions-space-lg);
+  font: inherit;
+  font-size: var(--ds-decisions-font-size-md);
+  text-align: left;
+  color: var(--ds-decisions-color-text-primary);
+  background: var(--ds-decisions-color-action-ghost-background);
+  border: none;
+  border-radius: var(--ds-decisions-border-radius-md);
+  cursor: pointer;
+}
+
+.profile-menu-item:hover {
+  background: var(--ds-decisions-color-action-ghost-background-hover);
+}
+
+.profile-menu-item:focus-visible {
+  outline: none;
+  box-shadow: var(--ds-decisions-shadow-focus);
+}
+
+.profile-menu-item--danger {
+  color: var(--ds-decisions-color-action-danger-text);
+}
+
+.profile-menu-item--danger:hover {
+  background: var(--ds-decisions-color-action-danger-background-hover);
+}
+
+.profile-menu-divider {
+  height: var(--ds-decisions-border-width-hairline);
+  margin: var(--ds-decisions-space-2xs) 0;
+  background: var(--ds-decisions-color-border-hairline);
+}
+
+.shell-main {
+  flex: 1;
+  width: 100%;
+  max-width: var(--ds-decisions-layout-width-3xl);
+  margin: 0 auto;
+  padding: var(--ds-decisions-space-4xl) var(--ds-decisions-space-3xl) var(--ds-decisions-space-6xl);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-content: start;
+}

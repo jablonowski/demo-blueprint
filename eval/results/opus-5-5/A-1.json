@@ -1,0 +1,122 @@
+{
+  "arm": "A",
+  "run": 1,
+  "model": "claude-opus-5-5",
+  "cli": "2.1.281 (Claude Code)",
+  "isolation": "session",
+  "started": "2026-09-25T06:23:28Z",
+  "overlaySha": "40dd762a0ef7",
+  "s0Sha": "c25d3e960f47",
+  "promptBytes": 13108,
+  "runDir": "/tmp/dsb-eval/opus-5-5/A-1",
+  "figma": {
+    "channel": "cached",
+    "fileKey": "iJ92LuFOsPjO6avZ2anbwO",
+    "recordedAt": "2026-09-24T19:49:36Z",
+    "calls": 1,
+    "errors": 0,
+    "nodes": [
+      "22-11104"
+    ],
+    "ok": true
+  },
+  "inputTokensTotal": 1904640,
+  "outputTokens": 44083,
+  "result": {
+    "duration_api_ms": 413058,
+    "stop_reason": "end_turn",
+    "session_id": "cbf23e0b-572f-405b-97be-6a057d790fe7",
+    "total_cost_usd": 2.057598,
+    "usage": {
+      "input_tokens": 50,
+      "cache_creation_input_tokens": 101900,
+      "cache_read_input_tokens": 1802690,
+      "output_tokens": 44083,
+      "output_tokens_details": {
+        "thinking_tokens": 7137
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 101900,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "not_available",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 1244,
+          "cache_read_input_tokens": 111821,
+          "cache_creation_input_tokens": 783,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 783
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard"
+    },
+    "modelUsage": {
+      "claude-opus-5-5": {
+        "inputTokens": 50,
+        "outputTokens": 44083,
+        "cacheReadInputTokens": 1802690,
+        "cacheCreationInputTokens": 101900,
+        "webSearchRequests": 0,
+        "costUSD": 2.057598,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 128000,
+        "thinkingTokens": 7137,
+        "canonicalModel": "claude-opus-5-5",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "subagent_stats": {
+      "spawned": 0,
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 0,
+      "spawned_by_subagents": 0,
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {}
+    },
+    "is_error": false,
+    "num_turns": 50,
+    "subtype": "success",
+    "api_error_status": null,
+    "result": "I've built the app in `app/`. It builds with no errors or warnings, and `npx @angular/cli@19 serve` then logging in as `admin` / `admin` reaches the dashboard.\n\n**Testing.** I ran a scripted headless-Chromium pass at 1280px and 390px wide:\n- **Login:** the root redirects to `/login`, required-field and wrong-password errors appear, and a successful login writes `isLoggedIn` and sends you to the dashboard. The login guard sends a signed-in user back to the dashboard.\n- **Dashboard:** the logs gain a new line every 3 seconds, and the chart has seven bars.\n- **Profile menu:** it stays fully on screen at both widths, closes when you click outside it, and Sign Out works.\n- **Users:** create, edit and delete all go through the in-memory API and the table updates. \"Delete user\" in the edit dialog opens the delete confirmation with the same member still selected. Dialogs close when you click the backdrop.\n- **Console:** no errors.\n\n20 of 21 checks passed on the final run. The one that didn't (field errors after an empty login) passed on the first run and shows correctly in the screenshot; it was a timing problem in the test script, not the app. I also looked at screenshots of every screen and dialog.\n\n**Figma.** The design data loaded and I read all of it. Every colour, size, spacing, radius and shadow comes from it, and each is defined once as a CSS variable in `src/styles.css`. Components read those variables rather than hard-coding values. The spec and the Figma frames disagree in places; where they did, I followed the spec's text and structure and Figma's styling:\n- **Login card:** it uses the spec's headings. Figma also has a \"Blueprint\" brand line in the card, which I left out because the spec says to add nothing else. I kept Figma's divider line above the sign-up prompt.\n- **Dashboard:** Figma has no separate Data Summary tile; its throughput card holds Peak/Average/Total stats instead. To keep all eight tiles, I added a full-width Data Summary row between the chart row and the logs. Service Health sits left of the chart, as in Figma's layout, although the spec lists the chart first. I kept Figma's \"System Overview\" heading and \"Last updated\" line.\n- **Tile titles:** Figma's are not uppercase; I made them uppercase as the spec asks.\n- **Negative badges:** the Error Rate trend and \"Offline\" use red. Figma shows amber for the error-rate trend.\n- **Table:** avatar and name are separate columns, as the spec lists them; Figma combines them into one \"User\" column. The spec's button emphasis wins over Figma's: Details has no border and Edit is outlined, the reverse of the frame.\n- **Header:** the nav links are Dashboard and Team Members, since Figma's Overview/Metrics/Logs/Settings have no matching pages. \"Admin User\" and the menu come from the spec.\n- **Footer:** Figma shows one thin row with copyright and two legal links. I added the brand and link columns the spec requires, styled to match.\n\n**Not in the design, so my own choices:** the profile menu, the delete-confirmation dialog, the log-viewer styling, error messages, the logo mark, the mobile layouts and the throughput numbers (the frame only has six hourly bars, so I made up daily values). Figma exports some dividers and card borders as solid black; I used the light grey from the table border instead, on the assumption that the export dropped their transparency.\n\n**Additions beyond the spec:** email-format validation, Escape closes dialogs and the menu, buttons are disabled while a save is in progress, and the log view stops auto-scrolling while you scroll up to read.",
+    "ttft_ms": 2599,
+    "type": "result",
+    "duration_ms": 441032,
+    "uuid": "196c2b5e-dd7b-4cf8-8a8f-dcd494f4a545",
+    "ttft_stream_ms": 2121,
+    "time_to_request_ms": 314,
+    "first_content_frame_ms": 2121,
+    "queued_turn_count": 0,
+    "result_index": 0
+  }
+}

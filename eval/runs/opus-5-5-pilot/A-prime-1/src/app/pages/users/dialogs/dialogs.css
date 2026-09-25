@@ -1,0 +1,24 @@
+.dialog-stack { display: flex; flex-direction: column; gap: 20px; }
+
+.dialog-text {
+  margin: 0;
+  font-size: var(--font-size-base);
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+}
+
+.dialog-text strong { color: var(--color-text-primary); font-weight: var(--font-weight-semibold); }
+
+.header-with-badge { display: flex; align-items: center; gap: 8px; }
+.header-with-badge h2 {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.status-row { display: flex; align-items: center; gap: 12px; }
+.status-row .field-label { color: var(--color-text-secondary); }
+
+.footer-note { font-size: var(--font-size-sm); color: var(--color-text-secondary); }
+.footer-actions { display: flex; gap: 8px; }

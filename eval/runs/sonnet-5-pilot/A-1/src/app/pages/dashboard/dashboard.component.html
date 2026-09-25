@@ -1,0 +1,59 @@
+<div class="dashboard">
+  <div class="dashboard__grid">
+    @for (tile of statTiles; track tile.label) {
+      <div class="stat-tile">
+        <p class="stat-tile__label">{{ tile.label }}</p>
+        <div class="stat-tile__value-row">
+          <span class="stat-tile__value">{{ tile.value }}</span>
+          <app-badge [tone]="tile.trendTone">{{ tile.trend }}</app-badge>
+        </div>
+        <p class="stat-tile__sub-label">{{ tile.subLabel }}</p>
+      </div>
+    }
+
+    <div class="panel dashboard__throughput">
+      <h2 class="panel__title">Request Throughput</h2>
+      <div class="throughput-chart">
+        @for (bar of throughputBars; track bar.day) {
+          <div class="throughput-chart__col">
+            <div class="throughput-chart__bar" [style.height.%]="barHeightPercent(bar.value)"></div>
+            <span class="throughput-chart__day">{{ bar.day }}</span>
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="panel dashboard__services">
+      <h2 class="panel__title">Service Health</h2>
+      <ul class="service-list">
+        @for (service of services; track service.name) {
+          <li class="service-list__row">
+            <span class="service-list__name">{{ service.name }}</span>
+            <app-badge [tone]="service.status === 'Online' ? 'success' : 'danger'">{{ service.status }}</app-badge>
+          </li>
+        }
+      </ul>
+    </div>
+
+    <div class="panel dashboard__summary">
+      <h2 class="panel__title">Data Summary</h2>
+      <ul class="summary-list">
+        @for (row of dataSummary; track row.label) {
+          <li class="summary-list__row">
+            <span class="summary-list__label">{{ row.label }}</span>
+            <span class="summary-list__value">{{ row.value }}</span>
+          </li>
+        }
+      </ul>
+    </div>
+
+    <div class="panel dashboard__logs">
+      <h2 class="panel__title">System Logs</h2>
+      <div class="log-viewport" #logViewport>
+        @for (log of logs; track log.id) {
+          <p class="log-line"><span class="log-line__timestamp">[{{ log.timestamp }}]</span> {{ log.message }}</p>
+        }
+      </div>
+    </div>
+  </div>
+</div>

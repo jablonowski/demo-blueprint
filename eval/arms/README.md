@@ -11,13 +11,22 @@ S0.md  +  arms/<arm>.md  ->  fresh session  ->  generated application
 that belongs in `S0`, add it to `S0` and **re-run every arm**. Adding it to one overlay
 turns the experiment into a demonstration.
 
-| Arm | Overlay | What the agent has |
-|---|---|---|
-| A | `A.md` | nothing beyond `S0` |
-| A′ | `A-prime.md` | a styleguide document: palette, scale, component CSS |
-| B | `B.md` | the packages installed, READMEs reachable |
-| C | `C.md` | B + `llms.client.txt` in context |
-| D | `D.md` | C + the token resolver connected over MCP |
+| Arm | Overlay | What the agent has | In the grid |
+|---|---|---|---|
+| A | `A.md` | nothing beyond `S0` | **yes** |
+| A′ | `A-prime.md` | a styleguide document: palette, scale, component CSS | follow-up |
+| B | `B.md` | the packages installed, READMEs reachable | **yes** |
+| C | `C.md` | B + `llms.client.txt` in context | follow-up |
+| D | `D.md` | C + the token resolver connected over MCP | **yes** |
+
+The grid is A, B and D: a cumulative ladder with nothing skipped — nothing, then the typed
+installable package, then the whole agent-facing layer on top of it. Five arms in a round
+do not fit inside one session window, and a round split across windows reintroduces the
+confound the round exists to remove.
+
+A′ and C remain first-class arms and run on their own (`./run.sh C 1`). What their absence
+costs the grid, and the condition under which C stops being optional, is written down in
+`PROTOCOL.md`.
 
 ## What is deliberately absent from B, C and D
 

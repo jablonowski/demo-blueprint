@@ -1,0 +1,61 @@
+<div class="shell" (click)="onLinkClick($event)">
+  <div class="shell__header">
+    <dsb-header
+      [brandName]="brandName"
+      logoAlt="Blueprint home"
+      logoHref="/dashboard"
+      [navItems]="navItems()"
+    />
+
+    <div class="shell__header-end">
+      <div class="user-menu">
+        <button
+          type="button"
+          class="user-menu__trigger"
+          aria-haspopup="menu"
+          [attr.aria-expanded]="menuOpen()"
+          aria-controls="user-menu-list"
+          (click)="toggleMenu()"
+        >
+          <dsb-avatar [name]="userName" size="sm" />
+          <span class="user-menu__name">{{ userName }}</span>
+          <svg
+            class="user-menu__chevron"
+            [class.user-menu__chevron--open]="menuOpen()"
+            viewBox="0 0 10 6"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+
+        @if (menuOpen()) {
+          <ul id="user-menu-list" class="user-menu__list" role="menu" aria-label="User menu">
+            <li role="none">
+              <button type="button" role="menuitem" class="user-menu__item" (click)="openProfile()">My Profile</button>
+            </li>
+            <li role="none">
+              <button type="button" role="menuitem" class="user-menu__item" (click)="signOut()">Sign Out</button>
+            </li>
+          </ul>
+        }
+      </div>
+    </div>
+  </div>
+
+  <main class="shell__main">
+    <div class="shell__grid">
+      <router-outlet />
+    </div>
+  </main>
+
+  <dsb-footer
+    [brandName]="brandName"
+    logoHref="/dashboard"
+    tagline="Infrastructure monitoring and team management."
+    [columns]="footerColumns"
+    [copyright]="copyright"
+    [legalLinks]="legalLinks"
+  />
+</div>

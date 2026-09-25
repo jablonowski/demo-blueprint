@@ -1,0 +1,29 @@
+/* Tokens are loaded from @jablonowski/dsb-tokens/css via angular.json. */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: var(--ds-decisions-font-size-md);
+  line-height: var(--ds-decisions-font-line-height-normal);
+  color: var(--ds-decisions-color-text-body);
+  background: var(--ds-decisions-color-surface-hover);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}

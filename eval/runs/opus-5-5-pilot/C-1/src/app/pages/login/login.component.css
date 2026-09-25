@@ -1,0 +1,51 @@
+.login-header {
+  margin-bottom: var(--ds-decisions-space-4xl);
+}
+
+.login-title {
+  margin: 0 0 var(--ds-decisions-space-sm);
+  font-size: var(--ds-decisions-font-size-3xl);
+  font-weight: var(--ds-decisions-font-weight-semibold);
+  letter-spacing: var(--ds-decisions-font-tracking-heading);
+  line-height: var(--ds-decisions-font-line-height-tight);
+  color: var(--ds-decisions-color-text-primary);
+}
+
+.login-subtitle {
+  margin: 0;
+  font-size: var(--ds-decisions-font-size-md);
+  color: var(--ds-decisions-color-text-muted);
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-decisions-space-2xl);
+}
+
+.login-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ds-decisions-space-lg);
+}
+
+.login-link {
+  font-size: var(--ds-decisions-font-size-md);
+  font-weight: var(--ds-decisions-font-weight-medium);
+  color: var(--ds-decisions-color-text-primary);
+  text-decoration: underline;
+  border-radius: var(--ds-decisions-border-radius-xs);
+}
+
+.login-link:focus-visible {
+  outline: none;
+  box-shadow: var(--ds-decisions-shadow-focus);
+}
+
+.login-signup {
+  margin: 0;
+  text-align: center;
+  font-size: var(--ds-decisions-font-size-md);
+  color: var(--ds-decisions-color-text-muted);
+}

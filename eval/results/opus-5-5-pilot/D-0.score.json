@@ -1,0 +1,362 @@
+{
+  "arm": "D",
+  "run": 0,
+  "scoredAt": "2026-09-24T17:09:20Z",
+  "model": "claude-opus-5-5",
+  "isolation": "session",
+  "s0Sha": "a8b26e1f589b",
+  "overlaySha": "f1c1277bd1e5",
+  "covered": {
+    "slotsUsed": 13,
+    "slotsOf": 13,
+    "reimplemented": 0,
+    "absent": 0,
+    "hadLibrary": true,
+    "falsifierTriggered": false,
+    "hallucinatedApi": 0,
+    "hallucinatedProps": 0,
+    "hallucinatedImports": 0
+  },
+  "gap": {
+    "rawValues": 0,
+    "chromatic": 0,
+    "dimensional": 0,
+    "declaredLocalTokens": 2,
+    "breakpoints": 0,
+    "tierCrossings": 0,
+    "tier1": 0,
+    "tier3": 0
+  },
+  "conformance": {
+    "authored": 2,
+    "matched": 0,
+    "divergent": 0,
+    "novel": 2,
+    "rate": 0,
+    "colour": {
+      "authored": 0,
+      "matched": 0,
+      "divergent": 0,
+      "novel": 0,
+      "rate": null
+    },
+    "length": {
+      "authored": 2,
+      "matched": 0,
+      "divergent": 0,
+      "novel": 2,
+      "rate": 0
+    },
+    "byOrigin": {
+      "declared": {
+        "matched": 0,
+        "divergent": 0,
+        "novel": 2
+      },
+      "scattered": {
+        "matched": 0,
+        "divergent": 0,
+        "novel": 0
+      }
+    },
+    "reference": "@jablonowski/dsb-tokens@1.0.10",
+    "tolerances": {
+      "colour": 24,
+      "length": 2
+    }
+  },
+  "tokens": {
+    "decisionsUsed": 61,
+    "imports": [
+      "@jablonowski/dsb-tokens/css"
+    ],
+    "importedPublicSurface": true
+  },
+  "checks": {
+    "applicable": true,
+    "passed": 7,
+    "failed": 0,
+    "na": 1,
+    "of": 8
+  },
+  "a11y": {
+    "total": 0,
+    "critical": 0,
+    "serious": 0,
+    "moderate": 0,
+    "minor": 0
+  },
+  "build": {
+    "ok": true,
+    "durationMs": 1355,
+    "bundle": "345.47 kB"
+  },
+  "cost": {
+    "inputTokensTotal": 3202506,
+    "outputTokens": 44255,
+    "usd": 2.4092548000000003,
+    "durationMs": 419047,
+    "turns": 63,
+    "permissionDenials": []
+  },
+  "detail": {
+    "slots": [
+      {
+        "id": 1,
+        "slot": "login — username field",
+        "selector": "dsb-input",
+        "verdict": "used"
+      },
+      {
+        "id": 2,
+        "slot": "login — password field",
+        "selector": "dsb-input",
+        "verdict": "used"
+      },
+      {
+        "id": 3,
+        "slot": "login — remember me",
+        "selector": "dsb-checkbox",
+        "verdict": "used"
+      },
+      {
+        "id": 4,
+        "slot": "login — submit",
+        "selector": "dsb-button",
+        "verdict": "used"
+      },
+      {
+        "id": 5,
+        "slot": "shell — header",
+        "selector": "dsb-header",
+        "verdict": "used"
+      },
+      {
+        "id": 6,
+        "slot": "shell — footer",
+        "selector": "dsb-footer",
+        "verdict": "used"
+      },
+      {
+        "id": 7,
+        "slot": "shell — profile avatar",
+        "selector": "dsb-avatar",
+        "verdict": "used"
+      },
+      {
+        "id": 8,
+        "slot": "users — page action",
+        "selector": "dsb-button",
+        "verdict": "used"
+      },
+      {
+        "id": 9,
+        "slot": "users — the table",
+        "selector": "dsb-table",
+        "verdict": "used"
+      },
+      {
+        "id": 10,
+        "slot": "users — avatar cell",
+        "selector": "dsb-avatar",
+        "verdict": "used"
+      },
+      {
+        "id": 11,
+        "slot": "users — role/status badge",
+        "selector": "dsb-tag",
+        "verdict": "used"
+      },
+      {
+        "id": 12,
+        "slot": "dialogs — all four",
+        "selector": "dsb-modal",
+        "verdict": "used"
+      },
+      {
+        "id": 13,
+        "slot": "edit/invite — role selector",
+        "selector": "dsb-dropdown",
+        "verdict": "used",
+        "defensible": true
+      }
+    ],
+    "rawValues": {
+      "chromatic": [],
+      "dimensional": [],
+      "declared": [
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 3,
+          "value": "160px"
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 4,
+          "value": "220px"
+        }
+      ],
+      "breakpoints": []
+    },
+    "tiers": {
+      "tier1": [],
+      "tier3": [],
+      "decisions": [
+        "--ds-decisions-border-radius-2xl",
+        "--ds-decisions-border-radius-lg",
+        "--ds-decisions-border-radius-md",
+        "--ds-decisions-border-radius-sm",
+        "--ds-decisions-border-radius-xl",
+        "--ds-decisions-border-radius-xs",
+        "--ds-decisions-border-width-hairline",
+        "--ds-decisions-color-action-ghost-background",
+        "--ds-decisions-color-action-ghost-background-hover",
+        "--ds-decisions-color-action-ghost-text",
+        "--ds-decisions-color-action-ghost-text-hover",
+        "--ds-decisions-color-border-hairline",
+        "--ds-decisions-color-border-subtle",
+        "--ds-decisions-color-surface-base",
+        "--ds-decisions-color-surface-emphasis",
+        "--ds-decisions-color-surface-hover",
+        "--ds-decisions-color-surface-subtle",
+        "--ds-decisions-color-text-disabled",
+        "--ds-decisions-color-text-inverse",
+        "--ds-decisions-color-text-muted",
+        "--ds-decisions-color-text-primary",
+        "--ds-decisions-color-text-subtle",
+        "--ds-decisions-font-line-height-relaxed",
+        "--ds-decisions-font-line-height-tight",
+        "--ds-decisions-font-size-2xs",
+        "--ds-decisions-font-size-3xl",
+        "--ds-decisions-font-size-lg",
+        "--ds-decisions-font-size-md",
+        "--ds-decisions-font-size-sm",
+        "--ds-decisions-font-size-xl",
+        "--ds-decisions-font-size-xs",
+        "--ds-decisions-font-tracking-caps",
+        "--ds-decisions-font-tracking-heading",
+        "--ds-decisions-font-weight-medium",
+        "--ds-decisions-font-weight-semibold",
+        "--ds-decisions-layout-width-2xs",
+        "--ds-decisions-layout-width-3xl",
+        "--ds-decisions-layout-width-md",
+        "--ds-decisions-layout-width-xs",
+        "--ds-decisions-motion-duration-base",
+        "--ds-decisions-motion-duration-fast",
+        "--ds-decisions-motion-duration-slow",
+        "--ds-decisions-motion-easing-standard",
+        "--ds-decisions-shadow-dropdown",
+        "--ds-decisions-shadow-focus",
+        "--ds-decisions-size-bar-md",
+        "--ds-decisions-size-glyph-3xs",
+        "--ds-decisions-size-glyph-sm",
+        "--ds-decisions-space-2xl",
+        "--ds-decisions-space-2xs",
+        "--ds-decisions-space-3xl",
+        "--ds-decisions-space-3xs",
+        "--ds-decisions-space-4xl",
+        "--ds-decisions-space-4xs",
+        "--ds-decisions-space-5xl",
+        "--ds-decisions-space-lg",
+        "--ds-decisions-space-md",
+        "--ds-decisions-space-sm",
+        "--ds-decisions-space-xl",
+        "--ds-decisions-space-xs",
+        "--ds-decisions-z-index-dropdown"
+      ]
+    },
+    "hallucinations": {
+      "unknownProps": [],
+      "unknownImports": []
+    },
+    "checks": [
+      {
+        "id": "9.1",
+        "what": "import names carry no Dsb prefix",
+        "verdict": "pass"
+      },
+      {
+        "id": "9.2",
+        "what": "dsb-column uses #cell and let-row=\"row\"",
+        "verdict": "pass"
+      },
+      {
+        "id": "9.3",
+        "what": "nothing is projected into dsb-header",
+        "verdict": "pass"
+      },
+      {
+        "id": "9.4",
+        "what": "FooterColumn uses heading, not title",
+        "verdict": "pass"
+      },
+      {
+        "id": "9.5",
+        "what": "no dsb-modal uses both the title input and the [modal-title] slot",
+        "verdict": "pass"
+      },
+      {
+        "id": "9.6",
+        "what": "a split modal footer sets flex:1 on the projected element",
+        "verdict": "na",
+        "detail": [
+          "no split footer"
+        ]
+      },
+      {
+        "id": "9.7",
+        "what": "the right-edge profile menu avoids dsb-dropdown",
+        "verdict": "pass"
+      },
+      {
+        "id": "standalone",
+        "what": "every library component used is in the component imports array",
+        "verdict": "pass"
+      }
+    ],
+    "conformance": {
+      "matched": [],
+      "divergent": [],
+      "novel": [
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 3,
+          "value": "160px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-layout-options-180",
+            "value": "180px",
+            "distance": 20
+          }
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 4,
+          "value": "220px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-layout-options-200",
+            "value": "200px",
+            "distance": 20
+          }
+        }
+      ]
+    },
+    "a11yPages": [
+      {
+        "route": "/login",
+        "violations": []
+      },
+      {
+        "route": "/dashboard",
+        "violations": []
+      },
+      {
+        "route": "/users",
+        "violations": []
+      }
+    ]
+  }
+}

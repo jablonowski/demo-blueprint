@@ -1,0 +1,186 @@
+<div class="page-header">
+  <h1>Team Members</h1>
+  <button type="button" class="btn btn-primary" (click)="openInvite()">Invite Member</button>
+</div>
+
+<div class="card table-card">
+  <table class="table">
+    <thead>
+      <tr>
+        <th class="col-avatar">Avatar</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Status</th>
+        <th>Joined</th>
+        <th class="col-actions">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (user of users(); track user.id) {
+        <tr>
+          <td class="col-avatar">
+            <span class="avatar">
+              @if (user.avatar && !brokenAvatars().has(user.id)) {
+                <img [src]="user.avatar" [alt]="user.name" (error)="onAvatarError(user.id)" />
+              } @else {
+                {{ initials(user.name) }}
+              }
+            </span>
+          </td>
+          <td class="cell-name">{{ user.name }}</td>
+          <td class="cell-muted">{{ user.email }}</td>
+          <td><span class="tag" [class]="roleTag[user.role]">{{ user.role }}</span></td>
+          <td><span class="tag" [class]="statusTag[user.status]">{{ user.status }}</span></td>
+          <td class="cell-muted">{{ user.joinedDate | date: 'MMM d, y' }}</td>
+          <td class="col-actions">
+            <div class="actions">
+              <button type="button" class="btn btn-ghost btn-sm" (click)="openDetails(user)">Details</button>
+              <button type="button" class="btn btn-secondary btn-sm" (click)="openEdit(user)">Edit</button>
+              <button type="button" class="btn btn-danger btn-sm" (click)="openDelete(user)">Delete</button>
+            </div>
+          </td>
+        </tr>
+      } @empty {
+        <tr>
+          <td colspan="7" class="empty">{{ loading() ? 'Loading members…' : 'No team members yet.' }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
+
+<ng-template #userRow let-user>
+  <div class="user-row">
+    <span class="avatar avatar-lg">{{ initials(user.name) }}</span>
+    <div class="user-row-text">
+      <span class="user-row-name">{{ user.name }}</span>
+      <span class="user-row-since">Member since {{ user.joinedDate | date: 'MMMM y' }}</span>
+    </div>
+  </div>
+</ng-template>
+
+@if (dialog() === 'delete' && selected(); as user) {
+  <app-modal title="Confirm Deletion" size="sm" (closed)="close()">
+    <p class="confirm-text">
+      Are you sure you want to remove <strong>{{ user.name }}</strong>? This action cannot be undone.
+    </p>
+    <div modal-footer class="footer-end">
+      <button type="button" class="btn btn-secondary" (click)="close()">Cancel</button>
+      <button type="button" class="btn btn-danger" [disabled]="saving()" (click)="confirmDelete()">Delete</button>
+    </div>
+  </app-modal>
+}
+
+@if (dialog() === 'details' && selected(); as user) {
+  <app-modal (closed)="close()">
+    <div modal-header class="custom-header">
+      <h2>Member Details</h2>
+      <span class="tag tag-default">Read only</span>
+    </div>
+
+    <div class="dialog-body">
+      <ng-container *ngTemplateOutlet="userRow; context: { $implicit: user }" />
+
+      <div class="field-row">
+        <div class="field">
+          <span class="field-label muted">First name</span>
+          <div class="input readonly">{{ user.name.split(' ')[0] }}</div>
+        </div>
+        <div class="field">
+          <span class="field-label muted">Last name</span>
+          <div class="input readonly">{{ user.name.split(' ').slice(1).join(' ') }}</div>
+        </div>
+      </div>
+      <div class="field">
+        <span class="field-label muted">Email address</span>
+        <div class="input readonly">{{ user.email }}</div>
+      </div>
+      <div class="field">
+        <span class="field-label muted">Role</span>
+        <div class="input readonly">{{ user.role }}</div>
+      </div>
+      <div class="status-row">
+        <span class="field-label muted">Status</span>
+        <span class="tag" [class]="statusTag[user.status]">{{ user.status }}</span>
+      </div>
+    </div>
+
+    <div modal-footer class="footer-split">
+      <span class="footer-note">To make changes, request Admin access.</span>
+      <button type="button" class="btn btn-secondary" (click)="close()">Close</button>
+    </div>
+  </app-modal>
+}
+
+@if (dialog() === 'edit' && selected(); as user) {
+  <app-modal title="Edit Member" [closeOnBackdrop]="false" (closed)="close()">
+    <form id="edit-form" class="dialog-body" [formGroup]="editForm" (ngSubmit)="saveEdit()" novalidate>
+      <ng-container *ngTemplateOutlet="userRow; context: { $implicit: user }" />
+      <ng-container *ngTemplateOutlet="memberFields; context: { $implicit: editForm, prefix: 'edit' }" />
+      <div class="status-row">
+        <span class="field-label muted">Status</span>
+        <span class="tag" [class]="statusTag[user.status]">{{ user.status }}</span>
+      </div>
+    </form>
+
+    <div modal-footer class="footer-split">
+      <button type="button" class="btn btn-danger-outline" (click)="editToDelete()">Delete user</button>
+      <div class="footer-end">
+        <button type="button" class="btn btn-secondary" (click)="close()">Cancel</button>
+        <button type="submit" form="edit-form" class="btn btn-primary" [disabled]="saving()">Save changes</button>
+      </div>
+    </div>
+  </app-modal>
+}
+
+@if (dialog() === 'invite') {
+  <app-modal title="Invite Member" [closeOnBackdrop]="false" (closed)="close()">
+    <form id="invite-form" class="dialog-body" [formGroup]="inviteForm" (ngSubmit)="sendInvite()" novalidate>
+      <ng-container *ngTemplateOutlet="memberFields; context: { $implicit: inviteForm, prefix: 'invite' }" />
+    </form>
+
+    <div modal-footer class="footer-end">
+      <button type="button" class="btn btn-secondary" (click)="close()">Cancel</button>
+      <button type="submit" form="invite-form" class="btn btn-primary" [disabled]="saving()">Send Invite</button>
+    </div>
+  </app-modal>
+}
+
+<ng-template #memberFields let-form let-prefix="prefix">
+  <ng-container [formGroup]="form">
+    <div class="field-row">
+      <div class="field">
+        <label class="field-label" [for]="prefix + '-first'">First name</label>
+        <input class="input" [id]="prefix + '-first'" formControlName="firstName" placeholder="First name"
+               [class.invalid]="invalid(form, 'firstName')" />
+        @if (invalid(form, 'firstName')) { <span class="field-error">First name is required</span> }
+      </div>
+      <div class="field">
+        <label class="field-label" [for]="prefix + '-last'">Last name</label>
+        <input class="input" [id]="prefix + '-last'" formControlName="lastName" placeholder="Last name"
+               [class.invalid]="invalid(form, 'lastName')" />
+        @if (invalid(form, 'lastName')) { <span class="field-error">Last name is required</span> }
+      </div>
+    </div>
+    <div class="field">
+      <label class="field-label" [for]="prefix + '-email'">Email address</label>
+      <input class="input" type="email" [id]="prefix + '-email'" formControlName="email" placeholder="name@example.com"
+             [class.invalid]="invalid(form, 'email')" />
+      @if (invalid(form, 'email')) {
+        <span class="field-error">{{ form.controls.email.hasError('required') ? 'Email address is required' : 'Enter a valid email address' }}</span>
+      }
+    </div>
+    <div class="field">
+      <label class="field-label" [for]="prefix + '-role'">Role</label>
+      <select class="input" [id]="prefix + '-role'" formControlName="role"
+              [class.placeholder]="!form.controls.role.value" [class.invalid]="invalid(form, 'role')">
+        <option value="" disabled>Select role…</option>
+        @for (role of roles; track role) {
+          <option [value]="role">{{ role }}</option>
+        }
+      </select>
+      @if (invalid(form, 'role')) { <span class="field-error">Role is required</span> }
+    </div>
+  </ng-container>
+</ng-template>

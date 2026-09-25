@@ -1,0 +1,39 @@
+<main class="auth-shell">
+  <section class="auth-card">
+    <header class="auth-heading">
+      <h1 class="auth-title">Welcome back</h1>
+      <p class="auth-subtitle">Sign in to your account to continue</p>
+    </header>
+
+    <form class="auth-form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <dsb-input
+        formControlName="username"
+        label="Username"
+        placeholder="Enter your username"
+        [hasError]="showError('username')"
+        errorMessage="Username is required"
+      />
+
+      <dsb-input
+        formControlName="password"
+        type="password"
+        label="Password"
+        placeholder="Enter your password"
+        [hasError]="showError('password') || invalidCredentials()"
+        [errorMessage]="invalidCredentials() ? 'Invalid username or password' : 'Password is required'"
+      />
+
+      <div class="auth-row">
+        <dsb-checkbox formControlName="remember" label="Remember me" />
+        <a class="auth-link" href="#" (click)="$event.preventDefault()">Forgot password?</a>
+      </div>
+
+      <dsb-button type="submit" variant="primary" [fullWidth]="true">Sign In</dsb-button>
+    </form>
+
+    <p class="auth-signup">
+      Don't have an account?
+      <a class="auth-link" href="#" (click)="$event.preventDefault()">Sign up</a>
+    </p>
+  </section>
+</main>

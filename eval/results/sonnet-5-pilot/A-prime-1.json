@@ -1,0 +1,113 @@
+{
+  "arm": "A-prime",
+  "run": 1,
+  "model": "claude-sonnet-5",
+  "cli": "2.1.281 (Claude Code)",
+  "isolation": "session",
+  "started": "2026-09-24T20:29:35Z",
+  "overlaySha": "9eeb04e32b97",
+  "s0Sha": "c25d3e960f47",
+  "promptBytes": 15297,
+  "runDir": "/tmp/dsb-eval/sonnet-5/A-prime-1",
+  "figma": {
+    "channel": "cached",
+    "fileKey": "iJ92LuFOsPjO6avZ2anbwO",
+    "recordedAt": "2026-09-24T19:49:36Z",
+    "calls": 3,
+    "errors": 0,
+    "nodes": [
+      "22-11104",
+      "22:11448",
+      "22:11492"
+    ],
+    "ok": true
+  },
+  "inputTokensTotal": 0,
+  "outputTokens": 0,
+  "result": {
+    "duration_api_ms": 346391,
+    "stop_reason": "stop_sequence",
+    "session_id": "75d45722-877c-48cc-ada7-02d910421d75",
+    "total_cost_usd": 0.7937713,
+    "usage": {
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "input_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "output_tokens": 0,
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "",
+      "iterations": [],
+      "speed": "standard"
+    },
+    "modelUsage": {
+      "claude-sonnet-5": {
+        "inputTokens": 34,
+        "outputTokens": 38435,
+        "cacheReadInputTokens": 595344,
+        "cacheCreationInputTokens": 94596,
+        "webSearchRequests": 0,
+        "costUSD": 0.7937713,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 64000,
+        "thinkingTokens": 14145,
+        "canonicalModel": "claude-sonnet-5",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "api_error",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "origin": {
+      "kind": "task-notification"
+    },
+    "subagent_stats": {
+      "spawned": 1,
+      "requested": {
+        "background": 1,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 1,
+      "max_depth": 1,
+      "spawned_by_subagents": 0,
+      "completed": 1,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {
+        "general-purpose": 1
+      }
+    },
+    "is_error": true,
+    "num_turns": 1,
+    "subtype": "success",
+    "api_error_status": 429,
+    "result": "You've hit your session limit · resets 12am (Europe/Warsaw)",
+    "type": "result",
+    "duration_ms": 390,
+    "uuid": "e4f5fc5c-b8e7-4efa-a658-44097aa2619a",
+    "queued_turn_count": 0,
+    "result_index": 1
+  }
+}

@@ -1,0 +1,150 @@
+<div class="toolbar">
+  <h1 class="page-title">Team Members</h1>
+  <button type="button" class="btn btn-primary" (click)="openInvite()">+ Invite Member</button>
+</div>
+
+<div class="card table-card">
+  <div class="table-scroll">
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="col-avatar"><span class="sr-only">Avatar</span></th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Status</th>
+          <th>Joined</th>
+          <th class="col-actions"><span class="sr-only">Actions</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        @if (loading()) {
+          <tr><td class="empty" colspan="7">Loading members…</td></tr>
+        } @else {
+          @for (u of list(); track u.id) {
+            <tr>
+              <td class="col-avatar"><app-avatar [name]="u.name" [src]="u.avatar" /></td>
+              <td class="cell-name">{{ u.name }}</td>
+              <td class="cell-muted">{{ u.email }}</td>
+              <td><span class="badge" [class]="roleTone[u.role]">{{ u.role }}</span></td>
+              <td><span class="badge" [class]="statusTone[u.status]">{{ u.status }}</span></td>
+              <td>{{ u.joinedDate | date: 'MMM y' }}</td>
+              <td class="col-actions">
+                <div class="actions">
+                  <button type="button" class="btn btn-ghost" (click)="openDetails(u)">Details</button>
+                  <button type="button" class="btn btn-secondary" (click)="openEdit(u)">Edit</button>
+                  <button type="button" class="btn btn-danger-outline" (click)="openDelete(u)">Delete</button>
+                </div>
+              </td>
+            </tr>
+          } @empty {
+            <tr><td class="empty" colspan="7">No team members yet.</td></tr>
+          }
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Shared user row for the details and edit dialogs -->
+<ng-template #userRow let-u>
+  <div class="user-row">
+    <app-avatar [name]="u.name" size="md" />
+    <div class="user-info">
+      <span class="user-name">{{ u.name }}</span>
+      <span class="user-since">Member since {{ u.joinedDate | date: 'MMMM y' }}</span>
+    </div>
+  </div>
+</ng-template>
+
+@let user = selected();
+
+@if (dialog() === 'details' && user) {
+  <app-modal [splitFooter]="true" (closed)="close()">
+    <div modal-header class="details-header">
+      <h2 class="modal-title">Member Details</h2>
+      <span class="badge badge-neutral">Read only</span>
+    </div>
+
+    <ng-container *ngTemplateOutlet="userRow; context: { $implicit: user }" />
+
+    <div class="field-row">
+      <div class="field field-readonly">
+        <span class="field-label">First name</span>
+        <div class="readonly-box" aria-disabled="true">{{ firstName(user) }}</div>
+      </div>
+      <div class="field field-readonly">
+        <span class="field-label">Last name</span>
+        <div class="readonly-box" aria-disabled="true">{{ lastName(user) || '—' }}</div>
+      </div>
+    </div>
+    <div class="field field-readonly">
+      <span class="field-label">Email address</span>
+      <div class="readonly-box" aria-disabled="true">{{ user.email }}</div>
+    </div>
+    <div class="field field-readonly">
+      <span class="field-label">Role</span>
+      <div class="readonly-box" aria-disabled="true">{{ user.role }}</div>
+    </div>
+    <div class="status-row">
+      <span class="field-label">Status</span>
+      <span class="badge" [class]="statusTone[user.status]">{{ user.status }}</span>
+    </div>
+
+    <ng-container modal-footer>
+      <span class="footer-note">To make changes, request Admin access.</span>
+      <button type="button" class="btn btn-secondary" (click)="close()">Close</button>
+    </ng-container>
+  </app-modal>
+}
+
+@if (dialog() === 'edit' && user) {
+  <app-modal title="Edit Member" [splitFooter]="true" (closed)="close()">
+    <form id="edit-form" class="form" [formGroup]="editForm" (ngSubmit)="save()" novalidate>
+      <ng-container *ngTemplateOutlet="userRow; context: { $implicit: user }" />
+      <app-member-fields [form]="editForm" idPrefix="edit" />
+      <div class="status-row">
+        <span class="field-label">Status</span>
+        <span class="badge" [class]="statusTone[user.status]">{{ user.status }}</span>
+      </div>
+    </form>
+
+    <ng-container modal-footer>
+      <button type="button" class="btn btn-danger-outline" [disabled]="busy()" (click)="editToDelete()">Delete user</button>
+      <div class="footer-actions">
+        <button type="button" class="btn btn-secondary" [disabled]="busy()" (click)="close()">Cancel</button>
+        <button type="submit" form="edit-form" class="btn btn-primary" [disabled]="busy()">
+          {{ busy() ? 'Saving…' : 'Save changes' }}
+        </button>
+      </div>
+    </ng-container>
+  </app-modal>
+}
+
+@if (dialog() === 'invite') {
+  <app-modal title="Invite Member" (closed)="close()">
+    <form id="invite-form" class="form" [formGroup]="inviteForm" (ngSubmit)="invite()" novalidate>
+      <app-member-fields [form]="inviteForm" idPrefix="invite" rolePlaceholder="Select role…" />
+    </form>
+
+    <ng-container modal-footer>
+      <button type="button" class="btn btn-secondary" [disabled]="busy()" (click)="close()">Cancel</button>
+      <button type="submit" form="invite-form" class="btn btn-primary" [disabled]="busy()">
+        {{ busy() ? 'Sending…' : 'Send Invite' }}
+      </button>
+    </ng-container>
+  </app-modal>
+}
+
+@if (dialog() === 'delete' && user) {
+  <app-modal title="Confirm Deletion" size="sm" (closed)="close()">
+    <p>Are you sure you want to remove <strong>{{ user.name }}</strong>? This action cannot be undone.</p>
+
+    <ng-container modal-footer>
+      <button type="button" class="btn btn-secondary" [disabled]="busy()" (click)="close()">Cancel</button>
+      <button type="button" class="btn btn-danger" [disabled]="busy()" (click)="confirmDelete()">
+        {{ busy() ? 'Deleting…' : 'Delete' }}
+      </button>
+    </ng-container>
+  </app-modal>
+}

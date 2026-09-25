@@ -1,0 +1,20 @@
+<div class="shell">
+  <div class="shell-header">
+    <dsb-header [brandName]="brand" [logoAlt]="brand" logoHref="/dashboard" [navItems]="navItems()" />
+    <div class="shell-header-rail">
+      <app-user-menu class="shell-user" [name]="userName" (signedOut)="signOut()" />
+    </div>
+  </div>
+
+  <main class="shell-main">
+    <router-outlet />
+  </main>
+
+  <dsb-footer
+    [brandName]="brand"
+    logoHref="/dashboard"
+    [columns]="footerColumns"
+    [copyright]="copyright"
+    [legalLinks]="legalLinks"
+  />
+</div>

@@ -1,0 +1,83 @@
+<header class="page-header">
+  <h1 class="page-header__title">System Overview</h1>
+  <p class="page-header__meta">Last updated: {{ lastUpdated | date: 'd MMMM y, HH:mm' }}</p>
+</header>
+
+<div class="dashboard">
+  @for (metric of metrics; track metric.title) {
+    <section class="card tile metric">
+      <h2 class="tile__label">{{ metric.title }}</h2>
+      <div class="metric__value-row">
+        <span class="metric__value">{{ metric.value }}</span>
+        @if (metric.trend) {
+          <app-badge [tone]="metric.trend.tone">{{ metric.trend.label }}</app-badge>
+        }
+      </div>
+      @if (metric.subLabel) {
+        <p class="metric__sub">{{ metric.subLabel }}</p>
+      }
+    </section>
+  }
+
+  <div class="dashboard__split">
+    <section class="card tile health">
+      <h2 class="tile__title">Service Health</h2>
+      <ul class="health__list">
+        @for (service of services; track service.name) {
+          <li class="health__row">
+            <span>{{ service.name }}</span>
+            <app-badge [tone]="service.online ? 'success' : 'danger'">
+              {{ service.online ? 'Online' : 'Offline' }}
+            </app-badge>
+          </li>
+        }
+      </ul>
+    </section>
+
+    <section class="card tile throughput">
+      <div class="tile__heading">
+        <h2 class="tile__title">Request Throughput</h2>
+        <p class="tile__caption">Requests per minute over the last 7 days</p>
+      </div>
+      <div class="chart" role="img" aria-label="Request throughput by day, Monday to Sunday">
+        @for (bar of throughput; track bar.day) {
+          <div class="chart__col">
+            <div class="chart__track">
+              <div class="chart__bar" [style.height.%]="bar.percent" [attr.title]="bar.requests + ' rpm'"></div>
+            </div>
+            <span class="chart__label">{{ bar.day }}</span>
+          </div>
+        }
+      </div>
+
+      <div class="summary">
+        <h2 class="tile__title">Data Summary</h2>
+        <dl class="summary__list">
+          @for (item of summary; track item.label) {
+            <div class="summary__item">
+              <dt>{{ item.label }}</dt>
+              <dd>{{ item.value }}</dd>
+            </div>
+          }
+        </dl>
+      </div>
+    </section>
+  </div>
+
+  <section class="card tile logs">
+    <div class="logs__header">
+      <h2 class="tile__title">System Logs</h2>
+      <app-badge tone="success">Live</app-badge>
+    </div>
+    <div class="terminal" #logViewport (scroll)="onLogScroll(logViewport)" role="log" aria-live="polite">
+      @for (line of logs(); track line.id) {
+        <div class="terminal__line">
+          <span class="terminal__time">{{ line.time | date: 'HH:mm:ss' }}</span>
+          <span class="terminal__level" [attr.data-level]="line.level">{{ line.level }}</span>
+          <span class="terminal__source">[{{ line.source }}]</span>
+          <span class="terminal__msg">{{ line.message }}</span>
+        </div>
+      }
+    </div>
+  </section>
+</div>

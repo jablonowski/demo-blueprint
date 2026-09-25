@@ -1,0 +1,123 @@
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: var(--space-6);
+  background: var(--color-bg-page);
+}
+
+.login-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  width: 100%;
+  max-width: var(--size-auth-card);
+  padding: var(--space-10);
+  background: var(--color-bg-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-auth);
+}
+
+.login-card__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1-5);
+}
+
+.login-card__title {
+  font-size: var(--text-4xl);
+  font-weight: var(--weight-semibold);
+  color: var(--color-fg);
+}
+
+.login-card__subtitle {
+  font-size: var(--text-md);
+  color: var(--color-fg-subtle);
+}
+
+.login-card__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.login-card__link {
+  font-size: var(--text-md);
+  font-weight: var(--weight-medium);
+  color: var(--color-fg);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.login-card__link--underline {
+  text-decoration: underline;
+}
+
+.login-card__divider {
+  width: 100%;
+  height: var(--border-width);
+  margin: 0;
+  border: 0;
+  background: var(--color-border);
+}
+
+.login-card__signup {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-1-5);
+  font-size: var(--text-md);
+  color: var(--color-fg-subtle);
+}
+
+.checkbox {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-md);
+  color: var(--color-fg);
+  cursor: pointer;
+
+  input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+.checkbox__box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--size-checkbox);
+  height: var(--size-checkbox);
+  border: var(--border-width-control) solid var(--color-border-control);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-surface);
+  transition: background var(--transition-fast), border-color var(--transition-fast);
+}
+
+.checkbox input:checked + .checkbox__box {
+  background: var(--color-fg);
+  border-color: var(--color-fg);
+
+  &::after {
+    content: '';
+    width: 30%;
+    height: 55%;
+    margin-top: -12%;
+    border: solid var(--color-fg-inverse);
+    border-width: 0 var(--border-width-control) var(--border-width-control) 0;
+    transform: rotate(45deg);
+  }
+}
+
+.checkbox input:focus-visible + .checkbox__box {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}

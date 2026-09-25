@@ -1,0 +1,37 @@
+.login {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.login__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1-5);
+}
+
+.login__title {
+  font-size: var(--text-4xl);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-tight);
+}
+
+.login__subtitle {
+  font-size: var(--text-base);
+  color: var(--color-text-muted);
+}
+
+.login__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: var(--text-base);
+}
+
+.login__signup {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-1-5);
+  font-size: var(--text-base);
+  color: var(--color-text-muted);
+}

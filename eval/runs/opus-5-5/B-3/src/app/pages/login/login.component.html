@@ -1,0 +1,37 @@
+<form class="login" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+  <header class="login-heading">
+    <h1 class="login-title">Welcome back</h1>
+    <p class="login-subtitle">Sign in to your account to continue</p>
+  </header>
+
+  <dsb-input
+    formControlName="username"
+    label="Username"
+    placeholder="Enter your username"
+    [hasError]="showError('username')"
+    errorMessage="Username is required"
+  />
+
+  <dsb-input
+    formControlName="password"
+    type="password"
+    label="Password"
+    placeholder="Enter your password"
+    [hasError]="showError('password') || invalidCredentials()"
+    [errorMessage]="invalidCredentials() ? 'Invalid username or password' : 'Password is required'"
+  />
+
+  <div class="login-row">
+    <dsb-checkbox label="Remember me" />
+    <a class="login-link login-link--underlined" href="#" (click)="$event.preventDefault()">Forgot password?</a>
+  </div>
+
+  <dsb-button type="submit" variant="primary" size="lg" [fullWidth]="true">Sign In</dsb-button>
+
+  <hr class="login-divider" />
+
+  <p class="login-signup">
+    Don't have an account?
+    <a class="login-link" href="#" (click)="$event.preventDefault()">Sign up</a>
+  </p>
+</form>

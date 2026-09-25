@@ -1,0 +1,2917 @@
+{
+  "arm": "A-prime",
+  "run": 1,
+  "scoredAt": "2026-09-24T17:09:19Z",
+  "model": "claude-opus-5-5",
+  "isolation": "session",
+  "s0Sha": "a8b26e1f589b",
+  "overlaySha": "9eeb04e32b97",
+  "covered": {
+    "slotsUsed": 0,
+    "slotsOf": 13,
+    "reimplemented": 13,
+    "absent": 0,
+    "hadLibrary": false,
+    "falsifierTriggered": null,
+    "hallucinatedApi": 0,
+    "hallucinatedProps": 0,
+    "hallucinatedImports": 0
+  },
+  "gap": {
+    "rawValues": 126,
+    "chromatic": 11,
+    "dimensional": 115,
+    "declaredLocalTokens": 27,
+    "breakpoints": 3,
+    "tierCrossings": 0,
+    "tier1": 0,
+    "tier3": 0
+  },
+  "conformance": {
+    "authored": 153,
+    "matched": 139,
+    "divergent": 7,
+    "novel": 7,
+    "rate": 0.908,
+    "colour": {
+      "authored": 25,
+      "matched": 16,
+      "divergent": 7,
+      "novel": 2,
+      "rate": 0.64
+    },
+    "length": {
+      "authored": 128,
+      "matched": 123,
+      "divergent": 0,
+      "novel": 5,
+      "rate": 0.961
+    },
+    "byOrigin": {
+      "declared": {
+        "matched": 25,
+        "divergent": 2,
+        "novel": 0
+      },
+      "scattered": {
+        "matched": 114,
+        "divergent": 5,
+        "novel": 7
+      }
+    },
+    "reference": "@jablonowski/dsb-tokens@1.0.10",
+    "tolerances": {
+      "colour": 24,
+      "length": 2
+    }
+  },
+  "tokens": {
+    "decisionsUsed": 0,
+    "imports": [],
+    "importedPublicSurface": false
+  },
+  "checks": {
+    "applicable": false,
+    "passed": 0,
+    "failed": 0,
+    "na": 8,
+    "of": 8
+  },
+  "a11y": {
+    "total": 2,
+    "critical": 0,
+    "serious": 2,
+    "moderate": 0,
+    "minor": 0
+  },
+  "build": {
+    "ok": true,
+    "durationMs": 1398,
+    "bundle": "323.11 kB"
+  },
+  "cost": {
+    "inputTokensTotal": 1183252,
+    "outputTokens": 38204,
+    "usd": 1.5147688,
+    "durationMs": 320886,
+    "turns": 34,
+    "permissionDenials": []
+  },
+  "detail": {
+    "slots": [
+      {
+        "id": 1,
+        "slot": "login — username field",
+        "selector": "dsb-input",
+        "verdict": "reimplemented"
+      },
+      {
+        "id": 2,
+        "slot": "login — password field",
+        "selector": "dsb-input",
+        "verdict": "reimplemented"
+      },
+      {
+        "id": 3,
+        "slot": "login — remember me",
+        "selector": "dsb-checkbox",
+        "verdict": "reimplemented"
+      },
+      {
+        "id": 4,
+        "slot": "login — submit",
+        "selector": "dsb-button",
+        "verdict": "reimplemented"
+      },
+      {
+        "id": 5,
+        "slot": "shell — header",
+        "selector": "dsb-header",
+        "verdict": "reimplemented"
+      },
+      {
+        "id": 6,
+        "slot": "shell — footer",
+        "selector": "dsb-footer",
+        "verdict": "reimplemented"
+      },
+      {
+        "id": 7,
+        "slot": "shell — profile avatar",
+        "selector": "dsb-avatar",
+        "verdict": "reimplemented"
+      },
+      {
+        "id": 8,
+        "slot": "users — page action",
+        "selector": "dsb-button",
+        "verdict": "reimplemented"
+      },
+      {
+        "id": 9,
+        "slot": "users — the table",
+        "selector": "dsb-table",
+        "verdict": "reimplemented"
+      },
+      {
+        "id": 10,
+        "slot": "users — avatar cell",
+        "selector": "dsb-avatar",
+        "verdict": "reimplemented"
+      },
+      {
+        "id": 11,
+        "slot": "users — role/status badge",
+        "selector": "dsb-tag",
+        "verdict": "reimplemented"
+      },
+      {
+        "id": 12,
+        "slot": "dialogs — all four",
+        "selector": "dsb-modal",
+        "verdict": "reimplemented"
+      },
+      {
+        "id": 13,
+        "slot": "edit/invite — role selector",
+        "selector": "dsb-dropdown",
+        "verdict": "reimplemented",
+        "defensible": true
+      }
+    ],
+    "rawValues": {
+      "chromatic": [
+        {
+          "file": "app/shared/modal/modal.component.css",
+          "line": 9,
+          "value": "rgba(0, 0, 0, .4)"
+        },
+        {
+          "file": "styles.css",
+          "line": 65,
+          "value": "#f0fdf4"
+        },
+        {
+          "file": "styles.css",
+          "line": 65,
+          "value": "#16a34a"
+        },
+        {
+          "file": "styles.css",
+          "line": 66,
+          "value": "#fefce8"
+        },
+        {
+          "file": "styles.css",
+          "line": 66,
+          "value": "#ca8a04"
+        },
+        {
+          "file": "styles.css",
+          "line": 67,
+          "value": "#fef2f2"
+        },
+        {
+          "file": "styles.css",
+          "line": 67,
+          "value": "#dc2626"
+        },
+        {
+          "file": "styles.css",
+          "line": 68,
+          "value": "#eff6ff"
+        },
+        {
+          "file": "styles.css",
+          "line": 68,
+          "value": "#2563eb"
+        },
+        {
+          "file": "styles.css",
+          "line": 69,
+          "value": "#f5f5f5"
+        },
+        {
+          "file": "styles.css",
+          "line": 69,
+          "value": "#555555"
+        }
+      ],
+      "dimensional": [
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 20,
+          "value": "1280px"
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 22,
+          "value": "24px"
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 26,
+          "value": "56px"
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 29,
+          "value": "32px"
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 35,
+          "value": "8px"
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 44,
+          "value": "28px"
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 45,
+          "value": "28px"
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 59,
+          "value": "4px"
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 63,
+          "value": "6px"
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 63,
+          "value": "12px"
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 85,
+          "value": "8px"
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 86,
+          "value": "4px"
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 86,
+          "value": "8px"
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 86,
+          "value": "4px"
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 86,
+          "value": "4px"
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 96,
+          "value": "2px"
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 96,
+          "value": "2px"
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 113,
+          "value": "4px"
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 115,
+          "value": "180px"
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 116,
+          "value": "4px"
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 127,
+          "value": "8px"
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 127,
+          "value": "12px"
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 141,
+          "value": "4px"
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 148,
+          "value": "32px"
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 154,
+          "value": "24px"
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 166,
+          "value": "48px"
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 167,
+          "value": "40px"
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 167,
+          "value": "32px"
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 173,
+          "value": "12px"
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 184,
+          "value": "120px"
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 185,
+          "value": "48px"
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 189,
+          "value": "12px"
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 193,
+          "value": "04em"
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 203,
+          "value": "8px"
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 219,
+          "value": "24px"
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 220,
+          "value": "16px"
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 220,
+          "value": "24px"
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 227,
+          "value": "16px"
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 230,
+          "value": "24px"
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 4,
+          "value": "24px"
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 10,
+          "value": "12px"
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 11,
+          "value": "20px"
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 20,
+          "value": "06em"
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 25,
+          "value": "8px"
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 30,
+          "value": "8px"
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 54,
+          "value": "12px"
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 55,
+          "value": "180px"
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 63,
+          "value": "8px"
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 97,
+          "value": "12px"
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 98,
+          "value": "10px"
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 121,
+          "value": "220px"
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 123,
+          "value": "12px"
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 123,
+          "value": "16px"
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 134,
+          "value": "12px"
+        },
+        {
+          "file": "app/pages/login/login.component.css",
+          "line": 6,
+          "value": "24px"
+        },
+        {
+          "file": "app/pages/login/login.component.css",
+          "line": 12,
+          "value": "400px"
+        },
+        {
+          "file": "app/pages/login/login.component.css",
+          "line": 13,
+          "value": "32px"
+        },
+        {
+          "file": "app/pages/login/login.component.css",
+          "line": 16,
+          "value": "24px"
+        },
+        {
+          "file": "app/pages/login/login.component.css",
+          "line": 22,
+          "value": "8px"
+        },
+        {
+          "file": "app/pages/login/login.component.css",
+          "line": 42,
+          "value": "16px"
+        },
+        {
+          "file": "app/pages/login/login.component.css",
+          "line": 49,
+          "value": "16px"
+        },
+        {
+          "file": "app/pages/login/login.component.css",
+          "line": 55,
+          "value": "8px"
+        },
+        {
+          "file": "app/pages/login/login.component.css",
+          "line": 62,
+          "value": "16px"
+        },
+        {
+          "file": "app/pages/login/login.component.css",
+          "line": 63,
+          "value": "16px"
+        },
+        {
+          "file": "app/pages/login/login.component.css",
+          "line": 73,
+          "value": "2px"
+        },
+        {
+          "file": "app/pages/users/dialogs/dialogs.css",
+          "line": 1,
+          "value": "20px"
+        },
+        {
+          "file": "app/pages/users/dialogs/dialogs.css",
+          "line": 12,
+          "value": "8px"
+        },
+        {
+          "file": "app/pages/users/dialogs/dialogs.css",
+          "line": 20,
+          "value": "12px"
+        },
+        {
+          "file": "app/pages/users/dialogs/dialogs.css",
+          "line": 24,
+          "value": "8px"
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 4,
+          "value": "24px"
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 11,
+          "value": "16px"
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 30,
+          "value": "12px"
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 30,
+          "value": "16px"
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 35,
+          "value": "06em"
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 43,
+          "value": "12px"
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 43,
+          "value": "16px"
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 53,
+          "value": "56px"
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 59,
+          "value": "32px"
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 59,
+          "value": "16px"
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 63,
+          "value": "8px"
+        },
+        {
+          "file": "app/shared/modal/modal.component.css",
+          "line": 8,
+          "value": "24px"
+        },
+        {
+          "file": "app/shared/modal/modal.component.css",
+          "line": 15,
+          "value": "560px"
+        },
+        {
+          "file": "app/shared/modal/modal.component.css",
+          "line": 16,
+          "value": "48px"
+        },
+        {
+          "file": "app/shared/modal/modal.component.css",
+          "line": 25,
+          "value": "400px"
+        },
+        {
+          "file": "app/shared/modal/modal.component.css",
+          "line": 31,
+          "value": "16px"
+        },
+        {
+          "file": "app/shared/modal/modal.component.css",
+          "line": 32,
+          "value": "20px"
+        },
+        {
+          "file": "app/shared/modal/modal.component.css",
+          "line": 32,
+          "value": "24px"
+        },
+        {
+          "file": "app/shared/modal/modal.component.css",
+          "line": 47,
+          "value": "28px"
+        },
+        {
+          "file": "app/shared/modal/modal.component.css",
+          "line": 48,
+          "value": "28px"
+        },
+        {
+          "file": "app/shared/modal/modal.component.css",
+          "line": 60,
+          "value": "24px"
+        },
+        {
+          "file": "app/shared/modal/modal.component.css",
+          "line": 68,
+          "value": "8px"
+        },
+        {
+          "file": "app/shared/modal/modal.component.css",
+          "line": 69,
+          "value": "16px"
+        },
+        {
+          "file": "app/shared/modal/modal.component.css",
+          "line": 69,
+          "value": "24px"
+        },
+        {
+          "file": "styles.css",
+          "line": 64,
+          "value": "2px"
+        },
+        {
+          "file": "styles.css",
+          "line": 64,
+          "value": "8px"
+        },
+        {
+          "file": "styles.css",
+          "line": 64,
+          "value": "4px"
+        },
+        {
+          "file": "styles.css",
+          "line": 64,
+          "value": "12px"
+        },
+        {
+          "file": "styles.css",
+          "line": 76,
+          "value": "8px"
+        },
+        {
+          "file": "styles.css",
+          "line": 77,
+          "value": "36px"
+        },
+        {
+          "file": "styles.css",
+          "line": 78,
+          "value": "16px"
+        },
+        {
+          "file": "styles.css",
+          "line": 91,
+          "value": "2px"
+        },
+        {
+          "file": "styles.css",
+          "line": 91,
+          "value": "2px"
+        },
+        {
+          "file": "styles.css",
+          "line": 92,
+          "value": "28px"
+        },
+        {
+          "file": "styles.css",
+          "line": 92,
+          "value": "10px"
+        },
+        {
+          "file": "styles.css",
+          "line": 119,
+          "value": "6px"
+        },
+        {
+          "file": "styles.css",
+          "line": 128,
+          "value": "36px"
+        },
+        {
+          "file": "styles.css",
+          "line": 129,
+          "value": "12px"
+        },
+        {
+          "file": "styles.css",
+          "line": 148,
+          "value": "16px"
+        },
+        {
+          "file": "app/pages/users/dialogs/member-form-fields.component.ts",
+          "line": 1,
+          "value": "16px"
+        },
+        {
+          "file": "app/pages/users/dialogs/member-summary.component.ts",
+          "line": 2,
+          "value": "12px"
+        },
+        {
+          "file": "app/pages/users/dialogs/member-summary.component.ts",
+          "line": 7,
+          "value": "48px"
+        },
+        {
+          "file": "app/pages/users/dialogs/member-summary.component.ts",
+          "line": 8,
+          "value": "48px"
+        },
+        {
+          "file": "app/pages/users/dialogs/member-summary.component.ts",
+          "line": 16,
+          "value": "2px"
+        },
+        {
+          "file": "app/shared/avatar/avatar.component.ts",
+          "line": 7,
+          "value": "32px"
+        },
+        {
+          "file": "app/shared/avatar/avatar.component.ts",
+          "line": 8,
+          "value": "32px"
+        }
+      ],
+      "declared": [
+        {
+          "file": "styles.css",
+          "line": 16,
+          "value": "#111111"
+        },
+        {
+          "file": "styles.css",
+          "line": 17,
+          "value": "#666666"
+        },
+        {
+          "file": "styles.css",
+          "line": 18,
+          "value": "#999999"
+        },
+        {
+          "file": "styles.css",
+          "line": 19,
+          "value": "#b3b3b3"
+        },
+        {
+          "file": "styles.css",
+          "line": 22,
+          "value": "#fafafa"
+        },
+        {
+          "file": "styles.css",
+          "line": 23,
+          "value": "#ffffff"
+        },
+        {
+          "file": "styles.css",
+          "line": 24,
+          "value": "#f5f5f5"
+        },
+        {
+          "file": "styles.css",
+          "line": 25,
+          "value": "#f0f0f0"
+        },
+        {
+          "file": "styles.css",
+          "line": 28,
+          "value": "#e5e5e5"
+        },
+        {
+          "file": "styles.css",
+          "line": 29,
+          "value": "#d4d4d4"
+        },
+        {
+          "file": "styles.css",
+          "line": 32,
+          "value": "#111111"
+        },
+        {
+          "file": "styles.css",
+          "line": 33,
+          "value": "#d93025"
+        },
+        {
+          "file": "styles.css",
+          "line": 36,
+          "value": "rgba(0, 0, 0, .08)"
+        },
+        {
+          "file": "styles.css",
+          "line": 37,
+          "value": "rgba(0, 0, 0, .14)"
+        },
+        {
+          "file": "styles.css",
+          "line": 5,
+          "value": "11px"
+        },
+        {
+          "file": "styles.css",
+          "line": 6,
+          "value": "12px"
+        },
+        {
+          "file": "styles.css",
+          "line": 7,
+          "value": "14px"
+        },
+        {
+          "file": "styles.css",
+          "line": 8,
+          "value": "16px"
+        },
+        {
+          "file": "styles.css",
+          "line": 9,
+          "value": "18px"
+        },
+        {
+          "file": "styles.css",
+          "line": 10,
+          "value": "24px"
+        },
+        {
+          "file": "styles.css",
+          "line": 36,
+          "value": "3px"
+        },
+        {
+          "file": "styles.css",
+          "line": 37,
+          "value": "8px"
+        },
+        {
+          "file": "styles.css",
+          "line": 37,
+          "value": "32px"
+        },
+        {
+          "file": "styles.css",
+          "line": 40,
+          "value": "4px"
+        },
+        {
+          "file": "styles.css",
+          "line": 41,
+          "value": "6px"
+        },
+        {
+          "file": "styles.css",
+          "line": 42,
+          "value": "8px"
+        },
+        {
+          "file": "styles.css",
+          "line": 43,
+          "value": "10px"
+        }
+      ],
+      "breakpoints": [
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "value": "768px"
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "value": "1024px"
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "value": "640px"
+        }
+      ]
+    },
+    "tiers": {
+      "tier1": [],
+      "tier3": [],
+      "decisions": []
+    },
+    "hallucinations": {
+      "unknownProps": [],
+      "unknownImports": []
+    },
+    "checks": [
+      {
+        "id": "9.1",
+        "what": "import names carry no Dsb prefix",
+        "verdict": "na",
+        "detail": [
+          "the arm had no component library"
+        ]
+      },
+      {
+        "id": "9.2",
+        "what": "dsb-column uses #cell and let-row=\"row\"",
+        "verdict": "na",
+        "detail": [
+          "the arm had no component library"
+        ]
+      },
+      {
+        "id": "9.3",
+        "what": "nothing is projected into dsb-header",
+        "verdict": "na",
+        "detail": [
+          "the arm had no component library"
+        ]
+      },
+      {
+        "id": "9.4",
+        "what": "FooterColumn uses heading, not title",
+        "verdict": "na",
+        "detail": [
+          "the arm had no component library"
+        ]
+      },
+      {
+        "id": "9.5",
+        "what": "no dsb-modal uses both the title input and the [modal-title] slot",
+        "verdict": "na",
+        "detail": [
+          "the arm had no component library"
+        ]
+      },
+      {
+        "id": "9.6",
+        "what": "a split modal footer sets flex:1 on the projected element",
+        "verdict": "na",
+        "detail": [
+          "the arm had no component library"
+        ]
+      },
+      {
+        "id": "9.7",
+        "what": "the right-edge profile menu avoids dsb-dropdown",
+        "verdict": "na",
+        "detail": [
+          "the arm had no component library"
+        ]
+      },
+      {
+        "id": "standalone",
+        "what": "every library component used is in the component imports array",
+        "verdict": "na",
+        "detail": [
+          "the arm had no component library"
+        ]
+      }
+    ],
+    "conformance": {
+      "matched": [
+        {
+          "file": "app/shared/modal/modal.component.css",
+          "line": 9,
+          "value": "rgba(0, 0, 0, .4)",
+          "origin": "scattered",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-color-options-black-a40",
+            "value": "rgba(0, 0, 0, 0.4)",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 67,
+          "value": "#fef2f2",
+          "origin": "scattered",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-color-options-red-50",
+            "value": "#fef2f2",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 69,
+          "value": "#f5f5f5",
+          "origin": "scattered",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-color-options-neutral-100",
+            "value": "#f5f5f5",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 69,
+          "value": "#555555",
+          "origin": "scattered",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-color-options-neutral-700",
+            "value": "#555555",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 22,
+          "value": "24px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-24",
+            "value": "24px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 26,
+          "value": "56px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-size-options-56",
+            "value": "56px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 29,
+          "value": "32px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-tracking-options-tight",
+            "value": "02em",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 35,
+          "value": "8px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-8",
+            "value": "8px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 44,
+          "value": "28px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-size-options-28",
+            "value": "28px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 45,
+          "value": "28px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-size-options-28",
+            "value": "28px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 59,
+          "value": "4px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-4",
+            "value": "4px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 63,
+          "value": "6px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-6",
+            "value": "6px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 63,
+          "value": "12px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-12",
+            "value": "12px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 85,
+          "value": "8px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-8",
+            "value": "8px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 86,
+          "value": "4px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-4",
+            "value": "4px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 86,
+          "value": "8px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-8",
+            "value": "8px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 86,
+          "value": "4px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-4",
+            "value": "4px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 86,
+          "value": "4px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-4",
+            "value": "4px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 96,
+          "value": "2px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-width-options-2",
+            "value": "2px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 96,
+          "value": "2px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-width-options-2",
+            "value": "2px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 113,
+          "value": "4px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-4",
+            "value": "4px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 115,
+          "value": "180px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-layout-options-180",
+            "value": "180px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 116,
+          "value": "4px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-4",
+            "value": "4px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 127,
+          "value": "8px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-8",
+            "value": "8px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 127,
+          "value": "12px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-12",
+            "value": "12px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 141,
+          "value": "4px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-4",
+            "value": "4px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 148,
+          "value": "32px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-tracking-options-tight",
+            "value": "02em",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 154,
+          "value": "24px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-24",
+            "value": "24px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 166,
+          "value": "48px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-48",
+            "value": "48px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 167,
+          "value": "40px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-40",
+            "value": "40px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 167,
+          "value": "32px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-tracking-options-tight",
+            "value": "02em",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 173,
+          "value": "12px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-12",
+            "value": "12px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 184,
+          "value": "120px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-layout-options-120",
+            "value": "120px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 185,
+          "value": "48px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-48",
+            "value": "48px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 189,
+          "value": "12px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-12",
+            "value": "12px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 193,
+          "value": "04em",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-64",
+            "value": "64px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 203,
+          "value": "8px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-8",
+            "value": "8px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 219,
+          "value": "24px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-24",
+            "value": "24px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 220,
+          "value": "16px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-16",
+            "value": "16px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 220,
+          "value": "24px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-24",
+            "value": "24px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 227,
+          "value": "16px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-16",
+            "value": "16px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 230,
+          "value": "24px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-24",
+            "value": "24px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 4,
+          "value": "24px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-24",
+            "value": "24px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 10,
+          "value": "12px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-12",
+            "value": "12px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 11,
+          "value": "20px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-20",
+            "value": "20px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 25,
+          "value": "8px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-8",
+            "value": "8px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 30,
+          "value": "8px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-8",
+            "value": "8px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 54,
+          "value": "12px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-12",
+            "value": "12px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 55,
+          "value": "180px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-layout-options-180",
+            "value": "180px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 63,
+          "value": "8px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-8",
+            "value": "8px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 97,
+          "value": "12px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-12",
+            "value": "12px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 98,
+          "value": "10px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-10",
+            "value": "10px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 123,
+          "value": "12px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-12",
+            "value": "12px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 123,
+          "value": "16px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-16",
+            "value": "16px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 134,
+          "value": "12px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-12",
+            "value": "12px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/login/login.component.css",
+          "line": 6,
+          "value": "24px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-24",
+            "value": "24px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/login/login.component.css",
+          "line": 12,
+          "value": "400px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-layout-options-400",
+            "value": "400px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/login/login.component.css",
+          "line": 13,
+          "value": "32px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-tracking-options-tight",
+            "value": "02em",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/login/login.component.css",
+          "line": 16,
+          "value": "24px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-24",
+            "value": "24px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/login/login.component.css",
+          "line": 22,
+          "value": "8px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-8",
+            "value": "8px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/login/login.component.css",
+          "line": 42,
+          "value": "16px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-16",
+            "value": "16px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/login/login.component.css",
+          "line": 49,
+          "value": "16px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-16",
+            "value": "16px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/login/login.component.css",
+          "line": 55,
+          "value": "8px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-8",
+            "value": "8px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/login/login.component.css",
+          "line": 62,
+          "value": "16px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-16",
+            "value": "16px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/login/login.component.css",
+          "line": 63,
+          "value": "16px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-16",
+            "value": "16px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/login/login.component.css",
+          "line": 73,
+          "value": "2px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-width-options-2",
+            "value": "2px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/users/dialogs/dialogs.css",
+          "line": 1,
+          "value": "20px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-20",
+            "value": "20px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/users/dialogs/dialogs.css",
+          "line": 12,
+          "value": "8px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-8",
+            "value": "8px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/users/dialogs/dialogs.css",
+          "line": 20,
+          "value": "12px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-12",
+            "value": "12px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/users/dialogs/dialogs.css",
+          "line": 24,
+          "value": "8px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-8",
+            "value": "8px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 4,
+          "value": "24px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-24",
+            "value": "24px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 11,
+          "value": "16px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-16",
+            "value": "16px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 30,
+          "value": "12px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-12",
+            "value": "12px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 30,
+          "value": "16px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-16",
+            "value": "16px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 43,
+          "value": "12px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-12",
+            "value": "12px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 43,
+          "value": "16px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-16",
+            "value": "16px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 53,
+          "value": "56px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-size-options-56",
+            "value": "56px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 59,
+          "value": "32px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-tracking-options-tight",
+            "value": "02em",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 59,
+          "value": "16px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-16",
+            "value": "16px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 63,
+          "value": "8px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-8",
+            "value": "8px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/shared/modal/modal.component.css",
+          "line": 8,
+          "value": "24px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-24",
+            "value": "24px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/shared/modal/modal.component.css",
+          "line": 16,
+          "value": "48px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-48",
+            "value": "48px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/shared/modal/modal.component.css",
+          "line": 25,
+          "value": "400px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-layout-options-400",
+            "value": "400px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/shared/modal/modal.component.css",
+          "line": 31,
+          "value": "16px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-16",
+            "value": "16px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/shared/modal/modal.component.css",
+          "line": 32,
+          "value": "20px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-20",
+            "value": "20px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/shared/modal/modal.component.css",
+          "line": 32,
+          "value": "24px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-24",
+            "value": "24px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/shared/modal/modal.component.css",
+          "line": 47,
+          "value": "28px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-size-options-28",
+            "value": "28px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/shared/modal/modal.component.css",
+          "line": 48,
+          "value": "28px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-size-options-28",
+            "value": "28px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/shared/modal/modal.component.css",
+          "line": 60,
+          "value": "24px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-24",
+            "value": "24px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/shared/modal/modal.component.css",
+          "line": 68,
+          "value": "8px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-8",
+            "value": "8px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/shared/modal/modal.component.css",
+          "line": 69,
+          "value": "16px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-16",
+            "value": "16px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/shared/modal/modal.component.css",
+          "line": 69,
+          "value": "24px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-24",
+            "value": "24px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 64,
+          "value": "2px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-width-options-2",
+            "value": "2px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 64,
+          "value": "8px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-8",
+            "value": "8px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 64,
+          "value": "4px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-4",
+            "value": "4px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 64,
+          "value": "12px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-12",
+            "value": "12px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 76,
+          "value": "8px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-8",
+            "value": "8px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 77,
+          "value": "36px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-size-options-36",
+            "value": "36px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 78,
+          "value": "16px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-16",
+            "value": "16px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 91,
+          "value": "2px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-width-options-2",
+            "value": "2px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 91,
+          "value": "2px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-width-options-2",
+            "value": "2px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 92,
+          "value": "28px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-size-options-28",
+            "value": "28px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 92,
+          "value": "10px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-10",
+            "value": "10px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 119,
+          "value": "6px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-6",
+            "value": "6px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 128,
+          "value": "36px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-size-options-36",
+            "value": "36px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 129,
+          "value": "12px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-12",
+            "value": "12px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 148,
+          "value": "16px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-16",
+            "value": "16px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/users/dialogs/member-form-fields.component.ts",
+          "line": 1,
+          "value": "16px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-16",
+            "value": "16px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/users/dialogs/member-summary.component.ts",
+          "line": 2,
+          "value": "12px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-12",
+            "value": "12px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/users/dialogs/member-summary.component.ts",
+          "line": 7,
+          "value": "48px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-48",
+            "value": "48px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/users/dialogs/member-summary.component.ts",
+          "line": 8,
+          "value": "48px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-48",
+            "value": "48px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/users/dialogs/member-summary.component.ts",
+          "line": 16,
+          "value": "2px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-width-options-2",
+            "value": "2px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/shared/avatar/avatar.component.ts",
+          "line": 7,
+          "value": "32px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-tracking-options-tight",
+            "value": "02em",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/shared/avatar/avatar.component.ts",
+          "line": 8,
+          "value": "32px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-tracking-options-tight",
+            "value": "02em",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 16,
+          "value": "#111111",
+          "origin": "declared",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-color-options-neutral-900",
+            "value": "#111111",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 17,
+          "value": "#666666",
+          "origin": "declared",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-color-options-neutral-650",
+            "value": "#666666",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 18,
+          "value": "#999999",
+          "origin": "declared",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-color-options-neutral-550",
+            "value": "#999999",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 22,
+          "value": "#fafafa",
+          "origin": "declared",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-color-options-neutral-50",
+            "value": "#fafafa",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 23,
+          "value": "#ffffff",
+          "origin": "declared",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-color-options-neutral-0",
+            "value": "#ffffff",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 24,
+          "value": "#f5f5f5",
+          "origin": "declared",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-color-options-neutral-100",
+            "value": "#f5f5f5",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 25,
+          "value": "#f0f0f0",
+          "origin": "declared",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-color-options-neutral-150",
+            "value": "#f0f0f0",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 29,
+          "value": "#d4d4d4",
+          "origin": "declared",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-color-options-neutral-350",
+            "value": "#d4d4d4",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 32,
+          "value": "#111111",
+          "origin": "declared",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-color-options-neutral-900",
+            "value": "#111111",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 33,
+          "value": "#d93025",
+          "origin": "declared",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-color-options-red-500",
+            "value": "#d93025",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 36,
+          "value": "rgba(0, 0, 0, .08)",
+          "origin": "declared",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-color-options-black-a06",
+            "value": "rgba(0, 0, 0, 0.06)",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 37,
+          "value": "rgba(0, 0, 0, .14)",
+          "origin": "declared",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-color-options-black-a06",
+            "value": "rgba(0, 0, 0, 0.06)",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 5,
+          "value": "11px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-11",
+            "value": "11px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 6,
+          "value": "12px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-12",
+            "value": "12px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 7,
+          "value": "14px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-14",
+            "value": "14px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 8,
+          "value": "16px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-16",
+            "value": "16px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 9,
+          "value": "18px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-18",
+            "value": "18px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 10,
+          "value": "24px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-24",
+            "value": "24px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 36,
+          "value": "3px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-3",
+            "value": "3px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 37,
+          "value": "8px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-8",
+            "value": "8px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 37,
+          "value": "32px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-tracking-options-tight",
+            "value": "02em",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 40,
+          "value": "4px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-4",
+            "value": "4px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 41,
+          "value": "6px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-6",
+            "value": "6px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 42,
+          "value": "8px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-8",
+            "value": "8px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 43,
+          "value": "10px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-10",
+            "value": "10px",
+            "distance": 0
+          }
+        }
+      ],
+      "divergent": [
+        {
+          "file": "styles.css",
+          "line": 65,
+          "value": "#f0fdf4",
+          "origin": "scattered",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-component-header-nav-background-hover",
+            "value": "#f5f5f5",
+            "distance": 9.49
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 66,
+          "value": "#fefce8",
+          "origin": "scattered",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-color-options-red-50",
+            "value": "#fef2f2",
+            "distance": 14.14
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 67,
+          "value": "#dc2626",
+          "origin": "scattered",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-component-dropdown-error-border",
+            "value": "#d93025",
+            "distance": 10.49
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 68,
+          "value": "#eff6ff",
+          "origin": "scattered",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-color-options-blue-50",
+            "value": "#e8f0fe",
+            "distance": 9.27
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 68,
+          "value": "#2563eb",
+          "origin": "scattered",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-component-list-indicator-info",
+            "value": "#1a56db",
+            "distance": 23.37
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 19,
+          "value": "#b3b3b3",
+          "origin": "declared",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-component-button-secondary-border-hover",
+            "value": "#bbbbbb",
+            "distance": 13.86
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 28,
+          "value": "#e5e5e5",
+          "origin": "declared",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-component-avatar-background",
+            "value": "#e8e8e8",
+            "distance": 5.2
+          }
+        }
+      ],
+      "novel": [
+        {
+          "file": "styles.css",
+          "line": 65,
+          "value": "#16a34a",
+          "origin": "scattered",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-component-list-indicator-success",
+            "value": "#1a7c3c",
+            "distance": 41.63
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 66,
+          "value": "#ca8a04",
+          "origin": "scattered",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-component-list-indicator-warning",
+            "value": "#92600a",
+            "distance": 70.26
+          }
+        },
+        {
+          "file": "app/layout/main-layout/main-layout.component.css",
+          "line": 20,
+          "value": "1280px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-layout-options-1200",
+            "value": "1200px",
+            "distance": 80
+          }
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 20,
+          "value": "06em",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-layout-options-120",
+            "value": "120px",
+            "distance": 24
+          }
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 121,
+          "value": "220px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-layout-options-200",
+            "value": "200px",
+            "distance": 20
+          }
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 35,
+          "value": "06em",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-layout-options-120",
+            "value": "120px",
+            "distance": 24
+          }
+        },
+        {
+          "file": "app/shared/modal/modal.component.css",
+          "line": 15,
+          "value": "560px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-layout-options-540",
+            "value": "540px",
+            "distance": 20
+          }
+        }
+      ]
+    },
+    "a11yPages": [
+      {
+        "route": "/login",
+        "violations": []
+      },
+      {
+        "route": "/dashboard",
+        "violations": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "nodes": 19,
+            "help": "Elements must meet minimum color contrast ratio thresholds"
+          }
+        ]
+      },
+      {
+        "route": "/users",
+        "violations": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "nodes": 13,
+            "help": "Elements must meet minimum color contrast ratio thresholds"
+          }
+        ]
+      }
+    ]
+  }
+}

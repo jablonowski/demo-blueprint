@@ -1,0 +1,150 @@
+<header class="toolbar">
+  <h1 class="toolbar__title">Team Members</h1>
+  <button type="button" class="btn btn--primary" (click)="openInvite()">
+    <span aria-hidden="true">+</span> Invite Member
+  </button>
+</header>
+
+<div class="card table-card">
+  <table class="table">
+    <colgroup>
+      <col class="col-avatar" />
+      <col class="col-name" />
+      <col class="col-email" />
+      <col class="col-role" />
+      <col class="col-status" />
+      <col class="col-joined" />
+      <col class="col-actions" />
+    </colgroup>
+    <thead>
+      <tr>
+        <th scope="col"><span class="visually-hidden">Avatar</span></th>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Role</th>
+        <th scope="col">Status</th>
+        <th scope="col">Joined</th>
+        <th scope="col"><span class="visually-hidden">Actions</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (user of users(); track user.id) {
+        <tr>
+          <td><app-avatar [name]="user.name" [src]="user.avatar" /></td>
+          <td class="cell-name">{{ user.name }}</td>
+          <td class="cell-email">{{ user.email }}</td>
+          <td><app-badge [tone]="roleTone[user.role]">{{ user.role }}</app-badge></td>
+          <td><app-badge [tone]="statusTone[user.status]">{{ user.status }}</app-badge></td>
+          <td class="cell-joined">{{ user.joinedDate | date: 'MMM y' : 'UTC' }}</td>
+          <td>
+            <div class="row-actions">
+              <button type="button" class="btn btn--ghost" (click)="openDetails(user)">Details</button>
+              <button type="button" class="btn btn--secondary" (click)="openEdit(user)">Edit</button>
+              <button type="button" class="btn btn--danger-outline" (click)="openDelete(user)">Delete</button>
+            </div>
+          </td>
+        </tr>
+      } @empty {
+        <tr>
+          <td class="cell-empty" colspan="7">{{ loading() ? 'Loading members…' : 'No team members yet.' }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
+
+<!-- Member details (Figma 22:11492) -->
+@if (dialog() === 'details' && selected(); as user) {
+  <app-modal (dismiss)="close()">
+    <ng-container modal-header>
+      <h2 class="modal-title">Member Details</h2>
+      <app-badge tone="neutral">Read only</app-badge>
+    </ng-container>
+
+    <app-member-summary [user]="user" />
+
+    <div class="field-row">
+      <div class="field field--readonly">
+        <label class="field__label" for="details-first">First name</label>
+        <input class="field__control" id="details-first" [value]="splitName(user.name).firstName" disabled />
+      </div>
+      <div class="field field--readonly">
+        <label class="field__label" for="details-last">Last name</label>
+        <input class="field__control" id="details-last" [value]="splitName(user.name).lastName" disabled />
+      </div>
+    </div>
+    <div class="field field--readonly">
+      <label class="field__label" for="details-email">Email address</label>
+      <input class="field__control" id="details-email" [value]="user.email" disabled />
+    </div>
+    <div class="field field--readonly">
+      <label class="field__label" for="details-role">Role</label>
+      <input class="field__control" id="details-role" [value]="user.role" disabled />
+    </div>
+    <div class="status-row">
+      <span class="status-row__label">Status</span>
+      <app-badge [tone]="statusTone[user.status]">{{ user.status }}</app-badge>
+    </div>
+
+    <ng-container modal-footer>
+      <p class="modal-note">To make changes, request Admin access.</p>
+      <button type="button" class="btn btn--secondary" (click)="close()">Close</button>
+    </ng-container>
+  </app-modal>
+}
+
+<!-- Edit member (Figma 22:11448) -->
+@if (dialog() === 'edit' && selected(); as user) {
+  <app-modal title="Edit Member" (dismiss)="close()">
+    <form id="edit-form" class="modal-form" [formGroup]="editForm" (ngSubmit)="saveEdit()" novalidate>
+      <app-member-summary [user]="user" />
+      <app-member-form-fields [form]="editForm" idPrefix="edit" />
+      <div class="status-row">
+        <span class="status-row__label">Status</span>
+        <app-badge [tone]="statusTone[user.status]">{{ user.status }}</app-badge>
+      </div>
+    </form>
+
+    <ng-container modal-footer>
+      <button type="button" class="btn btn--danger-outline" (click)="editToDelete()">Delete user</button>
+      <div class="modal-actions">
+        <button type="button" class="btn btn--secondary" (click)="close()">Cancel</button>
+        <button type="submit" form="edit-form" class="btn btn--primary" [disabled]="saving()">
+          {{ saving() ? 'Saving…' : 'Save changes' }}
+        </button>
+      </div>
+    </ng-container>
+  </app-modal>
+}
+
+<!-- Invite member -->
+@if (dialog() === 'invite') {
+  <app-modal title="Invite Member" footerAlign="end" (dismiss)="close()">
+    <form id="invite-form" class="modal-form" [formGroup]="inviteForm" (ngSubmit)="sendInvite()" novalidate>
+      <app-member-form-fields [form]="inviteForm" idPrefix="invite" rolePlaceholder="Select role…" />
+    </form>
+
+    <ng-container modal-footer>
+      <button type="button" class="btn btn--secondary" (click)="close()">Cancel</button>
+      <button type="submit" form="invite-form" class="btn btn--primary" [disabled]="saving()">
+        {{ saving() ? 'Sending…' : 'Send Invite' }}
+      </button>
+    </ng-container>
+  </app-modal>
+}
+
+<!-- Delete confirmation -->
+@if (dialog() === 'delete' && selected(); as user) {
+  <app-modal title="Confirm Deletion" size="sm" footerAlign="end" (dismiss)="close()">
+    <p class="modal-text">
+      Are you sure you want to remove <strong>{{ user.name }}</strong>? This action cannot be undone.
+    </p>
+
+    <ng-container modal-footer>
+      <button type="button" class="btn btn--secondary" (click)="close()">Cancel</button>
+      <button type="button" class="btn btn--danger" [disabled]="saving()" (click)="confirmDelete()">
+        {{ saving() ? 'Deleting…' : 'Delete' }}
+      </button>
+    </ng-container>
+  </app-modal>
+}

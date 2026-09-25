@@ -1,0 +1,7 @@
+{
+  "ok": false,
+  "durationMs": 448,
+  "errorCount": null,
+  "errors": [],
+  "tail": "npm error could not determine executable to run\nnpm error A complete log of this run can be found in: /Users/mateusz/.npm/_logs/2026-09-24T19_21_09_803Z-debug-0.log"
+}

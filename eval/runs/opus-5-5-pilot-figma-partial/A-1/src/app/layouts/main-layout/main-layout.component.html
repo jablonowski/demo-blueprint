@@ -1,0 +1,79 @@
+<header class="topbar">
+  <div class="topbar__left">
+    <a class="brand" routerLink="/dashboard">
+      <svg class="brand__logo" viewBox="0 0 24 24" aria-hidden="true">
+        <rect x="2" y="2" width="9" height="9" rx="2" />
+        <rect x="13" y="2" width="9" height="9" rx="2" opacity="0.55" />
+        <rect x="2" y="13" width="9" height="9" rx="2" opacity="0.55" />
+        <rect x="13" y="13" width="9" height="9" rx="2" />
+      </svg>
+      <span>Blueprint</span>
+    </a>
+
+    <nav class="nav" aria-label="Primary">
+      @for (link of navLinks; track link.path) {
+        <a class="nav__link" [routerLink]="link.path" routerLinkActive="is-active">{{ link.label }}</a>
+      }
+    </nav>
+  </div>
+
+  <div class="profile" #profile>
+    <button
+      type="button"
+      class="profile__trigger"
+      aria-haspopup="menu"
+      [attr.aria-expanded]="menuOpen()"
+      (click)="toggleMenu()"
+    >
+      <app-avatar [name]="userName" />
+      <span class="profile__name">{{ userName }}</span>
+      <svg class="profile__chevron" [class.is-open]="menuOpen()" viewBox="0 0 16 16" aria-hidden="true">
+        <path d="M4 6l4 4 4-4" />
+      </svg>
+    </button>
+
+    @if (menuOpen()) {
+      <div class="menu" role="menu">
+        <button type="button" class="menu__item" role="menuitem" (click)="menuOpen.set(false)">My Profile</button>
+        <div class="menu__divider" role="separator"></div>
+        <button type="button" class="menu__item menu__item--danger" role="menuitem" (click)="signOut()">
+          Sign Out
+        </button>
+      </div>
+    }
+  </div>
+</header>
+
+<main class="content">
+  <div class="content__inner">
+    <router-outlet />
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <span class="footer__brand-name">Blueprint</span>
+        <p class="footer__tagline">Infrastructure monitoring for modern teams.</p>
+      </div>
+      <div class="footer__columns">
+        @for (col of footerColumns; track col.title) {
+          <div class="footer__col">
+            <h3 class="footer__col-title">{{ col.title }}</h3>
+            @for (link of col.links; track link) {
+              <a class="footer__link" href="#" (click)="$event.preventDefault()">{{ link }}</a>
+            }
+          </div>
+        }
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© {{ year }} Blueprint. All rights reserved.</span>
+      <div class="footer__legal">
+        <a class="footer__link" href="#" (click)="$event.preventDefault()">Privacy Policy</a>
+        <a class="footer__link" href="#" (click)="$event.preventDefault()">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+</footer>

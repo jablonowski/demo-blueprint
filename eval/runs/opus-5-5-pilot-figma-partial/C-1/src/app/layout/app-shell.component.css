@@ -1,0 +1,126 @@
+.shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* The header has no slot for a user control, so it is layered over the
+   header's own right-hand area, aligned to the same content width. */
+.shell__header {
+  position: relative;
+}
+
+.shell__header-end {
+  position: absolute;
+  inset: 0;
+  max-width: var(--ds-decisions-layout-width-3xl);
+  margin: 0 auto;
+  padding: 0 var(--ds-decisions-space-3xl);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  pointer-events: none;
+}
+
+.user-menu {
+  position: relative;
+  pointer-events: auto;
+}
+
+.user-menu__trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ds-decisions-space-sm);
+  height: var(--ds-decisions-size-control-md);
+  padding: 0 var(--ds-decisions-space-sm) 0 var(--ds-decisions-space-2xs);
+  font: inherit;
+  font-size: var(--ds-decisions-font-size-md);
+  font-weight: var(--ds-decisions-font-weight-medium);
+  color: var(--ds-decisions-color-text-primary);
+  background: var(--ds-decisions-color-action-ghost-background);
+  border: none;
+  border-radius: var(--ds-decisions-border-radius-lg);
+  cursor: pointer;
+  transition: background var(--ds-decisions-motion-duration-base) var(--ds-decisions-motion-easing-standard);
+}
+
+.user-menu__trigger:hover {
+  background: var(--ds-decisions-color-action-ghost-background-hover);
+}
+
+.user-menu__trigger:focus-visible {
+  outline: none;
+  box-shadow: var(--ds-decisions-shadow-focus);
+}
+
+.user-menu__chevron {
+  width: var(--ds-decisions-size-glyph-sm);
+  height: var(--ds-decisions-size-glyph-sm);
+  color: var(--ds-decisions-color-text-muted);
+  transition: transform var(--ds-decisions-motion-duration-base) var(--ds-decisions-motion-easing-standard);
+}
+
+.user-menu__chevron--open {
+  transform: rotate(180deg);
+}
+
+/* Anchored to the trigger's right edge so it grows leftward, inside the viewport. */
+.user-menu__list {
+  position: absolute;
+  top: calc(100% + var(--ds-decisions-space-2xs));
+  right: 0;
+  z-index: var(--ds-decisions-z-index-dropdown);
+  min-width: var(--ds-decisions-layout-width-2xs);
+  max-width: calc(100vw - 2 * var(--ds-decisions-space-xl));
+  margin: 0;
+  padding: var(--ds-decisions-space-2xs);
+  list-style: none;
+  background: var(--ds-decisions-color-surface-base);
+  border: var(--ds-decisions-border-width-hairline) solid var(--ds-decisions-color-border-subtle);
+  border-radius: var(--ds-decisions-border-radius-xl);
+  box-shadow: var(--ds-decisions-shadow-dropdown);
+}
+
+.user-menu__item {
+  display: block;
+  width: 100%;
+  padding: var(--ds-decisions-space-sm) var(--ds-decisions-space-md);
+  font: inherit;
+  font-size: var(--ds-decisions-font-size-md);
+  text-align: left;
+  color: var(--ds-decisions-color-text-body);
+  background: var(--ds-decisions-color-action-ghost-background);
+  border: none;
+  border-radius: var(--ds-decisions-border-radius-md);
+  cursor: pointer;
+}
+
+.user-menu__item:hover {
+  color: var(--ds-decisions-color-action-ghost-text-hover);
+  background: var(--ds-decisions-color-action-ghost-background-hover);
+}
+
+.user-menu__item:focus-visible {
+  outline: none;
+  box-shadow: var(--ds-decisions-shadow-focus);
+}
+
+.shell__main {
+  flex: 1;
+  width: 100%;
+  max-width: var(--ds-decisions-layout-width-3xl);
+  margin: 0 auto;
+  padding: var(--ds-decisions-space-4xl) var(--ds-decisions-space-3xl);
+}
+
+.shell__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--ds-decisions-space-3xl);
+}
+
+@media (max-width: 600px) {
+  .user-menu__name {
+    display: none;
+  }
+}

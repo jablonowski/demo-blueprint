@@ -1,0 +1,64 @@
+<div class="users-page">
+  <div class="users-page__header">
+    <h1 class="users-page__title">Team Members</h1>
+    <button type="button" class="btn btn--primary" (click)="openInvite()">Invite Member</button>
+  </div>
+
+  <div class="users-table">
+    <table>
+      <thead>
+        <tr>
+          <th class="users-table__col-avatar"></th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Status</th>
+          <th>Joined</th>
+          <th class="users-table__col-actions"></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (user of users; track user.id) {
+          <tr>
+            <td class="users-table__col-avatar">
+              <app-avatar [name]="user.name" [src]="user.avatar" [size]="36" />
+            </td>
+            <td class="users-table__name">{{ user.name }}</td>
+            <td class="users-table__muted">{{ user.email }}</td>
+            <td><app-badge [tone]="roleTone(user.role)">{{ user.role }}</app-badge></td>
+            <td><app-badge [tone]="statusTone(user.status)">{{ user.status }}</app-badge></td>
+            <td class="users-table__muted">{{ formatJoined(user.joinedDate) }}</td>
+            <td class="users-table__col-actions">
+              <div class="row-actions">
+                <button type="button" class="btn btn--ghost" (click)="openDetails(user)">Details</button>
+                <button type="button" class="btn btn--secondary" (click)="openEdit(user)">Edit</button>
+                <button type="button" class="btn btn--danger-outline" (click)="openDeleteFromRow(user)">Delete</button>
+              </div>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+
+@if (activeDialog === 'details' && selectedUser) {
+  <app-user-details-dialog [user]="selectedUser" (closeDialog)="closeDialog()" />
+}
+
+@if (activeDialog === 'edit' && selectedUser) {
+  <app-user-edit-dialog
+    [user]="selectedUser"
+    (save)="onEditSave($event)"
+    (cancel)="closeDialog()"
+    (deleteRequested)="openDeleteFromEdit($event)"
+  />
+}
+
+@if (activeDialog === 'invite') {
+  <app-user-invite-dialog (send)="onInviteSend($event)" (cancel)="closeDialog()" />
+}
+
+@if (activeDialog === 'delete' && selectedUser) {
+  <app-confirm-delete-dialog [userName]="selectedUser.name" (confirm)="onConfirmDelete()" (cancel)="closeDialog()" />
+}

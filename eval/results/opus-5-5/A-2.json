@@ -1,0 +1,122 @@
+{
+  "arm": "A",
+  "run": 2,
+  "model": "claude-opus-5-5",
+  "cli": "2.1.281 (Claude Code)",
+  "isolation": "session",
+  "started": "2026-09-25T09:16:31Z",
+  "overlaySha": "40dd762a0ef7",
+  "s0Sha": "c25d3e960f47",
+  "promptBytes": 13108,
+  "runDir": "/tmp/dsb-eval/opus-5-5/A-2",
+  "figma": {
+    "channel": "cached",
+    "fileKey": "iJ92LuFOsPjO6avZ2anbwO",
+    "recordedAt": "2026-09-24T19:49:36Z",
+    "calls": 1,
+    "errors": 0,
+    "nodes": [
+      "22-11104"
+    ],
+    "ok": true
+  },
+  "inputTokensTotal": 3017957,
+  "outputTokens": 50835,
+  "result": {
+    "duration_api_ms": 427208,
+    "stop_reason": "end_turn",
+    "session_id": "a2bca295-1c18-41af-8f57-922d5b686ea7",
+    "total_cost_usd": 2.5435705999999993,
+    "usage": {
+      "input_tokens": 68,
+      "cache_creation_input_tokens": 118336,
+      "cache_read_input_tokens": 2899553,
+      "output_tokens": 50835,
+      "output_tokens_details": {
+        "thinking_tokens": 7462
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 118336,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "not_available",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 1557,
+          "cache_read_input_tokens": 127697,
+          "cache_creation_input_tokens": 1343,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 1343
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard"
+    },
+    "modelUsage": {
+      "claude-opus-5-5": {
+        "inputTokens": 68,
+        "outputTokens": 50835,
+        "cacheReadInputTokens": 2899553,
+        "cacheCreationInputTokens": 118336,
+        "webSearchRequests": 0,
+        "costUSD": 2.5435705999999993,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 128000,
+        "thinkingTokens": 7462,
+        "canonicalModel": "claude-opus-5-5",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "subagent_stats": {
+      "spawned": 0,
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 0,
+      "spawned_by_subagents": 0,
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {}
+    },
+    "is_error": false,
+    "num_turns": 69,
+    "subtype": "success",
+    "api_error_status": null,
+    "result": "The app is built and working in `app/`. It compiles with no errors or warnings. I drove it end-to-end in headless Chromium at 1280px: every route renders, all four dialogs open and close, and create, edit and delete each go through the in-memory API and show up in the table. The browser console had no errors. The dev server is still running at http://localhost:4312 (started with `npx @angular/cli@19 serve`).\n\n**What the browser run confirmed**\n- **Login:** submitting empty fields puts both into an error state with a \"required\" message. Wrong credentials show an error. `admin`/`admin` writes `isLoggedIn: true` and goes to `/dashboard`.\n- **Guards:** going to `/login` while signed in redirects to `/dashboard`. After sign-out, `/users` redirects to `/login`, and so does any unknown URL.\n- **Profile menu:** it's anchored to the right edge and opens leftward. It sits fully inside the viewport (x 1068 to 1248 of 1280) and closes on an outside click.\n- **Dashboard:** the system log adds a line every 3 seconds.\n- **Users:**\n  - Edit saves the recombined name and new role.\n  - An empty invite shows all four required errors; a filled one adds a row with status `Active` and today's date.\n  - \"Delete user\" in the edit dialog opens the confirmation with the right member, and confirming removes the row.\n  - Clicking the backdrop closes the delete dialog.\n\n**Visual values:** every colour, spacing step, type size, radius and shadow comes from the Figma frames, which the MCP server returned in full. They're defined once as CSS custom properties in `src/styles.scss`, and the component styles only reference those. The literals left in component styles are the two media-query breakpoints (CSS doesn't allow variables there) and the 1px in the screen-reader-only helper.\n\n**Where the spec and Figma disagree.** Figma has older content in several places, so I followed the spec's text and requirements and Figma's layout and styling:\n- **Login:** Figma has a \"Blueprint\" line and a \"Sign in to your account\" heading. I left both out and used the spec's heading and subtitle. I kept Figma's divider above the sign-up line.\n- **Dashboard tiles:** Figma has 7 cards and the spec lists 8. Figma's throughput card is named \"Data Summary\" and has a small stats row under the chart, so I put the spec's Data Summary pairs there instead of adding an 8th card. If you want it as a separate tile, that's a small change.\n- **Tile content:** I used the spec's values, service names, Mon–Sun bars and uppercase tile titles (Figma's are sentence case). Uptime gets a `Stable` badge, which Figma doesn't show.\n- **Tone choices:** Error Rate's `+0.01%` uses the red tone because the spec says it should read as negative; Figma uses amber. For the table I followed the Figma frame: Admin red, Editor blue, Viewer grey; Active green, Inactive grey.\n- **System Logs:** a dark monospace terminal as the spec asks, where Figma shows a light activity list.\n- **Header:** Figma's nav is Overview / Metrics / Logs / Settings, none of which reach `/users`. I used **Overview** (to the dashboard) and **Team** (to the users page). Figma has no logo, so I drew a small mark next to the wordmark. I dropped the \"Online\" tag from Figma's dashboard header, and replaced its avatar-only control with the spec's avatar, name and menu.\n- **Footer:** Figma's is a single 56px row. The spec asks for link columns, so it's taller: brand, copyright and three link columns on top, legal links below.\n- **Table:** Avatar and Name are separate columns as the spec asks; Figma combines them. Joined shows \"Jan 2024\" as in Figma.\n- **Row actions:** Figma makes Edit the least emphasised and Details the outlined one. I swapped them to match the spec.\n\n**Guesses, and small additions:**\n- The throughput numbers and log lines are made up.\n- The delete confirmation's small width (420px), the menu's shadow and the terminal's level colours aren't in the frames; I picked them.\n- Two things go slightly past the spec: the invite and edit forms also check that the email is valid, and the login form shows an \"Invalid username or password\" message.\n- I only checked the layout at 1280px. The smaller breakpoints (two columns, then one) haven't been checked in a browser.\n\nThe browser test script is at `/tmp/pw-A2/e2e.mjs`, outside the project.",
+    "ttft_ms": 2544,
+    "type": "result",
+    "duration_ms": 539751,
+    "uuid": "874cad56-879e-457f-bd80-60ab583504ef",
+    "ttft_stream_ms": 1934,
+    "time_to_request_ms": 358,
+    "first_content_frame_ms": 1935,
+    "queued_turn_count": 0,
+    "result_index": 0
+  }
+}

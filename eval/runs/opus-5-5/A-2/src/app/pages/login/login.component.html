@@ -1,0 +1,56 @@
+<form class="login-card" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+  <div class="login-card__intro">
+    <h1 class="login-card__title">Welcome back</h1>
+    <p class="login-card__subtitle">Sign in to your account to continue</p>
+  </div>
+
+  <div class="field" [class.field--error]="showError('username') || invalidCredentials()">
+    <label class="field__label" for="username">Username</label>
+    <input
+      id="username"
+      class="field__control"
+      type="text"
+      formControlName="username"
+      placeholder="Enter your username"
+      autocomplete="username"
+    />
+    @if (showError('username')) {
+      <span class="field__error">Username is required</span>
+    }
+  </div>
+
+  <div class="field" [class.field--error]="showError('password') || invalidCredentials()">
+    <label class="field__label" for="password">Password</label>
+    <input
+      id="password"
+      class="field__control"
+      type="password"
+      formControlName="password"
+      placeholder="Enter your password"
+      autocomplete="current-password"
+    />
+    @if (showError('password')) {
+      <span class="field__error">Password is required</span>
+    } @else if (invalidCredentials()) {
+      <span class="field__error">Invalid username or password</span>
+    }
+  </div>
+
+  <div class="login-card__row">
+    <label class="checkbox">
+      <input type="checkbox" formControlName="remember" />
+      <span class="checkbox__box" aria-hidden="true"></span>
+      <span>Remember me</span>
+    </label>
+    <a class="login-card__link login-card__link--underline" href="#" (click)="$event.preventDefault()">Forgot password?</a>
+  </div>
+
+  <button type="submit" class="btn btn--primary btn--block">Sign In</button>
+
+  <hr class="login-card__divider" />
+
+  <p class="login-card__signup">
+    Don't have an account?
+    <a class="login-card__link" href="#" (click)="$event.preventDefault()">Sign up</a>
+  </p>
+</form>

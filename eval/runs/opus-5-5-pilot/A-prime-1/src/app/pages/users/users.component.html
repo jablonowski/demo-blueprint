@@ -1,0 +1,141 @@
+<section class="page">
+  <header class="page-header">
+    <h1 class="page-title">Team Members</h1>
+    <button class="btn btn-primary" type="button" (click)="openInvite()">Invite Member</button>
+  </header>
+
+  <div class="card table-card">
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="col-avatar"><span class="sr-only">Avatar</span></th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Status</th>
+          <th>Joined</th>
+          <th class="col-actions">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (user of list(); track user.id) {
+          <tr>
+            <td class="col-avatar"><app-avatar [name]="user.name" [src]="user.avatar" /></td>
+            <td class="cell-name">{{ user.name }}</td>
+            <td class="cell-muted">{{ user.email }}</td>
+            <td><span class="tag" [class]="roleTag[user.role]">{{ user.role }}</span></td>
+            <td><span class="tag" [class]="statusTag[user.status]">{{ user.status }}</span></td>
+            <td class="cell-muted">{{ user.joinedDate | date: 'MMM d, y' }}</td>
+            <td class="col-actions">
+              <div class="actions">
+                <button class="btn btn-ghost btn-sm" type="button" (click)="openDetails(user)">Details</button>
+                <button class="btn btn-secondary btn-sm" type="button" (click)="openEdit(user)">Edit</button>
+                <button class="btn btn-danger btn-sm" type="button" (click)="openDelete(user)">Delete</button>
+              </div>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td class="cell-empty" colspan="7">{{ loading() ? 'Loading members…' : 'No team members yet.' }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</section>
+
+@switch (dialog()) {
+  @case ('delete') {
+    @if (selected(); as user) {
+      <app-modal size="sm" title="Confirm Deletion" (closed)="close()">
+        <p class="dialog-text">
+          Are you sure you want to remove <strong>{{ user.name }}</strong>? This action cannot be undone.
+        </p>
+        <ng-container modal-footer>
+          <button class="btn btn-secondary" type="button" (click)="close()">Cancel</button>
+          <button class="btn btn-danger" type="button" [disabled]="saving()" (click)="confirmDelete()">Delete</button>
+        </ng-container>
+      </app-modal>
+    }
+  }
+
+  @case ('details') {
+    @if (selected(); as user) {
+      <app-modal footerAlign="split" (closed)="close()">
+        <div class="header-with-badge" modal-header>
+          <h2>Member Details</h2>
+          <span class="tag tag-default">Read only</span>
+        </div>
+
+        <div class="dialog-stack">
+          <app-member-summary [user]="user" />
+
+          <div class="field-row">
+            <div class="field">
+              <label class="field-label field-label-muted" for="details-first">First name</label>
+              <input class="input" id="details-first" type="text" [value]="firstName(user)" readonly />
+            </div>
+            <div class="field">
+              <label class="field-label field-label-muted" for="details-last">Last name</label>
+              <input class="input" id="details-last" type="text" [value]="lastName(user)" readonly />
+            </div>
+          </div>
+          <div class="field">
+            <label class="field-label field-label-muted" for="details-email">Email address</label>
+            <input class="input" id="details-email" type="text" [value]="user.email" readonly />
+          </div>
+          <div class="field">
+            <label class="field-label field-label-muted" for="details-role">Role</label>
+            <input class="input" id="details-role" type="text" [value]="user.role" readonly />
+          </div>
+
+          <div class="status-row">
+            <span class="field-label">Status</span>
+            <span class="tag" [class]="statusTag[user.status]">{{ user.status }}</span>
+          </div>
+        </div>
+
+        <ng-container modal-footer>
+          <span class="footer-note">To make changes, request Admin access.</span>
+          <button class="btn btn-secondary" type="button" (click)="close()">Close</button>
+        </ng-container>
+      </app-modal>
+    }
+  }
+
+  @case ('edit') {
+    @if (selected(); as user) {
+      <app-modal title="Edit Member" footerAlign="split" (closed)="close()">
+        <form class="dialog-stack" id="edit-form" (submit)="$event.preventDefault(); saveEdit()" novalidate>
+          <app-member-summary [user]="user" />
+          <app-member-form-fields [form]="editForm" [submitted]="submitted()" idPrefix="edit" />
+          <div class="status-row">
+            <span class="field-label">Status</span>
+            <span class="tag" [class]="statusTag[user.status]">{{ user.status }}</span>
+          </div>
+        </form>
+
+        <ng-container modal-footer>
+          <button class="btn btn-danger-outline" type="button" (click)="editToDelete()">Delete user</button>
+          <div class="footer-actions">
+            <button class="btn btn-secondary" type="button" (click)="close()">Cancel</button>
+            <button class="btn btn-primary" type="submit" form="edit-form" [disabled]="saving()">Save changes</button>
+          </div>
+        </ng-container>
+      </app-modal>
+    }
+  }
+
+  @case ('invite') {
+    <app-modal title="Invite Member" (closed)="close()">
+      <form id="invite-form" (submit)="$event.preventDefault(); sendInvite()" novalidate>
+        <app-member-form-fields [form]="inviteForm" [submitted]="submitted()" idPrefix="invite" />
+      </form>
+
+      <ng-container modal-footer>
+        <button class="btn btn-secondary" type="button" (click)="close()">Cancel</button>
+        <button class="btn btn-primary" type="submit" form="invite-form" [disabled]="saving()">Send Invite</button>
+      </ng-container>
+    </app-modal>
+  }
+}

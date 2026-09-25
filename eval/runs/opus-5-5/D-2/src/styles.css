@@ -1,0 +1,21 @@
+@import '@jablonowski/dsb-tokens/css';
+
+/*
+ * Token gap: the decisions layer has no font-family token (resolver: no-coverage).
+ * The typeface is Inter per the Figma frames, falling back to the platform UI face.
+ */
+html,
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-size: var(--ds-decisions-font-size-md);
+  line-height: var(--ds-decisions-font-line-height-tight);
+  color: var(--ds-decisions-color-text-primary);
+  background: var(--ds-decisions-color-surface-subtle);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}

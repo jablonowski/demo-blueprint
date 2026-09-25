@@ -1,0 +1,123 @@
+:host {
+  display: block;
+  position: sticky;
+  top: 0;
+  z-index: var(--z-menu);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  height: var(--size-header);
+  padding: 0 var(--space-8);
+  background: var(--color-bg-surface);
+  border-bottom: var(--border-width) solid var(--color-border);
+}
+
+.header__brand {
+  display: inline-flex;
+  text-decoration: none;
+}
+
+.header__nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  flex: 1;
+  padding-left: var(--space-10);
+}
+
+.header__link {
+  font-size: var(--text-base);
+  color: var(--color-fg-secondary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+
+  &:hover,
+  &.is-active {
+    color: var(--color-fg);
+  }
+
+  &.is-active {
+    font-weight: var(--weight-medium);
+  }
+}
+
+.profile {
+  position: relative;
+}
+
+.profile__trigger {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-2) var(--space-1) var(--space-1);
+  border: 0;
+  border-radius: var(--radius-full);
+  background: transparent;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--color-bg-muted);
+  }
+}
+
+.profile__name {
+  font-size: var(--text-md);
+  font-weight: var(--weight-medium);
+  color: var(--color-fg);
+}
+
+.profile__chevron {
+  width: var(--size-chevron-w);
+  height: var(--size-chevron-h);
+  fill: none;
+  stroke: var(--color-fg-subtle);
+  stroke-width: var(--border-width-control);
+  transition: transform var(--transition-fast);
+
+  &.is-open {
+    transform: rotate(180deg);
+  }
+}
+
+/* Anchored to the trigger's right edge so it opens leftward and stays in the viewport. */
+.profile__menu {
+  position: absolute;
+  top: calc(100% + var(--space-2));
+  right: 0;
+  min-width: var(--size-menu-min);
+  max-width: calc(100vw - 2 * var(--space-4));
+  padding: var(--space-1);
+  background: var(--color-bg-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-menu);
+}
+
+.profile__item {
+  display: block;
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  font-size: var(--text-md);
+  text-align: left;
+  color: var(--color-fg);
+  cursor: pointer;
+
+  &:hover {
+    background: var(--color-bg-muted);
+  }
+}
+
+.profile__item--danger {
+  color: var(--color-danger);
+}
+
+.profile__divider {
+  height: var(--border-width);
+  margin: var(--space-1) 0;
+  background: var(--color-border);
+}

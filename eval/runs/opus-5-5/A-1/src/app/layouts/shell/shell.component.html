@@ -1,0 +1,62 @@
+<header class="topbar">
+  <a class="brand" routerLink="/dashboard">
+    <svg class="logo" viewBox="0 0 20 20" aria-hidden="true">
+      <rect x="1" y="1" width="18" height="18" rx="5" />
+      <path d="M6 6h5a2 2 0 010 4H6zM6 10h5.5a2 2 0 010 4H6z" />
+    </svg>
+    <span>Blueprint</span>
+  </a>
+
+  <nav class="nav" aria-label="Primary">
+    @for (item of nav; track item.path) {
+      <a class="nav-link" [routerLink]="item.path" routerLinkActive="active">{{ item.label }}</a>
+    }
+  </nav>
+
+  <div class="profile">
+    <button type="button" class="profile-trigger" aria-haspopup="menu"
+            [attr.aria-expanded]="menuOpen()" (click)="toggleMenu()">
+      <app-avatar [name]="userName" />
+      <span class="profile-name">{{ userName }}</span>
+      <svg class="chevron" [class.open]="menuOpen()" viewBox="0 0 10 6" aria-hidden="true">
+        <path d="M1 1l4 4 4-4" />
+      </svg>
+    </button>
+
+    @if (menuOpen()) {
+      <div class="menu" role="menu">
+        <button type="button" class="menu-item" role="menuitem" (click)="menuOpen.set(false)">My Profile</button>
+        <div class="menu-sep"></div>
+        <button type="button" class="menu-item danger" role="menuitem" (click)="signOut()">Sign Out</button>
+      </div>
+    }
+  </div>
+</header>
+
+<main class="content">
+  <router-outlet />
+</main>
+
+<footer class="footer">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <span class="footer-name">Blueprint</span>
+      <span class="muted">© {{ year }} Blueprint. All rights reserved.</span>
+    </div>
+    <div class="footer-cols">
+      @for (col of footerColumns; track col.title) {
+        <div class="footer-col">
+          <span class="footer-col-title">{{ col.title }}</span>
+          @for (link of col.links; track link) {
+            <a href="#" (click)="$event.preventDefault()">{{ link }}</a>
+          }
+        </div>
+      }
+    </div>
+  </div>
+  <div class="footer-legal">
+    <a href="#" (click)="$event.preventDefault()">Privacy Policy</a>
+    <a href="#" (click)="$event.preventDefault()">Terms of Service</a>
+    <a href="#" (click)="$event.preventDefault()">Cookie Settings</a>
+  </div>
+</footer>

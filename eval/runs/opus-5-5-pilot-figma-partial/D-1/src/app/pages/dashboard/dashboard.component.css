@@ -1,0 +1,165 @@
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--ds-decisions-space-xl);
+}
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-decisions-space-md);
+  min-width: 0;
+  padding: var(--ds-decisions-space-2xl);
+  background: var(--ds-decisions-color-surface-base);
+  border: var(--ds-decisions-border-width-hairline) solid var(--ds-decisions-color-border-subtle);
+  border-radius: var(--ds-decisions-border-radius-xl);
+}
+
+.tile--chart {
+  grid-column: span 2;
+}
+
+.tile--logs {
+  grid-column: 1 / -1;
+}
+
+.tile-title {
+  font-size: var(--ds-decisions-font-size-2xs);
+  font-weight: var(--ds-decisions-font-weight-semibold);
+  letter-spacing: var(--ds-decisions-font-tracking-caps);
+  line-height: var(--ds-decisions-font-line-height-tight);
+  text-transform: uppercase;
+  color: var(--ds-decisions-color-text-secondary);
+}
+
+.metric-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--ds-decisions-space-sm);
+}
+
+.metric-value {
+  font-size: var(--ds-decisions-font-size-3xl);
+  font-weight: var(--ds-decisions-font-weight-semibold);
+  letter-spacing: var(--ds-decisions-font-tracking-heading);
+  line-height: var(--ds-decisions-font-line-height-tight);
+  color: var(--ds-decisions-color-text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.metric-sub {
+  font-size: var(--ds-decisions-font-size-xs);
+  color: var(--ds-decisions-color-text-subtle);
+}
+
+/* Chart: plot height follows the row (set by the list tiles beside it); the aspect
+   ratio is only a floor for when the tile stands alone on narrow screens. */
+.chart {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-decisions-space-sm);
+}
+
+.chart-plot {
+  flex: 1;
+  aspect-ratio: 3 / 1;
+  display: flex;
+  align-items: stretch;
+  gap: var(--ds-decisions-space-lg);
+  border-bottom: var(--ds-decisions-border-width-hairline) solid var(--ds-decisions-color-border-subtle);
+}
+
+.chart-col {
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+}
+
+/* The resolver has no pure-black decision (no-coverage); surface-emphasis is the
+   darkest filled surface the decisions layer defines. */
+.chart-bar {
+  width: 100%;
+  background: var(--ds-decisions-color-surface-emphasis);
+  border-radius: var(--ds-decisions-border-radius-sm) var(--ds-decisions-border-radius-sm) 0 0;
+}
+
+.chart-axis {
+  display: flex;
+  gap: var(--ds-decisions-space-lg);
+}
+
+.chart-label {
+  flex: 1;
+  text-align: center;
+  font-size: var(--ds-decisions-font-size-2xs);
+  color: var(--ds-decisions-color-text-subtle);
+}
+
+.tile--list {
+  gap: var(--ds-decisions-space-xs);
+}
+
+/* Let list rows sit flush with the tile's own padding. */
+.tile-list {
+  margin: 0 calc(-1 * var(--ds-decisions-space-lg));
+}
+
+.summary-value {
+  font-size: var(--ds-decisions-font-size-md);
+  font-weight: var(--ds-decisions-font-weight-semibold);
+  color: var(--ds-decisions-color-text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Terminal: surface-emphasis with text-inverse, the pairing dsb-tag primary uses. */
+.logs {
+  /* Eight lines tall; no panel-height decision exists, so the height is line-based. */
+  height: calc(8 * var(--ds-decisions-font-line-height-relaxed) * 1em + 2 * var(--ds-decisions-space-xl));
+  overflow-y: auto;
+  padding: var(--ds-decisions-space-xl);
+  background: var(--ds-decisions-color-surface-emphasis);
+  color: var(--ds-decisions-color-text-inverse);
+  border-radius: var(--ds-decisions-border-radius-lg);
+  /* No font-family decision exists; monospace is a literal by necessity. */
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: var(--ds-decisions-font-size-xs);
+  line-height: var(--ds-decisions-font-line-height-relaxed);
+}
+
+.logs:focus-visible {
+  outline: none;
+  box-shadow: var(--ds-decisions-shadow-focus);
+}
+
+.log-line {
+  display: flex;
+  gap: var(--ds-decisions-space-sm);
+  white-space: nowrap;
+}
+
+.log-time {
+  color: var(--ds-decisions-color-text-disabled);
+}
+
+.log-msg {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 1024px) {
+  .dashboard {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .dashboard {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .tile--chart {
+    grid-column: auto;
+  }
+}

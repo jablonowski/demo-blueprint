@@ -1,0 +1,1573 @@
+{
+  "arm": "A",
+  "run": 0,
+  "scoredAt": "2026-09-24T17:09:19Z",
+  "model": "claude-opus-5-5",
+  "isolation": "session",
+  "s0Sha": "a8b26e1f589b",
+  "overlaySha": "40dd762a0ef7",
+  "covered": {
+    "slotsUsed": 0,
+    "slotsOf": 13,
+    "reimplemented": 13,
+    "absent": 0,
+    "hadLibrary": false,
+    "falsifierTriggered": null,
+    "hallucinatedApi": 0,
+    "hallucinatedProps": 0,
+    "hallucinatedImports": 0
+  },
+  "gap": {
+    "rawValues": 4,
+    "chromatic": 0,
+    "dimensional": 4,
+    "declaredLocalTokens": 70,
+    "breakpoints": 3,
+    "tierCrossings": 0,
+    "tier1": 0,
+    "tier3": 0
+  },
+  "conformance": {
+    "authored": 74,
+    "matched": 46,
+    "divergent": 21,
+    "novel": 7,
+    "rate": 0.622,
+    "colour": {
+      "authored": 29,
+      "matched": 6,
+      "divergent": 20,
+      "novel": 3,
+      "rate": 0.207
+    },
+    "length": {
+      "authored": 45,
+      "matched": 40,
+      "divergent": 1,
+      "novel": 4,
+      "rate": 0.889
+    },
+    "byOrigin": {
+      "declared": {
+        "matched": 42,
+        "divergent": 21,
+        "novel": 7
+      },
+      "scattered": {
+        "matched": 4,
+        "divergent": 0,
+        "novel": 0
+      }
+    },
+    "reference": "@jablonowski/dsb-tokens@1.0.10",
+    "tolerances": {
+      "colour": 24,
+      "length": 2
+    }
+  },
+  "tokens": {
+    "decisionsUsed": 0,
+    "imports": [],
+    "importedPublicSurface": false
+  },
+  "checks": {
+    "applicable": false,
+    "passed": 0,
+    "failed": 0,
+    "na": 8,
+    "of": 8
+  },
+  "a11y": {
+    "total": 2,
+    "critical": 0,
+    "serious": 2,
+    "moderate": 0,
+    "minor": 0
+  },
+  "build": {
+    "ok": true,
+    "durationMs": 1087,
+    "bundle": "322.50 kB"
+  },
+  "cost": {
+    "inputTokensTotal": 1026698,
+    "outputTokens": 35963,
+    "usd": 1.4113072,
+    "durationMs": 290387,
+    "turns": 29,
+    "permissionDenials": []
+  },
+  "detail": {
+    "slots": [
+      {
+        "id": 1,
+        "slot": "login — username field",
+        "selector": "dsb-input",
+        "verdict": "reimplemented"
+      },
+      {
+        "id": 2,
+        "slot": "login — password field",
+        "selector": "dsb-input",
+        "verdict": "reimplemented"
+      },
+      {
+        "id": 3,
+        "slot": "login — remember me",
+        "selector": "dsb-checkbox",
+        "verdict": "reimplemented"
+      },
+      {
+        "id": 4,
+        "slot": "login — submit",
+        "selector": "dsb-button",
+        "verdict": "reimplemented"
+      },
+      {
+        "id": 5,
+        "slot": "shell — header",
+        "selector": "dsb-header",
+        "verdict": "reimplemented"
+      },
+      {
+        "id": 6,
+        "slot": "shell — footer",
+        "selector": "dsb-footer",
+        "verdict": "reimplemented"
+      },
+      {
+        "id": 7,
+        "slot": "shell — profile avatar",
+        "selector": "dsb-avatar",
+        "verdict": "reimplemented"
+      },
+      {
+        "id": 8,
+        "slot": "users — page action",
+        "selector": "dsb-button",
+        "verdict": "reimplemented"
+      },
+      {
+        "id": 9,
+        "slot": "users — the table",
+        "selector": "dsb-table",
+        "verdict": "reimplemented"
+      },
+      {
+        "id": 10,
+        "slot": "users — avatar cell",
+        "selector": "dsb-avatar",
+        "verdict": "reimplemented"
+      },
+      {
+        "id": 11,
+        "slot": "users — role/status badge",
+        "selector": "dsb-tag",
+        "verdict": "reimplemented"
+      },
+      {
+        "id": 12,
+        "slot": "dialogs — all four",
+        "selector": "dsb-modal",
+        "verdict": "reimplemented"
+      },
+      {
+        "id": 13,
+        "slot": "edit/invite — role selector",
+        "selector": "dsb-dropdown",
+        "verdict": "reimplemented",
+        "defensible": true
+      }
+    ],
+    "rawValues": {
+      "chromatic": [],
+      "dimensional": [
+        {
+          "file": "styles.scss",
+          "line": 147,
+          "value": "3px"
+        },
+        {
+          "file": "styles.scss",
+          "line": 212,
+          "value": "2px"
+        },
+        {
+          "file": "styles.scss",
+          "line": 263,
+          "value": "3px"
+        },
+        {
+          "file": "app/shared/badge.component.ts",
+          "line": 6,
+          "value": "2px"
+        }
+      ],
+      "declared": [
+        {
+          "file": "styles.scss",
+          "line": 4,
+          "value": "#ffffff"
+        },
+        {
+          "file": "styles.scss",
+          "line": 5,
+          "value": "#fafafa"
+        },
+        {
+          "file": "styles.scss",
+          "line": 6,
+          "value": "#f4f4f5"
+        },
+        {
+          "file": "styles.scss",
+          "line": 7,
+          "value": "#09090b"
+        },
+        {
+          "file": "styles.scss",
+          "line": 8,
+          "value": "#71717a"
+        },
+        {
+          "file": "styles.scss",
+          "line": 9,
+          "value": "#a1a1aa"
+        },
+        {
+          "file": "styles.scss",
+          "line": 10,
+          "value": "#e4e4e7"
+        },
+        {
+          "file": "styles.scss",
+          "line": 11,
+          "value": "#d4d4d8"
+        },
+        {
+          "file": "styles.scss",
+          "line": 13,
+          "value": "#18181b"
+        },
+        {
+          "file": "styles.scss",
+          "line": 14,
+          "value": "#27272a"
+        },
+        {
+          "file": "styles.scss",
+          "line": 15,
+          "value": "#fafafa"
+        },
+        {
+          "file": "styles.scss",
+          "line": 17,
+          "value": "#15803d"
+        },
+        {
+          "file": "styles.scss",
+          "line": 18,
+          "value": "#dcfce7"
+        },
+        {
+          "file": "styles.scss",
+          "line": 19,
+          "value": "#dc2626"
+        },
+        {
+          "file": "styles.scss",
+          "line": 20,
+          "value": "#b91c1c"
+        },
+        {
+          "file": "styles.scss",
+          "line": 21,
+          "value": "#fee2e2"
+        },
+        {
+          "file": "styles.scss",
+          "line": 22,
+          "value": "#1d4ed8"
+        },
+        {
+          "file": "styles.scss",
+          "line": 23,
+          "value": "#dbeafe"
+        },
+        {
+          "file": "styles.scss",
+          "line": 25,
+          "value": "#09090b"
+        },
+        {
+          "file": "styles.scss",
+          "line": 26,
+          "value": "#d4d4d8"
+        },
+        {
+          "file": "styles.scss",
+          "line": 27,
+          "value": "#71717a"
+        },
+        {
+          "file": "styles.scss",
+          "line": 28,
+          "value": "#93c5fd"
+        },
+        {
+          "file": "styles.scss",
+          "line": 29,
+          "value": "#fcd34d"
+        },
+        {
+          "file": "styles.scss",
+          "line": 30,
+          "value": "#fca5a5"
+        },
+        {
+          "file": "styles.scss",
+          "line": 32,
+          "value": "rgb(9 9 11 / 0.5)"
+        },
+        {
+          "file": "styles.scss",
+          "line": 33,
+          "value": "rgb(24 24 27 / 0.2)"
+        },
+        {
+          "file": "styles.scss",
+          "line": 88,
+          "value": "rgb(0 0 0 / 0.05)"
+        },
+        {
+          "file": "styles.scss",
+          "line": 89,
+          "value": "rgb(0 0 0 / 0.08)"
+        },
+        {
+          "file": "styles.scss",
+          "line": 90,
+          "value": "rgb(0 0 0 / 0.16)"
+        },
+        {
+          "file": "styles.scss",
+          "line": 36,
+          "value": "4px"
+        },
+        {
+          "file": "styles.scss",
+          "line": 37,
+          "value": "8px"
+        },
+        {
+          "file": "styles.scss",
+          "line": 38,
+          "value": "12px"
+        },
+        {
+          "file": "styles.scss",
+          "line": 39,
+          "value": "16px"
+        },
+        {
+          "file": "styles.scss",
+          "line": 40,
+          "value": "20px"
+        },
+        {
+          "file": "styles.scss",
+          "line": 41,
+          "value": "24px"
+        },
+        {
+          "file": "styles.scss",
+          "line": 42,
+          "value": "32px"
+        },
+        {
+          "file": "styles.scss",
+          "line": 43,
+          "value": "40px"
+        },
+        {
+          "file": "styles.scss",
+          "line": 44,
+          "value": "48px"
+        },
+        {
+          "file": "styles.scss",
+          "line": 47,
+          "value": "4px"
+        },
+        {
+          "file": "styles.scss",
+          "line": 48,
+          "value": "6px"
+        },
+        {
+          "file": "styles.scss",
+          "line": 49,
+          "value": "8px"
+        },
+        {
+          "file": "styles.scss",
+          "line": 50,
+          "value": "12px"
+        },
+        {
+          "file": "styles.scss",
+          "line": 51,
+          "value": "9999px"
+        },
+        {
+          "file": "styles.scss",
+          "line": 56,
+          "value": "12px"
+        },
+        {
+          "file": "styles.scss",
+          "line": 57,
+          "value": "14px"
+        },
+        {
+          "file": "styles.scss",
+          "line": 58,
+          "value": "16px"
+        },
+        {
+          "file": "styles.scss",
+          "line": 59,
+          "value": "18px"
+        },
+        {
+          "file": "styles.scss",
+          "line": 60,
+          "value": "20px"
+        },
+        {
+          "file": "styles.scss",
+          "line": 61,
+          "value": "24px"
+        },
+        {
+          "file": "styles.scss",
+          "line": 62,
+          "value": "30px"
+        },
+        {
+          "file": "styles.scss",
+          "line": 69,
+          "value": "0.05em"
+        },
+        {
+          "file": "styles.scss",
+          "line": 72,
+          "value": "36px"
+        },
+        {
+          "file": "styles.scss",
+          "line": 73,
+          "value": "32px"
+        },
+        {
+          "file": "styles.scss",
+          "line": 74,
+          "value": "32px"
+        },
+        {
+          "file": "styles.scss",
+          "line": 75,
+          "value": "40px"
+        },
+        {
+          "file": "styles.scss",
+          "line": 76,
+          "value": "48px"
+        },
+        {
+          "file": "styles.scss",
+          "line": 77,
+          "value": "64px"
+        },
+        {
+          "file": "styles.scss",
+          "line": 78,
+          "value": "1280px"
+        },
+        {
+          "file": "styles.scss",
+          "line": 79,
+          "value": "400px"
+        },
+        {
+          "file": "styles.scss",
+          "line": 80,
+          "value": "420px"
+        },
+        {
+          "file": "styles.scss",
+          "line": 81,
+          "value": "560px"
+        },
+        {
+          "file": "styles.scss",
+          "line": 82,
+          "value": "200px"
+        },
+        {
+          "file": "styles.scss",
+          "line": 83,
+          "value": "180px"
+        },
+        {
+          "file": "styles.scss",
+          "line": 84,
+          "value": "240px"
+        },
+        {
+          "file": "styles.scss",
+          "line": 85,
+          "value": "6px"
+        },
+        {
+          "file": "styles.scss",
+          "line": 88,
+          "value": "2px"
+        },
+        {
+          "file": "styles.scss",
+          "line": 89,
+          "value": "4px"
+        },
+        {
+          "file": "styles.scss",
+          "line": 89,
+          "value": "12px"
+        },
+        {
+          "file": "styles.scss",
+          "line": 90,
+          "value": "16px"
+        },
+        {
+          "file": "styles.scss",
+          "line": 90,
+          "value": "40px"
+        }
+      ],
+      "breakpoints": [
+        {
+          "file": "app/layouts/main-layout/main-layout.component.scss",
+          "value": "768px"
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.scss",
+          "value": "1024px"
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.scss",
+          "value": "640px"
+        }
+      ]
+    },
+    "tiers": {
+      "tier1": [],
+      "tier3": [],
+      "decisions": []
+    },
+    "hallucinations": {
+      "unknownProps": [],
+      "unknownImports": []
+    },
+    "checks": [
+      {
+        "id": "9.1",
+        "what": "import names carry no Dsb prefix",
+        "verdict": "na",
+        "detail": [
+          "the arm had no component library"
+        ]
+      },
+      {
+        "id": "9.2",
+        "what": "dsb-column uses #cell and let-row=\"row\"",
+        "verdict": "na",
+        "detail": [
+          "the arm had no component library"
+        ]
+      },
+      {
+        "id": "9.3",
+        "what": "nothing is projected into dsb-header",
+        "verdict": "na",
+        "detail": [
+          "the arm had no component library"
+        ]
+      },
+      {
+        "id": "9.4",
+        "what": "FooterColumn uses heading, not title",
+        "verdict": "na",
+        "detail": [
+          "the arm had no component library"
+        ]
+      },
+      {
+        "id": "9.5",
+        "what": "no dsb-modal uses both the title input and the [modal-title] slot",
+        "verdict": "na",
+        "detail": [
+          "the arm had no component library"
+        ]
+      },
+      {
+        "id": "9.6",
+        "what": "a split modal footer sets flex:1 on the projected element",
+        "verdict": "na",
+        "detail": [
+          "the arm had no component library"
+        ]
+      },
+      {
+        "id": "9.7",
+        "what": "the right-edge profile menu avoids dsb-dropdown",
+        "verdict": "na",
+        "detail": [
+          "the arm had no component library"
+        ]
+      },
+      {
+        "id": "standalone",
+        "what": "every library component used is in the component imports array",
+        "verdict": "na",
+        "detail": [
+          "the arm had no component library"
+        ]
+      }
+    ],
+    "conformance": {
+      "matched": [
+        {
+          "file": "styles.scss",
+          "line": 147,
+          "value": "3px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-3",
+            "value": "3px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 212,
+          "value": "2px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-width-options-2",
+            "value": "2px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 263,
+          "value": "3px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-3",
+            "value": "3px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/shared/badge.component.ts",
+          "line": 6,
+          "value": "2px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-width-options-2",
+            "value": "2px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 4,
+          "value": "#ffffff",
+          "origin": "declared",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-color-options-neutral-0",
+            "value": "#ffffff",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 5,
+          "value": "#fafafa",
+          "origin": "declared",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-color-options-neutral-50",
+            "value": "#fafafa",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 15,
+          "value": "#fafafa",
+          "origin": "declared",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-color-options-neutral-50",
+            "value": "#fafafa",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 88,
+          "value": "rgb(0 0 0 / 0.05)",
+          "origin": "declared",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-color-options-black-a06",
+            "value": "rgba(0, 0, 0, 0.06)",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 89,
+          "value": "rgb(0 0 0 / 0.08)",
+          "origin": "declared",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-color-options-black-a06",
+            "value": "rgba(0, 0, 0, 0.06)",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 90,
+          "value": "rgb(0 0 0 / 0.16)",
+          "origin": "declared",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-color-options-black-a06",
+            "value": "rgba(0, 0, 0, 0.06)",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 36,
+          "value": "4px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-4",
+            "value": "4px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 37,
+          "value": "8px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-8",
+            "value": "8px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 38,
+          "value": "12px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-12",
+            "value": "12px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 39,
+          "value": "16px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-16",
+            "value": "16px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 40,
+          "value": "20px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-20",
+            "value": "20px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 41,
+          "value": "24px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-24",
+            "value": "24px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 42,
+          "value": "32px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-tracking-options-tight",
+            "value": "02em",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 43,
+          "value": "40px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-40",
+            "value": "40px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 44,
+          "value": "48px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-48",
+            "value": "48px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 47,
+          "value": "4px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-4",
+            "value": "4px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 48,
+          "value": "6px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-6",
+            "value": "6px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 49,
+          "value": "8px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-8",
+            "value": "8px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 50,
+          "value": "12px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-12",
+            "value": "12px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 56,
+          "value": "12px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-12",
+            "value": "12px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 57,
+          "value": "14px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-14",
+            "value": "14px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 58,
+          "value": "16px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-16",
+            "value": "16px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 59,
+          "value": "18px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-18",
+            "value": "18px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 60,
+          "value": "20px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-20",
+            "value": "20px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 61,
+          "value": "24px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-24",
+            "value": "24px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 62,
+          "value": "30px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-size-options-30",
+            "value": "30px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 72,
+          "value": "36px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-size-options-36",
+            "value": "36px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 73,
+          "value": "32px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-tracking-options-tight",
+            "value": "02em",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 74,
+          "value": "32px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-tracking-options-tight",
+            "value": "02em",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 75,
+          "value": "40px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-40",
+            "value": "40px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 76,
+          "value": "48px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-48",
+            "value": "48px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 77,
+          "value": "64px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-64",
+            "value": "64px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 79,
+          "value": "400px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-layout-options-400",
+            "value": "400px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 82,
+          "value": "200px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-layout-options-200",
+            "value": "200px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 83,
+          "value": "180px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-layout-options-180",
+            "value": "180px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 84,
+          "value": "240px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-layout-options-240",
+            "value": "240px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 85,
+          "value": "6px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-6",
+            "value": "6px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 88,
+          "value": "2px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-width-options-2",
+            "value": "2px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 89,
+          "value": "4px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-4",
+            "value": "4px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 89,
+          "value": "12px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-12",
+            "value": "12px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 90,
+          "value": "16px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-16",
+            "value": "16px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 90,
+          "value": "40px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-40",
+            "value": "40px",
+            "distance": 0
+          }
+        }
+      ],
+      "divergent": [
+        {
+          "file": "styles.scss",
+          "line": 6,
+          "value": "#f4f4f5",
+          "origin": "declared",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-color-options-neutral-100",
+            "value": "#f5f5f5",
+            "distance": 1.41
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 7,
+          "value": "#09090b",
+          "origin": "declared",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-component-footer-column-link-text-hover",
+            "value": "#111111",
+            "distance": 12.81
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 8,
+          "value": "#71717a",
+          "origin": "declared",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-component-footer-copyright-text",
+            "value": "#6f6f6f",
+            "distance": 11.36
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 9,
+          "value": "#a1a1aa",
+          "origin": "declared",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-color-options-neutral-500",
+            "value": "#aaaaaa",
+            "distance": 12.73
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 10,
+          "value": "#e4e4e7",
+          "origin": "declared",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-color-options-neutral-300",
+            "value": "#e8e8e8",
+            "distance": 5.74
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 11,
+          "value": "#d4d4d8",
+          "origin": "declared",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-color-options-neutral-350",
+            "value": "#d4d4d4",
+            "distance": 4
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 13,
+          "value": "#18181b",
+          "origin": "declared",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-color-options-neutral-900",
+            "value": "#111111",
+            "distance": 14.07
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 14,
+          "value": "#27272a",
+          "origin": "declared",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-component-header-cta-background-hover",
+            "value": "#333333",
+            "distance": 19.21
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 17,
+          "value": "#15803d",
+          "origin": "declared",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-color-options-green-700",
+            "value": "#1a7c3c",
+            "distance": 6.48
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 18,
+          "value": "#dcfce7",
+          "origin": "declared",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-color-options-green-50",
+            "value": "#e6f4ea",
+            "distance": 13.15
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 19,
+          "value": "#dc2626",
+          "origin": "declared",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-component-dropdown-error-border",
+            "value": "#d93025",
+            "distance": 10.49
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 20,
+          "value": "#b91c1c",
+          "origin": "declared",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-color-options-red-700",
+            "value": "#b0261e",
+            "distance": 13.6
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 21,
+          "value": "#fee2e2",
+          "origin": "declared",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-color-options-red-100",
+            "value": "#fce8e6",
+            "distance": 7.48
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 22,
+          "value": "#1d4ed8",
+          "origin": "declared",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-component-list-indicator-info",
+            "value": "#1a56db",
+            "distance": 9.06
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 23,
+          "value": "#dbeafe",
+          "origin": "declared",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-component-tag-info-background",
+            "value": "#e8f0fe",
+            "distance": 14.32
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 25,
+          "value": "#09090b",
+          "origin": "declared",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-component-footer-column-link-text-hover",
+            "value": "#111111",
+            "distance": 12.81
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 26,
+          "value": "#d4d4d8",
+          "origin": "declared",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-color-options-neutral-350",
+            "value": "#d4d4d4",
+            "distance": 4
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 27,
+          "value": "#71717a",
+          "origin": "declared",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-component-footer-copyright-text",
+            "value": "#6f6f6f",
+            "distance": 11.36
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 30,
+          "value": "#fca5a5",
+          "origin": "declared",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-component-button-danger-border",
+            "value": "#f0a9a4",
+            "distance": 12.69
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 32,
+          "value": "rgb(9 9 11 / 0.5)",
+          "origin": "declared",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-color-options-black-a40",
+            "value": "rgba(0, 0, 0, 0.4)",
+            "distance": 16.82
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 69,
+          "value": "0.05em",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-decisions-font-tracking-caps",
+            "value": "0.06em",
+            "distance": 0.16
+          }
+        }
+      ],
+      "novel": [
+        {
+          "file": "styles.scss",
+          "line": 28,
+          "value": "#93c5fd",
+          "origin": "declared",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-component-breadcrumbs-separator-color",
+            "value": "#c0c0c0",
+            "distance": 75.97
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 29,
+          "value": "#fcd34d",
+          "origin": "declared",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-component-button-danger-border",
+            "value": "#f0a9a4",
+            "distance": 97.35
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 33,
+          "value": "rgb(24 24 27 / 0.2)",
+          "origin": "declared",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-color-options-black-a14",
+            "value": "rgba(0, 0, 0, 0.14)",
+            "distance": 43.37
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 51,
+          "value": "9999px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-layout-options-1200",
+            "value": "1200px",
+            "distance": 8799
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 78,
+          "value": "1280px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-layout-options-1200",
+            "value": "1200px",
+            "distance": 80
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 80,
+          "value": "420px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-layout-options-400",
+            "value": "400px",
+            "distance": 20
+          }
+        },
+        {
+          "file": "styles.scss",
+          "line": 81,
+          "value": "560px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-layout-options-540",
+            "value": "540px",
+            "distance": 20
+          }
+        }
+      ]
+    },
+    "a11yPages": [
+      {
+        "route": "/login",
+        "violations": []
+      },
+      {
+        "route": "/dashboard",
+        "violations": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "nodes": 8,
+            "help": "Elements must meet minimum color contrast ratio thresholds"
+          }
+        ]
+      },
+      {
+        "route": "/users",
+        "violations": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "nodes": 3,
+            "help": "Elements must meet minimum color contrast ratio thresholds"
+          }
+        ]
+      }
+    ]
+  }
+}

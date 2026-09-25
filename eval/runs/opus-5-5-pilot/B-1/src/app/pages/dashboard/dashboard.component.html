@@ -1,0 +1,68 @@
+<div class="grid">
+  @for (metric of metrics; track metric.title) {
+    <section class="card metric">
+      <h2 class="card-title">{{ metric.title }}</h2>
+      <div class="metric-row">
+        <span class="metric-value">{{ metric.value }}</span>
+        @if (metric.trend) {
+          <dsb-tag [variant]="metric.trendVariant ?? 'default'" size="sm">{{ metric.trend }}</dsb-tag>
+        }
+      </div>
+      @if (metric.subLabel) {
+        <p class="metric-sub">{{ metric.subLabel }}</p>
+      }
+    </section>
+  }
+
+  <section class="card span-2">
+    <h2 class="card-title">Request Throughput</h2>
+    <div class="chart" role="img" aria-label="Requests per day, Monday to Sunday">
+      @for (bar of throughput; track bar.day) {
+        <div class="chart-col">
+          <div class="chart-track">
+            <div class="chart-bar" [style.height.%]="bar.percent" [attr.title]="bar.value + ' requests'"></div>
+          </div>
+          <span class="chart-label">{{ bar.day }}</span>
+        </div>
+      }
+    </div>
+  </section>
+
+  <section class="card span-2">
+    <h2 class="card-title">Service Health</h2>
+    <dsb-list [divided]="true" [compact]="true">
+      @for (service of services; track service.name) {
+        <dsb-list-item [label]="service.name">
+          <dsb-tag list-trailing [variant]="service.online ? 'success' : 'danger'" size="sm">
+            {{ service.online ? 'Online' : 'Offline' }}
+          </dsb-tag>
+        </dsb-list-item>
+      }
+    </dsb-list>
+  </section>
+
+  <section class="card span-2">
+    <h2 class="card-title">Data Summary</h2>
+    <dl class="summary">
+      @for (item of summary; track item.label) {
+        <div class="summary-row">
+          <dt>{{ item.label }}</dt>
+          <dd>{{ item.value }}</dd>
+        </div>
+      }
+    </dl>
+  </section>
+
+  <section class="card span-2">
+    <h2 class="card-title">System Logs</h2>
+    <div class="logs" #logViewport (scroll)="onLogScroll(logViewport)" role="log" aria-live="polite">
+      @for (line of logs(); track $index) {
+        <div class="log-line">
+          <span class="log-time">{{ line.time }}</span>
+          <span class="log-level" [attr.data-level]="line.level">{{ line.level }}</span>
+          <span class="log-msg">{{ line.message }}</span>
+        </div>
+      }
+    </div>
+  </section>
+</div>

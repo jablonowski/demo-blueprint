@@ -6,24 +6,52 @@
  * The headline metric. Every literal here is a value that will not move when the decision
  * behind it moves — the UI Drift Tax at the moment it is incurred.
  *
- * Three things are excluded, and each exclusion is a claim that has to hold:
+ * Not every literal is the same phenomenon, and the first version of this scorer said they
+ * were. Arm D wrote:
+ *
+ *     :host {
+ *       --app-chart-height: 160px;  /* no-coverage: chart plot area height *\/
+ *     }
+ *
+ * having asked the resolver, been refused, and gathered the gaps into named local
+ * properties "as token contributions to propose rather than scattered as literals". That
+ * counted identically to `padding: 14px` buried in a rule, which is the opposite behaviour.
+ *
+ * So literals are separated by what they are doing:
+ *
+ *   scattered    a literal used directly in a declaration — the drift the metric is about
+ *   declared     a literal as the value of a custom property — a local token, naming a gap
+ *                rather than bypassing the system. Reported, never zero-rated: a local
+ *                token is still a value the design system does not own
+ *   breakpoints  media query widths. The token set has no breakpoint scale, so there is
+ *                nothing to reach for; if one is ever added this bucket becomes a finding
+ *
+ * And two exclusions, each a claim that has to hold:
  *
  *   0 and 0-anything      no scale expresses nothing
  *   1px                   a hairline border is a rendering unit, not a design decision
- *   media query widths    the token set has no breakpoint scale, so there is nothing to
- *                         reach for. Counted separately rather than silently dropped: if a
- *                         breakpoint scale is ever added, this bucket becomes a finding
  */
 
 const path = require('path');
 const { stylesheets, stripCssComments } = require('./lib/source');
 
-const COLOUR = /#[0-9a-fA-F]{3,8}\b|\brgba?\(\s*\d|\bhsla?\(\s*\d/g;
+// The function forms match to the closing paren, not just their prefix: the count is the
+// same either way, but a truncated `rgba(0` cannot be compared against anything, and the
+// conformance scorer reads these values.
+const COLOUR = /#[0-9a-fA-F]{3,8}\b|\brgba?\([^)]*\)|\bhsla?\([^)]*\)/g;
 const LENGTH = /(?<![\w-])(\d+(?:\.\d+)?)(px|rem|em)\b/g;
+
+/** Is this literal the value of a custom property declaration? */
+function isDeclaredToken(source, index) {
+  const lineStart = source.lastIndexOf('\n', index) + 1;
+  const line = source.slice(lineStart, index);
+  return /(?:^|[;{])\s*--[\w-]+\s*:[^;]*$/.test(line);
+}
 
 function score(appRoot) {
   const chromatic = [];
   const dimensional = [];
+  const declared = [];
   const breakpoints = [];
 
   for (const sheet of stylesheets(appRoot)) {
@@ -40,7 +68,8 @@ function score(appRoot) {
     }
 
     for (const m of source.matchAll(COLOUR)) {
-      chromatic.push({ file: rel, line: lineOf(source, m.index), value: m[0] });
+      const entry = { file: rel, line: lineOf(source, m.index), value: m[0] };
+      (isDeclaredToken(source, m.index) ? declared : chromatic).push(entry);
     }
 
     for (const m of source.matchAll(LENGTH)) {
@@ -50,16 +79,20 @@ function score(appRoot) {
       // A length inside a media condition, found by the second pass rather than the first.
       const before = source.slice(Math.max(0, m.index - 120), m.index);
       if (/@media[^{]*$/.test(before)) continue;
-      dimensional.push({ file: rel, line: lineOf(source, m.index), value: m[0] });
+      const entry = { file: rel, line: lineOf(source, m.index), value: m[0] };
+      (isDeclaredToken(source, m.index) ? declared : dimensional).push(entry);
     }
   }
 
   return {
+    // The headline stays the scattered ones: those are the values that will not move when
+    // the decision behind them moves.
     total: chromatic.length + dimensional.length,
     chromatic: chromatic.length,
     dimensional: dimensional.length,
+    declared: declared.length,
     breakpoints: breakpoints.length,
-    detail: { chromatic, dimensional, breakpoints },
+    detail: { chromatic, dimensional, declared, breakpoints },
   };
 }
 

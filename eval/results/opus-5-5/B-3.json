@@ -1,0 +1,122 @@
+{
+  "arm": "B",
+  "run": 3,
+  "model": "claude-opus-5-5",
+  "cli": "2.1.281 (Claude Code)",
+  "isolation": "session",
+  "started": "2026-09-25T16:04:20Z",
+  "overlaySha": "0d513945591a",
+  "s0Sha": "c25d3e960f47",
+  "promptBytes": 14252,
+  "runDir": "/tmp/dsb-eval/opus-5-5/B-3",
+  "figma": {
+    "channel": "cached",
+    "fileKey": "iJ92LuFOsPjO6avZ2anbwO",
+    "recordedAt": "2026-09-24T19:49:36Z",
+    "calls": 1,
+    "errors": 0,
+    "nodes": [
+      "22-11104"
+    ],
+    "ok": true
+  },
+  "inputTokensTotal": 3475691,
+  "outputTokens": 45802,
+  "result": {
+    "duration_api_ms": 414836,
+    "stop_reason": "end_turn",
+    "session_id": "c1cf351c-965c-4215-9ac4-9961ea2a703a",
+    "total_cost_usd": 2.8153198,
+    "usage": {
+      "input_tokens": 68,
+      "cache_creation_input_tokens": 154344,
+      "cache_read_input_tokens": 3321279,
+      "output_tokens": 45802,
+      "output_tokens_details": {
+        "thinking_tokens": 9223
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 154344,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "not_available",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 1544,
+          "cache_read_input_tokens": 164580,
+          "cache_creation_input_tokens": 468,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 468
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard"
+    },
+    "modelUsage": {
+      "claude-opus-5-5": {
+        "inputTokens": 68,
+        "outputTokens": 45802,
+        "cacheReadInputTokens": 3321279,
+        "cacheCreationInputTokens": 154344,
+        "webSearchRequests": 0,
+        "costUSD": 2.8153198,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 128000,
+        "thinkingTokens": 9223,
+        "canonicalModel": "claude-opus-5-5",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "subagent_stats": {
+      "spawned": 0,
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 0,
+      "spawned_by_subagents": 0,
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {}
+    },
+    "is_error": false,
+    "num_turns": 40,
+    "subtype": "success",
+    "api_error_status": null,
+    "result": "The app is built and working. `npx @angular/cli@19 serve` runs it, and logging in with `admin` / `admin` reaches the dashboard. I drove it end to end in headless Chromium at 1280×900 and 420 px wide: every route renders, all four dialogs open and close (via ✕, backdrop, Escape, Cancel/Close), and create, edit and delete all go through the in-memory API and show up in the table. The production build passes with no warnings, and there were no console errors.\n\n**How I worked out the design system.** `llms.client.txt` was absent and I didn't look for a copy. I read both READMEs, the `.d.ts` files, and the templates and styles inside the component bundle. From those I used `dsb-header`, `dsb-footer`, `dsb-input`, `dsb-checkbox`, `dsb-dropdown`, `dsb-button`, `dsb-table`/`dsb-column`, `dsb-modal`, `dsb-tag`, `dsb-avatar` and `dsb-list`. The tokens come in through `@import '@jablonowski/dsb-tokens/css'`, and my own CSS uses only `--ds-decisions-*` variables, never `--ds-component-*`.\n\n**Setup note.** The existing `node_modules` had resolved Angular 21, so I reinstalled on Angular 19.2. I set the `@jablonowski` folder aside and restored it afterwards, so the harness's deletion still holds: after the final build, `llms.client.txt` and `contracts.json` are still missing.\n\n**Things I had to build or work around:**\n- **Profile menu:** `dsb-header` has no slot on the right, so the avatar, \"Admin User\" and menu sit on top of it. The menu is pinned to the right edge and opens leftward. It stayed fully on screen at both widths I tested, and it closes on an outside click or Escape.\n- **Header and footer links:** these are plain links in the library, which would reload the whole page. I send in-app links through the Angular router instead, and the `#` placeholder links do nothing.\n- **Role dropdown in dialogs:** the modal body cuts off the open Role menu. I added one scoped `::ng-deep` rule that lets the body overflow only while a dropdown is open. That touches a library internal and is the one place I did.\n- **Avatar fallback:** `dsb-avatar` doesn't fall back to initials when an image fails to load, so the users page checks each avatar URL and clears it if it fails.\n- **Local pieces:** the bar chart (no charting library), the metric tiles, the service rows and the terminal-style log viewer are my own code.\n\n**Where the spec's text differs from Figma, the spec won:**\n- **Content:** labels and values follow the spec, not Figma. That covers \"Welcome back\" instead of Figma's \"Blueprint / Sign in to your account\", uppercase tile titles, and the spec's tile values, services and days of the week.\n- **Tile layout:** the spec has 8 tiles and Figma has 7. I used a 12-column grid: four metric tiles on top, then Throughput (7 columns) with Service Health (5), then Data Summary (5) with System Logs (7). In Figma the logs span the full width and Health comes before Throughput.\n- **Header nav:** Figma's links (Overview, Metrics, Logs, Settings) don't match any route, so I used \"Dashboard\" and \"Team Members\". I left out the \"Online\" tag, which appears in only one Figma frame.\n- **Footer:** Figma shows a slim footer bar. The spec asks for link columns, so I used the full `dsb-footer`, and the column links are my own choice.\n- **Kept from Figma but not in the spec's lists:** the login divider, the \"System Overview\" heading with its \"Last updated\" line, and the Throughput subtitle and Peak/Average/Total stats.\n- **Row actions:** they follow the spec — Details (least emphasis), Edit (secondary), Delete. Figma shows them in a different order with the emphasis swapped between Edit and Details.\n\n**Small differences left in place** (checked only by eye against screenshots, not measured pixel by pixel):\n- The dialogs have no divider lines, and their padding is 20 px where Figma uses 24. These come from `dsb-modal`, and I didn't override them.\n- Where the design has no matching token, I used the nearest one: the medium dialog is 540 px wide against Figma's 560, KPI values are 22 px against 26, and the card shadows are close approximations.\n- The font is Inter only if it's installed on the machine, with a system font as fallback; I didn't load it.",
+    "ttft_ms": 3003,
+    "type": "result",
+    "duration_ms": 479584,
+    "uuid": "59291188-5475-415c-81c7-d306f9836d55",
+    "ttft_stream_ms": 2306,
+    "time_to_request_ms": 266,
+    "first_content_frame_ms": 2307,
+    "queued_turn_count": 0,
+    "result_index": 0
+  }
+}

@@ -1,0 +1,69 @@
+<div class="dashboard">
+  @for (m of metrics; track m.title) {
+    <section class="card tile">
+      <h2 class="tile__title">{{ m.title }}</h2>
+      <div class="tile__value-row">
+        <span class="tile__value">{{ m.value }}</span>
+        @if (m.trend) {
+          <app-badge [tone]="m.trendTone ?? 'neutral'">{{ m.trend }}</app-badge>
+        }
+      </div>
+      @if (m.subLabel) {
+        <p class="tile__sub">{{ m.subLabel }}</p>
+      }
+    </section>
+  }
+
+  <section class="card tile tile--wide">
+    <h2 class="tile__title">Request Throughput</h2>
+    <div class="chart" role="img" aria-label="Request throughput, Monday to Sunday">
+      @for (d of throughput; track d.day) {
+        <div class="chart__col">
+          <div class="chart__track">
+            <div class="chart__bar" [style.height.%]="d.percent" [attr.title]="d.value + ' req'"></div>
+          </div>
+          <span class="chart__label">{{ d.day }}</span>
+        </div>
+      }
+    </div>
+  </section>
+
+  <section class="card tile">
+    <h2 class="tile__title">Service Health</h2>
+    <ul class="list">
+      @for (s of services; track s.name) {
+        <li class="list__row">
+          <span>{{ s.name }}</span>
+          <app-badge [tone]="s.online ? 'success' : 'danger'">
+            <span class="dot"></span>{{ s.online ? 'Online' : 'Offline' }}
+          </app-badge>
+        </li>
+      }
+    </ul>
+  </section>
+
+  <section class="card tile">
+    <h2 class="tile__title">Data Summary</h2>
+    <dl class="list">
+      @for (row of summary; track row.label) {
+        <div class="list__row">
+          <dt class="muted">{{ row.label }}</dt>
+          <dd class="list__value">{{ row.value }}</dd>
+        </div>
+      }
+    </dl>
+  </section>
+
+  <section class="card tile tile--full">
+    <h2 class="tile__title">System Logs</h2>
+    <div class="terminal" #logViewport>
+      @for (line of logs(); track $index) {
+        <div class="terminal__line">
+          <span class="terminal__time">{{ line.time }}</span>
+          <span class="terminal__level terminal__level--{{ line.level.toLowerCase() }}">{{ line.level }}</span>
+          <span>{{ line.message }}</span>
+        </div>
+      }
+    </div>
+  </section>
+</div>

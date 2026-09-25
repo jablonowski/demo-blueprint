@@ -1,1 +1,6 @@
 @import '@jablonowski/dsb-tokens/dist/css/variables.css';
+:host {
+  --app-chart-height: 160px;
+  --app-accent: #ff00aa;
+}
+.scattered { padding: 14px; color: #112233; }

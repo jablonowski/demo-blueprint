@@ -1,0 +1,106 @@
+.page-head { display: flex; flex-direction: column; gap: var(--sp-1); margin-bottom: var(--sp-5); }
+.page-title { font-size: var(--fs-3xl); font-weight: var(--fw-semibold); color: var(--c-fg); }
+.page-meta { font-size: var(--fs-md); color: var(--c-fg-subtle); }
+
+/* 12-column grid; proportions follow the Figma frame (4 × 289 tiles, 538 | 658 split). */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--sp-6);
+}
+.tile { padding: var(--sp-6); display: flex; flex-direction: column; min-width: 0; }
+.metric { grid-column: span 3; gap: var(--sp-2-5); }
+.health { grid-column: span 5; }
+.throughput { grid-column: span 7; gap: var(--sp-4); }
+.summary { grid-column: span 12; gap: var(--sp-4); }
+.logs { grid-column: span 12; }
+
+/* ---------- metric tiles ---------- */
+.tile-label {
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-caps);
+  text-transform: uppercase;
+  color: var(--c-fg-subtle);
+}
+.metric-row { display: flex; align-items: center; gap: var(--sp-3); }
+.metric-value { font-size: var(--fs-5xl); font-weight: var(--fw-semibold); line-height: 1.2; color: var(--c-fg); }
+.metric-sub { font-size: var(--fs-sm); color: var(--c-fg-faint); }
+
+/* ---------- service health ---------- */
+.rows { list-style: none; margin: var(--sp-2-5) 0 0; padding: 0; }
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--sp-3) 0;
+  border-top: var(--border-w) solid var(--c-border);
+  font-size: var(--fs-md);
+  color: var(--c-fg);
+}
+
+/* ---------- throughput chart ---------- */
+.chart { display: flex; align-items: stretch; gap: var(--sp-2-5); flex: 1; min-height: var(--chart-h); }
+.bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: var(--sp-1); }
+.bar-track { flex: 1; width: 100%; display: flex; align-items: flex-end; }
+.bar {
+  width: 100%;
+  background: var(--c-fg);
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  transition: height 0.3s ease;
+}
+.bar-label { font-size: var(--fs-2xs); color: var(--c-fg-faint); }
+
+/* ---------- data summary ---------- */
+.pairs {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--sp-5) var(--sp-8);
+  margin: 0;
+}
+.pair { display: flex; flex-direction: column; gap: var(--sp-0-5); }
+.pair dt { order: 2; font-size: var(--fs-xs); color: var(--c-fg-subtle); }
+.pair dd { order: 1; margin: 0; font-size: var(--fs-lg); font-weight: var(--fw-semibold); color: var(--c-fg); }
+
+/* ---------- logs ---------- */
+.logs-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: var(--sp-3-5);
+}
+.log-view {
+  height: var(--log-h);
+  overflow-y: auto;
+  padding: var(--sp-3) var(--sp-3-5);
+  background: var(--c-surface-sunken);
+  border: var(--border-w) solid var(--c-border);
+  border-radius: var(--radius-control);
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  line-height: 1.7;
+}
+.log-line { display: flex; align-items: center; gap: var(--sp-3); white-space: nowrap; }
+.log-dot { flex-shrink: 0; width: var(--dot); height: var(--dot); border-radius: var(--radius-full); background: var(--c-border-control); }
+.log-time { color: var(--c-fg-faint); }
+.log-level { width: 5ch; font-weight: var(--fw-medium); color: var(--c-info-fg); }
+.log-source { width: 12ch; color: var(--c-fg-soft); overflow: hidden; text-overflow: ellipsis; }
+.log-msg { color: var(--c-fg); overflow: hidden; text-overflow: ellipsis; }
+
+.log-dot[data-level='OK'] { background: var(--c-positive-fg); }
+.log-dot[data-level='INFO'] { background: var(--c-info-fg); }
+.log-dot[data-level='WARN'] { background: var(--c-warning-fg); }
+.log-dot[data-level='ERROR'] { background: var(--c-negative-fg); }
+.log-level[data-level='OK'] { color: var(--c-positive-fg); }
+.log-level[data-level='WARN'] { color: var(--c-warning-fg); }
+.log-level[data-level='ERROR'] { color: var(--c-negative-fg); }
+
+/* ---------- responsive ---------- */
+@media (max-width: 1100px) {
+  .metric { grid-column: span 6; }
+  .health, .throughput { grid-column: span 12; }
+}
+@media (max-width: 640px) {
+  .metric { grid-column: span 12; }
+  .pairs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

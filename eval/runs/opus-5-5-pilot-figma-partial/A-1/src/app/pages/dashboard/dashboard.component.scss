@@ -1,0 +1,222 @@
+.page-head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin-bottom: var(--space-4);
+}
+
+.page-head__title {
+  font-size: var(--text-3xl);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-tight);
+}
+
+.page-head__meta {
+  font-size: var(--text-base);
+  color: var(--color-text-muted);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-5);
+}
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-5);
+  min-width: 0;
+}
+
+.tile--wide {
+  grid-column: span 2;
+}
+
+.tile--full {
+  grid-column: 1 / -1;
+}
+
+.tile__head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-0-5);
+}
+
+.tile__head--row {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tile__label {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.tile__title {
+  font-size: var(--text-base);
+  font-weight: var(--weight-semibold);
+}
+
+.tile__caption {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+/* ---------- Metric ---------- */
+.metric__value-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2-5);
+}
+
+.metric__value {
+  font-size: var(--text-display);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-tight);
+}
+
+.metric__sub {
+  font-size: var(--text-sm);
+  color: var(--color-text-placeholder);
+}
+
+/* ---------- Bar chart ---------- */
+.chart {
+  flex: 1;
+  display: flex;
+  align-items: stretch;
+  gap: var(--space-2);
+  min-height: var(--height-chart);
+  padding-top: var(--space-2);
+}
+
+.chart__col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.chart__track {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+}
+
+.chart__bar {
+  width: 100%;
+  background: var(--color-primary);
+  border-radius: var(--radius-xs) var(--radius-xs) 0 0;
+  transition: height var(--transition-fast);
+}
+
+.chart__label {
+  font-size: var(--text-2xs);
+  color: var(--color-text-placeholder);
+}
+
+/* ---------- Row lists (service health, data summary) ---------- */
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.list__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-2-5) 0;
+  font-size: var(--text-base);
+  border-top: var(--border-width) solid var(--color-border-subtle);
+
+  dt,
+  dd {
+    margin: 0;
+  }
+
+  dt {
+    color: var(--color-text-secondary);
+  }
+
+  dd {
+    font-weight: var(--weight-semibold);
+  }
+}
+
+/* ---------- Logs ---------- */
+.logs {
+  height: var(--height-log-viewer);
+  overflow-y: auto;
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-bg-subtle);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  line-height: var(--leading-loose);
+}
+
+.logs__line {
+  display: flex;
+  gap: var(--space-3);
+  white-space: nowrap;
+}
+
+.logs__time {
+  color: var(--color-text-placeholder);
+}
+
+.logs__level {
+  width: 5ch;
+  font-weight: var(--weight-medium);
+  color: var(--color-text-muted);
+
+  &[data-level='INFO'] {
+    color: var(--color-info-fg);
+  }
+
+  &[data-level='WARN'] {
+    color: var(--color-warning-fg);
+  }
+
+  &[data-level='ERROR'] {
+    color: var(--color-danger-fg);
+  }
+}
+
+.logs__source {
+  color: var(--color-text-secondary);
+}
+
+.logs__msg {
+  color: var(--color-text-strong);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .tile--wide {
+    grid-column: auto;
+  }
+}

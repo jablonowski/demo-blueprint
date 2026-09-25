@@ -1,0 +1,22 @@
+{
+  "available": true,
+  "total": 0,
+  "critical": 0,
+  "serious": 0,
+  "moderate": 0,
+  "minor": 0,
+  "pages": [
+    {
+      "route": "/login",
+      "violations": []
+    },
+    {
+      "route": "/dashboard",
+      "violations": []
+    },
+    {
+      "route": "/users",
+      "violations": []
+    }
+  ]
+}

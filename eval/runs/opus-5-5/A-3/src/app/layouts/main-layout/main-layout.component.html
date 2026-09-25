@@ -1,0 +1,51 @@
+<div class="shell">
+  <header class="header">
+    <a class="brand" routerLink="/dashboard">
+      <app-logo />
+      <span class="brand__name">Blueprint</span>
+    </a>
+
+    <nav class="nav" aria-label="Primary">
+      @for (item of nav; track item.path) {
+        <a class="nav__link" [routerLink]="item.path" routerLinkActive="is-active">{{ item.label }}</a>
+      }
+    </nav>
+
+    <app-user-menu [name]="userName" (signOut)="signOut()" />
+  </header>
+
+  <main class="content">
+    <router-outlet />
+  </main>
+
+  <footer class="footer">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <div class="brand">
+          <app-logo />
+          <span class="brand__name">Blueprint</span>
+        </div>
+        <p class="footer__copyright">© {{ year }} Blueprint. All rights reserved.</p>
+      </div>
+
+      <div class="footer__columns">
+        @for (column of footerColumns; track column.heading) {
+          <div class="footer__column">
+            <h3 class="footer__heading">{{ column.heading }}</h3>
+            <ul>
+              @for (link of column.links; track link) {
+                <li><a href="#" (click)="$event.preventDefault()">{{ link }}</a></li>
+              }
+            </ul>
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="footer__legal">
+      @for (link of legalLinks; track link) {
+        <a href="#" (click)="$event.preventDefault()">{{ link }}</a>
+      }
+    </div>
+  </footer>
+</div>

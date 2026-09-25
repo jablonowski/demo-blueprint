@@ -1,0 +1,50 @@
+<app-modal size="md" (backdropClose)="closeDialog.emit()">
+  <div class="modal-header">
+    <div class="modal-header__titles">
+      <span class="modal-header__title">Member Details</span>
+      <app-badge tone="neutral">Read only</app-badge>
+    </div>
+    <button type="button" class="modal-close" (click)="closeDialog.emit()">&#10005;</button>
+  </div>
+  <hr class="modal-divider" />
+  <div class="modal-body">
+    <div class="user-row">
+      <app-avatar [name]="user.name" [src]="user.avatar" [size]="52" />
+      <div>
+        <p class="user-row__name">{{ user.name }}</p>
+        <p class="user-row__meta">Member since {{ memberSince }}</p>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="field">
+        <span class="field__label">First name</span>
+        <div class="field__input field__input--disabled">{{ firstName }}</div>
+      </div>
+      <div class="field">
+        <span class="field__label">Last name</span>
+        <div class="field__input field__input--disabled">{{ lastName }}</div>
+      </div>
+    </div>
+
+    <div class="field">
+      <span class="field__label">Email address</span>
+      <div class="field__input field__input--disabled">{{ user.email }}</div>
+    </div>
+
+    <div class="field">
+      <span class="field__label">Role</span>
+      <div class="field__input field__input--disabled">{{ user.role }}</div>
+    </div>
+
+    <div class="status-row">
+      <span class="status-row__label">Status</span>
+      <app-badge [tone]="statusTone(user.status)">{{ user.status }}</app-badge>
+    </div>
+  </div>
+  <hr class="modal-divider" />
+  <div class="modal-footer modal-footer--split">
+    <span class="modal-footer__note">To make changes, request Admin access.</span>
+    <button type="button" class="btn btn--outline" (click)="closeDialog.emit()">Close</button>
+  </div>
+</app-modal>

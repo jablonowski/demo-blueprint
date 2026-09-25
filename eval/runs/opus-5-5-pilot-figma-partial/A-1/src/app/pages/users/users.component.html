@@ -1,0 +1,185 @@
+<header class="toolbar">
+  <h1 class="toolbar__title">Team Members</h1>
+  <button type="button" class="btn btn--primary" (click)="openInvite()">
+    <span aria-hidden="true">+</span> Invite Member
+  </button>
+</header>
+
+<div class="card table-wrap">
+  <table class="table">
+    <thead>
+      <tr>
+        <th class="col-avatar"><span class="sr-only">Avatar</span></th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Status</th>
+        <th>Joined</th>
+        <th class="col-actions"><span class="sr-only">Actions</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (user of users(); track user.id) {
+        <tr>
+          <td class="col-avatar"><app-avatar [name]="user.name" [src]="user.avatar" /></td>
+          <td class="cell-name">{{ user.name }}</td>
+          <td class="cell-muted">{{ user.email }}</td>
+          <td><app-badge [tone]="roleTone[user.role]">{{ user.role }}</app-badge></td>
+          <td><app-badge [tone]="statusTone[user.status]">{{ user.status }}</app-badge></td>
+          <td>{{ user.joinedDate | date: 'MMM y' }}</td>
+          <td class="col-actions">
+            <div class="btn-group">
+              <button type="button" class="btn btn--ghost" (click)="openDetails(user)">Details</button>
+              <button type="button" class="btn btn--secondary" (click)="openEdit(user)">Edit</button>
+              <button type="button" class="btn btn--danger-outline" (click)="openDelete(user)">Delete</button>
+            </div>
+          </td>
+        </tr>
+      } @empty {
+        <tr>
+          <td class="table__empty" colspan="7">{{ loading() ? 'Loading members…' : 'No team members yet.' }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
+
+<ng-template #userRow let-user>
+  <div class="user-row">
+    <app-avatar size="md" [name]="user.name" />
+    <div class="user-row__info">
+      <span class="user-row__name">{{ user.name }}</span>
+      <span class="user-row__meta">Member since {{ user.joinedDate | date: 'MMMM y' }}</span>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #memberForm>
+  <form class="member-form" [formGroup]="form" (ngSubmit)="dialog() === 'edit' ? save() : invite()" id="member-form" novalidate>
+    <div class="field-grid">
+      <div class="field" [class.field--error]="hasError('firstName')">
+        <label class="field__label" for="firstName">First name</label>
+        <input id="firstName" class="field__control" formControlName="firstName" placeholder="First name" />
+        @if (hasError('firstName')) {
+          <span class="field__error">First name is required</span>
+        }
+      </div>
+      <div class="field" [class.field--error]="hasError('lastName')">
+        <label class="field__label" for="lastName">Last name</label>
+        <input id="lastName" class="field__control" formControlName="lastName" placeholder="Last name" />
+        @if (hasError('lastName')) {
+          <span class="field__error">Last name is required</span>
+        }
+      </div>
+    </div>
+    <div class="field" [class.field--error]="hasError('email')">
+      <label class="field__label" for="email">Email address</label>
+      <input id="email" class="field__control" type="email" formControlName="email" placeholder="name@example.com" />
+      @if (hasError('email')) {
+        <span class="field__error">
+          {{ form.controls.email.hasError('required') ? 'Email address is required' : 'Enter a valid email address' }}
+        </span>
+      }
+    </div>
+    <div class="field" [class.field--error]="hasError('role')">
+      <label class="field__label" for="role">Role</label>
+      <select id="role" class="field__control" formControlName="role" [class.is-placeholder]="!form.controls.role.value">
+        <option value="" disabled>Select role…</option>
+        @for (role of roles; track role) {
+          <option [value]="role">{{ role }}</option>
+        }
+      </select>
+      @if (hasError('role')) {
+        <span class="field__error">Role is required</span>
+      }
+    </div>
+  </form>
+</ng-template>
+
+@if (dialog() === 'invite' || selected()) {
+  @let user = selected()!;
+
+  @switch (dialog()) {
+    @case ('details') {
+      <app-modal (closed)="close()">
+        <div modalHeader class="modal-heading">
+          <h2>Member Details</h2>
+          <app-badge>Read only</app-badge>
+        </div>
+
+        <ng-container *ngTemplateOutlet="userRow; context: { $implicit: user }" />
+
+        <div class="field-grid">
+          <div class="field field--readonly">
+            <span class="field__label">First name</span>
+            <div class="field__control">{{ firstName(user) }}</div>
+          </div>
+          <div class="field field--readonly">
+            <span class="field__label">Last name</span>
+            <div class="field__control">{{ lastName(user) }}</div>
+          </div>
+        </div>
+        <div class="field field--readonly">
+          <span class="field__label">Email address</span>
+          <div class="field__control">{{ user.email }}</div>
+        </div>
+        <div class="field field--readonly">
+          <span class="field__label">Role</span>
+          <div class="field__control">{{ user.role }}</div>
+        </div>
+        <div class="status-row">
+          <span class="field__label">Status</span>
+          <app-badge [tone]="statusTone[user.status]">{{ user.status }}</app-badge>
+        </div>
+
+        <div modalFooter class="modal-split">
+          <span class="footnote">To make changes, request Admin access.</span>
+          <button type="button" class="btn btn--secondary" (click)="close()">Close</button>
+        </div>
+      </app-modal>
+    }
+
+    @case ('edit') {
+      <app-modal heading="Edit Member" (closed)="close()">
+        <ng-container *ngTemplateOutlet="userRow; context: { $implicit: user }" />
+        <ng-container *ngTemplateOutlet="memberForm" />
+        <div class="status-row">
+          <span class="field__label">Status</span>
+          <app-badge [tone]="statusTone[user.status]">{{ user.status }}</app-badge>
+        </div>
+
+        <div modalFooter class="modal-split">
+          <button type="button" class="btn btn--danger-outline" (click)="editToDelete()">Delete user</button>
+          <div class="btn-group">
+            <button type="button" class="btn btn--secondary" (click)="close()">Cancel</button>
+            <button type="submit" form="member-form" class="btn btn--primary" [disabled]="saving()">Save changes</button>
+          </div>
+        </div>
+      </app-modal>
+    }
+
+    @case ('invite') {
+      <app-modal heading="Invite Member" (closed)="close()">
+        <ng-container *ngTemplateOutlet="memberForm" />
+
+        <div modalFooter class="btn-group">
+          <button type="button" class="btn btn--secondary" (click)="close()">Cancel</button>
+          <button type="submit" form="member-form" class="btn btn--primary" [disabled]="saving()">Send Invite</button>
+        </div>
+      </app-modal>
+    }
+
+    @case ('delete') {
+      <app-modal heading="Confirm Deletion" size="sm" (closed)="close()">
+        <p class="confirm-text">
+          Are you sure you want to remove <strong>{{ user.name }}</strong>? This action cannot be undone.
+        </p>
+
+        <div modalFooter class="btn-group">
+          <button type="button" class="btn btn--secondary" (click)="close()">Cancel</button>
+          <button type="button" class="btn btn--danger" [disabled]="saving()" (click)="confirmDelete()">Delete</button>
+        </div>
+      </app-modal>
+    }
+  }
+}

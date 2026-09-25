@@ -1,0 +1,123 @@
+.shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--ds-decisions-color-surface-hover);
+}
+
+.shell-header {
+  position: sticky;
+  top: 0;
+  z-index: var(--ds-decisions-z-index-dropdown);
+}
+
+/* The header component has no slot for a profile control, so it is layered on its right edge. */
+.profile {
+  position: absolute;
+  top: 0;
+  right: var(--ds-decisions-space-4xl);
+  height: var(--ds-decisions-size-bar-md);
+  display: flex;
+  align-items: center;
+}
+
+.profile-trigger {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-decisions-space-sm);
+  padding: var(--ds-decisions-space-2xs) var(--ds-decisions-space-sm) var(--ds-decisions-space-2xs) var(--ds-decisions-space-2xs);
+  border: none;
+  border-radius: var(--ds-decisions-border-radius-lg);
+  background: transparent;
+  font: inherit;
+  cursor: pointer;
+  color: var(--ds-decisions-color-text-primary);
+  transition: background var(--ds-decisions-motion-duration-base) var(--ds-decisions-motion-easing-standard);
+}
+
+.profile-trigger:hover {
+  background: var(--ds-decisions-color-surface-hover);
+}
+
+.profile-trigger:focus-visible {
+  outline: none;
+  box-shadow: var(--ds-decisions-shadow-focus);
+}
+
+.profile-name {
+  font-size: var(--ds-decisions-font-size-sm);
+  font-weight: var(--ds-decisions-font-weight-medium);
+}
+
+.profile-chevron {
+  width: var(--ds-decisions-size-glyph-sm);
+  height: var(--ds-decisions-size-glyph-sm);
+  color: var(--ds-decisions-color-text-subtle);
+  transition: transform var(--ds-decisions-motion-duration-base) var(--ds-decisions-motion-easing-standard);
+}
+
+.profile-chevron--open {
+  transform: rotate(180deg);
+}
+
+/* Anchored to the trigger's right edge so it opens leftward and stays inside the viewport. */
+.profile-menu {
+  position: absolute;
+  top: calc(100% - var(--ds-decisions-space-2xs));
+  right: 0;
+  min-width: var(--ds-decisions-layout-width-2xs);
+  max-width: calc(100vw - 2 * var(--ds-decisions-space-xl));
+  margin: 0;
+  padding: var(--ds-decisions-space-2xs);
+  list-style: none;
+  background: var(--ds-decisions-color-surface-base);
+  border: var(--ds-decisions-border-width-hairline) solid var(--ds-decisions-color-border-subtle);
+  border-radius: var(--ds-decisions-border-radius-xl);
+  box-shadow: var(--ds-decisions-shadow-dropdown);
+  z-index: var(--ds-decisions-z-index-dropdown);
+}
+
+.profile-item {
+  width: 100%;
+  display: block;
+  padding: var(--ds-decisions-space-sm) var(--ds-decisions-space-lg);
+  border: none;
+  border-radius: var(--ds-decisions-border-radius-md);
+  background: transparent;
+  font: inherit;
+  font-size: var(--ds-decisions-font-size-sm);
+  text-align: left;
+  color: var(--ds-decisions-color-text-primary);
+  cursor: pointer;
+}
+
+.profile-item:hover,
+.profile-item:focus-visible {
+  outline: none;
+  background: var(--ds-decisions-color-surface-hover);
+}
+
+.shell-main {
+  flex: 1;
+  width: 100%;
+  max-width: calc(var(--ds-decisions-layout-width-3xl) + 2 * var(--ds-decisions-space-4xl));
+  margin: 0 auto;
+  padding: var(--ds-decisions-space-2xl) var(--ds-decisions-space-4xl) var(--ds-decisions-space-5xl);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-content: start;
+}
+
+@media (max-width: 640px) {
+  .profile {
+    right: var(--ds-decisions-space-xl);
+  }
+
+  .profile-name {
+    display: none;
+  }
+
+  .shell-main {
+    padding-inline: var(--ds-decisions-space-xl);
+  }
+}

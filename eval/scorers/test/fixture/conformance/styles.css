@@ -1,0 +1,9 @@
+/* Six authored values, two of each verdict, against the two-token reference in the test. */
+:root {
+  --app-ink: #111111;   /* exact: the reference holds this value */
+  --app-ink-2: #18181b; /* near:  zinc-950, 14.07 from #111111 */
+  --app-brand: #ff00aa; /* novel: nothing near it */
+  --app-gap: 12px;      /* exact */
+}
+.a { padding: 14px; border: 1px solid #111111; }
+.b { margin: 137px; }

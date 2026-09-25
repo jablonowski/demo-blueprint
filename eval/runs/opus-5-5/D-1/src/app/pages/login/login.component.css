@@ -1,0 +1,56 @@
+.login {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-decisions-space-2xl);
+}
+
+.login-title {
+  margin: 0;
+  font-size: var(--ds-decisions-font-size-3xl);
+  font-weight: var(--ds-decisions-font-weight-semibold);
+  letter-spacing: var(--ds-decisions-font-tracking-heading);
+  line-height: var(--ds-decisions-font-line-height-tight);
+  color: var(--ds-decisions-color-text-primary);
+}
+
+/* Sits directly under the heading, as one block in the Figma frame. */
+.login-subtitle {
+  margin: calc(-1 * var(--ds-decisions-space-lg)) 0 0;
+  font-size: var(--ds-decisions-font-size-sm);
+  color: var(--ds-decisions-color-text-muted);
+}
+
+.login-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ds-decisions-space-sm);
+}
+
+.login-link {
+  font-size: var(--ds-decisions-font-size-sm);
+  font-weight: var(--ds-decisions-font-weight-medium);
+  color: var(--ds-decisions-color-text-primary);
+  text-decoration: none;
+  border-radius: var(--ds-decisions-border-radius-xs);
+}
+
+.login-link--underlined {
+  text-decoration: underline;
+}
+
+.login-link:hover {
+  text-decoration: underline;
+}
+
+.login-link:focus-visible {
+  outline: none;
+  box-shadow: var(--ds-decisions-shadow-focus);
+}
+
+.login-signup {
+  margin: 0;
+  text-align: center;
+  font-size: var(--ds-decisions-font-size-sm);
+  color: var(--ds-decisions-color-text-muted);
+}

@@ -1,0 +1,27 @@
+@import '@jablonowski/dsb-tokens/css';
+
+/*
+ * Font families have no decision token (resolve_token: no-coverage for
+ * font-family), so the face from the Figma frames is named here, once.
+ */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: Inter, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: var(--ds-decisions-font-size-md);
+  line-height: var(--ds-decisions-font-line-height-normal);
+  color: var(--ds-decisions-color-text-body);
+  background: var(--ds-decisions-color-surface-subtle);
+  -webkit-font-smoothing: antialiased;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}

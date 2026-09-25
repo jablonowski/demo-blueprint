@@ -1,0 +1,336 @@
+/*
+ * Design tokens, taken from the Figma "Design System Blueprint" frames.
+ * Every component style refers to these custom properties; no component
+ * should carry its own colour, spacing or radius literal.
+ */
+:root {
+  /* Neutrals */
+  --color-fg: #111111;
+  --color-fg-strong: #333333;
+  --color-fg-secondary: #555555;
+  --color-fg-muted: #666666;
+  --color-fg-subtle: #888888;
+  --color-fg-disabled: #999999;
+  --color-fg-placeholder: #aaaaaa;
+  --color-fg-inverse: #ffffff;
+
+  --color-bg-page: #f5f5f5;
+  --color-bg-surface: #ffffff;
+  --color-bg-subtle: #fafafa;
+  --color-bg-muted: #f0f0f0;
+  --color-bg-disabled: #f5f5f5;
+  --color-bg-avatar: #e8e8e8;
+  --color-bg-backdrop: rgba(0, 0, 0, 0.45);
+
+  --color-border: #ebebeb;
+  --color-border-subtle: #f0f0f0;
+  --color-border-control: #d4d4d4;
+
+  /* Status tones: background / foreground pairs */
+  --color-success-bg: #e6f4ea;
+  --color-success-fg: #1a7f3c;
+  --color-warning-bg: #fef3cd;
+  --color-warning-fg: #92600a;
+  --color-danger-bg: #fce8e6;
+  --color-danger-fg: #c5221f;
+  --color-danger: #d93025;
+  --color-danger-border: #f0a9a4;
+  --color-info-bg: #e8f0fe;
+  --color-info-fg: #1a56db;
+  --color-neutral-bg: #f0f0f0;
+  --color-neutral-fg: #555555;
+
+  /* Terminal */
+  --color-terminal-bg: #111111;
+  --color-terminal-fg: #d4d4d4;
+  --color-terminal-dim: #888888;
+  --color-terminal-info: #8ab4f8;
+  --color-terminal-warn: #fdd663;
+  --color-terminal-error: #f28b82;
+
+  /* Typography */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace;
+
+  --text-2xs: 10px;
+  --text-xs: 11px;
+  --text-sm: 12px;
+  --text-md: 13px;
+  --text-base: 14px;
+  --text-lg: 15px;
+  --text-xl: 16px;
+  --text-2xl: 18px;
+  --text-3xl: 20px;
+  --text-4xl: 22px;
+  --text-5xl: 26px;
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --tracking-caps: 0.06em;
+
+  /* Spacing scale */
+  --space-0-5: 2px;
+  --space-0-75: 3px;
+  --space-1: 4px;
+  --space-1-5: 6px;
+  --space-2: 8px;
+  --space-2-5: 10px;
+  --space-3: 12px;
+  --space-3-5: 14px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+
+  /* Radii */
+  --radius-sm: 4px;
+  --radius-bar: 3px;
+  --radius-sm-plus: 5px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+  --radius-xl: 12px;
+  --radius-full: 9999px;
+
+  /* Borders */
+  --border-width: 1px;
+  --border-width-control: 1.5px;
+  --focus-ring: 2px solid var(--color-fg);
+  --focus-ring-offset: 2px;
+
+  /* Elevation */
+  --shadow-card: 0 2px 8px 0 rgba(0, 0, 0, 0.06);
+  --shadow-auth: 0 4px 16px 0 rgba(0, 0, 0, 0.08);
+  --shadow-overlay: 0 12px 40px 0 rgba(0, 0, 0, 0.22);
+  --shadow-menu: 0 8px 24px 0 rgba(0, 0, 0, 0.12);
+
+  /* Sizes */
+  --size-header: 56px;
+  --size-content-max: 1216px;
+  --size-auth-card: 400px;
+  --size-modal-sm: 420px;
+  --size-modal-md: 560px;
+  --size-avatar-sm: 32px;
+  --size-avatar-md: 40px;
+  --size-checkbox: 16px;
+  --size-control-lg: 42px;
+  --size-toolbar: 40px;
+  --size-table-min: 960px;
+  --size-chart: 80px;
+  --size-terminal: 240px;
+  --size-menu-min: 180px;
+  --size-chevron-w: 10px;
+  --size-chevron-h: 6px;
+
+  --z-menu: 100;
+  --z-modal: 1000;
+
+  --transition-fast: 120ms ease;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  color: var(--color-fg);
+  background: var(--color-bg-page);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+button,
+input,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+a {
+  color: inherit;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1-5);
+  padding: var(--space-2) var(--space-3-5);
+  border: var(--border-width-control) solid transparent;
+  border-radius: var(--radius-md);
+  font-size: var(--text-md);
+  font-weight: var(--weight-medium);
+  line-height: 1.2;
+  white-space: nowrap;
+  cursor: pointer;
+  background: var(--color-bg-surface);
+  transition: background var(--transition-fast), border-color var(--transition-fast);
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &:focus-visible {
+    outline: var(--focus-ring);
+    outline-offset: var(--focus-ring-offset);
+  }
+}
+
+.btn--primary {
+  background: var(--color-fg);
+  border-color: var(--color-fg);
+  color: var(--color-fg-inverse);
+
+  &:hover:not(:disabled) {
+    background: var(--color-fg-strong);
+    border-color: var(--color-fg-strong);
+  }
+}
+
+.btn--secondary {
+  border-color: var(--color-border-control);
+  color: var(--color-fg);
+
+  &:hover:not(:disabled) {
+    background: var(--color-bg-subtle);
+  }
+}
+
+.btn--ghost {
+  color: var(--color-fg-secondary);
+
+  &:hover:not(:disabled) {
+    background: var(--color-bg-muted);
+  }
+}
+
+.btn--danger {
+  background: var(--color-danger);
+  border-color: var(--color-danger);
+  color: var(--color-fg-inverse);
+
+  &:hover:not(:disabled) {
+    background: var(--color-danger-fg);
+    border-color: var(--color-danger-fg);
+  }
+}
+
+.btn--danger-outline {
+  border-color: var(--color-danger-border);
+  color: var(--color-danger);
+
+  &:hover:not(:disabled) {
+    background: var(--color-danger-bg);
+  }
+}
+
+.btn--block {
+  width: 100%;
+  height: var(--size-control-lg);
+  font-size: var(--text-base);
+  font-weight: var(--weight-semibold);
+}
+
+/* ---------- Form fields ---------- */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1-5);
+  min-width: 0;
+}
+
+.field__label {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--color-fg);
+}
+
+.field__control {
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  border: var(--border-width-control) solid var(--color-border-control);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-surface);
+  font-size: var(--text-md);
+  line-height: 1.4;
+  color: var(--color-fg);
+  outline: none;
+  transition: border-color var(--transition-fast);
+
+  &::placeholder {
+    color: var(--color-fg-placeholder);
+  }
+
+  &:focus {
+    border-color: var(--color-fg);
+  }
+}
+
+select.field__control {
+  appearance: none;
+  padding-right: var(--space-8);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23888' stroke-width='1.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--space-3) center;
+  cursor: pointer;
+
+  &:invalid,
+  &.is-placeholder {
+    color: var(--color-fg-placeholder);
+  }
+}
+
+.field--readonly {
+  .field__label {
+    color: var(--color-fg-disabled);
+  }
+
+  .field__control {
+    background: var(--color-bg-disabled);
+    color: var(--color-fg-disabled);
+  }
+}
+
+.field--error {
+  .field__control {
+    border-color: var(--color-danger);
+  }
+}
+
+.field__error {
+  font-size: var(--text-sm);
+  color: var(--color-danger-fg);
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+/* ---------- Card ---------- */
+.card {
+  background: var(--color-bg-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}

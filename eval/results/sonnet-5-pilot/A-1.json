@@ -1,0 +1,124 @@
+{
+  "arm": "A",
+  "run": 1,
+  "model": "claude-sonnet-5",
+  "cli": "2.1.281 (Claude Code)",
+  "isolation": "session",
+  "started": "2026-09-24T20:10:39Z",
+  "overlaySha": "40dd762a0ef7",
+  "s0Sha": "c25d3e960f47",
+  "promptBytes": 13108,
+  "runDir": "/tmp/dsb-eval/sonnet-5/A-1",
+  "figma": {
+    "channel": "cached",
+    "fileKey": "iJ92LuFOsPjO6avZ2anbwO",
+    "recordedAt": "2026-09-24T19:49:36Z",
+    "calls": 3,
+    "errors": 0,
+    "nodes": [
+      "22-11104",
+      "22-11448",
+      "22-11492"
+    ],
+    "ok": true
+  },
+  "inputTokensTotal": 9612351,
+  "outputTokens": 57536,
+  "result": {
+    "duration_api_ms": 918055,
+    "stop_reason": "end_turn",
+    "session_id": "9eb870fb-d0bb-46ae-934b-cb96822474a7",
+    "total_cost_usd": 3.3197240000000003,
+    "usage": {
+      "input_tokens": 144,
+      "cache_creation_input_tokens": 165364,
+      "cache_read_input_tokens": 9446843,
+      "output_tokens": 57536,
+      "output_tokens_details": {
+        "thinking_tokens": 12603
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 165364,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "not_available",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 1073,
+          "cache_read_input_tokens": 183901,
+          "cache_creation_input_tokens": 1436,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 1436
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard"
+    },
+    "modelUsage": {
+      "claude-sonnet-5": {
+        "inputTokens": 146,
+        "outputTokens": 75164,
+        "cacheReadInputTokens": 9531680,
+        "cacheCreationInputTokens": 165364,
+        "webSearchRequests": 0,
+        "costUSD": 3.3197240000000003,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 64000,
+        "thinkingTokens": 29920,
+        "canonicalModel": "claude-sonnet-5",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "subagent_stats": {
+      "spawned": 0,
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 0,
+      "spawned_by_subagents": 0,
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {}
+    },
+    "is_error": false,
+    "num_turns": 108,
+    "subtype": "success",
+    "api_error_status": null,
+    "result": "The Angular 19 Blueprint demo is complete and verified end-to-end in a real browser (Playwright driver, no console errors). Structure summary:\n\n- **Tokens**: `src/styles.css` — one `:root` block of colors/spacing/radii/type/shadows sampled from the Figma frames, plus shared `.btn`, `.field`, `.modal-*`, `.form-row`, `.status-row` primitives reused by every dialog and the login form, so there's no scattered magic-number CSS.\n- **Core**: `AuthService`, functional `authGuard`/`loginGuard`, `UsersService`, `AppInMemoryDataService` with the seeded 5 users.\n- **Layout**: `ShellComponent` (header/main/footer), `HeaderComponent` (nav, avatar+name+profile menu that opens leftward and closes on any outside click — including nav clicks, which was a real bug I caught and fixed), `FooterComponent`.\n- **Pages**: Login (exact spec copy/validation), Dashboard (4 KPI tiles, hand-built 7-bar throughput chart, service health, data summary, a 3s-ticking log viewer), Users (table + 4 dialogs: Details, Edit, Invite, Delete-confirm, all wired to the in-memory REST API).\n\nTwo real bugs were found and fixed via the browser run, not just inspection:\n1. Header's outside-click check used the whole header as the boundary, so clicking a nav link left the profile menu open.\n2. Edit-save sent only the changed fields; the in-memory API's `PUT` fully replaces the record and requires `id` in the body, so it would have wiped `avatar`/`status`/`joinedDate` and 404'd. Fixed to merge into and send the full user object.\n\nDeviations from a literal reading, made deliberately where the Figma frame and the written spec conflicted:\n- **Login copy**: used S0's exact strings (\"Welcome back\" / \"Sign in to your account to continue\" / etc.) over Figma's own placeholder copy (\"Blueprint\" / \"Sign in to your account\"), since S0 is explicit and says \"add nothing else.\"\n- **Footer**: matched Figma exactly (copyright + two legal links, single row) rather than inventing extra \"columns of links\" the Figma frame doesn't show, per the instruction not to add sections absent from the design.\n- **Header nav**: kept Figma's exact 4 labels (Overview, Metrics, Logs, Settings) but routed \"Overview\"→`/dashboard` and \"Metrics\"→`/users` since those are the app's only two real pages and something had to make `/users` reachable from the persistent nav.\n- **Dashboard grid**: Figma only showed 6 grouped tiles (it visually merged the throughput chart into a tile labeled \"Data Summary\"); rebuilt as the spec's 8 distinct tiles in a 4-column grid, keeping Figma's proportions (throughput wide, logs full-width) as the closest fit.\n- **Header logo mark**: Figma had no separate icon asset, so I added a small square swatch next to the wordmark to satisfy \"brand, a logo, and primary navigation\" — this one's unverified against the actual Figma icon.",
+    "ttft_ms": 3480,
+    "type": "result",
+    "duration_ms": 1049960,
+    "uuid": "5a6f21d6-3848-4d48-95df-8430a75ad121",
+    "ttft_stream_ms": 1637,
+    "time_to_request_ms": 256,
+    "first_content_frame_ms": 1638,
+    "queued_turn_count": 0,
+    "result_index": 0
+  }
+}

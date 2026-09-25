@@ -1,0 +1,60 @@
+.login {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-decisions-space-2xl);
+}
+
+.login-head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-decisions-space-xs);
+}
+
+.login-title {
+  font-size: var(--ds-decisions-font-size-3xl);
+  font-weight: var(--ds-decisions-font-weight-semibold);
+  letter-spacing: var(--ds-decisions-font-tracking-heading);
+  color: var(--ds-decisions-color-text-primary);
+}
+
+.login-subtitle {
+  font-size: var(--ds-decisions-font-size-sm);
+  color: var(--ds-decisions-color-text-subtle);
+}
+
+.login-options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ds-decisions-space-sm);
+}
+
+.login-link {
+  font-size: var(--ds-decisions-font-size-sm);
+  font-weight: var(--ds-decisions-font-weight-medium);
+  color: var(--ds-decisions-color-text-primary);
+  text-decoration: none;
+  border-radius: var(--ds-decisions-border-radius-xs);
+}
+
+.login-link--underlined {
+  text-decoration: underline;
+  text-underline-offset: var(--ds-decisions-space-3xs);
+}
+
+.login-link:hover {
+  text-decoration: underline;
+}
+
+.login-link:focus-visible {
+  outline: none;
+  box-shadow: var(--ds-decisions-shadow-focus);
+}
+
+.login-signup {
+  display: flex;
+  justify-content: center;
+  gap: var(--ds-decisions-space-xs);
+  font-size: var(--ds-decisions-font-size-sm);
+  color: var(--ds-decisions-color-text-subtle);
+}

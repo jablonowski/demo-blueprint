@@ -1,0 +1,47 @@
+<main class="auth-shell">
+  <section class="card auth-card">
+    <header class="auth-header">
+      <h1>Welcome back</h1>
+      <p>Sign in to your account to continue</p>
+    </header>
+
+    <form class="auth-form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <div class="field">
+        <label class="field-label" for="username">Username</label>
+        <input id="username" class="input" type="text" formControlName="username"
+               placeholder="Enter your username" autocomplete="username"
+               [class.invalid]="showError('username') || authError()" />
+        @if (showError('username')) {
+          <span class="field-error">Username is required</span>
+        }
+      </div>
+
+      <div class="field">
+        <label class="field-label" for="password">Password</label>
+        <input id="password" class="input" type="password" formControlName="password"
+               placeholder="Enter your password" autocomplete="current-password"
+               [class.invalid]="showError('password') || authError()" />
+        @if (showError('password')) {
+          <span class="field-error">Password is required</span>
+        } @else if (authError()) {
+          <span class="field-error">Invalid username or password</span>
+        }
+      </div>
+
+      <div class="auth-options">
+        <label class="checkbox">
+          <input type="checkbox" formControlName="remember" />
+          <span>Remember me</span>
+        </label>
+        <a class="link" href="#" (click)="$event.preventDefault()">Forgot password?</a>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+
+      <p class="auth-footer">
+        Don't have an account?
+        <a class="link" href="#" (click)="$event.preventDefault()">Sign up</a>
+      </p>
+    </form>
+  </section>
+</main>

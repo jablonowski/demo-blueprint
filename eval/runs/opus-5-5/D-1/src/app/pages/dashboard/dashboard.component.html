@@ -1,0 +1,83 @@
+<header class="page-head">
+  <h1 class="page-title">System Overview</h1>
+  <p class="page-meta">Last updated: {{ lastUpdated }}</p>
+</header>
+
+<div class="dash-grid">
+  @for (m of metrics; track m.title) {
+    <section class="card metric">
+      <h2 class="metric-title">{{ m.title }}</h2>
+      <div class="metric-value-row">
+        <span class="metric-value">{{ m.value }}</span>
+        @if (m.trend) {
+          <dsb-tag size="sm" [variant]="trendVariant(m.trend.direction)">
+            <span class="sr-only">{{ m.trend.direction === 'positive' ? 'Improving:' : 'Worsening:' }}</span>
+            {{ m.trend.label }}
+          </dsb-tag>
+        }
+      </div>
+      @if (m.subLabel) {
+        <p class="metric-sub">{{ m.subLabel }}</p>
+      }
+    </section>
+  }
+
+  <section class="card card--health" aria-labelledby="health-title">
+    <h2 id="health-title" class="card-title">Service Health</h2>
+    <dsb-list [divided]="true" class="health-list">
+      @for (s of services; track s.name) {
+        <dsb-list-item [label]="s.name">
+          <dsb-tag list-trailing size="sm" [variant]="s.online ? 'success' : 'danger'">
+            {{ s.online ? 'Online' : 'Offline' }}
+          </dsb-tag>
+        </dsb-list-item>
+      }
+    </dsb-list>
+  </section>
+
+  <section class="card card--throughput" aria-labelledby="throughput-title">
+    <div>
+      <h2 id="throughput-title" class="card-title">Request Throughput</h2>
+      <p class="card-sub">Requests per minute, Monday to Sunday</p>
+    </div>
+    <hr class="divider" />
+    <div class="chart" role="img" [attr.aria-label]="throughputLabel">
+      @for (b of throughput; track b.day) {
+        <div class="chart-col">
+          <div class="chart-track">
+            <div class="chart-bar" [style.height.%]="b.percent" [attr.title]="b.value + ' req/min'"></div>
+          </div>
+          <span class="chart-label">{{ b.day }}</span>
+        </div>
+      }
+    </div>
+
+    <dl class="summary" aria-label="Data Summary">
+      @for (item of summary; track item.label) {
+        <div class="summary-item">
+          <dt class="summary-label">{{ item.label }}</dt>
+          <dd class="summary-value">{{ item.value }}</dd>
+        </div>
+      }
+    </dl>
+  </section>
+
+  <section class="card card--logs" aria-labelledby="logs-title">
+    <div class="logs-head">
+      <h2 id="logs-title" class="card-title">System Logs</h2>
+      <dsb-tag size="sm" variant="success">Live</dsb-tag>
+    </div>
+    <hr class="divider" />
+    <div #logViewport class="logs" role="log" aria-live="polite" aria-label="System log output" tabindex="0">
+      @for (line of logs(); track line.id) {
+        <div class="log-line">
+          <span class="log-dot" [attr.data-level]="line.level" aria-hidden="true"></span>
+          <span class="log-time">{{ line.time }}</span>
+          <span class="log-level" [attr.data-level]="line.level">{{ line.level }}</span>
+          <span class="log-source">{{ line.source }}</span>
+          <span class="log-message">{{ line.message }}</span>
+        </div>
+      }
+    </div>
+  </section>
+</div>

@@ -1,0 +1,281 @@
+# Specification: Visual-First Angular CRUD Demo
+
+> This is `S0` — the shared specification. It is identical in every arm of the evaluation.
+> It states what the application must do and what each screen must contain. It never names
+> a component, a CSS class, a token or a value, because those are what the arms differ by.
+>
+> See `eval/PROTOCOL.md`. Do not add implementation detail here to make a run go smoother:
+> anything added is added to all five arms at once, and stops being measurable.
+
+## 1. Project Overview & Objective
+
+Build a high-fidelity, visual-first Angular frontend demo application. There is no backend;
+network requests are mocked with `angular-in-memory-web-api`. CRUD operations must update
+the in-memory state so the UI reacts realistically.
+
+### Tech Stack
+
+| Concern | Package / Tool |
+|---|---|
+| Framework | Angular 19 (standalone components, no NgModules) |
+| Routing | Angular Router — auth guards, layout-based routing |
+| Data Mocking | `angular-in-memory-web-api` (version matching Angular 19, e.g. `^0.19.0`) |
+
+```bash
+npm install angular-in-memory-web-api
+```
+
+Anything else this application is built on is described in the arm overlay, if there is one.
+
+## 2. Figma Reference
+
+- **URL:** `https://www.figma.com/design/iJ92LuFOsPjO6avZ2anbwO/Design-System-Blueprint?node-id=22-11104`
+- **Target node:** `22-11104` — the "Auth Layout" and "Main Dashboard/CRUD Layout" frames
+- **Modal nodes:** `22:11448` (edit), `22:11492` (details) — exact modal body layout, spacing and colours
+
+A Figma access token is available as `$FIGMA_ACCESS_TOKEN`, and the Figma MCP server is
+configured for this session. Both are verified against this node before the run starts —
+if either were unavailable you would not have been given this document.
+
+**Treat Figma as the visual truth.** Dimensions, structural positioning, responsive grids
+and spacing come from the frames. Render only what is visible there: do not add, remove or
+rearrange elements, and do not invent cards or sections that are absent from the design.
+
+## 3. Architecture & Layout
+
+### Root component
+
+`app.component.html` contains **only** `<router-outlet />`. No other markup, no leftover
+Angular placeholder content.
+
+### Layout 1 — unauthenticated
+
+A centred card shell containing the login form, matched to the Figma "Auth Layout" frame.
+
+### Layout 2 — authenticated
+
+An application shell with a header, a main content area for the active route, and a footer.
+
+**Header.** Carries the product brand, a logo, and primary navigation. In its top-right
+corner, always visible while authenticated, sits a user profile control: an avatar, the
+signed-in user's name — `Admin User` — and a trigger that opens a menu containing
+**My Profile** and **Sign Out**. Sign-out is handled by the layout.
+
+That menu sits at the right edge of the viewport, so it must open leftward and remain fully
+visible — a menu that opens off-screen or is clipped by the viewport edge is a defect.
+It closes when the user clicks outside it.
+
+**Footer.** Carries the brand, a copyright line, columns of links, and a row of legal links.
+
+**Main content area.** A responsive grid container wrapping the active route view.
+
+## 4. Routes & Pages
+
+### Route A — `/login`
+
+- **Credentials:** hardcoded — username `admin`, password `admin`
+- **Authentication:** on success write `isLoggedIn: true` to `localStorage` and redirect to
+  `/dashboard`
+- **Validation:** Angular reactive forms with `Validators.required`. An invalid submission
+  puts the offending field into an error state with a message
+- **Guard:** if `isLoggedIn` is already true, redirect straight to `/dashboard`
+
+The login card contains exactly these elements, top to bottom, matching the Figma frame:
+
+1. **Heading** — `"Welcome back"`, large and semibold
+2. **Subtitle** — `"Sign in to your account to continue"`, in a de-emphasised text colour
+3. **Username field** — labelled `Username`, placeholder `Enter your username`
+4. **Password field** — labelled `Password`, obscured input, placeholder `Enter your password`
+5. **Remember me / forgot password row** — a flex row containing a checkbox labelled
+   `Remember me` (visual only, no behaviour) and a link reading `Forgot password?`
+   (no action), underlined, in the primary text colour
+6. **Submit button** — full width, primary emphasis, labelled `Sign In`
+7. **Sign-up prompt** — a centred line reading `Don't have an account?` followed by a link
+   reading `Sign up` (no action)
+
+Add nothing else to the login card.
+
+### Route B — `/dashboard` (protected)
+
+A grid-based monitoring dashboard with mock infrastructure health data. Match the Figma
+"Main Dashboard" frame exactly — do not add or omit a tile.
+
+Each metric tile carries a title label (small, uppercase, de-emphasised), a primary value
+(large and focal), an optional trend badge signalling direction, and an optional sub-label
+beneath the value. Some tiles carry richer content in place of a single value.
+
+Tiles, left to right and top to bottom as in Figma:
+
+1. **Active Users** — value `1,284`, trend `+12%` reading as positive, sub-label
+   `"vs last 7 days"`
+2. **Avg Response Time** — value `142ms`, trend `-8ms` reading as positive, sub-label
+   `"vs last 7 days"`
+3. **Error Rate** — value `0.04%`, trend `+0.01%` reading as negative, sub-label
+   `"vs last 7 days"`
+4. **Uptime (30d)** — value `99.97%`, trend `Stable` reading as positive, sub-label
+   `"last 30 days"`
+5. **Request Throughput** — a bar chart, seven bars, Monday to Sunday, each bar's height a
+   percentage of the maximum. **No charting library.** Title `"Request Throughput"`, day
+   labels on the x-axis. The bars render in the darkest foreground colour available
+6. **Service Health** — status rows, each a service name and a status indicator reading as
+   positive or negative: `API Gateway` Online, `Auth Service` Online, `Storage Service`
+   Online, `Analytics Engine` Offline, `Cache Layer` Online
+7. **Data Summary** — a list of label/value pairs: Requests/min `4,820`, Avg Response
+   `142 ms`, Error Rate `0.04%`, Uptime (30d) `99.97%`
+8. **System Logs** — a scrollable terminal-style log viewer in a monospace face, appending
+   a new fake log line every 3 seconds
+
+### Route C — `/users` (protected, CRUD)
+
+A full CRUD interface over a data table.
+
+**Page header row**, above the table: on the left the page heading `"Team Members"` (`h1`,
+semibold); on the right a primary action labelled `"Invite Member"` that opens the invite
+dialog.
+
+**Table columns**, in this order:
+
+| Column | Field | Cell content |
+|---|---|---|
+| Avatar | `avatar` | the user's avatar image, small, circular, falling back to initials |
+| Name | `name` | text |
+| Email | `email` | text |
+| Role | `role` | a badge, toned by role as the Figma frame shows |
+| Status | `status` | a badge, toned by status as the Figma frame shows |
+| Joined | `joinedDate` | text |
+| Actions | — | three actions per row: `Details` (least emphasis), `Edit` (secondary), `Delete` (destructive) |
+
+#### Dialogs
+
+Four, all modal over the table.
+
+**Delete confirmation** — small. Title `"Confirm Deletion"`. Body: `Are you sure you want
+to remove` followed by the member's name in bold, then `This action cannot be undone.`
+Footer, right-aligned: `Cancel`, and a destructive `Delete`. Confirming issues
+`DELETE /api/users/:id`, reloads the list, closes the dialog and clears the selection.
+Closes on backdrop click.
+
+**Member details** — medium, read-only. Matches Figma node `22:11492`.
+
+- Header: `Member Details` alongside a small `Read only` badge — the two sit together on one
+  line, so the header is custom rather than a plain title
+- A user row: a circular avatar showing the member's initials, their name, and beneath it
+  `Member since` followed by the joining month and year in words (e.g. `January 2024`)
+- Read-only fields, each a label above a value in a boxed field that reads as disabled:
+  `First name` and `Last name` side by side in two columns, then `Email address`, then
+  `Role`, each label de-emphasised
+- A status row: the label `Status` beside the member's status badge
+- Footer, split: on the left the note `To make changes, request Admin access.`; on the
+  right a `Close` action
+
+**Edit member** — medium. Title `"Edit Member"`. Matches Figma node `22:11448`.
+
+- The same user row as the details dialog
+- A reactive form, all fields required: `First name` and `Last name` side by side,
+  `Email address`, and `Role` as a selector offering `Admin`, `Editor`, `Viewer`
+- Status is shown as a badge and is **not** editable
+- Footer, split: on the left a destructive-outline action `Delete user` which closes this
+  dialog and opens the delete confirmation with the selection intact; on the right `Cancel`
+  and a primary `Save changes`
+
+Opening the dialog splits the member's name into first and last; saving recombines them,
+issues `PUT /api/users/:id` and reloads.
+
+**Invite member** — medium. Title `"Invite Member"`. The same form as the edit dialog —
+first and last name side by side, email, role selector with a `Select role…` placeholder —
+and no user row. Footer, right-aligned: `Cancel` and a primary `Send Invite`. Confirming
+combines the names, generates an avatar URL, sets status `Active` and today's date as the
+joining date, issues `POST /api/users`, reloads and resets the form.
+
+## 5. Mock data (`InMemoryDbService`)
+
+A collection named `users`, seeded with at least five records:
+
+```json
+[
+  { "id": 1, "name": "Jane Doe",      "email": "jane.doe@example.com",      "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Jane",  "role": "Admin",  "status": "Active",   "joinedDate": "2024-01-15" },
+  { "id": 2, "name": "John Smith",    "email": "john.smith@example.com",    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=John",  "role": "Editor", "status": "Active",   "joinedDate": "2024-02-20" },
+  { "id": 3, "name": "Alice Johnson", "email": "alice.johnson@example.com", "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Alice", "role": "Viewer", "status": "Active",   "joinedDate": "2024-03-10" },
+  { "id": 4, "name": "Bob Martinez",  "email": "bob.martinez@example.com",  "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Bob",   "role": "Editor", "status": "Inactive", "joinedDate": "2024-04-05" },
+  { "id": 5, "name": "Carol White",   "email": "carol.white@example.com",   "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Carol", "role": "Viewer", "status": "Active",   "joinedDate": "2024-05-18" }
+]
+```
+
+Valid roles: `Admin`, `Editor`, `Viewer`. Valid statuses: `Active`, `Inactive`.
+
+```ts
+importProvidersFrom(HttpClientInMemoryWebApiModule.forRoot(AppInMemoryDataService, {
+  dataEncapsulation: false,
+  delay: 300,
+  passThruUnknownUrl: true
+}))
+```
+
+## 6. Deliverables
+
+1. **`app.config.ts`** — `provideRouter(routes)`, `provideHttpClient(withInterceptorsFromDi())`,
+   the in-memory API above
+2. **`app.component.html`** — `<router-outlet />` only
+3. **`app.routes.ts`** — `''` redirects to `/login`; `/login` behind a login guard, lazily
+   loaded; an authenticated layout wrapper behind an auth guard, lazily loading the shell
+   with `/dashboard` and `/users` as children; `'**'` redirects to `/login`
+4. **`AuthService`** — wraps `localStorage`: `isLoggedIn()`, `login(u, p)` checking
+   `admin`/`admin`, `logout()`
+5. **`AppInMemoryDataService implements InMemoryDbService`** — `createDb()` returning the
+   seed data above
+6. **`UsersService`** — `getAll()`, `getById(id)`, `update(id, user)`, `create(user)`,
+   `delete(id)`
+7. **Login, dashboard and users pages**, and whatever local components the layouts need
+8. The application builds and runs with `npx @angular/cli@19 serve`, and logging in with
+   `admin` / `admin` reaches the dashboard
+
+## Acceptance
+
+- Every route renders and every dialog opens and closes
+- Create, read, update and delete all round-trip through the in-memory API and the table
+  reflects the change
+- The rendered screens match the Figma frames in structure, spacing and proportion
+- No console errors
+
+
+---
+
+# Arm B — the packages, and nothing about them
+
+The agent receives `S0.md` plus these two dependencies, installed:
+
+```bash
+npm install @jablonowski/dsb-components @jablonowski/dsb-tokens
+```
+
+Both packages' READMEs are readable in `node_modules`. Nothing else is provided: no API
+table, no list of what exists, no notes about how any component behaves.
+
+**One deletion, and it is the whole reason this arm needs saying out loud.** The published
+`@jablonowski/dsb-components` ships `llms.client.txt` inside the tarball, and its README
+points at it on line 52. So "the package without the agent-facing contract" is not a state
+that exists in the wild for this design system — the harness has to manufacture it, by
+deleting that one file from the installed tree after `npm install` and asserting its absence
+before and after the run.
+
+The B-1 pilot ran without that deletion. It stayed clean only because the agent read this
+overlay, decided the file was out of bounds, declined to open it, and reported the conflict
+in its final message. That is admirable and it is not a control: the next run is free to
+decide otherwise. B-1 is therefore a pilot, not a scored run.
+
+Worth keeping in the book: shipping the agent contract inside the package is the right
+engineering decision, and it makes "a design system without agent documentation" an
+unbuildable counterfactual for your own system.
+
+This is the state of a developer who was told "we have a design system, it's on npm."
+
+What the agent has to work out for itself:
+
+- which components exist, and what they are called when imported
+- what inputs and outputs each one takes
+- which parts of the screens have no component and must be built locally
+- that the token stylesheet has to be imported at all, and which entry point to use
+
+Everything in that list is stated plainly in `llms.client.txt` and `contracts.json`, which
+arm C adds and this arm withholds. The gap between B and C is the value of writing those
+files.

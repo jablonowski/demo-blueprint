@@ -1,0 +1,117 @@
+{
+  "arm": "A",
+  "run": 1,
+  "model": "claude-opus-5-5",
+  "cli": "2.1.281 (Claude Code)",
+  "isolation": "session",
+  "started": "2026-09-24T18:59:48Z",
+  "overlaySha": "40dd762a0ef7",
+  "s0Sha": "c8c6a6d151a5",
+  "promptBytes": 12952,
+  "runDir": "/tmp/dsb-eval/opus-5-5/A-1",
+  "figma": {
+    "target": "iJ92LuFOsPjO6avZ2anbwO/22-11104",
+    "before": 200,
+    "after": 200,
+    "ok": true
+  },
+  "inputTokensTotal": 2344462,
+  "outputTokens": 46564,
+  "result": {
+    "duration_api_ms": 397837,
+    "stop_reason": "end_turn",
+    "session_id": "82c9af79-0fe1-459e-b30e-062329ea1879",
+    "total_cost_usd": 2.2679944,
+    "usage": {
+      "input_tokens": 60,
+      "cache_creation_input_tokens": 111230,
+      "cache_read_input_tokens": 2233172,
+      "output_tokens": 46564,
+      "output_tokens_details": {
+        "thinking_tokens": 7129
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 111230,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "not_available",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 1086,
+          "cache_read_input_tokens": 120770,
+          "cache_creation_input_tokens": 1164,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 1164
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard"
+    },
+    "modelUsage": {
+      "claude-opus-5-5": {
+        "inputTokens": 60,
+        "outputTokens": 46564,
+        "cacheReadInputTokens": 2233172,
+        "cacheCreationInputTokens": 111230,
+        "webSearchRequests": 0,
+        "costUSD": 2.2679944,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 128000,
+        "thinkingTokens": 7129,
+        "canonicalModel": "claude-opus-5-5",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "subagent_stats": {
+      "spawned": 0,
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 0,
+      "spawned_by_subagents": 0,
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {}
+    },
+    "is_error": false,
+    "num_turns": 61,
+    "subtype": "success",
+    "api_error_status": null,
+    "result": "The app is built and working. `ng build` passes with no warnings, and all 20 checks in a headless-browser run pass with no console errors. The app is running now at http://localhost:4301 (`npx @angular/cli@19 serve --port 4301`).\n\n**What the browser run covered:**\n- **Routing and guards:** `/` goes to `/login`. `/users` is blocked when logged out. Logging in with `admin`/`admin` writes `isLoggedIn: true` and lands on `/dashboard`. Visiting `/login` while logged in sends you back to `/dashboard`.\n- **Login:** submitting empty fields shows an error on each. Wrong credentials show a separate error.\n- **Dashboard:** a new log line is added every 3 seconds.\n- **Profile menu:** it opens leftward and stays fully on screen at both 1280px and 390px wide. It closes on an outside click, and Sign Out works.\n- **Users CRUD:** all round-trip through the in-memory API and the table updates:\n  - **Edit** splits the name into first/last and saves with `PUT`.\n  - **Delete user** in the edit dialog opens the confirmation with the same member still selected; confirming sends `DELETE`.\n  - **Invite** checks all four fields, then sends `POST`.\n  - The details dialog closes on a backdrop click.\n\n**How it's built:** since this arm has no design system, I put every colour, spacing step, type size, radius, shadow and width into CSS variables in `src/styles.scss`, with values taken from the Figma frames. Shared button, field and card styles, plus small `Badge`, `Avatar` and `Modal` components, use those variables rather than repeating raw values.\n\n**Where I departed from Figma** — in each case the spec and the Figma frame disagreed, and I followed the spec:\n- **Text and data** use the spec's wording and numbers, not Figma's (e.g. \"Welcome back\"). I left out the \"Blueprint\" title that Figma puts on the login card, because the spec lists exactly what the card contains.\n- **Dashboard tiles:** Figma has 7 tiles and the spec asks for 8. I kept Figma's rows: four metric tiles, then Request Throughput (double width), Service Health and Data Summary, then System Logs across the full width. Figma puts Service Health before the chart; I followed the spec's order.\n- **System Logs** is a monospace viewer, as the spec asks, rather than Figma's list of cards.\n- **Users table** has separate Avatar and Name columns, as the spec lists, where Figma combines them. Row actions are ordered Details, Edit, Delete with the spec's emphasis levels; Figma has Edit first.\n- **Header:** navigation is just Overview and Team, both working links. I dropped Figma's Metrics, Logs and Settings, which have no pages, and added the profile control the spec requires.\n- **Footer:** I added link columns, which the spec asks for but Figma doesn't show.\n- **Borders:** Figma's card and divider outlines came through as solid black, which looks like the export lost their transparency. I used a light grey instead.\n\nThe browser check script is outside the project, at `/tmp/a1-e2e/run.js`.",
+    "ttft_ms": 2710,
+    "type": "result",
+    "duration_ms": 461759,
+    "uuid": "b5da6ce8-e6a0-432e-8b3e-c5e9728b5b65",
+    "ttft_stream_ms": 2170,
+    "time_to_request_ms": 18,
+    "first_content_frame_ms": 2171,
+    "queued_turn_count": 0,
+    "result_index": 0
+  }
+}

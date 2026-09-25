@@ -1,0 +1,83 @@
+<div class="dashboard">
+  <section class="metrics" aria-label="Key metrics">
+    @for (metric of metrics; track metric.title) {
+      <article class="tile">
+        <h2 class="tile-title">{{ metric.title }}</h2>
+        <div class="metric-row">
+          <span class="metric-value">{{ metric.value }}</span>
+          @if (metric.trend) {
+            <dsb-tag size="sm" [variant]="metric.trend.positive ? 'success' : 'danger'">
+              <span class="visually-hidden">{{ metric.trend.positive ? 'Improving:' : 'Worsening:' }}</span>
+              {{ metric.trend.label }}
+            </dsb-tag>
+          }
+        </div>
+        @if (metric.subLabel) {
+          <p class="metric-sub">{{ metric.subLabel }}</p>
+        }
+      </article>
+    }
+  </section>
+
+  <section class="panels">
+    <article class="tile">
+      <h2 class="panel-title">Request Throughput</h2>
+      <div class="chart" role="img" aria-label="Request throughput by day, Monday to Sunday">
+        @for (bar of throughput; track bar.day) {
+          <div class="chart-col">
+            <div class="chart-track" [title]="bar.day + ': ' + bar.value + ' req/min'">
+              <span class="chart-gap" [style.flex-grow]="100 - bar.percent"></span>
+              <span class="chart-bar" [style.flex-grow]="bar.percent"></span>
+            </div>
+            <span class="chart-label">{{ bar.day }}</span>
+          </div>
+        }
+      </div>
+    </article>
+
+    <article class="tile">
+      <h2 class="panel-title">Service Health</h2>
+      <dsb-list [divided]="true" [compact]="true">
+        @for (service of services; track service.name) {
+          <dsb-list-item [label]="service.name">
+            <dsb-tag list-trailing size="sm" [variant]="service.online ? 'success' : 'danger'">
+              {{ service.online ? 'Online' : 'Offline' }}
+            </dsb-tag>
+          </dsb-list-item>
+        }
+      </dsb-list>
+    </article>
+
+    <article class="tile">
+      <h2 class="panel-title">Data Summary</h2>
+      <dsb-list [divided]="true" [compact]="true">
+        @for (row of summary; track row.label) {
+          <dsb-list-item [label]="row.label">
+            <span list-trailing class="summary-value">{{ row.value }}</span>
+          </dsb-list-item>
+        }
+      </dsb-list>
+    </article>
+
+    <article class="tile">
+      <h2 class="panel-title">System Logs</h2>
+      <div
+        #logViewport
+        class="logs"
+        role="log"
+        aria-live="polite"
+        aria-label="System logs"
+        tabindex="0"
+        (scroll)="onLogScroll(logViewport)"
+      >
+        @for (line of logs(); track $index) {
+          <div class="log-line">
+            <span class="log-time">{{ line.time }}</span>
+            <span class="log-level">{{ line.level.padEnd(5) }}</span>
+            <span class="log-message">{{ line.message }}</span>
+          </div>
+        }
+      </div>
+    </article>
+  </section>
+</div>

@@ -1,0 +1,38 @@
+.shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/*
+ * dsb-header has no slot for a profile control, so the control is laid over
+ * the header's right edge, aligned to the same centred container the header
+ * uses for its own content.
+ */
+.header-bar {
+  position: relative;
+}
+
+.header-end {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: max(
+    var(--ds-decisions-space-3xl),
+    calc((100% - var(--ds-decisions-layout-width-3xl)) / 2 + var(--ds-decisions-space-3xl))
+  );
+  display: flex;
+  align-items: center;
+  gap: var(--ds-decisions-space-lg);
+}
+
+.content {
+  flex: 1;
+  width: 100%;
+  max-width: var(--ds-decisions-layout-width-3xl);
+  margin: 0 auto;
+  padding: var(--ds-decisions-space-3xl);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-content: start;
+}

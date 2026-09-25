@@ -1,0 +1,142 @@
+.users {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-decisions-space-xl);
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ds-decisions-space-xl);
+  min-height: var(--ds-decisions-size-control-lg);
+}
+
+.toolbar-title {
+  font-size: var(--ds-decisions-font-size-2xl);
+  font-weight: var(--ds-decisions-font-weight-semibold);
+  letter-spacing: var(--ds-decisions-font-tracking-heading);
+  color: var(--ds-decisions-color-text-primary);
+}
+
+.cell-name {
+  font-weight: var(--ds-decisions-font-weight-medium);
+  color: var(--ds-decisions-color-text-body);
+}
+
+.cell-muted {
+  color: var(--ds-decisions-color-text-subtle);
+}
+
+.row-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--ds-decisions-space-xs);
+}
+
+/* Dialogs */
+.modal-heading {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-decisions-space-md);
+}
+
+.modal-heading-title {
+  font-size: var(--ds-decisions-font-size-xl);
+  font-weight: var(--ds-decisions-font-weight-semibold);
+  line-height: var(--ds-decisions-font-line-height-tight);
+  color: var(--ds-decisions-color-text-primary);
+}
+
+.modal-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-decisions-space-xl);
+}
+
+.user-row {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-decisions-space-lg);
+}
+
+.user-row-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-decisions-space-3xs);
+}
+
+.user-row-name {
+  font-size: var(--ds-decisions-font-size-lg);
+  font-weight: var(--ds-decisions-font-weight-semibold);
+  line-height: var(--ds-decisions-font-line-height-tight);
+  color: var(--ds-decisions-color-text-primary);
+}
+
+.user-row-since {
+  font-size: var(--ds-decisions-font-size-xs);
+  line-height: var(--ds-decisions-font-line-height-tight);
+  color: var(--ds-decisions-color-text-subtle);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-decisions-space-xl);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--ds-decisions-space-xl);
+}
+
+.status-row {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-decisions-space-sm);
+}
+
+.status-label {
+  font-size: var(--ds-decisions-font-size-xs);
+  font-weight: var(--ds-decisions-font-weight-medium);
+  color: var(--ds-decisions-color-text-primary);
+}
+
+.footer-split {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ds-decisions-space-lg);
+}
+
+.footer-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-decisions-space-sm);
+}
+
+.footer-note {
+  font-size: var(--ds-decisions-font-size-xs);
+  color: var(--ds-decisions-color-text-subtle);
+}
+
+.confirm-text strong {
+  font-weight: var(--ds-decisions-font-weight-semibold);
+  color: var(--ds-decisions-color-text-primary);
+}
+
+@media (max-width: 560px) {
+  .form-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/*
+ * The library modal body scrolls (overflow-y: auto), which clips an open dropdown menu.
+ * The modal exposes no option for this, so let the body overflow only while a menu is open.
+ */
+:host ::ng-deep .modal-body:has(.dropdown-trigger--open) {
+  overflow: visible;
+}

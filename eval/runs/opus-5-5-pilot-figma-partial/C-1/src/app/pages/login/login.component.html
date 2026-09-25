@@ -1,0 +1,39 @@
+<main class="auth-layout">
+  <section class="auth-card" aria-labelledby="login-heading">
+    <header class="auth-card__header">
+      <h1 id="login-heading" class="auth-card__title">Welcome back</h1>
+      <p class="auth-card__subtitle">Sign in to your account to continue</p>
+    </header>
+
+    <form class="auth-form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <dsb-input
+        label="Username"
+        placeholder="Enter your username"
+        formControlName="username"
+        [hasError]="showError('username')"
+        [errorMessage]="errorFor('username')"
+      />
+
+      <dsb-input
+        label="Password"
+        type="password"
+        placeholder="Enter your password"
+        formControlName="password"
+        [hasError]="showError('password')"
+        [errorMessage]="errorFor('password')"
+      />
+
+      <div class="auth-form__row">
+        <dsb-checkbox label="Remember me" />
+        <a href="" class="auth-link" (click)="$event.preventDefault()">Forgot password?</a>
+      </div>
+
+      <dsb-button type="submit" variant="primary" [fullWidth]="true">Sign In</dsb-button>
+    </form>
+
+    <p class="auth-card__prompt">
+      Don't have an account?
+      <a href="" class="auth-link" (click)="$event.preventDefault()">Sign up</a>
+    </p>
+  </section>
+</main>

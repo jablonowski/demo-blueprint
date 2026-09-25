@@ -1,0 +1,122 @@
+{
+  "arm": "B",
+  "run": 1,
+  "model": "claude-opus-5-5",
+  "cli": "2.1.281 (Claude Code)",
+  "isolation": "session",
+  "started": "2026-09-25T06:30:53Z",
+  "overlaySha": "0d513945591a",
+  "s0Sha": "c25d3e960f47",
+  "promptBytes": 14252,
+  "runDir": "/tmp/dsb-eval/opus-5-5/B-1",
+  "figma": {
+    "channel": "cached",
+    "fileKey": "iJ92LuFOsPjO6avZ2anbwO",
+    "recordedAt": "2026-09-24T19:49:36Z",
+    "calls": 1,
+    "errors": 0,
+    "nodes": [
+      "22-11104"
+    ],
+    "ok": true
+  },
+  "inputTokensTotal": 4844418,
+  "outputTokens": 51163,
+  "result": {
+    "duration_api_ms": 573547,
+    "stop_reason": "end_turn",
+    "session_id": "23c0830c-b6b4-409d-9e28-645701419d19",
+    "total_cost_usd": 3.1971178000000005,
+    "usage": {
+      "input_tokens": 88,
+      "cache_creation_input_tokens": 154441,
+      "cache_read_input_tokens": 4689889,
+      "output_tokens": 51163,
+      "output_tokens_details": {
+        "thinking_tokens": 12614
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 154441,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "not_available",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 1517,
+          "cache_read_input_tokens": 164894,
+          "cache_creation_input_tokens": 251,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 251
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard"
+    },
+    "modelUsage": {
+      "claude-opus-5-5": {
+        "inputTokens": 88,
+        "outputTokens": 51163,
+        "cacheReadInputTokens": 4689889,
+        "cacheCreationInputTokens": 154441,
+        "webSearchRequests": 0,
+        "costUSD": 3.1971178000000005,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 128000,
+        "thinkingTokens": 12614,
+        "canonicalModel": "claude-opus-5-5",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "subagent_stats": {
+      "spawned": 0,
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 0,
+      "spawned_by_subagents": 0,
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {}
+    },
+    "is_error": false,
+    "num_turns": 48,
+    "subtype": "success",
+    "api_error_status": null,
+    "result": "The app is built in `/private/tmp/dsb-eval/opus-5-5/B-1` and it works. `npx @angular/cli@19 serve` runs it, logging in with `admin` / `admin` reaches the dashboard, and the production build is clean.\n\n**What I checked, in headless Chromium at 1280px and 390px:**\n- **Login:** the route guard redirects, and an empty submit puts both fields into an error state with a message. Wrong credentials are rejected. Logging in sets `isLoggedIn`, and an already signed-in user who opens `/login` is sent to `/dashboard`.\n- **Profile menu:** it stays fully on screen at both widths and closes on an outside click. Sign Out clears `localStorage` and returns to `/login`.\n- **Create, update, delete:** each goes through the in-memory API and the table updates:\n  - Edit splits the name, saves with PUT, and the row changes.\n  - Edit → \"Delete user\" opens the confirmation with the member still selected. That dialog closes on backdrop click, and confirming sends the DELETE and removes the row.\n  - Invite shows errors on an empty submit, then sends the POST, adds a row with today's date, and resets the form.\n- **All four dialogs** open and close with the close button, the X and Escape.\n- **Console:** no errors or warnings in any run.\n- **Visuals:** I compared screenshots of every screen and dialog against the Figma frames.\n\n**Design system use (arm B).** I worked only from the two READMEs, the `.d.ts` typings and the compiled templates. `llms.client.txt` and `contracts.json` were absent before I started, and I checked again after my `npm install` that they were still absent. I used button, input, checkbox, dropdown, header, footer, avatar, tag, modal and table. The token stylesheet is loaded through `angular.json`, and my own CSS uses only `--ds-decisions-*` variables. I built these locally because no component covers them:\n- **Profile menu:** the header has no slot for it, so it's placed over the header's right edge.\n- **Metric tiles, bar chart and log viewer.**\n- **Service-health and summary rows:** I tried `dsb-list` first, but its dividers never render. Its selector (`.list-item + .list-item`) can't match across the separate `dsb-list-item` elements. That's a real defect in the package.\n\n**Where the spec and Figma disagree, and what I did:**\n- **Text and data:** I used the spec's wording and values (for example \"Welcome back\", \"1,284\", Mon–Sun bars, and the five named services) instead of Figma's placeholder text.\n- **Login card:** I left out Figma's \"Blueprint\" title and divider because the spec says to add nothing else.\n- **Dashboard:** Figma has 7 cards and the spec lists 8.\n  - Tiles follow the spec's order, laid out on Figma's grid: 4 metrics, then Throughput and Health side by side, then Data Summary and Logs at full width.\n  - I kept Figma's \"System Overview\" heading.\n  - The logs use Figma's light card style with monospace lines, rather than a dark terminal look.\n- **Table:** I followed the spec's separate Avatar and Name columns. For the row buttons I used the spec's order and emphasis (Details least, Edit secondary), which is the reverse of Figma.\n- **Navigation:** the header shows Dashboard and Users, the two real routes, instead of Figma's Overview, Metrics, Logs and Settings.\n- **Footer:** Figma's footer is a single row. The spec asks for link columns, so the footer uses `dsb-footer` and is taller than the frame.\n\n**Visual choices I couldn't match exactly:**\n- **Modals:** the modal component draws no dividers between header, body and footer, and its medium size is 540px wide against Figma's 560px.\n- **Cards:** there is no card-shadow token, so cards use the dropdown shadow. Corner radius is capped at 10px, where Figma's login card uses 12px.\n- **Error Rate trend:** it uses the red \"danger\" style to read as negative, where Figma shows amber.\n- **Font:** Inter loads from Google Fonts, with a system font as fallback.\n\n**Other changes:**\n- The existing lockfile had pulled in Angular 21, so I deleted it and reinstalled on Angular 19.\n- I raised the per-component style size limit from 4 kB to 8 kB because the dashboard stylesheet is 5.5 kB.",
+    "ttft_ms": 3939,
+    "type": "result",
+    "duration_ms": 723995,
+    "uuid": "3fbfb840-cad8-4482-87d5-d4e6739b3227",
+    "ttft_stream_ms": 2584,
+    "time_to_request_ms": 338,
+    "first_content_frame_ms": 2584,
+    "queued_turn_count": 0,
+    "result_index": 0
+  }
+}

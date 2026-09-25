@@ -22,6 +22,11 @@ const fs = require('fs');
 const http = require('http');
 const path = require('path');
 
+// Two widths, because S0 asks for both and because the profile menu overflowing at 390 is
+// the kind of thing a number never shows you.
+const VIEWPORTS = [{ name: 'desktop', width: 1280, height: 1200 },
+                   { name: 'mobile', width: 390, height: 1400 }];
+
 const ROUTES = [
   { path: '/login', authenticated: false },
   { path: '/dashboard', authenticated: true },
@@ -74,6 +79,16 @@ async function run(dir) {
   const browser = await chromium.launch();
   const pages = [];
 
+  // Screenshots are free here — the application is already built, served and driven. They
+  // are not scored and cannot affect a number; they exist so that three arms of the same
+  // screen can be looked at side by side, which no metric in SCORERS.md replaces.
+  // Explicit, because `dir` here is the project root and the project root is not always the
+  // run directory — an arm that scaffolds into app/ would otherwise leave its screenshots
+  // where the archiver does not look. A-1 and A-2 lost theirs exactly that way.
+  const shots = process.env.A11Y_SHOTS_DIR || path.join(dir, 'shots');
+  fs.mkdirSync(shots, { recursive: true });
+  const captured = [];
+
   try {
     for (const route of ROUTES) {
       const context = await browser.newContext();
@@ -96,6 +111,16 @@ async function run(dir) {
           id: v.id, impact: v.impact, nodes: v.nodes.length, help: v.help,
         })),
       });
+      for (const vp of VIEWPORTS) {
+        try {
+          await page.setViewportSize({ width: vp.width, height: vp.height });
+          await page.waitForTimeout(250);
+          const name = `${route.path.replace(/\//g, '') || 'root'}-${vp.name}.png`;
+          await page.screenshot({ path: path.join(shots, name), fullPage: true });
+          captured.push(name);
+        } catch { /* a missing screenshot must never fail the measurement */ }
+      }
+
       await context.close();
     }
   } finally {
@@ -111,6 +136,7 @@ async function run(dir) {
     total: all.length,
     critical: by('critical'), serious: by('serious'), moderate: by('moderate'), minor: by('minor'),
     pages,
+    shots: captured,
   };
 }
 

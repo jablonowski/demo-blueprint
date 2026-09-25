@@ -1,0 +1,57 @@
+<form class="login" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+  <header class="login__header">
+    <h1 class="login__title">Welcome back</h1>
+    <p class="login__subtitle">Sign in to your account to continue</p>
+  </header>
+
+  <div class="field" [class.field--invalid]="showError('username')">
+    <label class="field__label" for="username">Username</label>
+    <input
+      id="username"
+      class="field__control"
+      type="text"
+      formControlName="username"
+      placeholder="Enter your username"
+      autocomplete="username"
+      [attr.aria-invalid]="showError('username')"
+      aria-describedby="username-error"
+    />
+    @if (showError('username')) {
+      <span id="username-error" class="field__error">Username is required.</span>
+    }
+  </div>
+
+  <div class="field" [class.field--invalid]="showError('password') || credentialsRejected()">
+    <label class="field__label" for="password">Password</label>
+    <input
+      id="password"
+      class="field__control"
+      type="password"
+      formControlName="password"
+      placeholder="Enter your password"
+      autocomplete="current-password"
+      [attr.aria-invalid]="showError('password') || credentialsRejected()"
+      aria-describedby="password-error"
+    />
+    @if (showError('password')) {
+      <span id="password-error" class="field__error">Password is required.</span>
+    } @else if (credentialsRejected()) {
+      <span id="password-error" class="field__error" role="alert">Incorrect username or password.</span>
+    }
+  </div>
+
+  <div class="login__row">
+    <label class="checkbox">
+      <input type="checkbox" />
+      <span>Remember me</span>
+    </label>
+    <a class="login__link" href="#" (click)="$event.preventDefault()">Forgot password?</a>
+  </div>
+
+  <button type="submit" class="btn btn--primary btn--block">Sign In</button>
+
+  <p class="login__signup">
+    Don't have an account?
+    <a class="login__link" href="#" (click)="$event.preventDefault()">Sign up</a>
+  </p>
+</form>

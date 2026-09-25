@@ -1,0 +1,39 @@
+.shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.shell-header {
+  position: relative;
+}
+
+/*
+ * dsb-header has no slot for a user control, so it is overlaid on the header's right
+ * edge, aligned to the same centred container and inset the header itself uses.
+ */
+.shell-header-actions {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: max(
+    var(--ds-decisions-space-3xl),
+    calc((100% - var(--ds-decisions-layout-width-3xl)) / 2 + var(--ds-decisions-space-3xl))
+  );
+  display: flex;
+  align-items: center;
+}
+
+.shell-main {
+  flex: 1;
+  width: 100%;
+  max-width: var(--ds-decisions-layout-width-3xl);
+  margin: 0 auto;
+  padding: var(--ds-decisions-space-3xl);
+}
+
+.shell-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--ds-decisions-space-2xl);
+}

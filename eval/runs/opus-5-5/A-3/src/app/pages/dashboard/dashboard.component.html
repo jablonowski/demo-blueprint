@@ -1,0 +1,74 @@
+<header class="page-header">
+  <h1 class="page-header__title">System Overview</h1>
+</header>
+
+<div class="grid">
+  @for (m of metrics; track m.title) {
+    <section class="card tile tile--metric">
+      <h2 class="tile__label">{{ m.title }}</h2>
+      <div class="tile__value-row">
+        <span class="tile__value">{{ m.value }}</span>
+        @if (m.trend) {
+          <app-badge [tone]="m.trend.tone">{{ m.trend.label }}</app-badge>
+        }
+      </div>
+      @if (m.subLabel) {
+        <p class="tile__sub">{{ m.subLabel }}</p>
+      }
+    </section>
+  }
+
+  <section class="card tile tile--throughput">
+    <h2 class="tile__heading">Request Throughput</h2>
+    <div class="chart" role="img" aria-label="Requests per day, Monday to Sunday">
+      @for (bar of bars; track bar.day) {
+        <div class="chart__col">
+          <div class="chart__track">
+            <div class="chart__bar" [style.height.%]="bar.percent" [title]="bar.requests + ' requests'"></div>
+          </div>
+          <span class="chart__label">{{ bar.day }}</span>
+        </div>
+      }
+    </div>
+  </section>
+
+  <section class="card tile tile--services">
+    <h2 class="tile__heading">Service Health</h2>
+    <ul class="rows">
+      @for (s of services; track s.name) {
+        <li class="rows__item">
+          <span>{{ s.name }}</span>
+          <app-badge [tone]="s.online ? 'positive' : 'negative'">{{ s.online ? 'Online' : 'Offline' }}</app-badge>
+        </li>
+      }
+    </ul>
+  </section>
+
+  <section class="card tile tile--summary">
+    <h2 class="tile__heading">Data Summary</h2>
+    <dl class="rows">
+      @for (item of summary; track item.label) {
+        <div class="rows__item">
+          <dt>{{ item.label }}</dt>
+          <dd>{{ item.value }}</dd>
+        </div>
+      }
+    </dl>
+  </section>
+
+  <section class="card tile tile--logs">
+    <div class="tile__heading-row">
+      <h2 class="tile__heading">System Logs</h2>
+      <app-badge tone="positive">Live</app-badge>
+    </div>
+    <div class="terminal" #logViewport role="log" aria-live="polite">
+      @for (line of logs(); track line.id) {
+        <div class="terminal__line">
+          <span class="terminal__time">{{ line.time }}</span>
+          <span class="terminal__level terminal__level--{{ line.level.toLowerCase() }}">{{ line.level }}</span>
+          <span class="terminal__msg">{{ line.message }}</span>
+        </div>
+      }
+    </div>
+  </section>
+</div>

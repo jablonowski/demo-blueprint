@@ -1,0 +1,69 @@
+<div class="dashboard-grid">
+  @for (metric of metrics; track metric.title) {
+    <section class="tile">
+      <h2 class="tile-title">{{ metric.title }}</h2>
+      <div class="metric-row">
+        <span class="metric-value">{{ metric.value }}</span>
+        @if (metric.trend) {
+          <dsb-tag [variant]="metric.trendVariant ?? 'default'" size="sm" [attr.aria-label]="metric.trend + ', ' + metric.trendLabel">
+            {{ metric.trend }}
+          </dsb-tag>
+        }
+      </div>
+      @if (metric.subLabel) {
+        <p class="tile-sub">{{ metric.subLabel }}</p>
+      }
+    </section>
+  }
+
+  <section class="tile tile--wide">
+    <h2 class="tile-title">Request Throughput</h2>
+    <div class="chart" role="img" aria-label="Request throughput, Monday to Sunday">
+      @for (bar of throughput; track bar.day) {
+        <div class="chart-col">
+          <div class="chart-track">
+            <div class="chart-bar" [style.height.%]="bar.percent" [attr.title]="bar.day + ': ' + bar.value + ' req/min'"></div>
+          </div>
+          <span class="chart-label">{{ bar.day }}</span>
+        </div>
+      }
+    </div>
+  </section>
+
+  <section class="tile">
+    <h2 class="tile-title">Service Health</h2>
+    <dsb-list [divided]="true" [compact]="true">
+      @for (service of services; track service.name) {
+        <dsb-list-item [label]="service.name" [indicator]="true" [variant]="service.online ? 'success' : 'error'">
+          <dsb-tag list-trailing size="sm" [variant]="service.online ? 'success' : 'danger'">
+            {{ service.online ? 'Online' : 'Offline' }}
+          </dsb-tag>
+        </dsb-list-item>
+      }
+    </dsb-list>
+  </section>
+
+  <section class="tile">
+    <h2 class="tile-title">Data Summary</h2>
+    <dsb-list [divided]="true" [compact]="true">
+      @for (row of summary; track row.label) {
+        <dsb-list-item [label]="row.label">
+          <span list-trailing class="summary-value">{{ row.value }}</span>
+        </dsb-list-item>
+      }
+    </dsb-list>
+  </section>
+
+  <section class="tile tile--full">
+    <h2 class="tile-title">System Logs</h2>
+    <div class="log-viewer" #logViewer role="log" aria-live="polite" tabindex="0">
+      @for (line of logs(); track line.id) {
+        <div class="log-line">
+          <span class="log-time">{{ line.time }}</span>
+          <span class="log-level">{{ line.level }}</span>
+          <span class="log-message">{{ line.message }}</span>
+        </div>
+      }
+    </div>
+  </section>
+</div>

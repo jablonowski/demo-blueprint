@@ -1,0 +1,260 @@
+:host {
+  display: block;
+
+  /*
+   * Token gaps, asked of the resolver and answered no-coverage (or matched
+   * only on the word "bar", to the application-bar height). The decisions
+   * layer has no size for a chart plot area, no height for a scrollable
+   * panel and no monospace font family, so they are literals, named once.
+   */
+  --dashboard-chart-height: 140px;
+  --dashboard-log-height: 240px;
+  --dashboard-mono: ui-monospace, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+.page-header {
+  margin-bottom: var(--ds-decisions-space-3xl);
+}
+
+.page-title {
+  margin: 0;
+  font-size: var(--ds-decisions-font-size-3xl);
+  font-weight: var(--ds-decisions-font-weight-semibold);
+  letter-spacing: var(--ds-decisions-font-tracking-heading);
+}
+
+.page-meta {
+  margin: var(--ds-decisions-space-2xs) 0 0;
+  font-size: var(--ds-decisions-font-size-sm);
+  color: var(--ds-decisions-color-text-muted);
+}
+
+/* Twelve-column grid; each tile spans a share, and collapses on narrow viewports. */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--ds-decisions-space-2xl);
+}
+
+.span-3 { grid-column: span 3; }
+.span-4 { grid-column: span 4; }
+.span-5 { grid-column: span 5; }
+.span-7 { grid-column: span 7; }
+.span-8 { grid-column: span 8; }
+
+@media (max-width: 1024px) {
+  .span-3 { grid-column: span 6; }
+  .span-4, .span-5, .span-7, .span-8 { grid-column: span 12; }
+}
+
+@media (max-width: 600px) {
+  .span-3 { grid-column: span 12; }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-decisions-space-lg);
+  min-width: 0;
+  padding: var(--ds-decisions-space-2xl);
+  background: var(--ds-decisions-color-surface-base);
+  border: var(--ds-decisions-border-width-hairline) solid var(--ds-decisions-color-border-subtle);
+  border-radius: var(--ds-decisions-border-radius-2xl);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ds-decisions-space-sm);
+}
+
+.card-title {
+  margin: 0;
+  font-size: var(--ds-decisions-font-size-sm);
+  font-weight: var(--ds-decisions-font-weight-semibold);
+  color: var(--ds-decisions-color-text-primary);
+}
+
+.card-subtitle {
+  margin: var(--ds-decisions-space-2xs) 0 0;
+  font-size: var(--ds-decisions-font-size-xs);
+  color: var(--ds-decisions-color-text-muted);
+}
+
+.divider {
+  margin: 0;
+  border: none;
+  border-top: var(--ds-decisions-border-width-hairline) solid var(--ds-decisions-color-border-hairline);
+}
+
+/* Metric tiles */
+.metric {
+  gap: var(--ds-decisions-space-sm);
+}
+
+.card-label {
+  margin: 0;
+  font-size: var(--ds-decisions-font-size-2xs);
+  font-weight: var(--ds-decisions-font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--ds-decisions-font-tracking-caps);
+  color: var(--ds-decisions-color-text-subtle);
+}
+
+.metric-value-row {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-decisions-space-md);
+}
+
+.metric-value {
+  font-size: var(--ds-decisions-font-size-3xl);
+  font-weight: var(--ds-decisions-font-weight-semibold);
+  letter-spacing: var(--ds-decisions-font-tracking-heading);
+  line-height: var(--ds-decisions-font-line-height-tight);
+  color: var(--ds-decisions-color-text-primary);
+}
+
+.metric-sub {
+  margin: 0;
+  font-size: var(--ds-decisions-font-size-xs);
+  color: var(--ds-decisions-color-text-subtle);
+}
+
+/* Bar chart — plain CSS, no charting library */
+.chart {
+  display: flex;
+  align-items: stretch;
+  gap: var(--ds-decisions-space-sm);
+}
+
+.chart-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--ds-decisions-space-2xs);
+}
+
+.chart-track {
+  width: 100%;
+  height: var(--dashboard-chart-height);
+  display: flex;
+  align-items: flex-end;
+}
+
+.chart-bar {
+  width: 100%;
+  background: var(--ds-decisions-color-surface-emphasis);
+  border-radius: var(--ds-decisions-border-radius-xs);
+}
+
+.chart-label {
+  font-size: var(--ds-decisions-font-size-2xs);
+  color: var(--ds-decisions-color-text-subtle);
+}
+
+.stats {
+  display: flex;
+  gap: var(--ds-decisions-space-4xl);
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-decisions-space-3xs);
+}
+
+.stat-value {
+  font-size: var(--ds-decisions-font-size-lg);
+  font-weight: var(--ds-decisions-font-weight-semibold);
+}
+
+.stat-label {
+  font-size: var(--ds-decisions-font-size-2xs);
+  color: var(--ds-decisions-color-text-muted);
+}
+
+/* Data summary */
+.summary {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--ds-decisions-space-lg);
+  padding: var(--ds-decisions-space-md) 0;
+  border-bottom: var(--ds-decisions-border-width-hairline) solid var(--ds-decisions-color-border-hairline);
+  font-size: var(--ds-decisions-font-size-sm);
+}
+
+.summary-row:last-child {
+  border-bottom: none;
+}
+
+.summary dt {
+  color: var(--ds-decisions-color-text-muted);
+}
+
+.summary dd {
+  margin: 0;
+  font-weight: var(--ds-decisions-font-weight-semibold);
+  color: var(--ds-decisions-color-text-primary);
+}
+
+/* Log viewer */
+.log-viewer {
+  height: var(--dashboard-log-height);
+  overflow-y: auto;
+  padding: var(--ds-decisions-space-lg);
+  background: var(--ds-decisions-color-surface-subtle);
+  border: var(--ds-decisions-border-width-hairline) solid var(--ds-decisions-color-border-hairline);
+  border-radius: var(--ds-decisions-border-radius-lg);
+  font-family: var(--dashboard-mono);
+  font-size: var(--ds-decisions-font-size-xs);
+  line-height: var(--ds-decisions-font-line-height-relaxed);
+  color: var(--ds-decisions-color-text-body);
+}
+
+.log-viewer:focus-visible {
+  outline: none;
+  box-shadow: var(--ds-decisions-shadow-focus);
+}
+
+.log-line {
+  display: flex;
+  gap: var(--ds-decisions-space-lg);
+  white-space: nowrap;
+}
+
+.log-time {
+  color: var(--ds-decisions-color-text-subtle);
+}
+
+.log-level {
+  flex: 0 0 5ch;
+  font-weight: var(--ds-decisions-font-weight-semibold);
+}
+
+.level--info { color: var(--ds-decisions-color-feedback-info-text); }
+.level--warn { color: var(--ds-decisions-color-feedback-warning-text); }
+.level--error { color: var(--ds-decisions-color-feedback-error-text); }
+.level--debug { color: var(--ds-decisions-color-text-subtle); }
+
+.log-message {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

@@ -1,0 +1,55 @@
+<app-modal size="md" (backdropClose)="cancel.emit()">
+  <div class="modal-header">
+    <span class="modal-header__title">Invite Member</span>
+    <button type="button" class="modal-close" (click)="cancel.emit()">&#10005;</button>
+  </div>
+  <hr class="modal-divider" />
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="field">
+          <label class="field__label" for="invite-first-name">First name</label>
+          <input id="invite-first-name" class="field__input" type="text" formControlName="firstName" />
+          @if (form.controls.firstName.invalid && form.controls.firstName.touched) {
+            <p class="field__error">First name is required.</p>
+          }
+        </div>
+        <div class="field">
+          <label class="field__label" for="invite-last-name">Last name</label>
+          <input id="invite-last-name" class="field__input" type="text" formControlName="lastName" />
+          @if (form.controls.lastName.invalid && form.controls.lastName.touched) {
+            <p class="field__error">Last name is required.</p>
+          }
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="field__label" for="invite-email">Email address</label>
+        <input id="invite-email" class="field__input" type="email" formControlName="email" />
+        @if (form.controls.email.invalid && form.controls.email.touched) {
+          <p class="field__error">A valid email address is required.</p>
+        }
+      </div>
+
+      <div class="field">
+        <label class="field__label" for="invite-role">Role</label>
+        <select id="invite-role" class="field__select" formControlName="role">
+          <option [value]="null" disabled>Select role&hellip;</option>
+          @for (role of roles; track role) {
+            <option [value]="role">{{ role }}</option>
+          }
+        </select>
+        @if (form.controls.role.invalid && form.controls.role.touched) {
+          <p class="field__error">Role is required.</p>
+        }
+      </div>
+    </div>
+
+    <hr class="modal-divider" />
+    <div class="modal-footer">
+      <button type="button" class="btn btn--outline" (click)="cancel.emit()">Cancel</button>
+      <button type="submit" class="btn btn--primary">Send Invite</button>
+    </div>
+  </form>
+</app-modal>

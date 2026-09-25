@@ -31,8 +31,12 @@ This needs no guess about where an agent chose to put a file, which is the prope
 first rule lacked.
 
 **Frozen 2026-09-23, after the pilot and before the first scored run.** The pilot informed
-this definition, so `D-1` is a pilot and not one of the five scored D runs. Reusing it
-would mean the rule and one of the data points came from the same observation.
+this definition, so it is a pilot and not one of the five scored D runs. Reusing it would
+mean the rule and one of the data points came from the same observation.
+
+The same reasoning applied a second time on 2026-09-24. The `A` and `D` runs made that day
+produced the finding behind §9, so they became the pilots `A-0` and `D-0` and the
+conformance scorer was frozen before any scored run. Three pilots, no scored runs yet.
 
 ## 1. Raw values
 
@@ -68,7 +72,7 @@ hallucination claim made concrete and countable.
 
 ## 3. The nine gotchas
 
-`SPEC.md` §9 currently tells the agent each answer. Removed from the prompt, each becomes
+The old `SPEC.md` §9 told the agent each answer. Removed from the prompt, each becomes
 a binary check. These are the highest-signal items in the whole evaluation, because each
 one is a place where the machine-readable layer is known to be thin.
 
@@ -181,6 +185,64 @@ Input tokens, output tokens, tool calls, wall clock, and correction turns to acc
 
 Reported per arm, never as the headline. The comparison that means something is cost per
 **accepted** screen — generation plus rework — not cost per generation.
+
+## 9. Conformance — are the values the right values?
+
+Added after the pilot phase, before the first scored run, because the `A` pilot broke the
+naive version of the thesis and no metric above noticed.
+
+With no design system in the prompt, arm A did not scatter literals through its
+stylesheets. It opened `src/styles.scss` with a design-system handbook comment and declared
+**seventy custom properties** — a token layer of its own, correctly layered, consistently
+applied. Four scattered literals in the whole application. On raw values it beat two of the
+three arms that had a design system.
+
+And every colour in it is wrong. The palette is zinc: `--color-foreground: #18181b` where
+the system says `#111111`; `#71717a` for `#6f6f6f`; `#e4e4e7` for `#e8e8e8`. Twenty of
+twenty-nine authored colours sit between 1.4 and 19.2 units from a value the system already
+holds. Close enough that nobody catches it in review, far enough that the two systems will
+never converge again.
+
+**This is the finding, not a nuisance.** An agent with no shared reference does not produce
+chaos. It produces a competing design system, internally disciplined, and hands the
+organisation a second set of values to maintain. Discipline is not the scarce thing. The
+shared reference is.
+
+So the scorer asks a question the others do not: not *did it use tokens* (§4), but *are the
+values it settled on the system's values*. Over every colour and length the application
+authored in its own CSS, declared or scattered:
+
+| Verdict | Meaning | What it costs |
+|---|---|---|
+| **matched** | the value exists in the design system | a rename; find-and-replace fixes it |
+| **divergent** | no exact value, but one close enough to be indistinguishable | the expensive class — looks like the system, ships as the system, will not move when the system moves |
+| **novel** | nothing near it | a genuine gap, or a decision taken unilaterally |
+
+Two tolerances, both arguable, both constants in the source, and every entry carries its
+nearest reference value and the distance so a reader can re-judge:
+
+- `COLOUR_TOLERANCE` **24**, Euclidean over sRGB. `#18181b` is 14.07 from `#111111`
+- `LENGTH_TOLERANCE` **2px**. `14px` is 2 from the 12/16 steps
+
+**The reference is a committed snapshot**, `reference/ds-tokens.json`, written by
+`scripts/sync-reference-tokens.js` from the *published* package — what arms B, C and D
+actually installed, not whatever is checked out next door. The script refuses to write a
+snapshot it cannot corroborate: every tier 2 name it derives must appear in the package's
+own `public.css` with the same value, because the derivation is an assumption about a Style
+Dictionary transform and an unchecked assumption inside a measuring instrument is how a
+confident wrong number reaches a table.
+
+**Stated limit: this is value-level, not property-level.** The length reference is dense —
+223 scalars across spacing, sizing, radii, font sizes and layout widths — so nearly any
+plausible pixel value lands on one of them, and the scorer does not ask whether the token it
+landed on is about the property it was used for. A `padding: 14px` matching a font-size
+token counts as matched. Colour is the sharp signal; lengths are reported separately and
+should be read as weak. The looseness flatters the application, which is the direction a
+claim about the design system should be wrong in.
+
+**Null, not 1.0, when nothing was authored.** Arm C wrote no values of its own. That is not
+perfect conformance, it is no occasion to fail, and a 1.0 in that cell would be the
+flattering reading of an absence.
 
 ---
 

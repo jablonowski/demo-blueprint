@@ -74,8 +74,20 @@ test('the falsifier is not evaluated for an arm that had no library', () => {
 
 test('hex colours and lengths are counted, hairlines and zero are not', () => {
   const result = rawValues.score(FIXTURE);
-  assert.equal(result.chromatic, 2, 'one hex and one rgba() in the fixture');
-  assert.equal(result.dimensional, 1, '14px counts; 1px and 0 do not');
+  assert.equal(result.chromatic, 3, 'one hex and one rgba() in the component, one in styles');
+  assert.equal(result.dimensional, 2, '14px twice; 1px and 0 do not count');
+});
+
+test('a literal declared as a custom property is a local token, not a scattered value', () => {
+  // Arm D asked the resolver, was refused, and gathered the gaps into named properties
+  // "as token contributions to propose rather than scattered as literals". Counting that
+  // identically to padding:14px buried in a rule measures the opposite of what happened.
+  const result = rawValues.score(FIXTURE);
+  assert.equal(result.declared, 2, '--app-chart-height and --app-accent');
+  assert.ok(result.detail.declared.some((d) => d.value === '160px'));
+  assert.ok(result.detail.declared.some((d) => d.value === '#ff00aa'));
+  assert.ok(!result.detail.dimensional.some((d) => d.value === '160px'),
+    'a declared value must not also be counted as scattered');
 });
 
 test('media query widths go to their own bucket', () => {
@@ -188,4 +200,140 @@ test('a check reports na rather than pass when the thing was never built', () =>
   assert.equal(by['9.2'].verdict, 'na');
   assert.equal(by['9.3'].verdict, 'na');
   assert.equal(by['standalone'].verdict, 'na');
+});
+
+// ─── Conformance, proven in both directions ──────────────────────────────────
+
+const conformance = require('../conformance');
+const CONFORM = path.join(__dirname, 'fixture', 'conformance');
+
+// A reference of two tokens, so the expected verdicts can be reasoned about by hand. The
+// committed snapshot is exercised separately, below.
+const TWO = conformance.buildReference({ '--t-ink': '#111111', '--t-space-3': '12px' });
+
+test('a value the system holds is matched, not merely counted as raw', () => {
+  const result = conformance.score(CONFORM, TWO);
+  const exact = result.detail.matched.map((e) => e.value).sort();
+  assert.deepEqual(exact, ['#111111', '#111111', '12px'],
+    'the declared #111111, the one in the border shorthand, and the 12px');
+});
+
+test('a near miss is divergent and names what it nearly is', () => {
+  // The finding the scorer exists for: internally disciplined, externally wrong.
+  const result = conformance.score(CONFORM, TWO);
+  const zinc = result.detail.divergent.find((e) => e.value === '#18181b');
+  assert.ok(zinc, '#18181b is 14.07 from #111111 and must not read as conformant');
+  assert.equal(zinc.nearest.name, '--t-ink');
+  assert.equal(zinc.nearest.distance, 14.07);
+  assert.ok(result.detail.divergent.some((e) => e.value === '14px'),
+    '14px is 2 from the 12px step, inside the length tolerance');
+});
+
+test('a value nothing in the system is near is novel, not divergent', () => {
+  // Arm D's no-coverage gaps land here, and calling them near misses would read the most
+  // honest behaviour in the experiment as the least.
+  const result = conformance.score(CONFORM, TWO);
+  const values = result.detail.novel.map((e) => e.value).sort();
+  assert.deepEqual(values, ['#ff00aa', '137px']);
+});
+
+test('conformance keeps the distinction between a declared token and a scattered literal', () => {
+  const result = conformance.score(CONFORM, TWO);
+  assert.equal(result.authored, 7, 'four declared, plus the border colour and two lengths');
+  assert.deepEqual(result.byOrigin.declared, { matched: 2, divergent: 1, novel: 1 });
+  assert.deepEqual(result.byOrigin.scattered, { matched: 1, divergent: 1, novel: 1 });
+});
+
+test('colour and length are reported apart', () => {
+  const result = conformance.score(CONFORM, TWO);
+  assert.equal(result.byKind.colour.authored, 4);
+  assert.equal(result.byKind.length.authored, 3);
+});
+
+test('an application that authored nothing has a null rate, not a perfect one', () => {
+  // Arm C wrote no values of its own. That is not 100% conformance, it is no occasion to
+  // fail, and a 1.0 in that cell would be the flattering reading of an absence.
+  const empty = path.join(__dirname, 'fixture', 'empty');
+  require('fs').mkdirSync(empty, { recursive: true });
+  const result = conformance.score(empty, TWO);
+  assert.equal(result.authored, 0);
+  assert.equal(result.rate, null);
+});
+
+test('colour notation does not change the verdict', () => {
+  const white = conformance.buildReference({ '--t-paper': '#ffffff' });
+  for (const spelling of ['#fff', '#ffffff', 'rgb(255, 255, 255)', 'rgb(255 255 255 / 1)', 'hsl(0 0% 100%)']) {
+    assert.equal(conformance.classify(spelling, white).verdict, 'matched', spelling);
+  }
+  assert.equal(conformance.toPx('1rem'), 16, 'rem resolves against a 16px root');
+  assert.equal(conformance.toPx('10px 20px'), null, 'a shorthand is not a single length');
+});
+
+test('a transparency is not matched to the opaque colour it is made of', () => {
+  const ink = conformance.buildReference({ '--t-ink': '#111111' });
+  assert.equal(conformance.classify('rgba(17, 17, 17, 0.4)', ink).verdict, 'novel');
+});
+
+test('the committed reference is the published package, and holds the values it should', () => {
+  // If a snapshot is regenerated and the name derivation has drifted, every conformance
+  // number silently changes. This pins the two ends of it.
+  const snapshot = require('../../reference/ds-tokens.json');
+  assert.equal(snapshot.source, '@jablonowski/dsb-tokens');
+  assert.ok(snapshot.leafCount > 400, `only ${snapshot.leafCount} tokens in the snapshot`);
+  assert.equal(snapshot.tokens['--ds-decisions-color-text-primary'], '#111111');
+  assert.equal(conformance.classify('#18181b', conformance.REFERENCE).verdict, 'divergent',
+    'zinc-950 against the real system');
+  assert.equal(conformance.classify('#111111', conformance.REFERENCE).verdict, 'matched');
+});
+
+// ─── Refusing to score a run that did not happen ─────────────────────────────
+
+const { voidReason } = require('../void');
+
+test('a run the API aborted is void, not a bad run', () => {
+  // C-1 was cut off by a 429 at turn 22 and scored as slots 10/13, checks 5/8, BROKEN —
+  // a row that reads as arm C underperforming. It is no observation at all.
+  const reason = voidReason({ result: { is_error: true, api_error_status: 429,
+    result: "You've hit your session limit" } });
+  assert.match(reason, /429/);
+  assert.match(reason, /session limit/);
+});
+
+test('a run denied a tool its arm is defined by is void', () => {
+  const reason = voidReason({ result: { permission_denials: [
+    { tool_name: 'mcp__dsb-tokens__resolve_token' },
+    { tool_name: 'mcp__dsb-tokens__resolve_token' }] } });
+  assert.match(reason, /resolve_token/);
+  assert.doesNotMatch(reason, /resolve_token.*resolve_token/, 'names are de-duplicated');
+});
+
+test('a run whose record explains its denials is scored', () => {
+  // C-0: the denials are what make it an arm C run. The exception is in the record, not
+  // inferred by the scorer, so it can be audited.
+  const reason = voidReason({
+    scoring: { ignoreDenials: true, why: 'reclassified' },
+    result: { permission_denials: [{ tool_name: 'mcp__dsb-tokens__resolve_token' }] },
+  });
+  assert.equal(reason, null);
+});
+
+test('a clean run is not void, and a missing record is', () => {
+  assert.equal(voidReason({ result: { is_error: false, permission_denials: [] } }), null);
+  assert.match(voidReason(null), /no harness record/);
+});
+
+test('a run without a serviceable Figma channel is void', () => {
+  // Eight runs passed a preflight that asserted the token was present, not that it worked.
+  const reason = voidReason({ figma: { channel: 'cached', ok: false },
+                              result: { is_error: false } });
+  assert.match(reason, /visual truth/);
+  assert.equal(voidReason({ figma: { channel: 'cached', ok: true, calls: 4 },
+                            result: { is_error: false } }), null);
+});
+
+test('an arm that chose not to call Figma is a result, not a void', () => {
+  // Zero calls with a working channel is the agent deciding it had enough. Discarding it
+  // would throw away one of the more interesting observations for looking like a fault.
+  assert.equal(voidReason({ figma: { channel: 'cached', ok: true, calls: 0 },
+                            result: { is_error: false } }), null);
 });

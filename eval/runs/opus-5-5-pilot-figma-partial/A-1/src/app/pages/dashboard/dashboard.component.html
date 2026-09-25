@@ -1,0 +1,80 @@
+<header class="page-head">
+  <h1 class="page-head__title">System Overview</h1>
+  <p class="page-head__meta">Last updated: {{ lastUpdated.toUTCString().slice(5, 22) }} UTC</p>
+</header>
+
+<div class="grid">
+  @for (m of metrics; track m.title) {
+    <article class="card tile metric">
+      <h2 class="tile__label">{{ m.title }}</h2>
+      <div class="metric__value-row">
+        <span class="metric__value">{{ m.value }}</span>
+        @if (m.trend) {
+          <app-badge [tone]="m.trend.tone">{{ m.trend.label }}</app-badge>
+        }
+      </div>
+      @if (m.subLabel) {
+        <span class="metric__sub">{{ m.subLabel }}</span>
+      }
+    </article>
+  }
+
+  <article class="card tile tile--wide">
+    <div class="tile__head">
+      <h2 class="tile__title">Request Throughput</h2>
+      <p class="tile__caption">Requests per day over the last 7 days</p>
+    </div>
+    <hr class="divider" />
+    <div class="chart" role="img" aria-label="Request throughput bar chart, Monday to Sunday">
+      @for (d of throughput; track d.day) {
+        <div class="chart__col">
+          <div class="chart__track">
+            <div class="chart__bar" [style.height.%]="d.percent" [attr.title]="d.value + ' requests'"></div>
+          </div>
+          <span class="chart__label">{{ d.day }}</span>
+        </div>
+      }
+    </div>
+  </article>
+
+  <article class="card tile">
+    <h2 class="tile__title">Service Health</h2>
+    <ul class="list">
+      @for (s of services; track s.name) {
+        <li class="list__row">
+          <span>{{ s.name }}</span>
+          <app-badge [tone]="s.online ? 'success' : 'danger'">{{ s.online ? 'Online' : 'Offline' }}</app-badge>
+        </li>
+      }
+    </ul>
+  </article>
+
+  <article class="card tile">
+    <h2 class="tile__title">Data Summary</h2>
+    <dl class="list">
+      @for (row of summary; track row.label) {
+        <div class="list__row">
+          <dt>{{ row.label }}</dt>
+          <dd>{{ row.value }}</dd>
+        </div>
+      }
+    </dl>
+  </article>
+
+  <article class="card tile tile--full">
+    <div class="tile__head tile__head--row">
+      <h2 class="tile__title">System Logs</h2>
+      <app-badge tone="success">Live</app-badge>
+    </div>
+    <div class="logs" #logViewer role="log" aria-live="polite">
+      @for (line of logs(); track line.id) {
+        <div class="logs__line">
+          <span class="logs__time">{{ line.time }}</span>
+          <span class="logs__level" [attr.data-level]="line.level">{{ line.level }}</span>
+          <span class="logs__source">{{ line.source }}</span>
+          <span class="logs__msg">{{ line.message }}</span>
+        </div>
+      }
+    </div>
+  </article>
+</div>

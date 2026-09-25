@@ -1,0 +1,33 @@
+/* Design-system tokens: decisions + the component layer the library reads at runtime. */
+@import '@jablonowski/dsb-tokens/css';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+}
+
+body {
+  font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-size: var(--ds-decisions-font-size-md);
+  line-height: var(--ds-decisions-font-line-height-normal);
+  color: var(--ds-decisions-color-text-body);
+  background: var(--ds-decisions-color-surface-subtle);
+  -webkit-font-smoothing: antialiased;
+}
+
+/*
+ * dsb-modal scrolls its body (overflow-y: auto), which clips the absolutely
+ * positioned dsb-dropdown menu inside the edit/invite dialogs. Neither component
+ * exposes an input for this, so dialogs that contain a dropdown opt out of body
+ * scrolling. Their content is short enough to fit any desktop viewport.
+ */
+dsb-modal.has-select .modal-body {
+  overflow: visible;
+}

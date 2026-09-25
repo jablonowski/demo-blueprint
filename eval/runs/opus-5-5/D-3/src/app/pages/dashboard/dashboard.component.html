@@ -1,0 +1,98 @@
+<header class="page-header">
+  <h1 class="page-title">System Overview</h1>
+  <p class="page-meta">Mock infrastructure health data</p>
+</header>
+
+<div class="grid">
+  @for (tile of metrics; track tile.title) {
+    <section class="card metric span-3">
+      <h2 class="card-label">{{ tile.title }}</h2>
+      <div class="metric-value-row">
+        <span class="metric-value">{{ tile.value }}</span>
+        @if (tile.trend) {
+          <dsb-tag size="sm" [variant]="tile.trend.positive ? 'success' : 'danger'">
+            <span class="sr-only">{{ tile.trend.positive ? 'Positive trend:' : 'Negative trend:' }}</span>
+            {{ tile.trend.label }}
+          </dsb-tag>
+        }
+      </div>
+      @if (tile.subLabel) {
+        <p class="metric-sub">{{ tile.subLabel }}</p>
+      }
+    </section>
+  }
+
+  <section class="card span-7">
+    <header class="card-header">
+      <div>
+        <h2 class="card-title">Request Throughput</h2>
+        <p class="card-subtitle">Requests per day over the last 7 days</p>
+      </div>
+    </header>
+    <hr class="divider" />
+    <div class="chart" role="img" [attr.aria-label]="'Request throughput, Monday to Sunday, peak ' + (throughputStats.peak | number) + ' requests'">
+      @for (bar of throughput; track bar.day) {
+        <div class="chart-col">
+          <div class="chart-track">
+            <div class="chart-bar" [style.height.%]="bar.percent" [attr.title]="bar.day + ': ' + (bar.value | number)"></div>
+          </div>
+          <span class="chart-label">{{ bar.day }}</span>
+        </div>
+      }
+    </div>
+    <div class="stats">
+      <div class="stat">
+        <span class="stat-value">{{ throughputStats.peak | number }}</span>
+        <span class="stat-label">Peak</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value">{{ throughputStats.average | number }}</span>
+        <span class="stat-label">Average</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="card span-5">
+    <h2 class="card-title">Service Health</h2>
+    <hr class="divider" />
+    <dsb-list [divided]="true">
+      @for (svc of services; track svc.name) {
+        <dsb-list-item [label]="svc.name">
+          <dsb-tag list-trailing size="sm" [variant]="svc.online ? 'success' : 'danger'">
+            {{ svc.online ? 'Online' : 'Offline' }}
+          </dsb-tag>
+        </dsb-list-item>
+      }
+    </dsb-list>
+  </section>
+
+  <section class="card span-4">
+    <h2 class="card-title">Data Summary</h2>
+    <hr class="divider" />
+    <dl class="summary">
+      @for (row of summary; track row.label) {
+        <div class="summary-row">
+          <dt>{{ row.label }}</dt>
+          <dd>{{ row.value }}</dd>
+        </div>
+      }
+    </dl>
+  </section>
+
+  <section class="card span-8">
+    <header class="card-header">
+      <h2 class="card-title">System Logs</h2>
+      <dsb-tag size="sm" variant="success">Live</dsb-tag>
+    </header>
+    <hr class="divider" />
+    <div #logViewport class="log-viewer" role="log" aria-live="polite" aria-label="System logs" tabindex="0">
+      @for (line of logs(); track line.id) {
+        <div class="log-line">
+          <span class="log-time">{{ line.time }}</span>
+          <span class="log-level" [class]="levelClass(line.level)">{{ line.level }}</span>
+          <span class="log-message">{{ line.message }}</span>
+        </div>
+      }
+    </div>
+  </section>
+</div>

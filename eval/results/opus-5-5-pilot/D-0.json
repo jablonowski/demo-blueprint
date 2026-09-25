@@ -1,0 +1,112 @@
+{
+  "arm": "D",
+  "run": 0,
+  "model": "claude-opus-5-5",
+  "cli": "2.1.281 (Claude Code)",
+  "isolation": "session",
+  "started": "2026-09-24T06:31:31Z",
+  "overlaySha": "f1c1277bd1e5",
+  "s0Sha": "a8b26e1f589b",
+  "promptBytes": 17546,
+  "runDir": "/tmp/dsb-eval/opus-5-5/D-1",
+  "inputTokensTotal": 3202506,
+  "outputTokens": 44255,
+  "result": {
+    "duration_api_ms": 419047,
+    "stop_reason": "end_turn",
+    "session_id": "e5d486e7-f35a-4ab0-8700-71805dbb9397",
+    "total_cost_usd": 2.4092548000000003,
+    "usage": {
+      "input_tokens": 84,
+      "cache_creation_input_tokens": 113248,
+      "cache_read_input_tokens": 3089174,
+      "output_tokens": 44255,
+      "output_tokens_details": {
+        "thinking_tokens": 7663
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 113248,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "not_available",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 1301,
+          "cache_read_input_tokens": 123762,
+          "cache_creation_input_tokens": 190,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 190
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard"
+    },
+    "modelUsage": {
+      "claude-opus-5-5": {
+        "inputTokens": 84,
+        "outputTokens": 44255,
+        "cacheReadInputTokens": 3089174,
+        "cacheCreationInputTokens": 113248,
+        "webSearchRequests": 0,
+        "costUSD": 2.4092548000000003,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 128000,
+        "thinkingTokens": 7663,
+        "canonicalModel": "claude-opus-5-5",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "subagent_stats": {
+      "spawned": 0,
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 0,
+      "spawned_by_subagents": 0,
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {}
+    },
+    "is_error": false,
+    "num_turns": 63,
+    "subtype": "success",
+    "api_error_status": null,
+    "result": "The app is built and working in `/private/tmp/dsb-eval/opus-5-5/D-1`, but I couldn't see the Figma frames. The token is rejected with \"Token expired\" (403), both through the Figma MCP server and with a direct call using `$FIGMA_ACCESS_TOKEN`. So the layout, tile arrangement and badge colours are my reading of the spec and the component library, not a match to the design. Once there's a fresh token, the next step is to compare against the frames.\n\n**What I checked.** `ng build` succeeds. I ran the app with `npx @angular/cli@19 serve` and went through it in a headless Chromium at 1280px and 390px wide. No console errors or warnings.\n- **Login:** empty fields and wrong credentials each show an error. `admin`/`admin` sets `isLoggedIn` and goes to `/dashboard`. Opening `/login` while signed in, or `/users` while signed out, redirects correctly, and unknown URLs go to `/login`.\n- **Profile menu:** it opens leftward and stays fully on screen at both widths. It closes on an outside click or Escape, and Sign Out logs you out.\n- **Create, read, update, delete:** all four go through the in-memory API and the table updates each time. That covers Details, Edit (name split and recombined), Edit → \"Delete user\" → confirm (the member stays selected), deleting from a row, closing on backdrop click, and Invite (form checks, Active status, today's date, form reset).\n- **Log viewer:** a new line appears every 3 seconds.\n\n**Token use.** All UI is built from `dsb-*` components, and every value is a public tier 2 (`--ds-decisions-*`) token. A scan found no tier 1 or tier 3 tokens and no raw colours.\n\n**What the resolver changed:**\n- **Chart bars:** the protocol expected a refusal for \"pure black\". It didn't refuse. It returned `surface-emphasis` (#111111) for \"darkest foreground\", and the bars use that.\n- **Refusals I acted on:**\n  - Card border: I asked again in different words and got `border-subtle`.\n  - Large display text: it couldn't choose between 2xl and 3xl. I chose 3xl, the largest.\n  - Chart height: it offered the app-header height (56px) because both use the word \"bar\". I didn't use it.\n- **Genuine gaps:** there are no tokens for font family, chart height or log panel height. Those three are literals, kept in one place in `dashboard.component.css:6` and marked `no-coverage` so they can be proposed as new tokens. The body font stack in `styles.css` is marked the same way.\n\n**Choices I made without Figma:**\n- **Role badges:** Admin solid dark, Editor blue, Viewer grey.\n- **Status badges:** Active green, Inactive grey.\n- **Dashboard layout:** four metric tiles in a row, then two rows of two panels.\n- **Brand and footer:** \"Blueprint\" and the footer links are my placeholders.\n\n**Workarounds for the component library:**\n- **Profile control:** `dsb-header` has no slot for it, so it sits on a layer lined up with the header's right edge.\n- **Header and footer links:** they're plain links, so I route them through the Angular router to avoid full page reloads.\n- **Avatar fallback:** `dsb-avatar` only shows initials when there's no image URL. A small directive also switches to initials when the image fails to load.\n\n**Setup changes:** the folder had Angular 21 packages installed. I replaced them with a new Angular 19 project and installed `angular-in-memory-web-api@^0.19` plus the two dsb packages.",
+    "ttft_ms": 2175,
+    "type": "result",
+    "duration_ms": 583232,
+    "uuid": "280942dd-9ffc-4307-8be0-eda6a77f0661",
+    "ttft_stream_ms": 1604,
+    "time_to_request_ms": 27,
+    "first_content_frame_ms": 1605,
+    "queued_turn_count": 0,
+    "result_index": 0
+  },
+  "note": "Reclassified as a pilot. Run as D-1, the first run in which the resolver was actually reachable (the earlier D-1 became C-0). Scored before the conformance scorer existed, so it is not comparable with the scored runs. Run 0 marks it outside the five scored runs."
+}

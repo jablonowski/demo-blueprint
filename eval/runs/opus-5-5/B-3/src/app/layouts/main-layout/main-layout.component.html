@@ -1,0 +1,48 @@
+<div class="shell">
+  <div class="shell-header" (click)="routeLinkClick($event)">
+    <dsb-header brandName="Blueprint" logoHref="/dashboard" logoAlt="Blueprint home" [navItems]="navItems()" />
+
+    <div class="profile">
+      <button
+        type="button"
+        class="profile-trigger"
+        aria-haspopup="menu"
+        [attr.aria-expanded]="menuOpen()"
+        (click)="toggleMenu()"
+      >
+        <dsb-avatar [name]="userName" size="sm" />
+        <span class="profile-name">{{ userName }}</span>
+        <svg class="profile-chevron" [class.profile-chevron--open]="menuOpen()" viewBox="0 0 10 6" fill="none" aria-hidden="true">
+          <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </button>
+
+      @if (menuOpen()) {
+        <ul class="profile-menu" role="menu">
+          <li role="none">
+            <button type="button" role="menuitem" class="profile-item" (click)="openProfile()">My Profile</button>
+          </li>
+          <li role="none">
+            <button type="button" role="menuitem" class="profile-item profile-item--danger" (click)="signOut()">Sign Out</button>
+          </li>
+        </ul>
+      }
+    </div>
+  </div>
+
+  <main class="shell-main">
+    <div class="shell-grid">
+      <router-outlet />
+    </div>
+  </main>
+
+  <div (click)="routeLinkClick($event)">
+    <dsb-footer
+      brandName="Blueprint"
+      logoHref="/dashboard"
+      [columns]="footerColumns"
+      [copyright]="copyright"
+      [legalLinks]="legalLinks"
+    />
+  </div>
+</div>

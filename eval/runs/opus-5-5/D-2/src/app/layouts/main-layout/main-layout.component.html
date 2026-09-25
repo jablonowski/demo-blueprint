@@ -1,0 +1,28 @@
+<div class="shell" (click)="onShellClick($event)">
+  <div class="shell-header">
+    <dsb-header
+      brandName="Blueprint"
+      logoAlt="Blueprint home"
+      logoHref="/dashboard"
+      [navItems]="navItems"
+    />
+    <div class="shell-header-actions">
+      <app-profile-menu [name]="userName" (signOut)="signOut()" />
+    </div>
+  </div>
+
+  <main class="shell-main">
+    <div class="shell-grid">
+      <router-outlet />
+    </div>
+  </main>
+
+  <dsb-footer
+    brandName="Blueprint"
+    logoHref="/dashboard"
+    tagline="Infrastructure monitoring and team management."
+    [columns]="footerColumns"
+    [copyright]="copyright"
+    [legalLinks]="legalLinks"
+  />
+</div>

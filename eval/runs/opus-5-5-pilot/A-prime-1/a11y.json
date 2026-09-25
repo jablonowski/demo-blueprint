@@ -1,0 +1,36 @@
+{
+  "available": true,
+  "total": 2,
+  "critical": 0,
+  "serious": 2,
+  "moderate": 0,
+  "minor": 0,
+  "pages": [
+    {
+      "route": "/login",
+      "violations": []
+    },
+    {
+      "route": "/dashboard",
+      "violations": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "nodes": 19,
+          "help": "Elements must meet minimum color contrast ratio thresholds"
+        }
+      ]
+    },
+    {
+      "route": "/users",
+      "violations": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "nodes": 13,
+          "help": "Elements must meet minimum color contrast ratio thresholds"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,251 @@
+:host {
+  display: block;
+}
+
+.page-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin-bottom: var(--space-4);
+}
+
+.page-header__title {
+  font-size: var(--text-3xl);
+  font-weight: var(--weight-semibold);
+  color: var(--color-fg);
+}
+
+.page-header__meta {
+  font-size: var(--text-md);
+  color: var(--color-fg-subtle);
+}
+
+/* 4-up metric row, then a 538:658 split row (the Figma column ratio), then full-width logs. */
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-5);
+}
+
+.dashboard__split {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 538fr) minmax(0, 658fr);
+  gap: var(--space-5);
+  align-items: start;
+}
+
+.logs {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 1024px) {
+  .dashboard {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .dashboard__split {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .dashboard {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ---------- Tile ---------- */
+.tile {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-5);
+  min-width: 0;
+}
+
+.tile__label {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--color-fg-subtle);
+}
+
+.tile__heading {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.tile__title {
+  font-size: var(--text-md);
+  font-weight: var(--weight-semibold);
+  color: var(--color-fg);
+}
+
+.tile__caption {
+  font-size: var(--text-sm);
+  color: var(--color-fg-subtle);
+}
+
+/* ---------- Metric ---------- */
+.metric__value-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2-5);
+}
+
+.metric__value {
+  font-size: var(--text-5xl);
+  font-weight: var(--weight-semibold);
+  line-height: 1.2;
+  color: var(--color-fg);
+}
+
+.metric__sub {
+  font-size: var(--text-sm);
+  color: var(--color-fg-placeholder);
+}
+
+/* ---------- Service health ---------- */
+.health {
+  gap: 0;
+}
+
+.health__list {
+  margin: var(--space-2-5) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.health__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-2-5) 0;
+  border-top: var(--border-width) solid var(--color-border);
+  font-size: var(--text-md);
+  color: var(--color-fg);
+}
+
+/* ---------- Throughput chart ---------- */
+.throughput {
+  gap: var(--space-3-5);
+}
+
+.chart {
+  display: flex;
+  gap: var(--space-2);
+  padding-top: var(--space-3-5);
+  border-top: var(--border-width) solid var(--color-border);
+}
+
+.chart__col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.chart__track {
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+  height: var(--size-chart);
+}
+
+.chart__bar {
+  width: 100%;
+  border-radius: var(--radius-bar);
+  background: var(--color-fg);
+}
+
+.chart__label {
+  font-size: var(--text-2xs);
+  color: var(--color-fg-placeholder);
+}
+
+/* ---------- Data summary ---------- */
+.summary {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2-5);
+  padding-top: var(--space-3-5);
+  border-top: var(--border-width) solid var(--color-border);
+}
+
+.summary__list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-4);
+  margin: 0;
+}
+
+.summary__item {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: var(--space-0-5);
+
+  dt {
+    font-size: var(--text-xs);
+    color: var(--color-fg-subtle);
+  }
+
+  dd {
+    margin: 0;
+    font-size: var(--text-lg);
+    font-weight: var(--weight-semibold);
+    color: var(--color-fg);
+  }
+}
+
+/* ---------- Logs ---------- */
+.logs {
+  gap: var(--space-3);
+}
+
+.logs__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.terminal {
+  height: var(--size-terminal);
+  overflow-y: auto;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--color-terminal-bg);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  line-height: 1.7;
+  color: var(--color-terminal-fg);
+}
+
+.terminal__line {
+  display: flex;
+  gap: var(--space-2-5);
+  white-space: nowrap;
+}
+
+.terminal__time,
+.terminal__source {
+  color: var(--color-terminal-dim);
+}
+
+.terminal__level {
+  flex: 0 0 5ch;
+  font-weight: var(--weight-medium);
+
+  &[data-level='INFO'] { color: var(--color-terminal-info); }
+  &[data-level='WARN'] { color: var(--color-terminal-warn); }
+  &[data-level='ERROR'] { color: var(--color-terminal-error); }
+  &[data-level='DEBUG'] { color: var(--color-terminal-dim); }
+}
+
+.terminal__msg {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

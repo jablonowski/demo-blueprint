@@ -1,0 +1,26 @@
+.footer {
+  height: var(--footer-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--space-7);
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.footer__copyright {
+  font-size: var(--font-size-label);
+  color: var(--color-text-quaternary);
+}
+
+.footer__legal {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+}
+
+.footer__legal-link {
+  font-size: var(--font-size-label);
+  color: var(--color-text-quaternary);
+  cursor: default;
+}

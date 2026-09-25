@@ -33,6 +33,8 @@ const rawValues = require('./scorers/raw-values');
 const tiers = require('./scorers/tiers');
 const api = require('./scorers/api');
 const checks = require('./scorers/checks');
+const conformance = require('./scorers/conformance');
+const { voidReason } = require('./scorers/void');
 
 const readIfPresent = (file) =>
   fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, 'utf8')) : null;
@@ -47,11 +49,34 @@ function scoreRun(arm, run) {
     ? JSON.parse(fs.readFileSync(harnessFile, 'utf8'))
     : null;
 
+  // A run the API cut off is not a run. C-1 was aborted by a 429 at turn 22 and this
+  // function cheerfully reduced the half-built application to `slots 10/13, checks 5/8,
+  // BROKEN` — a row that reads as arm C underperforming rather than as no observation at
+  // all. Same for a run that was denied a tool the arm is defined by: that is how the
+  // first D pilot was nearly recorded as a weak D instead of a clean C.
+  //
+  // Scoring must refuse both. A measurement that did not happen may not look like a bad
+  // measurement.
+  const voided = voidReason(harness);
+  if (voided) {
+    return {
+      arm, run: Number(run),
+      scoredAt: new Date().toISOString().slice(0, 19) + 'Z',
+      model: harness && harness.model,
+      void: voided,
+      cost: harness && harness.result && {
+        usd: harness.result.total_cost_usd,
+        turns: harness.result.num_turns,
+      },
+    };
+  }
+
   const adoption = slots.score(appRoot, arm);
   const raw = rawValues.score(appRoot);
   const tier = tiers.score(appRoot);
   const hallucinations = api.score(appRoot);
   const nine = checks.score(appRoot, arm);
+  const conform = conformance.score(appRoot);
   const build = readIfPresent(path.join(dir, 'build.json'));
   const a11y = readIfPresent(path.join(dir, 'a11y.json'));
 
@@ -62,6 +87,10 @@ function scoreRun(arm, run) {
     model: harness && harness.model,
     isolation: harness && harness.isolation,
     s0Sha: harness && harness.s0Sha,
+    denialsIgnored: harness.scoring && harness.scoring.ignoreDenials
+      ? { tools: [...new Set(((harness.result || {}).permission_denials || []).map((d) => d.tool_name))],
+          why: harness.scoring.why }
+      : undefined,
     overlaySha: harness && harness.overlaySha,
 
     covered: {
@@ -80,10 +109,27 @@ function scoreRun(arm, run) {
       rawValues: raw.total,
       chromatic: raw.chromatic,
       dimensional: raw.dimensional,
+      declaredLocalTokens: raw.declared,
       breakpoints: raw.breakpoints,
       tierCrossings: tier.crossings,
       tier1: tier.tier1,
       tier3: tier.tier3,
+    },
+
+    // Not "did it use tokens" — that is tiers — but "are the values it settled on the
+    // system's values". The A pilot declared a disciplined seventy-property token layer in
+    // the zinc palette, and every metric above read that as good behaviour.
+    conformance: {
+      authored: conform.authored,
+      matched: conform.matched,
+      divergent: conform.divergent,
+      novel: conform.novel,
+      rate: conform.rate,
+      colour: conform.byKind.colour,
+      length: conform.byKind.length,
+      byOrigin: conform.byOrigin,
+      reference: conform.reference.source + '@' + conform.reference.version,
+      tolerances: conform.tolerances,
     },
 
     tokens: {
@@ -117,6 +163,7 @@ function scoreRun(arm, run) {
       tiers: tier.detail,
       hallucinations: hallucinations.detail,
       checks: nine.results,
+      conformance: conform.detail,
       a11yPages: a11y && a11y.pages,
     },
   };
@@ -130,19 +177,29 @@ function write(row) {
 }
 
 function line(r) {
+  if (r.void) {
+    return `${r.arm}-${r.run}`.padEnd(8) + 'VOID — ' + r.void +
+      (r.cost && r.cost.usd ? `   ($${r.cost.usd.toFixed(2)} spent)` : '');
+  }
   const c = r.covered, g = r.gap;
   return [
     `${r.arm}-${r.run}`.padEnd(8),
     `slots ${c.slotsUsed}/${c.slotsOf}`.padEnd(12),
     `reimpl ${c.reimplemented}`.padEnd(10),
-    `raw ${g.rawValues}`.padEnd(9),
+    `raw ${g.rawValues}`.padEnd(8),
+    `local ${g.declaredLocalTokens}`.padEnd(10),
     `crossings ${g.tierCrossings}`.padEnd(14),
     `decisions ${r.tokens.decisionsUsed}`.padEnd(15),
+    (r.conformance.colour.authored
+      ? `colour ${r.conformance.colour.matched}/${r.conformance.colour.authored}`
+      : 'colour n/a').padEnd(14),
+    `near ${r.conformance.divergent}`.padEnd(9),
     `api ${r.covered.hallucinatedApi}`.padEnd(8),
     (r.checks.applicable ? `checks ${r.checks.passed}/${r.checks.of}` : 'checks n/a').padEnd(12),
     (r.build && r.build.ok === true ? 'builds' : r.build && r.build.ok === false ? 'BROKEN' : 'build?').padEnd(8),
     r.cost && r.cost.usd ? `$${r.cost.usd.toFixed(2)}` : '',
     c.falsifierTriggered === true ? '  FALSIFIER' : '',
+    r.denialsIgnored ? '  (denials ignored by record)' : '',
   ].join('');
 }
 

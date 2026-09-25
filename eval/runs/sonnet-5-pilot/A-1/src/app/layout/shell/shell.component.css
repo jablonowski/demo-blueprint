@@ -1,0 +1,17 @@
+.shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.shell__main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  padding: var(--space-7) var(--space-7);
+}
+
+.shell__content {
+  width: 100%;
+  max-width: var(--content-max-width);
+}

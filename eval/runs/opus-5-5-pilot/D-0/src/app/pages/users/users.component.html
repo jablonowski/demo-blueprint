@@ -1,0 +1,179 @@
+<div class="page-header">
+  <h1 class="page-title">Team Members</h1>
+  <dsb-button variant="primary" (click)="openInvite()">Invite Member</dsb-button>
+</div>
+
+<dsb-table [rows]="$any(users())" [loading]="loading()" [hoverable]="true" emptyMessage="No team members yet.">
+  <dsb-column key="avatar" header="Avatar" headerAriaLabel="Avatar">
+    <ng-template #cell let-row="row">
+      <dsb-avatar appAvatarFallback size="sm" [src]="asUser(row).avatar" [name]="asUser(row).name" [alt]="asUser(row).name" />
+    </ng-template>
+  </dsb-column>
+  <dsb-column key="name" header="Name" />
+  <dsb-column key="email" header="Email" />
+  <dsb-column key="role" header="Role">
+    <ng-template #cell let-row="row">
+      <dsb-tag size="sm" [variant]="roleVariant(asUser(row).role)">{{ asUser(row).role }}</dsb-tag>
+    </ng-template>
+  </dsb-column>
+  <dsb-column key="status" header="Status">
+    <ng-template #cell let-row="row">
+      <dsb-tag size="sm" [variant]="statusVariant(asUser(row).status)">{{ asUser(row).status }}</dsb-tag>
+    </ng-template>
+  </dsb-column>
+  <dsb-column key="joinedDate" header="Joined" />
+  <dsb-column key="actions" header="Actions" align="right">
+    <ng-template #cell let-row="row">
+      <div class="row-actions">
+        <dsb-button variant="ghost" size="sm" (click)="openDetails(asUser(row))">Details</dsb-button>
+        <dsb-button variant="secondary" size="sm" (click)="openEdit(asUser(row))">Edit</dsb-button>
+        <dsb-button variant="danger" size="sm" (click)="openDelete(asUser(row))">Delete</dsb-button>
+      </div>
+    </ng-template>
+  </dsb-column>
+</dsb-table>
+
+<ng-template #userRow let-user>
+  <div class="user-row">
+    <dsb-avatar size="lg" [name]="user.name" />
+    <div class="user-row-text">
+      <span class="user-row-name">{{ user.name }}</span>
+      <span class="user-row-meta">Member since {{ memberSince(user) }}</span>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Delete confirmation -->
+<dsb-modal size="sm" title="Confirm Deletion" [(open)]="deleteOpen" (closed)="onDialogClosed()">
+  @if (selected) {
+    <p class="confirm-text">
+      Are you sure you want to remove <strong>{{ selected.name }}</strong>? This action cannot be undone.
+    </p>
+  }
+  <ng-container modal-footer>
+    <dsb-button variant="secondary" (click)="deleteOpen = false; onDialogClosed()">Cancel</dsb-button>
+    <dsb-button variant="danger" [loading]="saving()" (click)="confirmDelete()">Delete</dsb-button>
+  </ng-container>
+</dsb-modal>
+
+<!-- Member details (read only) -->
+<dsb-modal size="md" ariaLabel="Member Details" [(open)]="detailsOpen" (closed)="onDialogClosed()">
+  <div modal-title class="custom-title">
+    <h2 class="custom-title-text">Member Details</h2>
+    <dsb-tag size="sm">Read only</dsb-tag>
+  </div>
+
+  @if (selected) {
+    <div class="dialog-body" [formGroup]="detailsForm">
+      <ng-container *ngTemplateOutlet="userRow; context: { $implicit: selected }" />
+      <div class="field-row">
+        <dsb-input label="First name" formControlName="firstName" />
+        <dsb-input label="Last name" formControlName="lastName" />
+      </div>
+      <dsb-input label="Email address" formControlName="email" />
+      <dsb-input label="Role" formControlName="role" />
+      <div class="status-row">
+        <span class="status-label">Status</span>
+        <dsb-tag size="sm" [variant]="statusVariant(selected.status)">{{ selected.status }}</dsb-tag>
+      </div>
+    </div>
+  }
+
+  <div modal-footer class="split-footer">
+    <span class="footer-note">To make changes, request Admin access.</span>
+    <dsb-button variant="secondary" (click)="detailsOpen = false; onDialogClosed()">Close</dsb-button>
+  </div>
+</dsb-modal>
+
+<!-- Edit member -->
+<dsb-modal size="md" title="Edit Member" [(open)]="editOpen" (closed)="onDialogClosed()">
+  @if (selected) {
+    <form id="edit-member-form" class="dialog-body" [formGroup]="editForm" (ngSubmit)="saveEdit()" novalidate>
+      <ng-container *ngTemplateOutlet="userRow; context: { $implicit: selected }" />
+      <div class="field-row">
+        <dsb-input
+          label="First name"
+          formControlName="firstName"
+          [hasError]="showError(editForm, editSubmitted, 'firstName')"
+          errorMessage="First name is required"
+        />
+        <dsb-input
+          label="Last name"
+          formControlName="lastName"
+          [hasError]="showError(editForm, editSubmitted, 'lastName')"
+          errorMessage="Last name is required"
+        />
+      </div>
+      <dsb-input
+        label="Email address"
+        type="email"
+        formControlName="email"
+        [hasError]="showError(editForm, editSubmitted, 'email')"
+        [errorMessage]="emailError(editForm)"
+      />
+      <dsb-dropdown
+        label="Role"
+        placeholder="Select role…"
+        [options]="roleOptions"
+        formControlName="role"
+        [hasError]="showError(editForm, editSubmitted, 'role')"
+        errorMessage="Role is required"
+      />
+      <div class="status-row">
+        <span class="status-label">Status</span>
+        <dsb-tag size="sm" [variant]="statusVariant(selected.status)">{{ selected.status }}</dsb-tag>
+      </div>
+    </form>
+  }
+
+  <div modal-footer class="split-footer">
+    <dsb-button variant="danger" (click)="deleteFromEdit()">Delete user</dsb-button>
+    <div class="footer-actions">
+      <dsb-button variant="secondary" (click)="editOpen = false; onDialogClosed()">Cancel</dsb-button>
+      <dsb-button variant="primary" [loading]="saving()" (click)="saveEdit()">Save changes</dsb-button>
+    </div>
+  </div>
+</dsb-modal>
+
+<!-- Invite member -->
+<dsb-modal size="md" title="Invite Member" [(open)]="inviteOpen">
+  <form class="dialog-body" [formGroup]="inviteForm" (ngSubmit)="sendInvite()" novalidate>
+    <div class="field-row">
+      <dsb-input
+        label="First name"
+        placeholder="Enter first name"
+        formControlName="firstName"
+        [hasError]="showError(inviteForm, inviteSubmitted, 'firstName')"
+        errorMessage="First name is required"
+      />
+      <dsb-input
+        label="Last name"
+        placeholder="Enter last name"
+        formControlName="lastName"
+        [hasError]="showError(inviteForm, inviteSubmitted, 'lastName')"
+        errorMessage="Last name is required"
+      />
+    </div>
+    <dsb-input
+      label="Email address"
+      type="email"
+      placeholder="name@example.com"
+      formControlName="email"
+      [hasError]="showError(inviteForm, inviteSubmitted, 'email')"
+      [errorMessage]="emailError(inviteForm)"
+    />
+    <dsb-dropdown
+      label="Role"
+      placeholder="Select role…"
+      [options]="roleOptions"
+      formControlName="role"
+      [hasError]="showError(inviteForm, inviteSubmitted, 'role')"
+      errorMessage="Role is required"
+    />
+  </form>
+
+  <ng-container modal-footer>
+    <dsb-button variant="secondary" (click)="inviteOpen = false">Cancel</dsb-button>
+    <dsb-button variant="primary" [loading]="saving()" (click)="sendInvite()">Send Invite</dsb-button>
+  </ng-container>
+</dsb-modal>

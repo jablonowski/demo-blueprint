@@ -1,0 +1,82 @@
+<div class="page-head">
+  <h1 class="page-title">System Overview</h1>
+  <p class="page-meta">Last updated: {{ updatedAt | date: 'd MMM y, HH:mm' }}</p>
+</div>
+
+<div class="grid">
+  @for (m of metrics; track m.title) {
+    <section class="card tile metric">
+      <h2 class="tile-label">{{ m.title }}</h2>
+      <div class="metric-row">
+        <span class="metric-value">{{ m.value }}</span>
+        @if (m.trend) {
+          <span class="badge" [class.badge-positive]="m.trend.tone === 'positive'"
+                [class.badge-negative]="m.trend.tone === 'negative'">{{ m.trend.label }}</span>
+        }
+      </div>
+      @if (m.sub) {
+        <p class="metric-sub">{{ m.sub }}</p>
+      }
+    </section>
+  }
+
+  <section class="card tile health">
+    <h2 class="card-title">Service Health</h2>
+    <ul class="rows">
+      @for (s of services; track s.name) {
+        <li class="row">
+          <span>{{ s.name }}</span>
+          <span class="badge" [class.badge-positive]="s.online" [class.badge-negative]="!s.online">
+            {{ s.online ? 'Online' : 'Offline' }}
+          </span>
+        </li>
+      }
+    </ul>
+  </section>
+
+  <section class="card tile throughput">
+    <h2 class="card-title">Request Throughput</h2>
+    <hr class="divider" />
+    <div class="chart" role="img" aria-label="Requests per day, Monday to Sunday">
+      @for (d of throughput; track d.day) {
+        <div class="bar-col">
+          <div class="bar-track">
+            <div class="bar" [style.height.%]="d.pct" [attr.title]="d.day + ': ' + d.value + ' req/min'"></div>
+          </div>
+          <span class="bar-label">{{ d.day }}</span>
+        </div>
+      }
+    </div>
+  </section>
+
+  <section class="card tile summary">
+    <h2 class="card-title">Data Summary</h2>
+    <hr class="divider" />
+    <dl class="pairs">
+      @for (p of summary; track p.label) {
+        <div class="pair">
+          <dt>{{ p.label }}</dt>
+          <dd>{{ p.value }}</dd>
+        </div>
+      }
+    </dl>
+  </section>
+
+  <section class="card tile logs">
+    <div class="logs-head">
+      <h2 class="card-title">System Logs</h2>
+      <span class="badge badge-positive">Live</span>
+    </div>
+    <div class="log-view" #logView (scroll)="onLogScroll(logView)">
+      @for (l of logs(); track l.id) {
+        <div class="log-line">
+          <span class="log-dot" [attr.data-level]="l.level"></span>
+          <span class="log-time">{{ l.time | date: 'HH:mm:ss' }}</span>
+          <span class="log-level" [attr.data-level]="l.level">{{ l.level }}</span>
+          <span class="log-source">{{ l.source }}</span>
+          <span class="log-msg">{{ l.message }}</span>
+        </div>
+      }
+    </div>
+  </section>
+</div>

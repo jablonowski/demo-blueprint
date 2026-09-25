@@ -1,0 +1,59 @@
+<main class="auth-shell">
+  <section class="card auth-card">
+    <header class="auth-header">
+      <h1 class="auth-title">Welcome back</h1>
+      <p class="auth-subtitle">Sign in to your account to continue</p>
+    </header>
+
+    <form class="auth-form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <div class="field">
+        <label class="field-label" for="username">Username</label>
+        <input
+          id="username"
+          class="input"
+          type="text"
+          autocomplete="username"
+          placeholder="Enter your username"
+          formControlName="username"
+          [class.is-invalid]="showError('username') || credentialsError()"
+        />
+        @if (showError('username')) {
+          <span class="field-error">Username is required</span>
+        }
+      </div>
+
+      <div class="field">
+        <label class="field-label" for="password">Password</label>
+        <input
+          id="password"
+          class="input"
+          type="password"
+          autocomplete="current-password"
+          placeholder="Enter your password"
+          formControlName="password"
+          [class.is-invalid]="showError('password') || credentialsError()"
+        />
+        @if (showError('password')) {
+          <span class="field-error">Password is required</span>
+        } @else if (credentialsError()) {
+          <span class="field-error">Invalid username or password</span>
+        }
+      </div>
+
+      <div class="auth-options">
+        <label class="checkbox">
+          <input type="checkbox" formControlName="remember" />
+          <span>Remember me</span>
+        </label>
+        <a class="auth-link" href="#" (click)="$event.preventDefault()">Forgot password?</a>
+      </div>
+
+      <button class="btn btn-primary btn-block" type="submit">Sign In</button>
+    </form>
+
+    <p class="auth-footer">
+      Don't have an account?
+      <a class="auth-link" href="#" (click)="$event.preventDefault()">Sign up</a>
+    </p>
+  </section>
+</main>

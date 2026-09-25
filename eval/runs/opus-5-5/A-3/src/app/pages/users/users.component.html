@@ -1,0 +1,137 @@
+<header class="toolbar">
+  <h1 class="toolbar__title">Team Members</h1>
+  <button type="button" class="btn btn--primary" (click)="openInvite()"><span aria-hidden="true">+</span> Invite Member</button>
+</header>
+
+<div class="card table-card">
+  <table class="table">
+    <thead>
+      <tr>
+        <th class="col-avatar"><span class="visually-hidden">Avatar</span></th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Status</th>
+        <th>Joined</th>
+        <th class="col-actions"><span class="visually-hidden">Actions</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (user of users(); track user.id) {
+        <tr>
+          <td class="col-avatar"><app-avatar [name]="user.name" [src]="user.avatar" size="sm" /></td>
+          <td class="cell-name">{{ user.name }}</td>
+          <td class="cell-muted">{{ user.email }}</td>
+          <td><app-badge [tone]="roleTone[user.role]">{{ user.role }}</app-badge></td>
+          <td><app-badge [tone]="statusTone[user.status]">{{ user.status }}</app-badge></td>
+          <td>{{ joinedLabel(user.joinedDate) }}</td>
+          <td class="col-actions">
+            <div class="actions">
+              <button type="button" class="btn btn--ghost" (click)="openDetails(user)">Details</button>
+              <button type="button" class="btn btn--outline" (click)="openEdit(user)">Edit</button>
+              <button type="button" class="btn btn--danger-outline" (click)="openDelete(user)">Delete</button>
+            </div>
+          </td>
+        </tr>
+      } @empty {
+        <tr>
+          <td class="cell-empty" colspan="7">{{ loading() ? 'Loading members…' : 'No team members yet.' }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
+
+@switch (dialog()) {
+  @case ('details') {
+    @if (selected(); as user) {
+      <app-dialog [splitFooter]="true" (closed)="close()">
+        <ng-container dialogHeader>
+          <h2>Member Details</h2>
+          <app-badge tone="neutral">Read only</app-badge>
+        </ng-container>
+
+        <app-member-summary [user]="user" />
+
+        <div class="field-row">
+          <div class="field field--readonly">
+            <span class="field__label">First name</span>
+            <div class="field__control">{{ selectedName().firstName }}</div>
+          </div>
+          <div class="field field--readonly">
+            <span class="field__label">Last name</span>
+            <div class="field__control">{{ selectedName().lastName }}</div>
+          </div>
+        </div>
+        <div class="field field--readonly">
+          <span class="field__label">Email address</span>
+          <div class="field__control">{{ user.email }}</div>
+        </div>
+        <div class="field field--readonly">
+          <span class="field__label">Role</span>
+          <div class="field__control">{{ user.role }}</div>
+        </div>
+        <div class="status-row">
+          <span class="status-row__label">Status</span>
+          <app-badge [tone]="statusTone[user.status]">{{ user.status }}</app-badge>
+        </div>
+
+        <ng-container dialogFooter>
+          <span class="footer-note">To make changes, request Admin access.</span>
+          <button type="button" class="btn btn--outline" (click)="close()">Close</button>
+        </ng-container>
+      </app-dialog>
+    }
+  }
+
+  @case ('edit') {
+    @if (selected(); as user) {
+      <app-dialog title="Edit Member" [splitFooter]="true" (closed)="close()">
+        <app-member-summary [user]="user" />
+        <form class="dialog-form" id="edit-form" [formGroup]="editForm" (ngSubmit)="save()" novalidate>
+          <app-member-fields [form]="editForm" idPrefix="edit" />
+          <div class="status-row">
+            <span class="status-row__label">Status</span>
+            <app-badge [tone]="statusTone[user.status]">{{ user.status }}</app-badge>
+          </div>
+        </form>
+
+        <ng-container dialogFooter>
+          <button type="button" class="btn btn--danger-outline" (click)="editToDelete()">Delete user</button>
+          <div class="footer-actions">
+            <button type="button" class="btn btn--outline" (click)="close()">Cancel</button>
+            <button type="submit" form="edit-form" class="btn btn--primary" [disabled]="saving()">Save changes</button>
+          </div>
+        </ng-container>
+      </app-dialog>
+    }
+  }
+
+  @case ('delete') {
+    @if (selected(); as user) {
+      <app-dialog title="Confirm Deletion" size="sm" (closed)="close()">
+        <p class="confirm-text">
+          Are you sure you want to remove <strong>{{ user.name }}</strong>? This action cannot be undone.
+        </p>
+
+        <ng-container dialogFooter>
+          <button type="button" class="btn btn--outline" (click)="close()">Cancel</button>
+          <button type="button" class="btn btn--danger" [disabled]="saving()" (click)="confirmDelete()">Delete</button>
+        </ng-container>
+      </app-dialog>
+    }
+  }
+
+  @case ('invite') {
+    <app-dialog title="Invite Member" (closed)="close()">
+      <form class="dialog-form" id="invite-form" [formGroup]="inviteForm" (ngSubmit)="invite()" novalidate>
+        <app-member-fields [form]="inviteForm" idPrefix="invite" />
+      </form>
+
+      <ng-container dialogFooter>
+        <button type="button" class="btn btn--outline" (click)="close()">Cancel</button>
+        <button type="submit" form="invite-form" class="btn btn--primary" [disabled]="saving()">Send Invite</button>
+      </ng-container>
+    </app-dialog>
+  }
+}

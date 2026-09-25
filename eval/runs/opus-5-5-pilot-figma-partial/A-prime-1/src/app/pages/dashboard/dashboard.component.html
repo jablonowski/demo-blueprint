@@ -1,0 +1,65 @@
+<div class="dashboard">
+  @for (metric of metrics; track metric.title) {
+    <section class="card tile metric">
+      <span class="tile-title">{{ metric.title }}</span>
+      <div class="metric-value-row">
+        <span class="metric-value">{{ metric.value }}</span>
+        <span class="tag" [class.tag-success]="metric.positive" [class.tag-danger]="!metric.positive">{{ metric.trend }}</span>
+      </div>
+      <span class="metric-sub">{{ metric.subLabel }}</span>
+    </section>
+  }
+
+  <section class="card tile span-2">
+    <span class="tile-title">Request Throughput</span>
+    <div class="chart" role="img" aria-label="Request throughput by day of week">
+      @for (bar of throughput; track bar.day) {
+        <div class="chart-col">
+          <div class="chart-track">
+            <div class="chart-bar" [style.height.%]="bar.percent" [attr.title]="bar.value + ' req'"></div>
+          </div>
+          <span class="chart-label">{{ bar.day }}</span>
+        </div>
+      }
+    </div>
+  </section>
+
+  <section class="card tile">
+    <span class="tile-title">Service Health</span>
+    <ul class="rows">
+      @for (service of services; track service.name) {
+        <li class="row">
+          <span class="row-label">{{ service.name }}</span>
+          <span class="tag" [class.tag-success]="service.online" [class.tag-danger]="!service.online">
+            <span class="dot"></span>{{ service.online ? 'Online' : 'Offline' }}
+          </span>
+        </li>
+      }
+    </ul>
+  </section>
+
+  <section class="card tile">
+    <span class="tile-title">Data Summary</span>
+    <dl class="rows">
+      @for (item of summary; track item.label) {
+        <div class="row">
+          <dt class="row-label">{{ item.label }}</dt>
+          <dd class="row-value">{{ item.value }}</dd>
+        </div>
+      }
+    </dl>
+  </section>
+
+  <section class="card tile span-4">
+    <span class="tile-title">System Logs</span>
+    <div class="terminal" #logViewport>
+      @for (line of logs(); track line.id) {
+        <div class="log-line">
+          <span class="log-time">{{ line.time }}</span>
+          <span class="log-level" [attr.data-level]="line.level">{{ line.level }}</span>
+          <span class="log-message">{{ line.message }}</span>
+        </div>
+      }
+    </div>
+  </section>
+</div>

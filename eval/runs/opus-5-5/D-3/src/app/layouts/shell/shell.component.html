@@ -1,0 +1,24 @@
+<div class="shell">
+  <div class="header-bar" (click)="routeLinks($event)">
+    <dsb-header brandName="Blueprint" logoHref="/dashboard" logoAlt="Blueprint home" [navItems]="navItems()" />
+
+    <div class="header-end">
+      <dsb-tag variant="success" size="sm">Online</dsb-tag>
+      <app-user-menu name="Admin User" (signOut)="signOut()" />
+    </div>
+  </div>
+
+  <main class="content">
+    <router-outlet />
+  </main>
+
+  <div (click)="routeLinks($event)">
+    <dsb-footer
+      brandName="Blueprint"
+      logoHref="/dashboard"
+      [columns]="footerColumns"
+      [copyright]="copyright"
+      [legalLinks]="legalLinks"
+    />
+  </div>
+</div>

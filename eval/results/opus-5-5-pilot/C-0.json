@@ -1,0 +1,215 @@
+{
+  "arm": "C",
+  "run": 0,
+  "model": "claude-opus-5-5",
+  "cli": "2.1.281 (Claude Code)",
+  "isolation": "session",
+  "started": "2026-09-23T20:49:29Z",
+  "overlaySha": "f1c1277bd1e5",
+  "s0Sha": "a8b26e1f589b",
+  "promptBytes": 17546,
+  "runDir": "/tmp/dsb-eval/D-1",
+  "inputTokensTotal": 3195371,
+  "outputTokens": 40184,
+  "result": {
+    "duration_api_ms": 386953,
+    "stop_reason": "end_turn",
+    "session_id": "285c0931-d505-4373-b103-2b8ae80508a2",
+    "total_cost_usd": 2.3473125999999995,
+    "usage": {
+      "input_tokens": 76,
+      "cache_creation_input_tokens": 115932,
+      "cache_read_input_tokens": 3079363,
+      "output_tokens": 40184,
+      "output_tokens_details": {
+        "thinking_tokens": 7357
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 115932,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "not_available",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 1274,
+          "cache_read_input_tokens": 126485,
+          "cache_creation_input_tokens": 151,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 151
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard"
+    },
+    "modelUsage": {
+      "claude-opus-5-5": {
+        "inputTokens": 76,
+        "outputTokens": 40184,
+        "cacheReadInputTokens": 3079363,
+        "cacheCreationInputTokens": 115932,
+        "webSearchRequests": 0,
+        "costUSD": 2.3473125999999995,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 128000,
+        "thinkingTokens": 7357,
+        "canonicalModel": "claude-opus-5-5",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [
+      {
+        "tool_name": "mcp__figma__get_figma_data",
+        "tool_use_id": "toolu_01DCxcLQxJGPdtKAecMizarD",
+        "tool_input": {
+          "fileKey": "iJ92LuFOsPjO6avZ2anbwO",
+          "nodeId": "22-11104"
+        }
+      },
+      {
+        "tool_name": "mcp__dsb-tokens__resolve_token",
+        "tool_use_id": "toolu_01JbmhAPosH1fYopwYpkRM4J",
+        "tool_input": {
+          "intent": "fill colour of bars in a bar chart, darkest foreground colour available (pure black)",
+          "context": "custom-component",
+          "property": "background"
+        }
+      },
+      {
+        "tool_name": "mcp__dsb-tokens__resolve_token",
+        "tool_use_id": "toolu_01NqxhdwaDwH96Jwb9xcQbvU",
+        "tool_input": {
+          "intent": "background of a dashboard metric card / tile",
+          "context": "custom-component",
+          "property": "background"
+        }
+      },
+      {
+        "tool_name": "mcp__dsb-tokens__resolve_token",
+        "tool_use_id": "toolu_01MdZrPFRimJMMKKRzUe4LnE",
+        "tool_input": {
+          "intent": "border of a card",
+          "context": "custom-component",
+          "property": "border-color"
+        }
+      },
+      {
+        "tool_name": "mcp__dsb-tokens__resolve_token",
+        "tool_use_id": "toolu_01HcYuNnHHFKT7VkdTWaiChd",
+        "tool_input": {
+          "intent": "page background behind cards",
+          "context": "custom-component",
+          "property": "background"
+        }
+      },
+      {
+        "tool_name": "mcp__dsb-tokens__resolve_token",
+        "tool_use_id": "toolu_01QkLSp3zsZrnCfRFmYZWECu",
+        "tool_input": {
+          "intent": "small uppercase de-emphasised title label on a metric tile",
+          "context": "custom-component",
+          "property": "color"
+        }
+      },
+      {
+        "tool_name": "mcp__dsb-tokens__resolve_token",
+        "tool_use_id": "toolu_01DGqWZdCpyPgZWyR3CQM3Kv",
+        "tool_input": {
+          "intent": "terminal-style log viewer background (dark console)",
+          "context": "custom-component",
+          "property": "background"
+        }
+      },
+      {
+        "tool_name": "mcp__dsb-tokens__resolve_token",
+        "tool_use_id": "toolu_01EGsAdHA5obuTgERikgAtYL",
+        "tool_input": {
+          "intent": "floating menu panel elevation shadow",
+          "context": "custom-component",
+          "property": "box-shadow"
+        }
+      },
+      {
+        "tool_name": "mcp__dsb-tokens__resolve_token",
+        "tool_use_id": "toolu_01DHnrQwRveTNnkV33jHFNT8",
+        "tool_input": {
+          "intent": "read-only disabled boxed field background",
+          "context": "custom-component",
+          "property": "background"
+        }
+      },
+      {
+        "tool_name": "mcp__dsb-tokens__resolve_token",
+        "tool_use_id": "toolu_01PJgZ2s3FyZfJSyQbTsEfMS",
+        "tool_input": {
+          "intent": "font family monospace for code / log text",
+          "context": "custom-component",
+          "property": "font-family"
+        }
+      },
+      {
+        "tool_name": "mcp__dsb-tokens__resolve_token",
+        "tool_use_id": "toolu_012LWAvrGo4TJCj8WeBLMmjX",
+        "tool_input": {
+          "intent": "large focal metric value font size (display number)",
+          "context": "custom-component",
+          "property": "font-size"
+        }
+      }
+    ],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "subagent_stats": {
+      "spawned": 0,
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 0,
+      "spawned_by_subagents": 0,
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {}
+    },
+    "is_error": false,
+    "num_turns": 53,
+    "subtype": "success",
+    "api_error_status": null,
+    "result": "The app is built and working, but not to the standard the spec sets. **I never saw the Figma design, and I never used the token resolver.**\n\n- **Figma:** the Figma tool was denied in this session, and the Figma REST API rejected `$FIGMA_ACCESS_TOKEN` as expired. So the layout comes only from the spec's written description, not from the frames. These parts are my guesses:\n  - the dashboard arrangement: 4 metric tiles, then the chart spanning two columns next to Service Health and Data Summary, then full-width logs\n  - the role badge colours: Admin dark, Editor blue, Viewer grey\n  - the brand name \"Blueprint Console\" and the footer link columns\n  - all spacing and proportions\n- **Token resolver:** `resolve_token` was denied as well, and I didn't try to reach it any other way. Every token choice was mine, made by reading the descriptions in `public.css` and following `llms.client.txt`. For this arm, that means there is no record of the resolver refusing anything.\n\n**What's verified:** `npx ng build` is clean. A headless-Chrome script ran these flows against `ng serve`, with no console errors:\n- The login form shows the required-field errors, `admin`/`admin` reaches `/dashboard`, and `isLoggedIn` is written to `localStorage`.\n- The guards redirect correctly in both directions, and unknown URLs redirect as specified.\n- The profile menu opens leftward and stays fully on screen (it ends 64px from the right edge at 1280px wide). It closes on an outside click, and Sign Out works.\n- Every dialog opens and closes. Edit saves through `PUT`, \"Delete user\" hands over to the confirmation with the member still selected, delete goes through `DELETE`, invite goes through `POST`, and the delete dialog closes on a backdrop click. The table updated after each change.\n- The logs add a line every 3 seconds.\n\n**Token decisions you should know about:**\n- **Chart bars:** there is no pure-black token in the public set. I used `--ds-decisions-color-surface-emphasis` (#111), described as the \"filled high-contrast surface\", and left a comment in `dashboard.component.css`. I didn't use `action-primary-background-active` (#000), because that token means a pressed button, not a chart bar.\n- **Fonts:** there is no font-family token, so the page font and the log viewer's monospace font are plain CSS values, each with a comment saying a token is missing.\n- **Clean scan:** there are no tier 1 or tier 3 token references and no hex, rgb or hsl colours. The only pixel values are two responsive breakpoints, because CSS doesn't allow variables in media queries.\n\n**Workarounds for library limits:**\n- `dsb-header` has no slot for extra content, so the profile control sits on top of it.\n- The header and footer links are plain anchors that would reload the page and reset the in-memory data. The layout catches those clicks and sends them through the Angular router instead.\n- `dsb-avatar` only shows initials when it's given no image URL at all, so the users page checks each avatar image and clears the URL if it fails to load.\n- The read-only fields in the details dialog use disabled `dsb-input`s.\n\n**Setup:** I created the project with Angular CLI 19, which replaced the Angular 21 packages that were preinstalled. I added `angular-in-memory-web-api@^0.19.0`. The code is in `src/app/core`, `layouts/main-layout`, and `pages/{login,dashboard,users}`.\n\nIf a working Figma token is provided, the next step is to compare the screens against the frames and fix the dashboard layout, spacing and badge colours.",
+    "ttft_ms": 2086,
+    "type": "result",
+    "duration_ms": 525620,
+    "uuid": "d002ac4f-c150-42f6-b145-0060a794d5aa",
+    "ttft_stream_ms": 1896,
+    "time_to_request_ms": 38,
+    "first_content_frame_ms": 1896,
+    "queued_turn_count": 0,
+    "result_index": 0
+  },
+  "note": "The D-1 pilot, reclassified: --allowedTools did not cover MCP tools, so the resolver was attached and unreachable. A clean arm C run. Run 0 marks it as the pilot, outside the five scored runs.",
+  "scoring": {
+    "ignoreDenials": true,
+    "why": "The denied tools are what make this an arm C run rather than the arm D it was launched as. It was reclassified on that basis; see note. Scoring it as C is the point, so the denial guard does not apply."
+  }
+}

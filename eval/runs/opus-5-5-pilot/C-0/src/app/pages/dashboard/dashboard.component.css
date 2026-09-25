@@ -1,0 +1,154 @@
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--ds-decisions-space-xl);
+}
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-decisions-space-sm);
+  min-width: 0;
+  padding: var(--ds-decisions-space-2xl);
+  background: var(--ds-decisions-color-surface-base);
+  border: var(--ds-decisions-border-width-hairline) solid var(--ds-decisions-color-border-subtle);
+  border-radius: var(--ds-decisions-border-radius-xl);
+}
+
+.tile--wide {
+  grid-column: span 2;
+}
+
+.tile--full {
+  grid-column: 1 / -1;
+}
+
+.tile-title {
+  margin: 0;
+  font-size: var(--ds-decisions-font-size-2xs);
+  font-weight: var(--ds-decisions-font-weight-semibold);
+  letter-spacing: var(--ds-decisions-font-tracking-caps);
+  text-transform: uppercase;
+  color: var(--ds-decisions-color-text-subtle);
+}
+
+.metric-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--ds-decisions-space-sm);
+}
+
+.metric-value {
+  font-size: var(--ds-decisions-font-size-3xl);
+  font-weight: var(--ds-decisions-font-weight-semibold);
+  letter-spacing: var(--ds-decisions-font-tracking-heading);
+  line-height: var(--ds-decisions-font-line-height-tight);
+  color: var(--ds-decisions-color-text-primary);
+}
+
+.tile-sub {
+  margin: 0;
+  font-size: var(--ds-decisions-font-size-xs);
+  color: var(--ds-decisions-color-text-subtle);
+}
+
+/* Chart: no charting library, bars sized as a share of the week's maximum. */
+.chart {
+  flex: 1;
+  display: flex;
+  align-items: stretch;
+  gap: var(--ds-decisions-space-lg);
+  min-height: calc(var(--ds-decisions-space-7xl) * 2.5);
+  padding-top: var(--ds-decisions-space-sm);
+}
+
+.chart-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--ds-decisions-space-xs);
+}
+
+.chart-track {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+}
+
+/*
+ * The design asks for pure black. The decisions layer has no pure-black foreground, so the
+ * bar uses the filled high-contrast surface — the darkest non-action colour the system offers.
+ */
+.chart-bar {
+  width: 100%;
+  background: var(--ds-decisions-color-surface-emphasis);
+  border-radius: var(--ds-decisions-border-radius-sm) var(--ds-decisions-border-radius-sm) 0 0;
+}
+
+.chart-label {
+  font-size: var(--ds-decisions-font-size-xs);
+  color: var(--ds-decisions-color-text-subtle);
+}
+
+.summary-value {
+  font-size: var(--ds-decisions-font-size-md);
+  font-weight: var(--ds-decisions-font-weight-semibold);
+  color: var(--ds-decisions-color-text-primary);
+}
+
+.log-viewer {
+  height: calc(var(--ds-decisions-space-7xl) * 3);
+  overflow-y: auto;
+  padding: var(--ds-decisions-space-lg) var(--ds-decisions-space-xl);
+  background: var(--ds-decisions-color-surface-emphasis);
+  color: var(--ds-decisions-color-text-inverse);
+  border-radius: var(--ds-decisions-border-radius-lg);
+  /* No monospace family decision exists: generic keyword, token contribution pending. */
+  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  font-size: var(--ds-decisions-font-size-xs);
+  line-height: var(--ds-decisions-font-line-height-relaxed);
+}
+
+.log-viewer:focus-visible {
+  outline: none;
+  box-shadow: var(--ds-decisions-shadow-focus);
+}
+
+.log-line {
+  display: flex;
+  gap: var(--ds-decisions-space-lg);
+  white-space: nowrap;
+}
+
+.log-time {
+  color: var(--ds-decisions-color-text-disabled);
+}
+
+.log-level {
+  min-width: 5ch;
+  font-weight: var(--ds-decisions-font-weight-semibold);
+}
+
+.log-message {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 960px) {
+  .dashboard-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .dashboard-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .tile--wide {
+    grid-column: auto;
+  }
+}

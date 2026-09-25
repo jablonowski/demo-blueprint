@@ -1,0 +1,117 @@
+{
+  "arm": "D",
+  "run": 1,
+  "model": "claude-opus-5-5",
+  "cli": "2.1.281 (Claude Code)",
+  "isolation": "session",
+  "started": "2026-09-24T19:30:43Z",
+  "overlaySha": "f1c1277bd1e5",
+  "s0Sha": "c25d3e960f47",
+  "promptBytes": 17676,
+  "runDir": "/tmp/dsb-eval/opus-5-5/D-1",
+  "figma": {
+    "target": "iJ92LuFOsPjO6avZ2anbwO/22-11104",
+    "before": 429,
+    "after": 429,
+    "ok": false
+  },
+  "inputTokensTotal": 4483002,
+  "outputTokens": 47839,
+  "result": {
+    "duration_api_ms": 446986,
+    "stop_reason": "end_turn",
+    "session_id": "df9ef17c-a22a-46e7-b923-c6fbbdda7b11",
+    "total_cost_usd": 2.9418065999999983,
+    "usage": {
+      "input_tokens": 92,
+      "cache_creation_input_tokens": 139497,
+      "cache_read_input_tokens": 4343413,
+      "output_tokens": 47839,
+      "output_tokens_details": {
+        "thinking_tokens": 9308
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 139497,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "not_available",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 1450,
+          "cache_read_input_tokens": 149700,
+          "cache_creation_input_tokens": 501,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 501
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard"
+    },
+    "modelUsage": {
+      "claude-opus-5-5": {
+        "inputTokens": 92,
+        "outputTokens": 47839,
+        "cacheReadInputTokens": 4343413,
+        "cacheCreationInputTokens": 139497,
+        "webSearchRequests": 0,
+        "costUSD": 2.9418065999999983,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 128000,
+        "thinkingTokens": 9308,
+        "canonicalModel": "claude-opus-5-5",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "subagent_stats": {
+      "spawned": 0,
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 0,
+      "spawned_by_subagents": 0,
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {}
+    },
+    "is_error": false,
+    "num_turns": 93,
+    "subtype": "success",
+    "api_error_status": null,
+    "result": "The app is built, and everything the spec asks for works end to end. But I couldn't compare any screen to Figma: its API was rate-limited for the whole run (HTTP 429, \"retry after 398073 seconds\", about 4.6 days), through both the MCP server and a direct REST call. So the layout and styling come from the written spec and the dsb component defaults. The \"matches Figma in structure, spacing and proportion\" acceptance point is unverified.\n\n## What was checked\nI scripted a headless-browser run against `npx @angular/cli@19 serve`. It checked:\n- **Login:** submitting empty fields shows a red error state and a message on each field. `admin` / `admin` sets `isLoggedIn: true` and goes to `/dashboard`.\n- **Guards:** a logged-out visit to `/users` goes to `/login`.\n- **Dashboard:** a new log line appears every 3 seconds.\n- **Profile menu:** it opens leftward and stays inside the viewport at both 1440px and 390px wide. It closes on an outside click, and Sign Out logs you out.\n- **Dialogs:** all four open and close. Edit (`PUT`), invite (`POST`), and edit → Delete user → confirm (`DELETE`) all went through the in-memory API, and the table updated each time. The delete dialog closes on a backdrop click.\n- **Console:** no errors. The production build is clean.\n\n## Built from guesses (need a pass once Figma is back)\n- **Dashboard grid:** four metric tiles, then a row of chart (two columns wide), service health and data summary, then logs full width.\n- **Badge colours:** Admin dark, Editor blue, Viewer grey; Active green, Inactive grey.\n- **Brand and footer:** the brand name \"Blueprint\", and the footer's link columns and legal links.\n- **Date format:** the Joined column shows `Jan 15, 2024`.\n\n## Token resolver: what it answered and what I did\n- **Chart bars (\"pure black\"): no match.** I asked again in the design system's own terms (\"filled high-contrast emphasis surface\"). It resolved to `color-surface-emphasis`, the darkest fill the public tokens define, and that's what the bars use. The only pure black is the primary button's pressed state, and I didn't borrow it. There's a comment at `dashboard.component.css:95`.\n- **Monospace font, and the app's base font: no match.** No font-family token exists, so these are the only literal values in the app. Each has a comment.\n- **Log panel height and login card width: no match.** The log panel is eight lines tall. The login card uses the \"small dialog\" width token.\n- **Where I overrode it:**\n  - For \"text on a dark surface\" it returned a background token; I used `text-inverse`.\n  - For \"menu shadow\" it returned a colour; I used `shadow-dropdown`.\n  - For \"page heading size\" it returned the brand-name size (15px); I used the largest display size.\n\nNo palette tokens, private component tokens or colour literals are used anywhere. The only raw pixel values are four media-query breakpoints, because there are no breakpoint tokens and CSS can't use variables inside media queries.\n\n## Gaps in the component library\n- **Header:** `dsb-header` has no slot for an account control, so the profile menu is laid over the header's right edge, lined up with its inner width.\n- **Header and footer links:** these are plain links, which reload the whole page and would wipe the in-memory data. The layout sends app-internal clicks through the router instead.\n- **Dropdown clipping:** inside `dsb-modal`, the dropdown's option list was cut off because the modal body scrolls. I fixed it with a small override of the modal's internal styling, applied only to the edit and invite dialogs (`users.component.css:124`). It's worth reporting as a library bug.\n- **Avatar fallback:** `dsb-avatar` doesn't fall back to initials when an image fails to load, so the users page catches the error itself and swaps in initials.\n\nI replaced the original `package.json` with a fresh Angular 19 one and reinstalled; the dsb packages were already pulling in Angular 21. I also added `angular-in-memory-web-api@0.19.0`. I didn't look at the other arms' folders. The test scripts are in `/tmp/d1-e2e`, outside the project.",
+    "ttft_ms": 2439,
+    "type": "result",
+    "duration_ms": 528027,
+    "uuid": "8d6ca3fa-2f48-48b5-85d2-4e5c5e09a6ba",
+    "ttft_stream_ms": 1741,
+    "time_to_request_ms": 18,
+    "first_content_frame_ms": 1742,
+    "queued_turn_count": 0,
+    "result_index": 0
+  }
+}

@@ -1,0 +1,73 @@
+<section class="dashboard" aria-label="Infrastructure health">
+  @for (tile of metrics; track tile.title) {
+    <article class="tile tile--metric">
+      <h2 class="tile__title">{{ tile.title }}</h2>
+      <div class="tile__value-row">
+        <p class="tile__value">{{ tile.value }}</p>
+        @if (tile.trend) {
+          <dsb-tag [variant]="trendVariant(tile)" size="sm">{{ tile.trend.label }}</dsb-tag>
+        }
+      </div>
+      @if (tile.subLabel) {
+        <p class="tile__sub">{{ tile.subLabel }}</p>
+      }
+    </article>
+  }
+
+  <article class="tile tile--wide">
+    <h2 class="tile__title">Request Throughput</h2>
+    <div class="chart" role="img" aria-label="Requests per day, Monday to Sunday">
+      @for (bar of bars; track bar.day) {
+        <div class="chart__col">
+          <div class="chart__track">
+            <div class="chart__bar" [style.height.%]="bar.percent" [attr.title]="bar.requests + ' requests'"></div>
+          </div>
+          <span class="chart__label">{{ bar.day }}</span>
+        </div>
+      }
+    </div>
+  </article>
+
+  <article class="tile">
+    <h2 class="tile__title">Service Health</h2>
+    <dsb-list [divided]="true" [compact]="true">
+      @for (service of services; track service.name) {
+        <dsb-list-item [label]="service.name">
+          <dsb-tag list-trailing [variant]="service.online ? 'success' : 'danger'" size="sm">
+            {{ service.online ? 'Online' : 'Offline' }}
+          </dsb-tag>
+        </dsb-list-item>
+      }
+    </dsb-list>
+  </article>
+
+  <article class="tile">
+    <h2 class="tile__title">Data Summary</h2>
+    <dsb-list [divided]="true" [compact]="true">
+      @for (row of summary; track row.label) {
+        <dsb-list-item [label]="row.label" [meta]="row.value" />
+      }
+    </dsb-list>
+  </article>
+
+  <article class="tile tile--full">
+    <h2 class="tile__title">System Logs</h2>
+    <div
+      #logViewport
+      class="logs"
+      role="log"
+      aria-live="polite"
+      aria-label="System logs"
+      tabindex="0"
+      (scroll)="onLogScroll(logViewport)"
+    >
+      @for (line of logs(); track $index) {
+        <div class="logs__line">
+          <span class="logs__time">{{ line.time }}</span>
+          <span class="logs__level">{{ line.level.padEnd(5) }}</span>
+          <span class="logs__msg">{{ line.message }}</span>
+        </div>
+      }
+    </div>
+  </article>
+</section>

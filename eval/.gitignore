@@ -1,3 +1,15 @@
+.env
 .empty-settings.json
-results/
-runs/
+
+# Generated applications. The source an arm wrote is the evidence and ships with the
+# repository; what npm and the Angular CLI put beside it is not.
+runs/**/node_modules/
+runs/**/.angular/
+runs/**/dist/
+runs/**/package-lock.json
+
+# Figma intermediates. capture.json is the recording and served.json is what the shim
+# serves; both ship. These two are re-derivable from them and carry the canvases an arm
+# must never see.
+reference/figma/file.json
+reference/figma/demo.json

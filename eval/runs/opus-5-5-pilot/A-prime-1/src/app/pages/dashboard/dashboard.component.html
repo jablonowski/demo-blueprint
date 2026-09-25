@@ -1,0 +1,71 @@
+<div class="dashboard">
+  @for (metric of metrics; track metric.title) {
+    <section class="card tile metric">
+      <h2 class="tile-title">{{ metric.title }}</h2>
+      <div class="metric-row">
+        <span class="metric-value">{{ metric.value }}</span>
+        @if (metric.trend) {
+          <span class="tag" [class.tag-success]="metric.positive" [class.tag-danger]="!metric.positive">
+            {{ metric.trend }}
+          </span>
+        }
+      </div>
+      @if (metric.subLabel) {
+        <p class="metric-sub">{{ metric.subLabel }}</p>
+      }
+    </section>
+  }
+
+  <section class="card tile throughput">
+    <h2 class="tile-title">Request Throughput</h2>
+    <div class="chart" role="img" aria-label="Requests per day, Monday to Sunday">
+      @for (bar of throughput; track bar.day) {
+        <div class="chart-col">
+          <div class="chart-track">
+            <div class="chart-bar" [style.height.%]="bar.percent" [title]="bar.value + ' requests'"></div>
+          </div>
+          <span class="chart-label">{{ bar.day }}</span>
+        </div>
+      }
+    </div>
+  </section>
+
+  <section class="card tile">
+    <h2 class="tile-title">Service Health</h2>
+    <ul class="rows">
+      @for (service of services; track service.name) {
+        <li class="row">
+          <span class="row-label">{{ service.name }}</span>
+          <span class="tag" [class.tag-success]="service.online" [class.tag-danger]="!service.online">
+            {{ service.online ? 'Online' : 'Offline' }}
+          </span>
+        </li>
+      }
+    </ul>
+  </section>
+
+  <section class="card tile">
+    <h2 class="tile-title">Data Summary</h2>
+    <dl class="rows">
+      @for (item of summary; track item.label) {
+        <div class="row">
+          <dt class="row-label">{{ item.label }}</dt>
+          <dd class="row-value">{{ item.value }}</dd>
+        </div>
+      }
+    </dl>
+  </section>
+
+  <section class="card tile logs">
+    <h2 class="tile-title">System Logs</h2>
+    <div class="terminal" #logViewport role="log" aria-live="polite">
+      @for (line of logs(); track $index) {
+        <div class="log-line">
+          <span class="log-time">{{ line.time }}</span>
+          <span class="log-level" [attr.data-level]="line.level">{{ line.level }}</span>
+          <span class="log-message">{{ line.message }}</span>
+        </div>
+      }
+    </div>
+  </section>
+</div>

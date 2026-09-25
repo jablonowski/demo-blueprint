@@ -1,0 +1,7 @@
+{
+  "ok": false,
+  "durationMs": 2650,
+  "errorCount": null,
+  "errors": [],
+  "tail": "❯ Building...\n✔ Building...\nApplication bundle generation failed. [1.398 seconds]\n\n\u001b[31m✘ \u001b[41;31m[\u001b[41;97mERROR\u001b[41;31m]\u001b[0m \u001b[1mCould not resolve \"./pages/users/users.component\"\u001b[0m\n\n    src/app/app.routes.ts:27:36:\n\u001b[37m      27 │ ...t: () => import(\u001b[32m'./pages/users/users.component'\u001b[37m).then((m) => m....\n         ╵                    \u001b[32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[0m\n\n\n\u001b[31m✘ \u001b[41;31m[\u001b[41;97mERROR\u001b[41;31m]\u001b[0m \u001b[1mTS2307: Cannot find module './pages/users/users.component' or its corresponding type declarations.\u001b[0m \u001b[1m\u001b[35m[plugin angular-compiler]\u001b[0m\n\n    src/app/app.routes.ts:27:36:\n\u001b[37m      27 │ ...t: () => import(\u001b[32m'./pages/users/users.component'\u001b[37m).then((m) => m....\n         ╵                    \u001b[32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[0m"
+}

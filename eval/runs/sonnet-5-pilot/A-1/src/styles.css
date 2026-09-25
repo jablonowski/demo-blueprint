@@ -1,0 +1,397 @@
+/* ---------------------------------------------------------------------
+   Global design tokens.
+   Values are sampled from the Figma "Design System Blueprint" frames
+   (node 22-11104 and modal nodes 22:11448 / 22:11492). There is no
+   design-system package backing this app, so these custom properties
+   are the single source of truth every component pulls from instead of
+   repeating literals.
+   --------------------------------------------------------------------- */
+:root {
+  /* Color: surfaces */
+  --color-page-bg: #f5f5f5;
+  --color-surface: #ffffff;
+  --color-surface-muted: #fafafa;
+  --color-surface-disabled: #f5f5f5;
+
+  /* Color: borders */
+  --color-border-strong: #000000;
+  --color-border: #d4d4d4;
+  --color-border-subtle: #ebebeb;
+  --color-border-divider: #f0f0f0;
+
+  /* Color: text */
+  --color-text-primary: #111111;
+  --color-text-secondary: #555555;
+  --color-text-tertiary: #888888;
+  --color-text-quaternary: #aaaaaa;
+  --color-text-body: #333333;
+  --color-text-muted-body: #666666;
+  --color-text-disabled: #999999;
+  --color-text-on-dark: #ffffff;
+
+  /* Color: semantic tones (badges, trends, status) */
+  --tone-success-bg: #e6f4ea;
+  --tone-success-text: #1a7f3c;
+  --tone-warning-bg: #fef3cd;
+  --tone-warning-text: #92600a;
+  --tone-danger-bg: #fce8e6;
+  --tone-danger-text: #c5221f;
+  --tone-info-bg: #e8f0fe;
+  --tone-info-text: #1a56db;
+  --tone-neutral-bg: #f0f0f0;
+  --tone-neutral-text: #555555;
+
+  /* Color: avatar */
+  --color-avatar-bg: #e8e8e8;
+  --color-avatar-text: #555555;
+
+  /* Typography */
+  --font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-family-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+
+  --font-size-display: 26px;
+  --font-size-heading-lg: 22px;
+  --font-size-heading-md: 20px;
+  --font-size-heading-sm: 18px;
+  --font-size-heading-xs: 16px;
+  --font-size-title: 15px;
+  --font-size-body: 14px;
+  --font-size-body-sm: 13px;
+  --font-size-label: 12px;
+  --font-size-caption: 11px;
+  --font-size-micro: 10px;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+
+  /* Spacing scale (4px base unit) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: 40px;
+  --space-9: 48px;
+
+  /* Radius */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+  --radius-xl: 12px;
+  --radius-full: 9999px;
+
+  /* Elevation */
+  --shadow-card: 0px 2px 8px 0px rgba(0, 0, 0, 0.06);
+  --shadow-panel: 0px 4px 16px 0px rgba(0, 0, 0, 0.08);
+  --shadow-modal: 0px 12px 40px 0px rgba(0, 0, 0, 0.22);
+
+  /* Control sizing */
+  --control-height-md: 42px;
+  --control-height-sm: 34px;
+
+  /* Layout */
+  --content-max-width: 1216px;
+  --header-height: 56px;
+  --footer-height: 56px;
+
+  /* Motion */
+  --transition-fast: 120ms ease;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+  color: var(--color-text-primary);
+  background: var(--color-page-bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+input,
+select,
+textarea,
+button {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* ---------------------------------------------------------------------
+   Shared button classes, reused by the users table row actions and by
+   every dialog footer so button styling lives in exactly one place.
+   --------------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--control-height-sm);
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-body-sm);
+  font-weight: var(--font-weight-medium);
+  border: 1.5px solid transparent;
+  transition: opacity var(--transition-fast), background var(--transition-fast);
+  white-space: nowrap;
+}
+
+.btn:hover {
+  opacity: 0.85;
+}
+
+.btn--primary {
+  background: var(--color-text-primary);
+  border-color: var(--color-text-primary);
+  color: var(--color-text-on-dark);
+}
+
+.btn--secondary {
+  background: var(--color-surface);
+  border-color: var(--color-surface);
+  color: var(--color-text-secondary);
+}
+
+.btn--outline {
+  background: var(--color-surface);
+  border-color: var(--color-border);
+  color: var(--color-text-primary);
+}
+
+.btn--ghost {
+  background: transparent;
+  border-color: var(--color-border);
+  color: var(--color-text-primary);
+}
+
+.btn--danger-outline {
+  background: var(--color-surface);
+  border-color: var(--tone-danger-bg);
+  color: var(--tone-danger-text);
+}
+
+.btn--danger {
+  background: var(--tone-danger-text);
+  border-color: var(--tone-danger-text);
+  color: var(--color-text-on-dark);
+}
+
+/* ---------------------------------------------------------------------
+   Shared dialog primitives, reused by all four users dialogs so the
+   header/body/footer/field chrome only exists once.
+   --------------------------------------------------------------------- */
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-5) var(--space-6);
+}
+
+.modal-header__titles {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.modal-header__title {
+  font-size: var(--font-size-heading-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.modal-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: transparent;
+  border-radius: var(--radius-sm);
+  color: var(--color-text-tertiary);
+  font-size: var(--font-size-body);
+}
+
+.modal-close:hover {
+  background: var(--color-surface-muted);
+}
+
+.modal-divider {
+  height: 1px;
+  background: var(--color-border-strong);
+  border: none;
+  margin: 0;
+}
+
+.modal-body {
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-6);
+}
+
+.modal-footer--split {
+  justify-content: space-between;
+}
+
+.modal-footer__note {
+  font-size: var(--font-size-label);
+  color: var(--color-text-tertiary);
+}
+
+.modal-footer__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.user-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.user-row__name {
+  font-size: var(--font-size-title);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.user-row__meta {
+  font-size: var(--font-size-label);
+  color: var(--color-text-tertiary);
+}
+
+.form-row {
+  display: flex;
+  gap: var(--space-4);
+}
+
+.form-row > .field {
+  flex: 1;
+}
+
+.field__input--disabled {
+  background: var(--color-surface-disabled);
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+}
+
+.field__select {
+  height: var(--control-height-md);
+  padding: 0 var(--space-3);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  font-size: var(--font-size-body-sm);
+  color: var(--color-text-primary);
+  appearance: none;
+}
+
+.field__select:focus {
+  outline: none;
+  border-color: var(--color-text-primary);
+}
+
+.status-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.status-row__label {
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+}
+
+/* ---------------------------------------------------------------------
+   Shared form field primitives, used by the login form and every users
+   dialog form (edit, invite, read-only details fields).
+   --------------------------------------------------------------------- */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.field__label {
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+}
+
+.field__input {
+  height: var(--control-height-md);
+  padding: 0 var(--space-3);
+  display: flex;
+  align-items: center;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  font-size: var(--font-size-body-sm);
+  color: var(--color-text-primary);
+}
+
+.field__input::placeholder {
+  color: var(--color-text-quaternary);
+}
+
+.field__input:focus {
+  outline: none;
+  border-color: var(--color-text-primary);
+}
+
+.field__input--error {
+  border-color: var(--tone-danger-text);
+}
+
+.field__error {
+  font-size: var(--font-size-caption);
+  color: var(--tone-danger-text);
+}

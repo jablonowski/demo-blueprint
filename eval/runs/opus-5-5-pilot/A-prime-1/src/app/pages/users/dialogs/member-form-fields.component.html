@@ -1,0 +1,45 @@
+<ng-container [formGroup]="form()">
+  <div class="field-row">
+    <div class="field">
+      <label class="field-label" [for]="idPrefix() + '-first'">First name</label>
+      <input class="input" [id]="idPrefix() + '-first'" type="text" formControlName="firstName"
+        placeholder="First name" [class.is-invalid]="invalid('firstName')" />
+      @if (invalid('firstName')) {
+        <span class="field-error">First name is required</span>
+      }
+    </div>
+    <div class="field">
+      <label class="field-label" [for]="idPrefix() + '-last'">Last name</label>
+      <input class="input" [id]="idPrefix() + '-last'" type="text" formControlName="lastName"
+        placeholder="Last name" [class.is-invalid]="invalid('lastName')" />
+      @if (invalid('lastName')) {
+        <span class="field-error">Last name is required</span>
+      }
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="field-label" [for]="idPrefix() + '-email'">Email address</label>
+    <input class="input" [id]="idPrefix() + '-email'" type="email" formControlName="email"
+      placeholder="name@example.com" [class.is-invalid]="invalid('email')" />
+    @if (invalid('email')) {
+      <span class="field-error">
+        {{ form().controls.email.hasError('required') ? 'Email address is required' : 'Enter a valid email address' }}
+      </span>
+    }
+  </div>
+
+  <div class="field">
+    <label class="field-label" [for]="idPrefix() + '-role'">Role</label>
+    <select class="input" [id]="idPrefix() + '-role'" formControlName="role"
+      [class.is-placeholder]="!form().controls.role.value" [class.is-invalid]="invalid('role')">
+      <option value="" disabled>Select role…</option>
+      @for (role of roles; track role) {
+        <option [value]="role">{{ role }}</option>
+      }
+    </select>
+    @if (invalid('role')) {
+      <span class="field-error">Role is required</span>
+    }
+  </div>
+</ng-container>

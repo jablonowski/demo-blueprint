@@ -1,0 +1,90 @@
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-page-bg);
+  padding: var(--space-6);
+}
+
+.login-card {
+  width: 400px;
+  max-width: 100%;
+  padding: var(--space-8);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-panel);
+}
+
+.login-card__heading {
+  font-size: var(--font-size-heading-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.login-card__subtitle {
+  margin-top: var(--space-2);
+  font-size: var(--font-size-body);
+  color: var(--color-text-tertiary);
+}
+
+.login-card__form {
+  margin-top: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.login-card__credentials-error {
+  margin-top: calc(var(--space-5) * -1 + var(--space-2));
+  font-size: var(--font-size-caption);
+  color: var(--tone-danger-text);
+}
+
+.login-card__remember-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.login-card__remember {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-body-sm);
+  color: var(--color-text-primary);
+}
+
+.login-card__forgot {
+  font-size: var(--font-size-body-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  text-decoration: underline;
+}
+
+.login-card__submit {
+  height: var(--control-height-md);
+  width: 100%;
+  border: none;
+  border-radius: var(--radius-md);
+  background: var(--color-text-primary);
+  color: var(--color-text-on-dark);
+  font-size: var(--font-size-body-sm);
+  font-weight: var(--font-weight-semibold);
+}
+
+.login-card__submit:hover {
+  opacity: 0.9;
+}
+
+.login-card__signup {
+  text-align: center;
+  font-size: var(--font-size-body-sm);
+  color: var(--color-text-tertiary);
+}
+
+.login-card__signup a {
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-medium);
+}
