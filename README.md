@@ -7,10 +7,7 @@ The design system under test is [**design-system-blueprint**](https://github.com
 a three-tier token pipeline, an Angular component library, machine-readable contracts for
 agents, and npm publishing.
 
-> **Status: the study is running.** Three runs per arm on one model, of five planned, with
-> two of five arms still to run. What follows is the raw data and the method. Readings and
-> conclusions are deliberately not in this README yet — there is not enough of the grid to
-> support them. The numbers will move.
+> **Status: the study is still running.** 
 
 ---
 
