@@ -1,0 +1,203 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Header */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--color-surface-card);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  height: 56px;
+  padding: 0 32px;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-text-primary);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+}
+
+.logo { color: var(--color-primary); }
+
+.nav {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding-left: 40px;
+}
+
+.nav a {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-base);
+  text-decoration: none;
+  transition: color var(--duration-base) var(--easing-standard);
+}
+
+.nav a:hover,
+.nav a.active { color: var(--color-text-primary); }
+.nav a.active { font-weight: var(--font-weight-medium); }
+
+/* Profile */
+.profile { position: relative; }
+
+.profile-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px 4px 4px;
+  border: none;
+  border-radius: var(--radius-lg);
+  background: transparent;
+  color: var(--color-text-primary);
+  cursor: pointer;
+  transition: background var(--duration-base) var(--easing-standard);
+}
+
+.profile-trigger:hover { background: var(--color-surface-subtle); }
+.profile-trigger:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+
+.profile-name {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+}
+
+.chevron {
+  color: var(--color-text-muted);
+  transition: transform var(--duration-base) var(--easing-standard);
+}
+
+.chevron.open { transform: rotate(180deg); }
+
+/* Anchored to the trigger's right edge so it grows leftward and stays in the viewport. */
+.menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 180px;
+  padding: 4px;
+  background: var(--color-surface-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-modal);
+}
+
+.menu-item {
+  display: block;
+  width: 100%;
+  padding: 8px 12px;
+  border: none;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--color-text-primary);
+  font-size: var(--font-size-base);
+  text-align: left;
+  cursor: pointer;
+}
+
+.menu-item:hover { background: var(--color-surface-subtle); }
+.menu-item.danger { color: var(--color-danger); }
+
+.menu-divider {
+  height: 1px;
+  margin: 4px 0;
+  background: var(--color-border);
+}
+
+/* Main */
+.main {
+  flex: 1;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 20px 32px 32px;
+}
+
+/* Footer */
+.footer {
+  background: var(--color-surface-card);
+  border-top: 1px solid var(--color-border);
+}
+
+.footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 32px;
+  padding: 24px 0;
+}
+
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.footer-brand-name {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+}
+
+.footer-copy,
+.footer-legal a,
+.footer-column a {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  text-decoration: none;
+}
+
+.footer-column a:hover,
+.footer-legal a:hover { color: var(--color-text-primary); }
+
+.footer-columns {
+  display: flex;
+  gap: 48px;
+}
+
+.footer-column {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footer-column-title {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.footer-legal {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  height: 56px;
+  border-top: 1px solid var(--color-border);
+}
+
+@media (max-width: 720px) {
+  .header-inner,
+  .main,
+  .footer-inner { padding-left: 16px; padding-right: 16px; }
+  .nav { gap: 16px; padding-left: 20px; }
+  .profile-name { display: none; }
+  .footer-top { flex-direction: column; }
+  .footer-columns { gap: 32px; flex-wrap: wrap; }
+}

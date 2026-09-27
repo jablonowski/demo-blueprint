@@ -1,0 +1,54 @@
+<form class="login" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+  <div class="intro">
+    <h1>Welcome back</h1>
+    <p>Sign in to your account to continue</p>
+  </div>
+
+  <div class="field">
+    <label class="field-label" for="username">Username</label>
+    <input
+      id="username"
+      class="field-input"
+      [class.is-invalid]="invalid('username') || authError()"
+      formControlName="username"
+      placeholder="Enter your username"
+      autocomplete="username"
+    />
+    @if (invalid('username')) {
+      <span class="field-error">Username is required</span>
+    }
+  </div>
+
+  <div class="field">
+    <label class="field-label" for="password">Password</label>
+    <input
+      id="password"
+      type="password"
+      class="field-input"
+      [class.is-invalid]="invalid('password') || authError()"
+      formControlName="password"
+      placeholder="Enter your password"
+      autocomplete="current-password"
+    />
+    @if (invalid('password')) {
+      <span class="field-error">Password is required</span>
+    } @else if (authError()) {
+      <span class="field-error">Invalid username or password</span>
+    }
+  </div>
+
+  <div class="remember-row">
+    <label class="remember">
+      <input type="checkbox" />
+      <span>Remember me</span>
+    </label>
+    <a href="#" class="link" (click)="$event.preventDefault()">Forgot password?</a>
+  </div>
+
+  <button type="submit" class="btn btn-primary btn-block submit">Sign In</button>
+
+  <p class="signup">
+    Don't have an account?
+    <a href="#" class="link" (click)="$event.preventDefault()">Sign up</a>
+  </p>
+</form>

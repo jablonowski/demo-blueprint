@@ -1,0 +1,224 @@
+<section class="users">
+  <header class="page-head">
+    <h1 class="page-title">Team Members</h1>
+    <button type="button" class="btn btn-primary" (click)="openInvite()">
+      <span aria-hidden="true">+</span> Invite Member
+    </button>
+  </header>
+
+  <div class="card table-card">
+    <div class="table-scroll">
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="col-avatar">Avatar</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Status</th>
+            <th>Joined</th>
+            <th class="col-actions"><span class="sr-only">Actions</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (u of users(); track u.id) {
+            <tr>
+              <td class="col-avatar">
+                <span class="avatar">
+                  @if (u.avatar && !brokenAvatars().has(u.id)) {
+                    <img [src]="u.avatar" [alt]="u.name" (error)="avatarFailed(u.id)" />
+                  } @else {
+                    {{ initials(u.name) }}
+                  }
+                </span>
+              </td>
+              <td class="cell-name">{{ u.name }}</td>
+              <td class="cell-muted">{{ u.email }}</td>
+              <td><span class="tag" [class]="roleTone(u.role)">{{ u.role }}</span></td>
+              <td><span class="tag" [class]="statusTone(u.status)">{{ u.status }}</span></td>
+              <td>{{ u.joinedDate | date: 'MMM y' }}</td>
+              <td class="col-actions">
+                <div class="actions">
+                  <button type="button" class="btn btn-ghost btn-sm" (click)="openDetails(u)">Details</button>
+                  <button type="button" class="btn btn-secondary btn-sm" (click)="openEdit(u)">Edit</button>
+                  <button type="button" class="btn btn-danger-outline btn-sm" (click)="openDelete(u)">Delete</button>
+                </div>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td class="empty" colspan="7">{{ loading() ? 'Loading members…' : 'No team members yet.' }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- Shared: user row inside details / edit dialogs -->
+<ng-template #userRow let-user>
+  <div class="user-row">
+    <span class="avatar avatar-lg">{{ initials(user.name) }}</span>
+    <div class="user-info">
+      <span class="user-name">{{ user.name }}</span>
+      <span class="user-since">Member since {{ user.joinedDate | date: 'MMMM y' }}</span>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Shared: member form fields for edit / invite -->
+<ng-template #memberFields let-form let-kind="kind">
+  <ng-container [formGroup]="form">
+    <div class="field-row">
+      <div class="field">
+        <label class="field-label" [for]="kind + '-first'">First name</label>
+        <input class="field-control" [id]="kind + '-first'" formControlName="firstName"
+               placeholder="First name" [class.is-invalid]="invalid(kind, 'firstName')" />
+        @if (invalid(kind, 'firstName')) { <span class="field-error">First name is required</span> }
+      </div>
+      <div class="field">
+        <label class="field-label" [for]="kind + '-last'">Last name</label>
+        <input class="field-control" [id]="kind + '-last'" formControlName="lastName"
+               placeholder="Last name" [class.is-invalid]="invalid(kind, 'lastName')" />
+        @if (invalid(kind, 'lastName')) { <span class="field-error">Last name is required</span> }
+      </div>
+    </div>
+    <div class="field">
+      <label class="field-label" [for]="kind + '-email'">Email address</label>
+      <input class="field-control" type="email" [id]="kind + '-email'" formControlName="email"
+             placeholder="name@example.com" [class.is-invalid]="invalid(kind, 'email')" />
+      @if (invalid(kind, 'email')) {
+        <span class="field-error">
+          {{ form.controls.email.hasError('required') ? 'Email address is required' : 'Enter a valid email address' }}
+        </span>
+      }
+    </div>
+    <div class="field">
+      <label class="field-label" [for]="kind + '-role'">Role</label>
+      <select class="field-control" [id]="kind + '-role'" formControlName="role"
+              [class.is-placeholder]="!form.controls.role.value"
+              [class.is-invalid]="invalid(kind, 'role')">
+        @if (kind === 'invite') { <option value="" disabled>Select role…</option> }
+        @for (r of roles; track r) { <option [value]="r">{{ r }}</option> }
+      </select>
+      @if (invalid(kind, 'role')) { <span class="field-error">Role is required</span> }
+    </div>
+  </ng-container>
+</ng-template>
+
+@if (dialog() !== 'none') {
+  <div class="backdrop" (click)="close()">
+    @switch (dialog()) {
+
+      @case ('delete') {
+        @if (selected(); as u) {
+          <div class="modal modal-sm" role="alertdialog" aria-modal="true" aria-labelledby="delete-title"
+               (click)="$event.stopPropagation()">
+            <header class="modal-header">
+              <h2 id="delete-title" class="modal-title">Confirm Deletion</h2>
+              <button type="button" class="modal-close" aria-label="Close" (click)="close()">✕</button>
+            </header>
+            <div class="modal-body">
+              <p class="modal-text">
+                Are you sure you want to remove <strong>{{ u.name }}</strong>? This action cannot be undone.
+              </p>
+            </div>
+            <footer class="modal-footer end">
+              <button type="button" class="btn btn-secondary" (click)="close()">Cancel</button>
+              <button type="button" class="btn btn-danger" [disabled]="saving()" (click)="confirmDelete()">Delete</button>
+            </footer>
+          </div>
+        }
+      }
+
+      @case ('details') {
+        @if (selected(); as u) {
+          <div class="modal modal-md" role="dialog" aria-modal="true" aria-labelledby="details-title"
+               (click)="$event.stopPropagation()">
+            <header class="modal-header">
+              <div class="modal-title-group">
+                <h2 id="details-title" class="modal-title">Member Details</h2>
+                <span class="tag tag-default">Read only</span>
+              </div>
+              <button type="button" class="modal-close" aria-label="Close" (click)="close()">✕</button>
+            </header>
+            <div class="modal-body">
+              <ng-container *ngTemplateOutlet="userRow; context: { $implicit: u }" />
+              <div class="field-row">
+                <div class="field">
+                  <span class="field-label ro-label">First name</span>
+                  <div class="field-control is-readonly">{{ firstName(u.name) }}</div>
+                </div>
+                <div class="field">
+                  <span class="field-label ro-label">Last name</span>
+                  <div class="field-control is-readonly">{{ lastName(u.name) || '—' }}</div>
+                </div>
+              </div>
+              <div class="field">
+                <span class="field-label ro-label">Email address</span>
+                <div class="field-control is-readonly">{{ u.email }}</div>
+              </div>
+              <div class="field">
+                <span class="field-label ro-label">Role</span>
+                <div class="field-control is-readonly">{{ u.role }}</div>
+              </div>
+              <div class="status-row">
+                <span class="field-label">Status</span>
+                <span class="tag" [class]="statusTone(u.status)">{{ u.status }}</span>
+              </div>
+            </div>
+            <footer class="modal-footer split">
+              <span class="modal-note">To make changes, request Admin access.</span>
+              <button type="button" class="btn btn-secondary" (click)="close()">Close</button>
+            </footer>
+          </div>
+        }
+      }
+
+      @case ('edit') {
+        @if (selected(); as u) {
+          <form class="modal modal-md" role="dialog" aria-modal="true" aria-labelledby="edit-title"
+                [formGroup]="editForm" (ngSubmit)="save()" (click)="$event.stopPropagation()" novalidate>
+            <header class="modal-header">
+              <h2 id="edit-title" class="modal-title">Edit Member</h2>
+              <button type="button" class="modal-close" aria-label="Close" (click)="close()">✕</button>
+            </header>
+            <div class="modal-body">
+              <ng-container *ngTemplateOutlet="userRow; context: { $implicit: u }" />
+              <ng-container *ngTemplateOutlet="memberFields; context: { $implicit: editForm, kind: 'edit' }" />
+              <div class="status-row">
+                <span class="field-label">Status</span>
+                <span class="tag" [class]="statusTone(u.status)">{{ u.status }}</span>
+              </div>
+            </div>
+            <footer class="modal-footer split">
+              <button type="button" class="btn btn-danger-outline" (click)="editToDelete()">Delete user</button>
+              <div class="footer-actions">
+                <button type="button" class="btn btn-secondary" (click)="close()">Cancel</button>
+                <button type="submit" class="btn btn-primary" [disabled]="saving()">Save changes</button>
+              </div>
+            </footer>
+          </form>
+        }
+      }
+
+      @case ('invite') {
+        <form class="modal modal-md" role="dialog" aria-modal="true" aria-labelledby="invite-title"
+              [formGroup]="inviteForm" (ngSubmit)="invite()" (click)="$event.stopPropagation()" novalidate>
+          <header class="modal-header">
+            <h2 id="invite-title" class="modal-title">Invite Member</h2>
+            <button type="button" class="modal-close" aria-label="Close" (click)="close()">✕</button>
+          </header>
+          <div class="modal-body">
+            <ng-container *ngTemplateOutlet="memberFields; context: { $implicit: inviteForm, kind: 'invite' }" />
+          </div>
+          <footer class="modal-footer end">
+            <button type="button" class="btn btn-secondary" (click)="close()">Cancel</button>
+            <button type="submit" class="btn btn-primary" [disabled]="saving()">Send Invite</button>
+          </footer>
+        </form>
+      }
+    }
+  </div>
+}

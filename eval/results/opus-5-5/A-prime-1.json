@@ -1,0 +1,122 @@
+{
+  "arm": "A-prime",
+  "run": 1,
+  "model": "claude-opus-5-5",
+  "cli": "2.1.281 (Claude Code)",
+  "isolation": "session",
+  "started": "2026-09-27T19:01:02Z",
+  "overlaySha": "9eeb04e32b97",
+  "s0Sha": "c25d3e960f47",
+  "promptBytes": 15297,
+  "runDir": "/tmp/dsb-eval/opus-5-5/A-prime-1",
+  "figma": {
+    "channel": "cached",
+    "fileKey": "iJ92LuFOsPjO6avZ2anbwO",
+    "recordedAt": "2026-09-24T19:49:36Z",
+    "calls": 1,
+    "errors": 0,
+    "nodes": [
+      "22-11104"
+    ],
+    "ok": true
+  },
+  "inputTokensTotal": 2309782,
+  "outputTokens": 44911,
+  "result": {
+    "duration_api_ms": 366603,
+    "stop_reason": "end_turn",
+    "session_id": "ba1c37e3-961e-45e9-93f6-c358974d5781",
+    "total_cost_usd": 2.1857616,
+    "usage": {
+      "input_tokens": 58,
+      "cache_creation_input_tokens": 105816,
+      "cache_read_input_tokens": 2203908,
+      "output_tokens": 44911,
+      "output_tokens_details": {
+        "thinking_tokens": 6863
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 105816,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "not_available",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 1367,
+          "cache_read_input_tokens": 116211,
+          "cache_creation_input_tokens": 309,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 309
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard"
+    },
+    "modelUsage": {
+      "claude-opus-5-5": {
+        "inputTokens": 58,
+        "outputTokens": 44911,
+        "cacheReadInputTokens": 2203908,
+        "cacheCreationInputTokens": 105816,
+        "webSearchRequests": 0,
+        "costUSD": 2.1857616,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 128000,
+        "thinkingTokens": 6863,
+        "canonicalModel": "claude-opus-5-5",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "subagent_stats": {
+      "spawned": 0,
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 0,
+      "spawned_by_subagents": 0,
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {}
+    },
+    "is_error": false,
+    "num_turns": 57,
+    "subtype": "success",
+    "api_error_status": null,
+    "result": "The app is built in `/private/tmp/dsb-eval/opus-5-5/A-prime-1`. It builds without errors, and in a real browser (Playwright, Chromium) logging in with `admin` / `admin` reaches the dashboard.\n\n**What I tested (20 checks passed, no console errors or warnings):**\n- **Login:** `/` redirects to `/login`. Submitting empty fields puts them into an error state with a message. A successful login writes `isLoggedIn: true`. Visiting `/login` while signed in redirects to `/dashboard`, and signing out blocks `/users` again.\n- **Dashboard:** a new log line is appended every 3 seconds.\n- **Profile menu:** opens leftward and stays fully on screen at 1280px and at 390px wide, and closes on an outside click.\n- **Users:**\n  - Create, update and delete each go through the in-memory API and the table updates.\n  - The edit dialog splits the name into first and last on open, and saving recombines them.\n  - \"Delete user\" in the edit dialog opens the delete confirmation with the same member still selected.\n  - The delete confirmation closes on a backdrop click, and the invite form shows validation errors.\n\n**Design data:** the Figma data came through and I read all of it, including the edit (`22:11448`) and details (`22:11492`) modals. Colours, font sizes and radii use only the styleguide's variables. I added no new greys. Where Figma used a value that isn't in the styleguide, I mapped it to the nearest one (e.g. 26px → 24px, #888 → the secondary text grey, 12px radius → 10px). Spacing comes straight from the frames, because the styleguide defines no spacing values.\n\n**Where I followed the spec over the Figma frames:**\n- **Wording and data:** the frames use different text and numbers (e.g. \"Sign in to your account\", 2,847 active users, a \"Database\" service). I used the spec's wording and values.\n- **Dashboard tiles:** Figma has 7 cards, with the throughput chart inside \"Data Summary\", while the spec asks for 8 tiles. I built the 8 tiles in the spec's order, using Figma's proportions:\n  - top row: the 4 metrics\n  - middle row: Request Throughput and Service Health\n  - bottom row: Data Summary and System Logs\n  \n  That order puts Throughput on the left; Figma has health on the left.\n- **Login card:** I left out Figma's \"Blueprint\" wordmark because the spec says to add nothing else. I kept Figma's divider line above the sign-up prompt.\n- **Header and footer:**\n  - The header has \"Dashboard\" and \"Users\" links instead of Figma's placeholder Overview/Metrics/Logs/Settings.\n  - I added the logo and the \"Admin User\" menu, which the spec requires but the frames don't show.\n  - The footer's link columns are also a spec requirement not in Figma, so their layout is my own design.\n- **Table:** the spec puts Avatar and Name in separate columns and orders the actions Details / Edit / Delete. Figma combines avatar and name and orders the actions Edit / Details / Delete.\n\n**Visual choices not backed by the design:**\n- **Badge colours:** the badges use the styleguide's tag colours, not Figma's slightly different greens, reds and ambers. Roles are coloured as in Figma: Admin red, Editor blue, Viewer grey. Error Rate's `+0.01%` is amber as in Figma, which is milder than a red \"negative\" badge.\n- **Font:** the typeface is the styleguide's system font stack, not Figma's Inter.\n- **Log viewer:** it is a light, monospace panel. No frame shows a terminal-style view, so its look is my own.\n- **Log level colours:** I reused the tag text colours as raw hex values, because the styleguide has no variables for them.\n- **Delete dialog width:** the \"small\" size is 420px, which I chose myself.\n- **Joined column:** it shows dates like `Jan 15, 2024`. Figma shows only month and year.",
+    "ttft_ms": 2437,
+    "type": "result",
+    "duration_ms": 433101,
+    "uuid": "be30fc92-bb55-44e9-b133-e44a3e95b4cc",
+    "ttft_stream_ms": 2088,
+    "time_to_request_ms": 395,
+    "first_content_frame_ms": 2089,
+    "queued_turn_count": 0,
+    "result_index": 0
+  }
+}

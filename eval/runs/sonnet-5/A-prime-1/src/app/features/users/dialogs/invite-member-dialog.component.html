@@ -1,0 +1,70 @@
+<div class="modal-backdrop">
+  <div class="modal modal-md" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2 class="modal-title">Invite Member</h2>
+      <button type="button" class="modal-close" (click)="cancel.emit()">✕</button>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <div class="modal-body">
+        <div class="form-grid">
+          <div class="form-field">
+            <label for="invFirstName">First name</label>
+            <input
+              id="invFirstName"
+              type="text"
+              formControlName="firstName"
+              [class.invalid]="firstName.invalid && firstName.touched"
+            />
+            @if (firstName.invalid && firstName.touched) {
+              <span class="form-error">First name is required.</span>
+            }
+          </div>
+          <div class="form-field">
+            <label for="invLastName">Last name</label>
+            <input
+              id="invLastName"
+              type="text"
+              formControlName="lastName"
+              [class.invalid]="lastName.invalid && lastName.touched"
+            />
+            @if (lastName.invalid && lastName.touched) {
+              <span class="form-error">Last name is required.</span>
+            }
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="invEmail">Email address</label>
+          <input
+            id="invEmail"
+            type="email"
+            formControlName="email"
+            [class.invalid]="email.invalid && email.touched"
+          />
+          @if (email.invalid && email.touched) {
+            <span class="form-error">A valid email is required.</span>
+          }
+        </div>
+
+        <div class="form-field">
+          <label for="invRole">Role</label>
+          <select id="invRole" formControlName="role" [class.invalid]="role.invalid && role.touched">
+            <option value="" disabled>Select role…</option>
+            @for (r of roles; track r) {
+              <option [value]="r">{{ r }}</option>
+            }
+          </select>
+          @if (role.invalid && role.touched) {
+            <span class="form-error">Please select a role.</span>
+          }
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="cancel.emit()">Cancel</button>
+        <button type="submit" class="btn btn-primary">Send Invite</button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,7 +1,7 @@
 {
   "arm": "A",
   "run": 1,
-  "scoredAt": "2026-09-27T08:20:15Z",
+  "scoredAt": "2026-09-27T19:53:28Z",
   "model": "claude-opus-5-5",
   "isolation": "session",
   "s0Sha": "c25d3e960f47",

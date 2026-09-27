@@ -1,0 +1,205 @@
+.shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-surface-subtle);
+}
+
+/* Header */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  height: 56px;
+  padding: 0 32px;
+  background: var(--color-surface-card);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: var(--color-text-primary);
+}
+
+.logo-mark { fill: var(--color-surface-card); }
+
+.brand-name {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+}
+
+.nav {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding-left: 40px;
+}
+
+.nav a {
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--easing-standard);
+}
+
+.nav a:hover,
+.nav a.active {
+  color: var(--color-text-primary);
+}
+
+.nav a.active { font-weight: var(--font-weight-medium); }
+
+/* Profile */
+.profile { position: relative; }
+
+.profile-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px 4px 4px;
+  border: none;
+  border-radius: var(--radius-lg);
+  background: transparent;
+  color: var(--color-text-primary);
+  cursor: pointer;
+  transition: background var(--duration-fast) var(--easing-standard);
+}
+
+.profile-trigger:hover { background: var(--color-surface-subtle); }
+
+.profile-name {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+}
+
+.caret {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  transition: transform var(--duration-base) var(--easing-standard);
+}
+
+.caret.open { transform: rotate(180deg); }
+
+.menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  min-width: 180px;
+  padding: 4px;
+  background: var(--color-surface-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-modal);
+  z-index: 30;
+}
+
+.menu-item {
+  display: block;
+  width: 100%;
+  padding: 8px 12px;
+  border: none;
+  border-radius: var(--radius-md);
+  background: transparent;
+  text-align: left;
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+  cursor: pointer;
+}
+
+.menu-item:hover { background: var(--color-surface-subtle); }
+
+.menu-sep {
+  height: 1px;
+  margin: 4px 0;
+  background: var(--color-border);
+}
+
+/* Content */
+.content {
+  flex: 1;
+  width: 100%;
+  padding: 20px 32px 32px;
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  max-width: 1216px;
+  margin: 0 auto;
+}
+
+/* Footer */
+.footer {
+  padding: 24px 32px 0;
+  background: var(--color-surface-card);
+  border-top: 1px solid var(--color-border);
+}
+
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 32px;
+  flex-wrap: wrap;
+  padding-bottom: 20px;
+}
+
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.footer-copy,
+.footer-col a,
+.footer-legal a {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  text-decoration: none;
+}
+
+.footer-col a:hover,
+.footer-legal a:hover { color: var(--color-text-primary); }
+
+.footer-cols {
+  display: flex;
+  gap: 48px;
+}
+
+.footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footer-col-title {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--color-text-secondary);
+}
+
+.footer-legal {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 24px;
+  min-height: 48px;
+  border-top: 1px solid var(--color-border);
+}
+
+@media (max-width: 640px) {
+  .header { padding: 0 16px; }
+  .nav { padding-left: 20px; gap: 16px; }
+  .profile-name { display: none; }
+  .content { padding: 16px; }
+  .footer { padding: 24px 16px 0; }
+  .footer-cols { gap: 24px; }
+  .footer-legal { justify-content: flex-start; }
+}

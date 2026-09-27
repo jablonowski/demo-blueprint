@@ -1,0 +1,65 @@
+<div class="dashboard">
+  <div class="metrics-row">
+    @for (metric of metrics; track metric.title) {
+      <div class="card metric-tile">
+        <span class="metric-title">{{ metric.title }}</span>
+        <span class="metric-value">{{ metric.value }}</span>
+        <span class="tag" [class.tag-success]="metric.trendPositive" [class.tag-danger]="!metric.trendPositive">
+          {{ metric.trend }}
+        </span>
+        <span class="metric-sublabel">{{ metric.subLabel }}</span>
+      </div>
+    }
+  </div>
+
+  <div class="secondary-row">
+    <div class="card wide-tile">
+      <h2 class="tile-heading">Request Throughput</h2>
+      <div class="bar-chart">
+        @for (bar of throughput; track bar.day) {
+          <div class="bar-column">
+            <div class="bar" [style.height.%]="bar.percent"></div>
+            <span class="bar-label">{{ bar.day }}</span>
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="card narrow-tile">
+      <h2 class="tile-heading">Service Health</h2>
+      <div class="status-list">
+        @for (service of services; track service.name) {
+          <div class="status-row">
+            <span class="status-name">{{ service.name }}</span>
+            <span class="tag" [class.tag-success]="service.online" [class.tag-danger]="!service.online">
+              {{ service.online ? 'Online' : 'Offline' }}
+            </span>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+
+  <div class="secondary-row">
+    <div class="card narrow-tile">
+      <h2 class="tile-heading">Data Summary</h2>
+      <div class="summary-list">
+        @for (item of summary; track item.label) {
+          <div class="summary-row">
+            <span class="summary-label">{{ item.label }}</span>
+            <span class="summary-value">{{ item.value }}</span>
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="card wide-tile">
+      <h2 class="tile-heading">System Logs</h2>
+      <div class="log-viewer" #logViewer>
+        @for (line of logs; track $index) {
+          <div class="log-line">{{ line }}</div>
+        }
+      </div>
+    </div>
+  </div>
+</div>

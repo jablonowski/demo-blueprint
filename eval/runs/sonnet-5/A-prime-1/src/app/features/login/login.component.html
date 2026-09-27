@@ -1,0 +1,54 @@
+<div class="login-page">
+  <div class="login-card">
+    <h1 class="login-heading">Welcome back</h1>
+    <p class="login-subtitle">Sign in to your account to continue</p>
+
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <div class="field">
+        <label for="username">Username</label>
+        <input
+          id="username"
+          type="text"
+          formControlName="username"
+          placeholder="Enter your username"
+          [class.invalid]="username.invalid && username.touched"
+        />
+        @if (username.invalid && username.touched) {
+          <span class="error-message">Username is required.</span>
+        }
+      </div>
+
+      <div class="field">
+        <label for="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          formControlName="password"
+          placeholder="Enter your password"
+          [class.invalid]="password.invalid && password.touched"
+        />
+        @if (password.invalid && password.touched) {
+          <span class="error-message">Password is required.</span>
+        }
+      </div>
+
+      @if (loginFailed) {
+        <p class="error-message login-error">Invalid username or password.</p>
+      }
+
+      <div class="remember-row">
+        <label class="checkbox-label">
+          <input type="checkbox" />
+          Remember me
+        </label>
+        <a href="javascript:void(0)" class="link">Forgot password?</a>
+      </div>
+
+      <button type="submit" class="btn-primary btn-full">Sign In</button>
+    </form>
+
+    <p class="signup-prompt">
+      Don't have an account? <a href="javascript:void(0)" class="link">Sign up</a>
+    </p>
+  </div>
+</div>

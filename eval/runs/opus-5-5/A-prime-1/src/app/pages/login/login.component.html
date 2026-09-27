@@ -1,0 +1,57 @@
+<main class="auth-page">
+  <form class="login-card" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    <div class="intro">
+      <h1 class="title">Welcome back</h1>
+      <p class="subtitle">Sign in to your account to continue</p>
+    </div>
+
+    <div class="field">
+      <label class="field-label" for="username">Username</label>
+      <input
+        id="username"
+        class="field-input"
+        type="text"
+        formControlName="username"
+        placeholder="Enter your username"
+        autocomplete="username"
+        [class.is-invalid]="invalid('username')"
+      />
+      @if (invalid('username')) {
+        <span class="field-error">Username is required</span>
+      }
+    </div>
+
+    <div class="field">
+      <label class="field-label" for="password">Password</label>
+      <input
+        id="password"
+        class="field-input"
+        type="password"
+        formControlName="password"
+        placeholder="Enter your password"
+        autocomplete="current-password"
+        [class.is-invalid]="invalid('password') || credentialsError()"
+      />
+      @if (invalid('password')) {
+        <span class="field-error">Password is required</span>
+      } @else if (credentialsError()) {
+        <span class="field-error">Invalid username or password</span>
+      }
+    </div>
+
+    <div class="remember-row">
+      <label class="checkbox">
+        <input type="checkbox" formControlName="remember" />
+        <span>Remember me</span>
+      </label>
+      <a class="link" href="#" (click)="$event.preventDefault()">Forgot password?</a>
+    </div>
+
+    <button class="btn btn-primary submit" type="submit">Sign In</button>
+
+    <p class="signup-row">
+      <span>Don't have an account?</span>
+      <a class="link" href="#" (click)="$event.preventDefault()">Sign up</a>
+    </p>
+  </form>
+</main>

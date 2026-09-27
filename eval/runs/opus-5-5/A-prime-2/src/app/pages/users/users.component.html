@@ -1,0 +1,226 @@
+<div class="toolbar">
+  <h1>Team Members</h1>
+  <button type="button" class="btn btn-primary" (click)="openInvite()">+ Invite Member</button>
+</div>
+
+<div class="card table-card">
+  <table>
+    <thead>
+      <tr>
+        <th class="col-avatar">Avatar</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Status</th>
+        <th>Joined</th>
+        <th class="col-actions"><span class="sr-only">Actions</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (u of users(); track u.id) {
+        <tr>
+          <td class="col-avatar">
+            <span class="avatar">
+              @if (u.avatar && !brokenAvatars().has(u.id)) {
+                <img [src]="u.avatar" [alt]="u.name" (error)="avatarFailed(u.id)" />
+              } @else {
+                {{ initials(u.name) }}
+              }
+            </span>
+          </td>
+          <td class="name">{{ u.name }}</td>
+          <td class="email">{{ u.email }}</td>
+          <td><span class="tag" [class]="roleTag[u.role]">{{ u.role }}</span></td>
+          <td><span class="tag" [class]="statusTag[u.status]">{{ u.status }}</span></td>
+          <td>{{ joinedShort(u.joinedDate) }}</td>
+          <td class="col-actions">
+            <div class="actions">
+              <button type="button" class="btn btn-ghost" (click)="openDetails(u)">Details</button>
+              <button type="button" class="btn btn-secondary" (click)="openEdit(u)">Edit</button>
+              <button type="button" class="btn btn-danger-outline" (click)="openDelete(u)">Delete</button>
+            </div>
+          </td>
+        </tr>
+      } @empty {
+        <tr>
+          <td colspan="7" class="empty">{{ loading() ? 'Loading members…' : 'No team members yet.' }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
+
+<ng-template #userRow let-user>
+  <div class="user-row">
+    <span class="avatar avatar-lg">{{ initials(user.name) }}</span>
+    <div class="user-info">
+      <span class="user-name">{{ user.name }}</span>
+      <span class="user-since">Member since {{ joinedLong(user.joinedDate) }}</span>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Member details (Figma 22:11492) -->
+@if (dialog() === 'details' && selected(); as user) {
+  <app-modal size="md" [splitFooter]="true" (closed)="close()">
+    <ng-container modalHeader>
+      <h2 class="modal-heading">Member Details</h2>
+      <span class="tag tag-default">Read only</span>
+    </ng-container>
+
+    <ng-container *ngTemplateOutlet="userRow; context: { $implicit: user }" />
+
+    <div class="field-row">
+      <div class="field readonly">
+        <span class="field-label">First name</span>
+        <div class="field-input">{{ firstName(user.name) }}</div>
+      </div>
+      <div class="field readonly">
+        <span class="field-label">Last name</span>
+        <div class="field-input">{{ lastName(user.name) || '—' }}</div>
+      </div>
+    </div>
+    <div class="field readonly">
+      <span class="field-label">Email address</span>
+      <div class="field-input">{{ user.email }}</div>
+    </div>
+    <div class="field readonly">
+      <span class="field-label">Role</span>
+      <div class="field-input">{{ user.role }}</div>
+    </div>
+    <div class="status-row">
+      <span class="field-label">Status</span>
+      <span class="tag" [class]="statusTag[user.status]">{{ user.status }}</span>
+    </div>
+
+    <ng-container modalFooter>
+      <span class="footer-note">To make changes, request Admin access.</span>
+      <button type="button" class="btn btn-secondary" (click)="close()">Close</button>
+    </ng-container>
+  </app-modal>
+}
+
+<!-- Edit member (Figma 22:11448) -->
+@if (dialog() === 'edit' && selected(); as user) {
+  <app-modal heading="Edit Member" size="md" [splitFooter]="true" (closed)="close()">
+    <ng-container *ngTemplateOutlet="userRow; context: { $implicit: user }" />
+
+    <form class="member-form" [formGroup]="editForm" (ngSubmit)="save()" id="edit-form" novalidate>
+      <ng-container *ngTemplateOutlet="formFields; context: { $implicit: editForm, prefix: 'edit' }" />
+      <div class="status-row">
+        <span class="field-label">Status</span>
+        <span class="tag" [class]="statusTag[user.status]">{{ user.status }}</span>
+      </div>
+    </form>
+
+    <ng-container modalFooter>
+      <button type="button" class="btn btn-danger-outline" (click)="editToDelete()">Delete user</button>
+      <div class="footer-actions">
+        <button type="button" class="btn btn-secondary" (click)="close()">Cancel</button>
+        <button type="submit" form="edit-form" class="btn btn-primary" [disabled]="saving()">
+          Save changes
+        </button>
+      </div>
+    </ng-container>
+  </app-modal>
+}
+
+<!-- Invite member -->
+@if (dialog() === 'invite') {
+  <app-modal heading="Invite Member" size="md" (closed)="close()">
+    <form class="member-form" [formGroup]="inviteForm" (ngSubmit)="invite()" id="invite-form" novalidate>
+      <ng-container *ngTemplateOutlet="formFields; context: { $implicit: inviteForm, prefix: 'invite' }" />
+    </form>
+
+    <ng-container modalFooter>
+      <button type="button" class="btn btn-secondary" (click)="close()">Cancel</button>
+      <button type="submit" form="invite-form" class="btn btn-primary" [disabled]="saving()">
+        Send Invite
+      </button>
+    </ng-container>
+  </app-modal>
+}
+
+<!-- Delete confirmation -->
+@if (dialog() === 'delete' && selected(); as user) {
+  <app-modal heading="Confirm Deletion" size="sm" (closed)="close()">
+    <p class="confirm-text">
+      Are you sure you want to remove <strong>{{ user.name }}</strong>? This action cannot be undone.
+    </p>
+
+    <ng-container modalFooter>
+      <button type="button" class="btn btn-secondary" (click)="close()">Cancel</button>
+      <button type="button" class="btn btn-danger" [disabled]="saving()" (click)="confirmDelete()">
+        Delete
+      </button>
+    </ng-container>
+  </app-modal>
+}
+
+<!-- Shared edit / invite form fields -->
+<ng-template #formFields let-form let-prefix="prefix">
+  <ng-container [formGroup]="form">
+    <div class="field-row">
+      <div class="field">
+        <label class="field-label" [for]="prefix + '-first'">First name</label>
+        <input
+          class="field-input"
+          [id]="prefix + '-first'"
+          formControlName="firstName"
+          placeholder="First name"
+          [class.is-invalid]="invalid(form, 'firstName')"
+        />
+        @if (invalid(form, 'firstName')) {
+          <span class="field-error">First name is required</span>
+        }
+      </div>
+      <div class="field">
+        <label class="field-label" [for]="prefix + '-last'">Last name</label>
+        <input
+          class="field-input"
+          [id]="prefix + '-last'"
+          formControlName="lastName"
+          placeholder="Last name"
+          [class.is-invalid]="invalid(form, 'lastName')"
+        />
+        @if (invalid(form, 'lastName')) {
+          <span class="field-error">Last name is required</span>
+        }
+      </div>
+    </div>
+    <div class="field">
+      <label class="field-label" [for]="prefix + '-email'">Email address</label>
+      <input
+        class="field-input"
+        type="email"
+        [id]="prefix + '-email'"
+        formControlName="email"
+        placeholder="name@example.com"
+        [class.is-invalid]="invalid(form, 'email')"
+      />
+      @if (invalid(form, 'email')) {
+        <span class="field-error">
+          {{ form.controls.email.hasError('required') ? 'Email is required' : 'Enter a valid email address' }}
+        </span>
+      }
+    </div>
+    <div class="field">
+      <label class="field-label" [for]="prefix + '-role'">Role</label>
+      <select
+        class="field-input"
+        [id]="prefix + '-role'"
+        formControlName="role"
+        [class.is-placeholder]="!form.controls.role.value"
+        [class.is-invalid]="invalid(form, 'role')"
+      >
+        <option value="" disabled>Select role…</option>
+        @for (r of roles; track r) {
+          <option [value]="r">{{ r }}</option>
+        }
+      </select>
+      @if (invalid(form, 'role')) {
+        <span class="field-error">Role is required</span>
+      }
+    </div>
+  </ng-container>
+</ng-template>

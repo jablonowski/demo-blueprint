@@ -1,0 +1,70 @@
+<header class="header">
+  <div class="header-inner">
+    <a class="brand" routerLink="/dashboard">
+      <svg class="logo" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+        <rect width="24" height="24" rx="6" fill="currentColor" />
+        <path d="M8 6.5h5a3 3 0 0 1 .9 5.86A3.25 3.25 0 0 1 13.25 18.5H8z M10.5 8.75v2.5h2.25a1.25 1.25 0 0 0 0-2.5z M10.5 13.25v3h2.5a1.5 1.5 0 0 0 0-3z" fill="#ffffff" fill-rule="evenodd" />
+      </svg>
+      <span>Blueprint</span>
+    </a>
+
+    <nav class="nav" aria-label="Primary">
+      <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+      <a routerLink="/users" routerLinkActive="active">Users</a>
+    </nav>
+
+    <div class="profile" #profile>
+      <button
+        class="profile-trigger"
+        type="button"
+        aria-haspopup="menu"
+        [attr.aria-expanded]="menuOpen()"
+        (click)="toggleMenu()"
+      >
+        <app-avatar [name]="userName" />
+        <span class="profile-name">{{ userName }}</span>
+        <svg class="chevron" [class.open]="menuOpen()" width="10" height="6" viewBox="0 0 10 6" aria-hidden="true">
+          <path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" />
+        </svg>
+      </button>
+
+      @if (menuOpen()) {
+        <div class="menu" role="menu">
+          <button class="menu-item" type="button" role="menuitem" (click)="menuOpen.set(false)">My Profile</button>
+          <div class="menu-divider"></div>
+          <button class="menu-item danger" type="button" role="menuitem" (click)="signOut()">Sign Out</button>
+        </div>
+      }
+    </div>
+  </div>
+</header>
+
+<main class="main">
+  <router-outlet />
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="footer-brand-name">Blueprint</span>
+        <span class="footer-copy">© {{ year }} Blueprint. All rights reserved.</span>
+      </div>
+      <div class="footer-columns">
+        @for (column of footerColumns; track column.title) {
+          <div class="footer-column">
+            <span class="footer-column-title">{{ column.title }}</span>
+            @for (link of column.links; track link) {
+              <a href="#" (click)="$event.preventDefault()">{{ link }}</a>
+            }
+          </div>
+        }
+      </div>
+    </div>
+    <div class="footer-legal">
+      <a href="#" (click)="$event.preventDefault()">Privacy Policy</a>
+      <a href="#" (click)="$event.preventDefault()">Terms of Service</a>
+      <a href="#" (click)="$event.preventDefault()">Cookie Settings</a>
+    </div>
+  </div>
+</footer>

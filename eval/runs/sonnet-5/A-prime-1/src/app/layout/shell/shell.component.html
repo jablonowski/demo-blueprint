@@ -1,0 +1,64 @@
+<div class="shell">
+  <header class="app-header">
+    <div class="header-left">
+      <span class="logo">◆</span>
+      <span class="brand">Blueprint</span>
+      <nav class="main-nav">
+        <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+        <a routerLink="/users" routerLinkActive="active">Team Members</a>
+      </nav>
+    </div>
+
+    <div class="header-right" #profileControl>
+      <button type="button" class="profile-trigger" (click)="toggleMenu(); $event.stopPropagation()">
+        <span class="avatar">AU</span>
+        <span class="profile-name">Admin User</span>
+        <span class="chevron">▾</span>
+      </button>
+
+      @if (menuOpen) {
+        <div class="profile-menu">
+          <button type="button" class="menu-item" (click)="closeMenu()">My Profile</button>
+          <button type="button" class="menu-item" (click)="signOut()">Sign Out</button>
+        </div>
+      }
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="content-grid">
+      <router-outlet />
+    </div>
+  </main>
+
+  <footer class="app-footer">
+    <div class="footer-brand">
+      <span class="logo">◆</span>
+      <span class="brand">Blueprint</span>
+    </div>
+    <div class="footer-columns">
+      <div class="footer-column">
+        <span class="footer-heading">Product</span>
+        <a href="javascript:void(0)">Overview</a>
+        <a href="javascript:void(0)">Pricing</a>
+      </div>
+      <div class="footer-column">
+        <span class="footer-heading">Company</span>
+        <a href="javascript:void(0)">About</a>
+        <a href="javascript:void(0)">Contact</a>
+      </div>
+      <div class="footer-column">
+        <span class="footer-heading">Resources</span>
+        <a href="javascript:void(0)">Docs</a>
+        <a href="javascript:void(0)">Support</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="copyright">© 2026 Blueprint. All rights reserved.</span>
+      <div class="legal-links">
+        <a href="javascript:void(0)">Privacy Policy</a>
+        <a href="javascript:void(0)">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+</div>

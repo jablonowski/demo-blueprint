@@ -7,10 +7,10 @@ The design system under test is [**design-system-blueprint**](https://github.com
 a three-tier token pipeline, an Angular component library, machine-readable contracts for
 agents, and npm publishing.
 
-> **Status: stage one complete, the study continues.** Sixteen scored runs — four arms at
-> n = 3 on Claude Opus, and the same four at n = 1 on Claude Sonnet as a second model. One
-> arm (A′, a styleguide document with no installable package) has not run yet, and the
-> drift and acceptance-rate measurements are still open.
+> **Status: stage one complete, the study continues.** Twenty scored runs — five arms at
+> n = 3 on Claude Opus, and the same five at n = 1 on Claude Sonnet as a second model. All
+> five arms have now run; the drift and acceptance-rate measurements are still open, and
+> arm A′ ran on its own rather than inside a round, which is stated with its results.
 >
 > The raw data and the method are below. The readings — including the pre-registered
 > comparison that went against this repository's own premise — are in
@@ -22,49 +22,52 @@ agents, and npm publishing.
 
 ## Raw results
 
-Two models, sixteen scored runs, identical specification and identical design data in every
+Two models, twenty scored runs, identical specification and identical design data in every
 one. Per-run records: [`eval/results/`](eval/results) — one `<arm>-<n>.json` with the harness
 record and one `<arm>-<n>.score.json` with every metric and its detail. The generated
 applications and their screenshots are in [`eval/runs/`](eval/runs).
 
 ### Claude Opus, n = 3 per arm
 
-| Metric | A-1 | A-2 | A-3 | B-1 | B-2 | B-3 | C-1 | C-2 | C-3 | D-1 | D-2 | D-3 |
-|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| Library components used (of 13) | 0 | 0 | 0 | 13 | 13 | 13 | 13 | 13 | 13 | 13 | 13 | 13 |
-| Components hand-reimplemented | 13 | 12 | 12 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| Scattered raw values | 6 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 2 | 0 |
-| Custom properties declared locally | 90 | 99 | 91 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 2 |
-| Tier boundary crossings | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| Design-system decision tokens used | 0 | 0 | 0 | 60 | 57 | 60 | 61 | 62 | 59 | 77 | 56 | 59 |
-| Hallucinated API references | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| Convention checks passed (of 8) | n/a | n/a | n/a | 6 | 8 | 7 | 7 | 7 | 7 | 7 | 8 | 8 |
-| Colour conformance rate | 0.91 | 0.85 | 0.79 | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |
-| Near-miss values | 2 | 2 | 3 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| axe violations — serious | 3 | 3 | 3 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| axe violations — critical | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| Builds | yes | yes | yes | yes | yes | yes | yes | yes | yes | yes | yes | yes |
-| Cost (USD) | 2.06 | 2.54 | 2.17 | 3.20 | 3.19 | 2.82 | 3.13 | 2.69 | 2.83 | 3.15 | 2.88 | 2.86 |
+| Metric | A-1 | A-2 | A-3 | A′-1 | A′-2 | A′-3 | B-1 | B-2 | B-3 | C-1 | C-2 | C-3 | D-1 | D-2 | D-3 |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| Library components used (of 13) | 0 | 0 | 0 | 0 | 0 | 0 | 13 | 13 | 13 | 13 | 13 | 13 | 13 | 13 | 13 |
+| Components hand-reimplemented | 13 | 12 | 12 | 13 | 13 | 13 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| Scattered raw values | 6 | 0 | 0 | 139 | 132 | 133 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 2 | 0 |
+| Custom properties declared locally | 90 | 99 | 91 | 28 | 27 | 27 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 2 |
+| Tier boundary crossings | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| Design-system decision tokens used | 0 | 0 | 0 | 0 | 0 | 0 | 60 | 57 | 60 | 61 | 62 | 59 | 77 | 56 | 59 |
+| Hallucinated API references | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| Convention checks passed (of 8) | n/a | n/a | n/a | n/a | n/a | n/a | 6 | 8 | 7 | 7 | 7 | 7 | 7 | 8 | 8 |
+| Colour conformance rate | 0.91 | 0.85 | 0.79 | 0.57 | 0.64 | 0.57 | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |
+| Conformance rate, overall | 0.92 | 0.88 | 0.85 | 0.87 | 0.88 | 0.86 | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |
+| Near-miss values | 2 | 2 | 3 | 11 | 9 | 10 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| axe violations — serious | 3 | 3 | 3 | 2 | 2 | 2 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| axe violations — critical | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| Builds | yes | yes | yes | yes | yes | yes | yes | yes | yes | yes | yes | yes | yes | yes | yes |
+| Cost (USD) | 2.06 | 2.54 | 2.17 | 2.19 | 2.11 | 2.02 | 3.20 | 3.19 | 2.82 | 3.13 | 2.69 | 2.83 | 3.15 | 2.88 | 2.86 |
 
 ### Claude Sonnet, n = 1 per arm
 
 A second model on the same specification, the same scorers and the same recorded design
 channel. One run each, so every cell is a single observation.
 
-| Metric | A-1 | B-1 | C-1 | D-1 |
-|---|---:|---:|---:|---:|
-| Library components used (of 13) | 0 | 13 | 13 | 12 |
-| Components hand-reimplemented | 13 | 0 | 0 | 1 |
-| Scattered raw values | 46 | 17 | 5 | 2 |
-| Custom properties declared locally | 71 | 0 | 0 | 0 |
-| Tier boundary crossings | 0 | 2 | 0 | 0 |
-| Design-system decision tokens used | 0 | 49 | 54 | 58 |
-| Hallucinated API references | 0 | 0 | 0 | 0 |
-| Convention checks passed (of 8) | n/a | 6 | 7 | 6 |
-| Colour conformance rate | 0.73 | n/a | n/a | n/a |
-| axe violations — serious | 3 | 1 | 0 | 0 |
-| Builds | yes | yes | yes | yes |
-| Cost (USD) | 4.75 | 6.63 | 7.21 | 8.82 |
+| Metric | A-1 | A′-1 | B-1 | C-1 | D-1 |
+|---|---:|---:|---:|---:|---:|
+| Library components used (of 13) | 0 | 0 | 13 | 13 | 12 |
+| Components hand-reimplemented | 13 | 13 | 0 | 0 | 1 |
+| Scattered raw values | 46 | 117 | 17 | 5 | 2 |
+| Custom properties declared locally | 71 | 27 | 0 | 0 | 0 |
+| Tier boundary crossings | 0 | 0 | 2 | 0 | 0 |
+| Design-system decision tokens used | 0 | 0 | 49 | 54 | 58 |
+| Hallucinated API references | 0 | 0 | 0 | 0 | 0 |
+| Convention checks passed (of 8) | n/a | n/a | 6 | 7 | 6 |
+| Colour conformance rate | 0.73 | 0.69 | n/a | n/a | n/a |
+| Conformance rate, overall | 0.83 | 0.86 | n/a | n/a | n/a |
+| Near-miss values | 10 | 9 | 0 | 0 | 0 |
+| axe violations — serious | 3 | 2 | 1 | 0 | 0 |
+| Builds | yes | yes | yes | yes | yes |
+| Cost (USD) | 4.75 | 4.18 | 6.63 | 7.21 | 8.82 |
 
 ### Which convention checks failed, run by run
 
@@ -75,6 +78,22 @@ channel. One run each, so every cell is a single observation.
 | all other checks | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 
 On Sonnet, the same pattern on `9.2`: B fails it, C and D pass.
+
+### Which routes failed a contrast check
+
+`color-contrast` is the only `serious` rule that fired anywhere in the study except one
+`aria-prohibited-attr` on Sonnet B-1.
+
+| | /login | /dashboard | /users |
+|---|---|---|---|
+| **A** — Figma frames only, 4 runs | fail | fail | fail |
+| **A′** — plus a styleguide document, 4 runs | pass | fail | fail |
+| **B, C, D** — the library, 12 runs | pass | pass | pass |
+
+Identical in every run of each arm, on both models. `/login` carries no status tags;
+`/dashboard` and `/users` do. The tag colours are prescribed by A′'s styleguide and three of
+the four pairings miss WCAG AA — `#16a34a` on `#f0fdf4` at 3.15:1, `#ca8a04` on `#fefce8` at
+2.84:1, `#dc2626` on `#fef2f2` at 4.41:1.
 
 `n/a` is not a pass. The eight checks are all about the component library's API, so they do
 not apply to an arm that has no library; the colour conformance rate is `n/a` for arms that
@@ -121,7 +140,7 @@ overlay differs.
 | Arm | What the agent has | In the grid |
 |---|---|---|
 | **A** | the specification and the design frames, nothing else | yes |
-| **A′** | plus a styleguide document — palette, scale, component CSS, as prose | not yet run |
+| **A′** | plus a styleguide document — palette, scale, component CSS, as prose | yes, on its own |
 | **B** | plus the two npm packages installed; READMEs and type declarations readable | yes |
 | **C** | plus `llms.client.txt`, the guide written for agents | yes, as the attribution experiment |
 | **D** | plus the token resolver, connected as an MCP server | yes |
@@ -134,10 +153,17 @@ the agent-facing layer on top of it.
 attributed between the document and the tool without it. The protocol committed in advance
 that if D beat B then C stopped being optional; D did, so C ran.
 
-Three arms rather than five because five runs do not fit inside one usage window, and a
-round split across windows reintroduces the confound that running in rounds exists to
-remove. What dropping A′ and C costs the grid — and the condition under which C stops being
-optional — is stated in [`eval/PROTOCOL.md`](eval/PROTOCOL.md).
+Rounds hold four arms, not five: five runs do not fit inside one usage window, and a round
+split across windows reintroduces the confound that running in rounds exists to remove. C
+earned its slot by the pre-registered rule — D beat B, so the attribution arm ran, and A′
+was the one deferred.
+
+**A′ then ran on its own, and that is a weaker design.** A, B, C and D were compared inside
+rounds, so a drift in conditions moved all four together. A′ was run separately on
+2026-09-27, so every comparison involving it also compares two sittings. Its within-arm
+variance is the lowest in the study, which is reassuring and is not the same thing as
+control. The repair is to re-run the five-arm grid in rounds; it has not been done. See
+[`eval/PROTOCOL.md`](eval/PROTOCOL.md).
 
 **Arm B required a deletion.** The published `@jablonowski/dsb-components` ships
 `llms.client.txt` inside the tarball and its README points at it, so "the package without
@@ -201,7 +227,13 @@ that changed the design mid-study and why, and every run that was discarded.
 ### What is not claimed
 
 - **One application, one design system, one model.** A case study, not a benchmark.
-- **n = 3 on the primary model, n = 1 on the second**, and one arm of five (A′) has not run.
+- **n = 3 on the primary model, n = 1 on the second.** All five arms have run, but A′ ran
+  outside the round structure, so its comparisons carry a between-sitting confound the
+  others do not.
+- **Arm A′'s styleguide contains three tag colour pairings that fail WCAG AA.** They were
+  copied verbatim from the original no-design-system specification before anyone computed
+  their contrast. The agent implemented them faithfully. That is reported as a result about
+  what documents can carry, not as evidence that styleguides generally carry bad contrast.
 - **The author of the design system wrote the evaluation.** Pre-registration, committed
   scorers and published raw data are the mitigation, not a substitute for independent
   replication.

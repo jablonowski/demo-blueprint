@@ -1,0 +1,14 @@
+# Canonical identity for history rewriting (git filter-repo --mailmap .mailmap).
+# Left of the angle brackets: the identity to keep. Right: the one to replace.
+#
+# Swap matjablonowski@gmail.com for 1577323+jablonowski@users.noreply.github.com
+# if you would rather not have the address in a public repository. Whichever you
+# pick must be a verified email on the GitHub account, or the commits still will
+# not attribute.
+#
+# GitHub's own committer identity (noreply@github.com) and github-actions[bot]
+# are deliberately left alone.
+
+Mateusz Jabłonowski <matjablonowski@gmail.com> <mateusz@MacBook-Air-Mateusz.local>
+Mateusz Jabłonowski <matjablonowski@gmail.com> <1577323+jablonowski@users.noreply.github.com>
+Mateusz Jabłonowski <matjablonowski@gmail.com> jablonowski <matjablonowski@gmail.com>

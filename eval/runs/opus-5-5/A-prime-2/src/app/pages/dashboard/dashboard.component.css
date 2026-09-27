@@ -1,0 +1,107 @@
+.page-head { margin-bottom: 16px; }
+h1 {
+  margin: 0;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+.page-head p { margin: 4px 0 0; font-size: var(--font-size-sm); color: var(--color-text-muted); }
+
+/*
+ * Figma frame is 1216px wide with 20px gutters: four 289px metric tiles, then
+ * 538px + 658px panels. A 24-column track reproduces those proportions (6 / 11 / 13).
+ */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(24, minmax(0, 1fr));
+  gap: 20px;
+  align-items: start;
+}
+.metric { grid-column: span 6; }
+.health, .summary { grid-column: span 11; }
+.throughput, .logs { grid-column: span 13; }
+
+.tile { display: flex; flex-direction: column; padding: 20px; min-width: 0; }
+
+/* Metric tiles */
+.metric { gap: 8px; }
+.tile-label {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+.metric-value-row { display: flex; align-items: center; gap: 10px; }
+.metric-value {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  line-height: 1.2;
+}
+.metric-sub { font-size: var(--font-size-sm); color: var(--color-text-muted); }
+
+/* Panel headings */
+.tile-head { display: flex; flex-direction: column; gap: 4px; padding-bottom: 14px; border-bottom: 1px solid var(--color-border); }
+.tile-head.row-head { flex-direction: row; align-items: center; justify-content: space-between; }
+.tile-title { margin: 0; font-size: var(--font-size-base); font-weight: var(--font-weight-semibold); }
+.health > .tile-title, .summary > .tile-title { padding-bottom: 14px; border-bottom: 1px solid var(--color-border); }
+.tile-desc { font-size: var(--font-size-sm); color: var(--color-text-muted); }
+
+/* Row lists (Service Health, Data Summary) */
+.rows { margin: 0; padding: 0; list-style: none; }
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  font-size: var(--font-size-base);
+  border-bottom: 1px solid var(--color-border);
+}
+.row:last-child { border-bottom: 0; padding-bottom: 0; }
+.row dt { color: var(--color-text-secondary); }
+.row dd { margin: 0; font-weight: var(--font-weight-semibold); color: var(--color-text-primary); }
+
+/* Bar chart */
+.chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  height: 150px;
+  padding-top: 16px;
+}
+.bar-col { display: flex; flex: 1; flex-direction: column; align-items: center; gap: 4px; height: 100%; }
+.bar-track { display: flex; flex: 1; align-items: flex-end; width: 100%; }
+.bar {
+  width: 100%;
+  background: var(--color-primary);
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  transition: height var(--duration-base) var(--easing-standard);
+}
+.bar-label { font-size: var(--font-size-xs); color: var(--color-text-muted); }
+
+/* Terminal log viewer */
+.terminal {
+  height: 196px;
+  margin-top: 14px;
+  padding: 12px 14px;
+  overflow-y: auto;
+  background: var(--color-primary);
+  border-radius: var(--radius-lg);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: var(--font-size-sm);
+  line-height: 1.7;
+  color: var(--color-surface-recessed);
+}
+.log-line { display: flex; align-items: center; gap: 10px; white-space: nowrap; }
+.log-time { color: var(--color-text-muted); }
+.log-level { justify-content: center; min-width: 52px; padding: 0 6px; font-size: var(--font-size-xs); }
+.log-msg { overflow: hidden; text-overflow: ellipsis; }
+
+@media (max-width: 1100px) {
+  .metric { grid-column: span 12; }
+  .health, .summary, .throughput, .logs { grid-column: span 24; }
+}
+@media (max-width: 600px) {
+  .metric { grid-column: span 24; }
+}

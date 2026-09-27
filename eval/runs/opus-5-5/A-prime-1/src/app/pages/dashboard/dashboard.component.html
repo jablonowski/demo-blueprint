@@ -1,0 +1,81 @@
+<div class="page-head">
+  <h1 class="page-title">System Overview</h1>
+  <p class="page-subtitle">Last updated: {{ lastUpdated | date: 'd MMM y, HH:mm' }}</p>
+</div>
+
+<div class="grid">
+  @for (metric of metrics; track metric.title) {
+    <section class="card tile metric">
+      <h2 class="tile-label">{{ metric.title }}</h2>
+      <div class="metric-value-row">
+        <span class="metric-value">{{ metric.value }}</span>
+        @if (metric.trend) {
+          <span class="tag tag-{{ metric.trend.tone }}">{{ metric.trend.label }}</span>
+        }
+      </div>
+      @if (metric.subLabel) {
+        <span class="metric-sub">{{ metric.subLabel }}</span>
+      }
+    </section>
+  }
+
+  <section class="card tile throughput">
+    <div class="tile-head">
+      <h2 class="tile-title">Request Throughput</h2>
+      <p class="tile-subtitle">Requests per day over the last 7 days</p>
+    </div>
+    <div class="chart" role="img" aria-label="Request throughput by day of week">
+      @for (bar of throughput; track bar.day) {
+        <div class="bar-col">
+          <div class="bar-track">
+            <div class="bar" [style.height.%]="bar.percent" [attr.title]="bar.value + ' requests'"></div>
+          </div>
+          <span class="bar-label">{{ bar.day }}</span>
+        </div>
+      }
+    </div>
+  </section>
+
+  <section class="card tile health">
+    <h2 class="tile-title">Service Health</h2>
+    <ul class="rows">
+      @for (service of services; track service.name) {
+        <li class="row">
+          <span>{{ service.name }}</span>
+          <span class="tag" [class.tag-success]="service.online" [class.tag-danger]="!service.online">
+            {{ service.online ? 'Online' : 'Offline' }}
+          </span>
+        </li>
+      }
+    </ul>
+  </section>
+
+  <section class="card tile summary">
+    <h2 class="tile-title">Data Summary</h2>
+    <dl class="rows">
+      @for (item of summary; track item.label) {
+        <div class="row">
+          <dt>{{ item.label }}</dt>
+          <dd>{{ item.value }}</dd>
+        </div>
+      }
+    </dl>
+  </section>
+
+  <section class="card tile logs">
+    <div class="logs-head">
+      <h2 class="tile-title">System Logs</h2>
+      <span class="tag tag-success">Live</span>
+    </div>
+    <div class="log-viewport" #logViewport>
+      @for (line of logs(); track line.id) {
+        <div class="log-line">
+          <span class="log-time">{{ line.time | date: 'HH:mm:ss' }}</span>
+          <span class="log-level log-{{ levelTone(line.level) }}">{{ line.level }}</span>
+          <span class="log-source">{{ line.source }}</span>
+          <span class="log-message">{{ line.message }}</span>
+        </div>
+      }
+    </div>
+  </section>
+</div>

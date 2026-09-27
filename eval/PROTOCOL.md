@@ -1,6 +1,9 @@
 # Evaluating a design system as AI infrastructure
 
-Status: **design, not yet run.** Nothing in here has produced a number.
+Status: **stage one complete, 2026-09-27.** Five arms, twenty scored runs, two models. The
+numbers are under “Results — stage one”; everything above it is the pre-registration and the
+log of every rule that changed, with what the change cost. Drift and cost-per-accepted-screen
+are still open.
 
 ## What this measures, and what it does not
 
@@ -688,10 +691,48 @@ Estimated cost of a three-arm round on Opus, from the pilots: A $2.3, B ~$3.7, D
 about **$11**. Close enough to the ceiling that a round wants a fresh window and no other
 Claude usage beside it.
 
+### The tenth gate: untracking node_modules silenced the accessibility measurement, 2026-09-27
+
+Before making the repositories public, `eval/node_modules` was removed from git tracking —
+216 committed files of `playwright`, `playwright-core` and `axe-core` — and `node_modules/`
+was added to `.gitignore`. The reasoning was that committed dependencies look like
+carelessness in a public repository. That reasoning was about a property adjacent to the one
+that mattered.
+
+Those packages were not a convenience. They were the **only** source of the accessibility
+measurement, and they had never been installed on this machine by npm — they existed solely
+because they were committed. Untracking removed the guarantee; the tidy-up after a merge
+conflict removed the files.
+
+All four arm A′ runs then went out and came back with:
+
+```json
+"a11y": { "unavailable": "playwright and @axe-core/playwright are not installed" }
+```
+
+The scorer behaved correctly: it recorded `unavailable` rather than `0`, which is the whole
+reason the runs were recoverable rather than quietly wrong. Had it defaulted to zero, arm A′
+would have entered the table as the arm with no accessibility problems, which is the opposite
+of what it measured.
+
+**Cost:** nothing, as it happened. `./run.sh remeasure` re-scored all four from the run
+directories without paying for a single agent turn. Had macOS cleaned `/tmp` first, it would
+have been four runs.
+
+**Fix:** `npm install` in `eval/`, and `preflight` must assert that `playwright` and
+`@axe-core/playwright` resolve before any run starts. It currently does not — it checks
+credentials, flags, permissions and the Figma recording, and says nothing about the scorer's
+own dependencies. A preflight that clears a run it cannot measure is the same defect as the
+Figma preflight that asserted a token was present rather than working.
+
+Tenth documented instance of a gate reporting on a property next to the one it guards, and
+the first one introduced while cleaning up rather than while building.
+
 ### Results — stage one, 2026-09-27
 
-Sixteen scored runs. Claude Opus at n=3 across four arms, Claude Sonnet at n=1 as a second
-harness on the same specification. Every row comes from
+Twenty scored runs. Claude Opus at n=3 across five arms, Claude Sonnet at n=1 as a second
+harness on the same specification. Arm A′ was added on 2026-09-27, after the other four
+had been scored — see “A′ runs late, and what that costs” below. Every row comes from
 [`results/`](results); nothing below is judged by eye.
 
 Arm C was not in the original three-arm grid. It was run because this protocol committed, in
@@ -700,46 +741,84 @@ experiment that attributes the gap.
 
 #### Opus, n = 3
 
-| | A | B | C | D |
-|---|---|---|---|---|
-| Library components used (of 13) | 0 · 0 · 0 | 13 · 13 · 13 | 13 · 13 · 13 | 13 · 13 · 13 |
-| Hand-reimplemented | 13 · 12 · 12 | 0 · 0 · 0 | 0 · 0 · 0 | 0 · 0 · 0 |
-| Scattered raw values | 6 · 0 · 0 | 0 · 0 · 0 | 0 · 0 · 0 | 0 · 2 · 0 |
-| Custom properties owned | 90 · 99 · 91 | 0 · 0 · 0 | 0 · 0 · 0 | 0 · 0 · 2 |
-| Tier crossings | 0 | 0 | 0 | 0 |
-| Decision tokens used | 0 · 0 · 0 | 60 · 57 · 60 | 61 · 62 · 59 | 77 · 56 · 59 |
-| Hallucinated API refs | 0 | 0 | 0 | 0 |
-| Checks passed (of 8) | n/a | 6 · 8 · 7 | 7 · 7 · 7 | 7 · 8 · 8 |
-| Colour conformance | .91 · .85 · .79 | n/a | n/a | n/a |
-| **axe — serious** | **3 · 3 · 3** | **0 · 0 · 0** | **0 · 0 · 0** | **0 · 0 · 0** |
-| Builds | 3/3 | 3/3 | 3/3 | 3/3 |
-| Cost, median | $2.17 | $3.19 | $2.83 | $2.88 |
+| | A | A′ | B | C | D |
+|---|---|---|---|---|---|
+| Library components used (of 13) | 0 · 0 · 0 | 0 · 0 · 0 | 13 · 13 · 13 | 13 · 13 · 13 | 13 · 13 · 13 |
+| Hand-reimplemented | 13 · 12 · 12 | 13 · 13 · 13 | 0 · 0 · 0 | 0 · 0 · 0 | 0 · 0 · 0 |
+| Scattered raw values | 6 · 0 · 0 | **139 · 132 · 133** | 0 · 0 · 0 | 0 · 0 · 0 | 0 · 2 · 0 |
+| Custom properties owned | 90 · 99 · 91 | 28 · 27 · 27 | 0 · 0 · 0 | 0 · 0 · 0 | 0 · 0 · 2 |
+| Tier crossings | 0 | 0 | 0 | 0 | 0 |
+| Decision tokens used | 0 · 0 · 0 | 0 · 0 · 0 | 60 · 57 · 60 | 61 · 62 · 59 | 77 · 56 · 59 |
+| Hallucinated API refs | 0 | 0 | 0 | 0 | 0 |
+| Checks passed (of 8) | n/a | n/a | 6 · 8 · 7 | 7 · 7 · 7 | 7 · 8 · 8 |
+| Colour conformance | .91 · .85 · .79 | .57 · .64 · .57 | n/a | n/a | n/a |
+| Conformance, overall | .92 · .88 · .85 | .87 · .88 · .86 | n/a | n/a | n/a |
+| **axe — serious** | **3 · 3 · 3** | **2 · 2 · 2** | **0 · 0 · 0** | **0 · 0 · 0** | **0 · 0 · 0** |
+| Builds | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 |
+| Cost, median | $2.17 | $2.11 | $3.19 | $2.83 | $2.88 |
 
 #### Sonnet, n = 1
 
-| | A | B | C | D |
-|---|---|---|---|---|
-| Library components used | 0/13 | 13/13 | 13/13 | **12/13** |
-| Scattered raw values | 46 | 17 | 5 | 2 |
-| Custom properties owned | 71 | 0 | 0 | 0 |
-| Tier crossings | 0 | **2** | 0 | 0 |
-| Decision tokens used | 0 | 49 | 54 | 58 |
-| Checks passed | n/a | 6/8 | 7/8 | 6/8 |
-| axe — serious | 3 | 1 | 0 | 0 |
-| Cost | $4.75 | $6.63 | $7.21 | $8.82 |
+| | A | A′ | B | C | D |
+|---|---|---|---|---|---|
+| Library components used | 0/13 | 0/13 | 13/13 | 13/13 | **12/13** |
+| Scattered raw values | 46 | **117** | 17 | 5 | 2 |
+| Custom properties owned | 71 | 27 | 0 | 0 | 0 |
+| Tier crossings | 0 | 0 | **2** | 0 | 0 |
+| Decision tokens used | 0 | 0 | 49 | 54 | 58 |
+| Checks passed | n/a | n/a | 6/8 | 7/8 | 6/8 |
+| Colour conformance | .73 | .69 | n/a | n/a | n/a |
+| axe — serious | 3 | 2 | 1 † | 0 | 0 |
+| Cost | $4.75 | $4.18 | $6.63 | $7.21 | $8.82 |
+
+† `aria-prohibited-attr`, not a contrast failure. **Across all twelve runs of the three arms
+holding the library, on both models, `color-contrast` never fired once.**
 
 #### Findings, ordered by how well the data supports them
 
 **1. Shipping the design system as a typed, installable package is a step function.**
-Sixteen runs, no overlap. Without it: 12–13 components hand-written and ~90 custom
-properties the application now owns. With it: zero and zero. This does not need more runs.
+Twenty runs, no overlap. Without the package — arms A and A′ alike — 12–13 components are
+hand-written every time, and the application ends up owning the CSS: ~90 custom properties in
+A, 132 scattered literals in A′. With the package: zero components reimplemented, in every
+one of twelve runs. Neither the Figma frames nor a written styleguide moves this at all.
 
-**2. The agent gets the colours right and ships inaccessible screens anyway.** Arm A's colour
-conformance was 0.79–0.91 — it copied the palette correctly out of Figma — and produced
-**three serious contrast violations in all four of its runs, on both models**. Arms with the
-library produced none in eleven of twelve. A design source carries values; it does not carry
-which value goes on which surface. That pairing lives in the component library, and no
-improvement in model capability supplies information that is absent from the input.
+**2. Writing the palette down does not fix accessibility. It industrialises the error.**
+
+This is the finding arm A′ changed, and it is now the strongest thing in the study.
+
+```
+color-contrast, serious, by route          /login   /dashboard   /users
+A   — Figma frames only          4 runs      fail        fail       fail
+A′  — plus a styleguide document  4 runs       ok         fail       fail
+B/C/D — the library             12 runs       ok           ok         ok
+```
+
+Identical in all four A′ runs and on both models. The document fixed exactly one route and
+left two, and the reason is in the document itself. `arms/A-prime.md` prescribes the tag
+styles verbatim:
+
+```
+.tag-success { background:#f0fdf4; color:#16a34a; }   3.15:1   fails AA
+.tag-warning { background:#fefce8; color:#ca8a04; }   2.84:1   fails AA
+.tag-danger  { background:#fef2f2; color:#dc2626; }   4.41:1   fails AA
+.tag-info    { background:#eff6ff; color:#2563eb; }   4.75:1   passes
+```
+
+`/login` carries no tags, so the document's text-on-background pairings were enough and the
+route came clean. `/dashboard` and `/users` carry tags, and the agent implemented the
+documented pairings faithfully — including three that miss WCAG AA, one of them by 0.09.
+
+**The failing pairs were in the input, not invented by the agent.** They were lifted verbatim
+from `spec-no-ds.md` when A′ was written, long before anyone computed their contrast. That is
+a property of this experiment's styleguide, not proof that styleguides generally carry bad
+contrast — but it is exactly what a page in Confluence looks like, and it is why the result
+is worth reporting rather than fixing.
+
+The mechanism, which survives the caveat: **a document can carry a wrong pairing perfectly.**
+An agent reading it has no way to notice, because nothing in prose fails. A component that is
+itself tested carries a pairing that passed a test. Arm A invents pairings and fails three
+times; arm A′ inherits pairings and fails twice; the library arms fail zero times in twelve
+runs. Capability is not the variable — none of the three conditions differ in the model.
 
 **3. The token resolver earns nothing measurable.** This was the pre-registered decisive
 comparison and it is the finding that goes against the author's interest.
@@ -781,6 +860,41 @@ bigger. The overlays differ by 4.7 kB, about 1,200 tokens. Input per turn nearly
 between A and D (38k → 72k on Opus) because using a library means reading it, and everything
 read stays in context and is paid for again on every subsequent turn.
 
+**6. A written styleguide produced less consistent CSS than no styleguide at all.** The
+uncomfortable arm turned out to be uncomfortable in the other direction.
+
+| | A — nothing | A′ — styleguide as prose |
+|---|---|---|
+| Custom properties declared | 90 · 99 · 91 | 28 · 27 · 27 |
+| Raw values scattered in declarations | 6 · 0 · 0 | 139 · 132 · 133 |
+
+Sonnet the same: 71 declared and 46 scattered without the document, 27 and 117 with it.
+
+Given nothing, the agent invents a complete internal vocabulary and uses it — roughly ninety
+properties and almost no literals. Given a partial document, it declares exactly the
+properties the document lists and hardcodes everything the document does not cover. **The
+styleguide does not become the system; it becomes the part of the system that is written
+down, and legitimises literals everywhere else.**
+
+Both A and A′ own their CSS outright — zero library components, thirteen reimplementations —
+so this is a difference in how ownable that CSS is, not in whether it is owned.
+
+One number must not be read as a finding. A′'s *colour* conformance is .57–.64 against A's
+.79–.91, which looks like the document causing drift. It is not: nine of the twenty hex values
+in `arms/A-prime.md` are absent from the published token package, so the agent was faithful to
+a document that had itself drifted. Overall conformance is .86–.88 for A′ against .85–.92 for
+A — the same band. The gap measures document-versus-package, not agent-versus-document.
+
+#### A′ runs late, and what that costs
+
+Arms A, B, C and D ran in rounds on 2026-09-26 and 2026-09-27; A′ ran on 2026-09-27 on its
+own. Running in rounds exists precisely so that arm and sitting are not the same variable,
+and A′ does not have that protection. **Every A′ comparison in this document carries a
+between-sitting confound that the A/B/C/D comparisons do not**, and no amount of care in the
+scoring removes it. Stated here rather than discovered by a reader. The honest repair is to
+re-run the full five-arm grid in rounds; it has not been done, and until it is, A′ is the
+weakest-controlled column in the table even though its within-arm variance is the lowest.
+
 #### What this does to the thesis
 
 | Claim | After stage one |
@@ -788,7 +902,8 @@ read stays in context and is paid for again on every subsequent turn.
 | The token pipeline changes what an agent writes | **supported**, step function, no variance |
 | Agent-facing documentation earns its keep | **supported narrowly** — one check, replicated on two models, plus discipline on the weaker one |
 | The token resolver / MCP layer earns its keep | **not supported** — two models, six runs |
-| A design system is a firewall against UI hallucinations | **not supported** — zero hallucinated API references in sixteen runs, arm A included |
+| A design system is a firewall against UI hallucinations | **not supported** — zero hallucinated API references in twenty runs, arms A and A′ included |
+| Shipping the system beats documenting it | **supported** — A′ scored nowhere near C on any dimension |
 
 The claim the data carries is narrower than the one this study set out to test:
 
@@ -796,11 +911,15 @@ The claim the data carries is narrower than the one this study set out to test:
 > **ownable** — and it catches the one class of defect the agent cannot see, because nobody
 > wrote it down.
 
+A′ was pre-registered as the arm that could overturn this. It did the opposite. The condition
+that threatened the premise — a system that is written down but not shipped — came out worse
+than no system at all on consistency (132 scattered literals against 3) and only one route
+better on accessibility, while the shipped library came out clean on both. The comparison was
+committed to before it ran, and it went the author's way; that is worth stating as plainly as
+the two comparisons that did not.
+
 #### Still open
 
-- **A′**, the styleguide-document arm, committed to earlier in this protocol and not yet run.
-  If a document without an installable artifact matches C, then what matters is writing the
-  decision down rather than shipping a package, and that is a different book.
 - **Drift**: change one token value, count the files that must change. Costs nothing to run
   and supplies the maintenance term the cost table has no column for.
 - **Cost per accepted screen**, rather than per generation.

@@ -1,0 +1,81 @@
+<div class="modal-backdrop">
+  <div class="modal modal-md" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2 class="modal-title">Edit Member</h2>
+      <button type="button" class="modal-close" (click)="cancel.emit()">✕</button>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <div class="modal-body">
+        <div class="user-row">
+          <span class="avatar-lg">{{ initials }}</span>
+          <div>
+            <h3 class="user-name">{{ user.name }}</h3>
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-field">
+            <label for="firstName">First name</label>
+            <input
+              id="firstName"
+              type="text"
+              formControlName="firstName"
+              [class.invalid]="firstName.invalid && firstName.touched"
+            />
+            @if (firstName.invalid && firstName.touched) {
+              <span class="form-error">First name is required.</span>
+            }
+          </div>
+          <div class="form-field">
+            <label for="lastName">Last name</label>
+            <input
+              id="lastName"
+              type="text"
+              formControlName="lastName"
+              [class.invalid]="lastName.invalid && lastName.touched"
+            />
+            @if (lastName.invalid && lastName.touched) {
+              <span class="form-error">Last name is required.</span>
+            }
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="email">Email address</label>
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            [class.invalid]="email.invalid && email.touched"
+          />
+          @if (email.invalid && email.touched) {
+            <span class="form-error">A valid email is required.</span>
+          }
+        </div>
+
+        <div class="form-field">
+          <label for="role">Role</label>
+          <select id="role" formControlName="role" [class.invalid]="role.invalid && role.touched">
+            @for (r of roles; track r) {
+              <option [value]="r">{{ r }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="status-row">
+          <label>Status</label>
+          <span class="tag" [class]="statusTagClass">{{ user.status }}</span>
+        </div>
+      </div>
+
+      <div class="modal-footer split">
+        <button type="button" class="btn btn-danger-outline" (click)="deleteRequested.emit()">Delete user</button>
+        <div class="modal-footer-actions">
+          <button type="button" class="btn btn-secondary" (click)="cancel.emit()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

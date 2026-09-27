@@ -1,0 +1,3040 @@
+{
+  "arm": "A-prime",
+  "run": 3,
+  "scoredAt": "2026-09-27T19:53:28Z",
+  "model": "claude-opus-5-5",
+  "isolation": "session",
+  "s0Sha": "c25d3e960f47",
+  "overlaySha": "9eeb04e32b97",
+  "covered": {
+    "slotsUsed": 0,
+    "slotsOf": 13,
+    "reimplemented": 13,
+    "absent": 0,
+    "hadLibrary": false,
+    "falsifierTriggered": null,
+    "hallucinatedApi": 0,
+    "hallucinatedProps": 0,
+    "hallucinatedImports": 0
+  },
+  "gap": {
+    "rawValues": 133,
+    "chromatic": 14,
+    "dimensional": 119,
+    "declaredLocalTokens": 27,
+    "breakpoints": 4,
+    "tierCrossings": 0,
+    "tier1": 0,
+    "tier3": 0
+  },
+  "conformance": {
+    "authored": 160,
+    "matched": 137,
+    "divergent": 10,
+    "novel": 13,
+    "rate": 0.856,
+    "colour": {
+      "authored": 28,
+      "matched": 16,
+      "divergent": 8,
+      "novel": 4,
+      "rate": 0.571
+    },
+    "length": {
+      "authored": 132,
+      "matched": 121,
+      "divergent": 2,
+      "novel": 9,
+      "rate": 0.917
+    },
+    "byOrigin": {
+      "declared": {
+        "matched": 25,
+        "divergent": 2,
+        "novel": 0
+      },
+      "scattered": {
+        "matched": 112,
+        "divergent": 8,
+        "novel": 13
+      }
+    },
+    "reference": "@jablonowski/dsb-tokens@1.0.10",
+    "tolerances": {
+      "colour": 24,
+      "length": 2
+    }
+  },
+  "tokens": {
+    "decisionsUsed": 0,
+    "imports": [],
+    "importedPublicSurface": false
+  },
+  "checks": {
+    "applicable": false,
+    "passed": 0,
+    "failed": 0,
+    "na": 8,
+    "of": 8
+  },
+  "a11y": {
+    "total": 2,
+    "critical": 0,
+    "serious": 2,
+    "moderate": 0,
+    "minor": 0
+  },
+  "build": {
+    "ok": true,
+    "durationMs": 1493,
+    "bundle": "318.73 kB"
+  },
+  "cost": {
+    "inputTokensTotal": 2081850,
+    "outputTokens": 38436,
+    "usd": 2.0196144,
+    "durationMs": 332178,
+    "turns": 54,
+    "permissionDenials": []
+  },
+  "detail": {
+    "slots": [
+      {
+        "id": 1,
+        "slot": "login — username field",
+        "selector": "dsb-input",
+        "verdict": "reimplemented"
+      },
+      {
+        "id": 2,
+        "slot": "login — password field",
+        "selector": "dsb-input",
+        "verdict": "reimplemented"
+      },
+      {
+        "id": 3,
+        "slot": "login — remember me",
+        "selector": "dsb-checkbox",
+        "verdict": "reimplemented"
+      },
+      {
+        "id": 4,
+        "slot": "login — submit",
+        "selector": "dsb-button",
+        "verdict": "reimplemented"
+      },
+      {
+        "id": 5,
+        "slot": "shell — header",
+        "selector": "dsb-header",
+        "verdict": "reimplemented"
+      },
+      {
+        "id": 6,
+        "slot": "shell — footer",
+        "selector": "dsb-footer",
+        "verdict": "reimplemented"
+      },
+      {
+        "id": 7,
+        "slot": "shell — profile avatar",
+        "selector": "dsb-avatar",
+        "verdict": "reimplemented"
+      },
+      {
+        "id": 8,
+        "slot": "users — page action",
+        "selector": "dsb-button",
+        "verdict": "reimplemented"
+      },
+      {
+        "id": 9,
+        "slot": "users — the table",
+        "selector": "dsb-table",
+        "verdict": "reimplemented"
+      },
+      {
+        "id": 10,
+        "slot": "users — avatar cell",
+        "selector": "dsb-avatar",
+        "verdict": "reimplemented"
+      },
+      {
+        "id": 11,
+        "slot": "users — role/status badge",
+        "selector": "dsb-tag",
+        "verdict": "reimplemented"
+      },
+      {
+        "id": 12,
+        "slot": "dialogs — all four",
+        "selector": "dsb-modal",
+        "verdict": "reimplemented"
+      },
+      {
+        "id": 13,
+        "slot": "edit/invite — role selector",
+        "selector": "dsb-dropdown",
+        "verdict": "reimplemented",
+        "defensible": true
+      }
+    ],
+    "rawValues": {
+      "chromatic": [
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 162,
+          "value": "#16a34a"
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 163,
+          "value": "#ca8a04"
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 164,
+          "value": "#dc2626"
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 88,
+          "value": "rgba(0, 0, 0, .45)"
+        },
+        {
+          "file": "styles.css",
+          "line": 65,
+          "value": "#f0fdf4"
+        },
+        {
+          "file": "styles.css",
+          "line": 65,
+          "value": "#16a34a"
+        },
+        {
+          "file": "styles.css",
+          "line": 66,
+          "value": "#fefce8"
+        },
+        {
+          "file": "styles.css",
+          "line": 66,
+          "value": "#ca8a04"
+        },
+        {
+          "file": "styles.css",
+          "line": 67,
+          "value": "#fef2f2"
+        },
+        {
+          "file": "styles.css",
+          "line": 67,
+          "value": "#dc2626"
+        },
+        {
+          "file": "styles.css",
+          "line": 68,
+          "value": "#eff6ff"
+        },
+        {
+          "file": "styles.css",
+          "line": 68,
+          "value": "#2563eb"
+        },
+        {
+          "file": "styles.css",
+          "line": 69,
+          "value": "#f5f5f5"
+        },
+        {
+          "file": "styles.css",
+          "line": 69,
+          "value": "#555555"
+        }
+      ],
+      "dimensional": [
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 15,
+          "value": "56px"
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 16,
+          "value": "32px"
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 24,
+          "value": "8px"
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 40,
+          "value": "24px"
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 41,
+          "value": "40px"
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 64,
+          "value": "8px"
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 65,
+          "value": "4px"
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 65,
+          "value": "8px"
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 65,
+          "value": "4px"
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 65,
+          "value": "4px"
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 91,
+          "value": "6px"
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 93,
+          "value": "180px"
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 94,
+          "value": "4px"
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 105,
+          "value": "8px"
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 105,
+          "value": "12px"
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 119,
+          "value": "4px"
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 127,
+          "value": "20px"
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 127,
+          "value": "32px"
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 127,
+          "value": "32px"
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 133,
+          "value": "1216px"
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 139,
+          "value": "24px"
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 139,
+          "value": "32px"
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 147,
+          "value": "32px"
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 149,
+          "value": "20px"
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 155,
+          "value": "6px"
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 171,
+          "value": "48px"
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 177,
+          "value": "8px"
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 184,
+          "value": "06em"
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 192,
+          "value": "24px"
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 193,
+          "value": "48px"
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 198,
+          "value": "16px"
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 199,
+          "value": "20px"
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 199,
+          "value": "16px"
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 201,
+          "value": "16px"
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 202,
+          "value": "24px"
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 202,
+          "value": "16px"
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 203,
+          "value": "24px"
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 1,
+          "value": "16px"
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 10,
+          "value": "4px"
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 18,
+          "value": "20px"
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 24,
+          "value": "14px"
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 25,
+          "value": "20px"
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 29,
+          "value": "8px"
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 37,
+          "value": "06em"
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 44,
+          "value": "10px"
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 58,
+          "value": "4px"
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 81,
+          "value": "8px"
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 90,
+          "value": "4px"
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 96,
+          "value": "140px"
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 126,
+          "value": "10px"
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 142,
+          "value": "196px"
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 144,
+          "value": "12px"
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 144,
+          "value": "14px"
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 155,
+          "value": "10px"
+        },
+        {
+          "file": "app/pages/login/login.component.css",
+          "line": 6,
+          "value": "24px"
+        },
+        {
+          "file": "app/pages/login/login.component.css",
+          "line": 12,
+          "value": "400px"
+        },
+        {
+          "file": "app/pages/login/login.component.css",
+          "line": 15,
+          "value": "20px"
+        },
+        {
+          "file": "app/pages/login/login.component.css",
+          "line": 16,
+          "value": "40px"
+        },
+        {
+          "file": "app/pages/login/login.component.css",
+          "line": 23,
+          "value": "6px"
+        },
+        {
+          "file": "app/pages/login/login.component.css",
+          "line": 47,
+          "value": "8px"
+        },
+        {
+          "file": "app/pages/login/login.component.css",
+          "line": 53,
+          "value": "16px"
+        },
+        {
+          "file": "app/pages/login/login.component.css",
+          "line": 54,
+          "value": "16px"
+        },
+        {
+          "file": "app/pages/login/login.component.css",
+          "line": 66,
+          "value": "42px"
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 5,
+          "value": "40px"
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 6,
+          "value": "16px"
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 26,
+          "value": "12px"
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 26,
+          "value": "16px"
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 34,
+          "value": "06em"
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 39,
+          "value": "12px"
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 39,
+          "value": "16px"
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 50,
+          "value": "64px"
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 59,
+          "value": "6px"
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 62,
+          "value": "6px"
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 62,
+          "value": "12px"
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 66,
+          "value": "32px"
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 66,
+          "value": "16px"
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 87,
+          "value": "24px"
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 96,
+          "value": "48px"
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 105,
+          "value": "420px"
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 106,
+          "value": "560px"
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 112,
+          "value": "12px"
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 113,
+          "value": "20px"
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 113,
+          "value": "24px"
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 120,
+          "value": "8px"
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 134,
+          "value": "6px"
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 149,
+          "value": "16px"
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 150,
+          "value": "24px"
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 165,
+          "value": "8px"
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 166,
+          "value": "16px"
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 166,
+          "value": "24px"
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 173,
+          "value": "8px"
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 184,
+          "value": "14px"
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 190,
+          "value": "2px"
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 209,
+          "value": "8px"
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 213,
+          "value": "6px"
+        },
+        {
+          "file": "styles.css",
+          "line": 64,
+          "value": "2px"
+        },
+        {
+          "file": "styles.css",
+          "line": 64,
+          "value": "8px"
+        },
+        {
+          "file": "styles.css",
+          "line": 64,
+          "value": "4px"
+        },
+        {
+          "file": "styles.css",
+          "line": 64,
+          "value": "12px"
+        },
+        {
+          "file": "styles.css",
+          "line": 76,
+          "value": "6px"
+        },
+        {
+          "file": "styles.css",
+          "line": 77,
+          "value": "8px"
+        },
+        {
+          "file": "styles.css",
+          "line": 77,
+          "value": "14px"
+        },
+        {
+          "file": "styles.css",
+          "line": 78,
+          "value": "1.5px"
+        },
+        {
+          "file": "styles.css",
+          "line": 104,
+          "value": "5px"
+        },
+        {
+          "file": "styles.css",
+          "line": 108,
+          "value": "8px"
+        },
+        {
+          "file": "styles.css",
+          "line": 108,
+          "value": "12px"
+        },
+        {
+          "file": "styles.css",
+          "line": 109,
+          "value": "1.5px"
+        },
+        {
+          "file": "styles.css",
+          "line": 119,
+          "value": "3px"
+        },
+        {
+          "file": "styles.css",
+          "line": 124,
+          "value": "32px"
+        },
+        {
+          "file": "styles.css",
+          "line": 127,
+          "value": "17px"
+        },
+        {
+          "file": "styles.css",
+          "line": 127,
+          "value": "12px"
+        },
+        {
+          "file": "styles.css",
+          "line": 128,
+          "value": "5px"
+        },
+        {
+          "file": "styles.css",
+          "line": 128,
+          "value": "5px"
+        },
+        {
+          "file": "styles.css",
+          "line": 133,
+          "value": "16px"
+        },
+        {
+          "file": "styles.css",
+          "line": 149,
+          "value": "32px"
+        },
+        {
+          "file": "styles.css",
+          "line": 150,
+          "value": "32px"
+        },
+        {
+          "file": "styles.css",
+          "line": 151,
+          "value": "9999px"
+        },
+        {
+          "file": "styles.css",
+          "line": 159,
+          "value": "40px"
+        },
+        {
+          "file": "styles.css",
+          "line": 159,
+          "value": "40px"
+        }
+      ],
+      "declared": [
+        {
+          "file": "styles.css",
+          "line": 16,
+          "value": "#111111"
+        },
+        {
+          "file": "styles.css",
+          "line": 17,
+          "value": "#666666"
+        },
+        {
+          "file": "styles.css",
+          "line": 18,
+          "value": "#999999"
+        },
+        {
+          "file": "styles.css",
+          "line": 19,
+          "value": "#b3b3b3"
+        },
+        {
+          "file": "styles.css",
+          "line": 22,
+          "value": "#fafafa"
+        },
+        {
+          "file": "styles.css",
+          "line": 23,
+          "value": "#ffffff"
+        },
+        {
+          "file": "styles.css",
+          "line": 24,
+          "value": "#f5f5f5"
+        },
+        {
+          "file": "styles.css",
+          "line": 25,
+          "value": "#f0f0f0"
+        },
+        {
+          "file": "styles.css",
+          "line": 28,
+          "value": "#e5e5e5"
+        },
+        {
+          "file": "styles.css",
+          "line": 29,
+          "value": "#d4d4d4"
+        },
+        {
+          "file": "styles.css",
+          "line": 32,
+          "value": "#111111"
+        },
+        {
+          "file": "styles.css",
+          "line": 33,
+          "value": "#d93025"
+        },
+        {
+          "file": "styles.css",
+          "line": 36,
+          "value": "rgba(0, 0, 0, .08)"
+        },
+        {
+          "file": "styles.css",
+          "line": 37,
+          "value": "rgba(0, 0, 0, .14)"
+        },
+        {
+          "file": "styles.css",
+          "line": 5,
+          "value": "11px"
+        },
+        {
+          "file": "styles.css",
+          "line": 6,
+          "value": "12px"
+        },
+        {
+          "file": "styles.css",
+          "line": 7,
+          "value": "14px"
+        },
+        {
+          "file": "styles.css",
+          "line": 8,
+          "value": "16px"
+        },
+        {
+          "file": "styles.css",
+          "line": 9,
+          "value": "18px"
+        },
+        {
+          "file": "styles.css",
+          "line": 10,
+          "value": "24px"
+        },
+        {
+          "file": "styles.css",
+          "line": 36,
+          "value": "3px"
+        },
+        {
+          "file": "styles.css",
+          "line": 37,
+          "value": "8px"
+        },
+        {
+          "file": "styles.css",
+          "line": 37,
+          "value": "32px"
+        },
+        {
+          "file": "styles.css",
+          "line": 40,
+          "value": "4px"
+        },
+        {
+          "file": "styles.css",
+          "line": 41,
+          "value": "6px"
+        },
+        {
+          "file": "styles.css",
+          "line": 42,
+          "value": "8px"
+        },
+        {
+          "file": "styles.css",
+          "line": 43,
+          "value": "10px"
+        }
+      ],
+      "breakpoints": [
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "value": "640px"
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "value": "1024px"
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "value": "560px"
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "value": "560px"
+        }
+      ]
+    },
+    "tiers": {
+      "tier1": [],
+      "tier3": [],
+      "decisions": []
+    },
+    "hallucinations": {
+      "unknownProps": [],
+      "unknownImports": []
+    },
+    "checks": [
+      {
+        "id": "9.1",
+        "what": "import names carry no Dsb prefix",
+        "verdict": "na",
+        "detail": [
+          "the arm had no component library"
+        ]
+      },
+      {
+        "id": "9.2",
+        "what": "dsb-column uses #cell and let-row=\"row\"",
+        "verdict": "na",
+        "detail": [
+          "the arm had no component library"
+        ]
+      },
+      {
+        "id": "9.3",
+        "what": "nothing is projected into dsb-header",
+        "verdict": "na",
+        "detail": [
+          "the arm had no component library"
+        ]
+      },
+      {
+        "id": "9.4",
+        "what": "FooterColumn uses heading, not title",
+        "verdict": "na",
+        "detail": [
+          "the arm had no component library"
+        ]
+      },
+      {
+        "id": "9.5",
+        "what": "no dsb-modal uses both the title input and the [modal-title] slot",
+        "verdict": "na",
+        "detail": [
+          "the arm had no component library"
+        ]
+      },
+      {
+        "id": "9.6",
+        "what": "a split modal footer sets flex:1 on the projected element",
+        "verdict": "na",
+        "detail": [
+          "the arm had no component library"
+        ]
+      },
+      {
+        "id": "9.7",
+        "what": "the right-edge profile menu avoids dsb-dropdown",
+        "verdict": "na",
+        "detail": [
+          "the arm had no component library"
+        ]
+      },
+      {
+        "id": "standalone",
+        "what": "every library component used is in the component imports array",
+        "verdict": "na",
+        "detail": [
+          "the arm had no component library"
+        ]
+      }
+    ],
+    "conformance": {
+      "matched": [
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 88,
+          "value": "rgba(0, 0, 0, .45)",
+          "origin": "scattered",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-color-options-black-a40",
+            "value": "rgba(0, 0, 0, 0.4)",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 67,
+          "value": "#fef2f2",
+          "origin": "scattered",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-color-options-red-50",
+            "value": "#fef2f2",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 69,
+          "value": "#f5f5f5",
+          "origin": "scattered",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-color-options-neutral-100",
+            "value": "#f5f5f5",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 69,
+          "value": "#555555",
+          "origin": "scattered",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-color-options-neutral-700",
+            "value": "#555555",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 15,
+          "value": "56px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-size-options-56",
+            "value": "56px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 16,
+          "value": "32px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-tracking-options-tight",
+            "value": "02em",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 24,
+          "value": "8px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-8",
+            "value": "8px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 40,
+          "value": "24px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-24",
+            "value": "24px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 41,
+          "value": "40px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-40",
+            "value": "40px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 64,
+          "value": "8px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-8",
+            "value": "8px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 65,
+          "value": "4px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-4",
+            "value": "4px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 65,
+          "value": "8px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-8",
+            "value": "8px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 65,
+          "value": "4px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-4",
+            "value": "4px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 65,
+          "value": "4px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-4",
+            "value": "4px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 91,
+          "value": "6px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-6",
+            "value": "6px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 93,
+          "value": "180px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-layout-options-180",
+            "value": "180px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 94,
+          "value": "4px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-4",
+            "value": "4px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 105,
+          "value": "8px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-8",
+            "value": "8px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 105,
+          "value": "12px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-12",
+            "value": "12px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 119,
+          "value": "4px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-4",
+            "value": "4px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 127,
+          "value": "20px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-20",
+            "value": "20px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 127,
+          "value": "32px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-tracking-options-tight",
+            "value": "02em",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 127,
+          "value": "32px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-tracking-options-tight",
+            "value": "02em",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 139,
+          "value": "24px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-24",
+            "value": "24px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 139,
+          "value": "32px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-tracking-options-tight",
+            "value": "02em",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 147,
+          "value": "32px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-tracking-options-tight",
+            "value": "02em",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 149,
+          "value": "20px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-20",
+            "value": "20px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 155,
+          "value": "6px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-6",
+            "value": "6px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 171,
+          "value": "48px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-48",
+            "value": "48px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 177,
+          "value": "8px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-8",
+            "value": "8px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 192,
+          "value": "24px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-24",
+            "value": "24px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 193,
+          "value": "48px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-48",
+            "value": "48px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 198,
+          "value": "16px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-16",
+            "value": "16px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 199,
+          "value": "20px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-20",
+            "value": "20px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 199,
+          "value": "16px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-16",
+            "value": "16px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 201,
+          "value": "16px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-16",
+            "value": "16px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 202,
+          "value": "24px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-24",
+            "value": "24px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 202,
+          "value": "16px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-16",
+            "value": "16px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 203,
+          "value": "24px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-24",
+            "value": "24px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 1,
+          "value": "16px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-16",
+            "value": "16px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 10,
+          "value": "4px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-4",
+            "value": "4px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 18,
+          "value": "20px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-20",
+            "value": "20px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 24,
+          "value": "14px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-14",
+            "value": "14px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 25,
+          "value": "20px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-20",
+            "value": "20px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 29,
+          "value": "8px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-8",
+            "value": "8px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 44,
+          "value": "10px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-10",
+            "value": "10px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 58,
+          "value": "4px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-4",
+            "value": "4px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 81,
+          "value": "8px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-8",
+            "value": "8px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 90,
+          "value": "4px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-4",
+            "value": "4px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 126,
+          "value": "10px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-10",
+            "value": "10px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 144,
+          "value": "12px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-12",
+            "value": "12px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 144,
+          "value": "14px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-14",
+            "value": "14px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 155,
+          "value": "10px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-10",
+            "value": "10px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/login/login.component.css",
+          "line": 6,
+          "value": "24px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-24",
+            "value": "24px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/login/login.component.css",
+          "line": 12,
+          "value": "400px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-layout-options-400",
+            "value": "400px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/login/login.component.css",
+          "line": 15,
+          "value": "20px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-20",
+            "value": "20px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/login/login.component.css",
+          "line": 16,
+          "value": "40px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-40",
+            "value": "40px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/login/login.component.css",
+          "line": 23,
+          "value": "6px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-6",
+            "value": "6px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/login/login.component.css",
+          "line": 47,
+          "value": "8px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-8",
+            "value": "8px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/login/login.component.css",
+          "line": 53,
+          "value": "16px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-16",
+            "value": "16px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/login/login.component.css",
+          "line": 54,
+          "value": "16px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-16",
+            "value": "16px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 5,
+          "value": "40px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-40",
+            "value": "40px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 6,
+          "value": "16px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-16",
+            "value": "16px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 26,
+          "value": "12px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-12",
+            "value": "12px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 26,
+          "value": "16px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-16",
+            "value": "16px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 39,
+          "value": "12px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-12",
+            "value": "12px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 39,
+          "value": "16px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-16",
+            "value": "16px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 50,
+          "value": "64px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-64",
+            "value": "64px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 59,
+          "value": "6px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-6",
+            "value": "6px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 62,
+          "value": "6px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-6",
+            "value": "6px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 62,
+          "value": "12px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-12",
+            "value": "12px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 66,
+          "value": "32px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-tracking-options-tight",
+            "value": "02em",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 66,
+          "value": "16px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-16",
+            "value": "16px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 87,
+          "value": "24px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-24",
+            "value": "24px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 96,
+          "value": "48px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-48",
+            "value": "48px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 112,
+          "value": "12px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-12",
+            "value": "12px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 113,
+          "value": "20px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-20",
+            "value": "20px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 113,
+          "value": "24px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-24",
+            "value": "24px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 120,
+          "value": "8px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-8",
+            "value": "8px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 134,
+          "value": "6px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-6",
+            "value": "6px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 149,
+          "value": "16px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-16",
+            "value": "16px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 150,
+          "value": "24px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-24",
+            "value": "24px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 165,
+          "value": "8px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-8",
+            "value": "8px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 166,
+          "value": "16px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-16",
+            "value": "16px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 166,
+          "value": "24px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-24",
+            "value": "24px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 173,
+          "value": "8px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-8",
+            "value": "8px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 184,
+          "value": "14px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-14",
+            "value": "14px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 190,
+          "value": "2px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-width-options-2",
+            "value": "2px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 209,
+          "value": "8px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-8",
+            "value": "8px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 213,
+          "value": "6px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-6",
+            "value": "6px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 64,
+          "value": "2px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-width-options-2",
+            "value": "2px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 64,
+          "value": "8px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-8",
+            "value": "8px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 64,
+          "value": "4px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-4",
+            "value": "4px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 64,
+          "value": "12px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-12",
+            "value": "12px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 76,
+          "value": "6px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-6",
+            "value": "6px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 77,
+          "value": "8px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-8",
+            "value": "8px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 77,
+          "value": "14px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-14",
+            "value": "14px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 78,
+          "value": "1.5px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-width-options-1-5",
+            "value": "1.5px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 104,
+          "value": "5px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-5",
+            "value": "5px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 108,
+          "value": "8px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-8",
+            "value": "8px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 108,
+          "value": "12px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-12",
+            "value": "12px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 109,
+          "value": "1.5px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-width-options-1-5",
+            "value": "1.5px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 119,
+          "value": "3px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-3",
+            "value": "3px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 124,
+          "value": "32px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-tracking-options-tight",
+            "value": "02em",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 127,
+          "value": "12px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-12",
+            "value": "12px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 128,
+          "value": "5px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-5",
+            "value": "5px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 128,
+          "value": "5px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-5",
+            "value": "5px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 133,
+          "value": "16px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-16",
+            "value": "16px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 149,
+          "value": "32px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-tracking-options-tight",
+            "value": "02em",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 150,
+          "value": "32px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-tracking-options-tight",
+            "value": "02em",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 159,
+          "value": "40px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-40",
+            "value": "40px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 159,
+          "value": "40px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-40",
+            "value": "40px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 16,
+          "value": "#111111",
+          "origin": "declared",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-color-options-neutral-900",
+            "value": "#111111",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 17,
+          "value": "#666666",
+          "origin": "declared",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-color-options-neutral-650",
+            "value": "#666666",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 18,
+          "value": "#999999",
+          "origin": "declared",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-color-options-neutral-550",
+            "value": "#999999",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 22,
+          "value": "#fafafa",
+          "origin": "declared",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-color-options-neutral-50",
+            "value": "#fafafa",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 23,
+          "value": "#ffffff",
+          "origin": "declared",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-color-options-neutral-0",
+            "value": "#ffffff",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 24,
+          "value": "#f5f5f5",
+          "origin": "declared",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-color-options-neutral-100",
+            "value": "#f5f5f5",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 25,
+          "value": "#f0f0f0",
+          "origin": "declared",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-color-options-neutral-150",
+            "value": "#f0f0f0",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 29,
+          "value": "#d4d4d4",
+          "origin": "declared",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-color-options-neutral-350",
+            "value": "#d4d4d4",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 32,
+          "value": "#111111",
+          "origin": "declared",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-color-options-neutral-900",
+            "value": "#111111",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 33,
+          "value": "#d93025",
+          "origin": "declared",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-color-options-red-500",
+            "value": "#d93025",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 36,
+          "value": "rgba(0, 0, 0, .08)",
+          "origin": "declared",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-color-options-black-a06",
+            "value": "rgba(0, 0, 0, 0.06)",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 37,
+          "value": "rgba(0, 0, 0, .14)",
+          "origin": "declared",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-color-options-black-a06",
+            "value": "rgba(0, 0, 0, 0.06)",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 5,
+          "value": "11px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-11",
+            "value": "11px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 6,
+          "value": "12px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-12",
+            "value": "12px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 7,
+          "value": "14px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-14",
+            "value": "14px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 8,
+          "value": "16px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-16",
+            "value": "16px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 9,
+          "value": "18px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-18",
+            "value": "18px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 10,
+          "value": "24px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-24",
+            "value": "24px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 36,
+          "value": "3px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-3",
+            "value": "3px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 37,
+          "value": "8px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-8",
+            "value": "8px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 37,
+          "value": "32px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-tracking-options-tight",
+            "value": "02em",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 40,
+          "value": "4px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-4",
+            "value": "4px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 41,
+          "value": "6px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-6",
+            "value": "6px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 42,
+          "value": "8px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-8",
+            "value": "8px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 43,
+          "value": "10px",
+          "origin": "declared",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-10",
+            "value": "10px",
+            "distance": 0
+          }
+        }
+      ],
+      "divergent": [
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 164,
+          "value": "#dc2626",
+          "origin": "scattered",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-component-dropdown-error-border",
+            "value": "#d93025",
+            "distance": 10.49
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 65,
+          "value": "#f0fdf4",
+          "origin": "scattered",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-component-header-nav-background-hover",
+            "value": "#f5f5f5",
+            "distance": 9.49
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 66,
+          "value": "#fefce8",
+          "origin": "scattered",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-color-options-red-50",
+            "value": "#fef2f2",
+            "distance": 14.14
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 67,
+          "value": "#dc2626",
+          "origin": "scattered",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-component-dropdown-error-border",
+            "value": "#d93025",
+            "distance": 10.49
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 68,
+          "value": "#eff6ff",
+          "origin": "scattered",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-color-options-blue-50",
+            "value": "#e8f0fe",
+            "distance": 9.27
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 68,
+          "value": "#2563eb",
+          "origin": "scattered",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-component-list-indicator-info",
+            "value": "#1a56db",
+            "distance": 23.37
+          }
+        },
+        {
+          "file": "app/pages/login/login.component.css",
+          "line": 66,
+          "value": "42px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-space-options-40",
+            "value": "40px",
+            "distance": 2
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 127,
+          "value": "17px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-16",
+            "value": "16px",
+            "distance": 1
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 19,
+          "value": "#b3b3b3",
+          "origin": "declared",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-component-button-secondary-border-hover",
+            "value": "#bbbbbb",
+            "distance": 13.86
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 28,
+          "value": "#e5e5e5",
+          "origin": "declared",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-component-avatar-background",
+            "value": "#e8e8e8",
+            "distance": 5.2
+          }
+        }
+      ],
+      "novel": [
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 162,
+          "value": "#16a34a",
+          "origin": "scattered",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-component-list-indicator-success",
+            "value": "#1a7c3c",
+            "distance": 41.63
+          }
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 163,
+          "value": "#ca8a04",
+          "origin": "scattered",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-component-list-indicator-warning",
+            "value": "#92600a",
+            "distance": 70.26
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 65,
+          "value": "#16a34a",
+          "origin": "scattered",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-component-list-indicator-success",
+            "value": "#1a7c3c",
+            "distance": 41.63
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 66,
+          "value": "#ca8a04",
+          "origin": "scattered",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-component-list-indicator-warning",
+            "value": "#92600a",
+            "distance": 70.26
+          }
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 133,
+          "value": "1216px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-layout-options-1200",
+            "value": "1200px",
+            "distance": 16
+          }
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 184,
+          "value": "06em",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-layout-options-120",
+            "value": "120px",
+            "distance": 24
+          }
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 37,
+          "value": "06em",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-layout-options-120",
+            "value": "120px",
+            "distance": 24
+          }
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 96,
+          "value": "140px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-layout-options-120",
+            "value": "120px",
+            "distance": 20
+          }
+        },
+        {
+          "file": "app/pages/dashboard/dashboard.component.css",
+          "line": 142,
+          "value": "196px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-layout-options-200",
+            "value": "200px",
+            "distance": 4
+          }
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 34,
+          "value": "06em",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-layout-options-120",
+            "value": "120px",
+            "distance": 24
+          }
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 105,
+          "value": "420px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-layout-options-400",
+            "value": "400px",
+            "distance": 20
+          }
+        },
+        {
+          "file": "app/pages/users/users.component.css",
+          "line": 106,
+          "value": "560px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-layout-options-540",
+            "value": "540px",
+            "distance": 20
+          }
+        },
+        {
+          "file": "styles.css",
+          "line": 151,
+          "value": "9999px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-layout-options-1200",
+            "value": "1200px",
+            "distance": 8799
+          }
+        }
+      ]
+    },
+    "a11yPages": [
+      {
+        "route": "/login",
+        "violations": []
+      },
+      {
+        "route": "/dashboard",
+        "violations": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "nodes": 35,
+            "help": "Elements must meet minimum color contrast ratio thresholds"
+          }
+        ]
+      },
+      {
+        "route": "/users",
+        "violations": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "nodes": 24,
+            "help": "Elements must meet minimum color contrast ratio thresholds"
+          }
+        ]
+      }
+    ]
+  }
+}

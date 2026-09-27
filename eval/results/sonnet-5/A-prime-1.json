@@ -1,0 +1,126 @@
+{
+  "arm": "A-prime",
+  "run": 1,
+  "model": "claude-sonnet-5",
+  "cli": "2.1.281 (Claude Code)",
+  "isolation": "session",
+  "started": "2026-09-27T19:31:44Z",
+  "overlaySha": "9eeb04e32b97",
+  "s0Sha": "c25d3e960f47",
+  "promptBytes": 15297,
+  "runDir": "/tmp/dsb-eval/sonnet-5/A-prime-1",
+  "figma": {
+    "channel": "cached",
+    "fileKey": "iJ92LuFOsPjO6avZ2anbwO",
+    "recordedAt": "2026-09-24T19:49:36Z",
+    "calls": 3,
+    "errors": 0,
+    "nodes": [
+      "22-11104",
+      "22:11448",
+      "22:11492"
+    ],
+    "ok": true
+  },
+  "inputTokensTotal": 12833886,
+  "outputTokens": 75464,
+  "result": {
+    "duration_api_ms": 892541,
+    "stop_reason": "end_turn",
+    "session_id": "22c4932e-2573-44e6-beb7-2e5d7af92301",
+    "total_cost_usd": 4.179898999999999,
+    "usage": {
+      "input_tokens": 234,
+      "cache_creation_input_tokens": 160171,
+      "cache_read_input_tokens": 12673481,
+      "output_tokens": 75464,
+      "output_tokens_details": {
+        "thinking_tokens": 23733
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 160171,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "not_available",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 824,
+          "cache_read_input_tokens": 179109,
+          "cache_creation_input_tokens": 171,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 171
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard"
+    },
+    "modelUsage": {
+      "claude-sonnet-5": {
+        "inputTokens": 248,
+        "outputTokens": 84823,
+        "cacheReadInputTokens": 12849095,
+        "cacheCreationInputTokens": 208439,
+        "webSearchRequests": 0,
+        "costUSD": 4.179898999999999,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 64000,
+        "thinkingTokens": 23917,
+        "canonicalModel": "claude-sonnet-5",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "subagent_stats": {
+      "spawned": 1,
+      "requested": {
+        "background": 1,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 1,
+      "max_depth": 1,
+      "spawned_by_subagents": 0,
+      "completed": 1,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {
+        "general-purpose": 1
+      }
+    },
+    "is_error": false,
+    "num_turns": 129,
+    "subtype": "success",
+    "api_error_status": null,
+    "result": "The build is clean and the app is fully functional. Here's a summary of the work.\n\n## Summary\n\nBuilt the full Angular 19 standalone app at `/private/tmp/dsb-eval/sonnet-5/A-prime-1` per the spec, using the arm's given design tokens (`:root` custom properties + `.tag-*` classes) verbatim as the canonical design system, and Figma data only for structural layout (grid proportions, component composition, spacing scale).\n\n**Structure**: `AuthService`/`UsersService`/`AppInMemoryDataService` in `core/`, route guards (`authGuard`/`loginGuard`), lazy-loaded `login`, `shell` (header/footer/router-outlet), `dashboard`, and `users` (table + 4 dialogs: details, edit, delete-confirm, invite) in `features/`/`layout/`.\n\n**Verified live in a browser** (Playwright driver, not just build/typecheck): login validation and wrong-credential states, successful login → dashboard, all 8 dashboard tiles, the full users CRUD round-trip (create/read/update/delete all hit the in-memory API and the table reflects changes), all four dialogs opening/closing, and auth-guard redirects (logged-out → `/login`, logged-in visiting `/login` → `/dashboard`, wildcard → `/login`, sign-out clearing session). Zero console errors throughout.\n\n**Two real bugs found and fixed during testing:**\n1. The profile menu's outside-click-to-close checked containment against the entire shell's host element (which wraps the routed page too), so no click ever counted as \"outside\" — scoped the check to just the profile control instead.\n2. `angular-in-memory-web-api`'s PUT replaces the whole record rather than patching it, so sending only `{name, email, role}` on save silently wiped `avatar`/`status`/`joinedDate` from the record — fixed by merging the full user object before the PUT.\n\nAlso added a defensive initials-fallback for the avatar `<img>` (spec requires it, even though the dicebear images happened to load fine in this sandbox).\n\n**Unverified against Figma:** the \"Auth Layout\"/\"Main Dashboard\" node's sample content (dashboard metrics, log style, service names) didn't match S0's explicit data — I followed S0's explicit values (monospace terminal-style logs, the named services, the 7-day bar chart) since it's unambiguous, and used Figma only for the structural grid/spacing/proportions.",
+    "ttft_ms": 2523,
+    "type": "result",
+    "duration_ms": 950074,
+    "uuid": "99e82bde-2728-4252-973d-7bf39f625af7",
+    "ttft_stream_ms": 1808,
+    "time_to_request_ms": 451,
+    "first_content_frame_ms": 1808,
+    "queued_turn_count": 0,
+    "result_index": 0
+  }
+}

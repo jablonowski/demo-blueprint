@@ -1,0 +1,52 @@
+<div class="modal-backdrop" (click)="close.emit()">
+  <div class="modal modal-md" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <div class="modal-header-left">
+        <h2 class="modal-title">Member Details</h2>
+        <span class="tag tag-default">Read only</span>
+      </div>
+      <button type="button" class="modal-close" (click)="close.emit()">✕</button>
+    </div>
+
+    <div class="modal-body">
+      <div class="user-row">
+        <span class="avatar-lg">{{ initials }}</span>
+        <div>
+          <h3 class="user-name">{{ user.name }}</h3>
+          <p class="user-since">Member since {{ memberSince }}</p>
+        </div>
+      </div>
+
+      <div class="form-grid">
+        <div class="form-field">
+          <label>First name</label>
+          <div class="readonly-field">{{ firstName }}</div>
+        </div>
+        <div class="form-field">
+          <label>Last name</label>
+          <div class="readonly-field">{{ lastName }}</div>
+        </div>
+      </div>
+
+      <div class="form-field">
+        <label>Email address</label>
+        <div class="readonly-field">{{ user.email }}</div>
+      </div>
+
+      <div class="form-field">
+        <label>Role</label>
+        <div class="readonly-field">{{ user.role }}</div>
+      </div>
+
+      <div class="status-row">
+        <label>Status</label>
+        <span class="tag" [class]="statusTagClass">{{ user.status }}</span>
+      </div>
+    </div>
+
+    <div class="modal-footer split">
+      <span class="modal-footer-note">To make changes, request Admin access.</span>
+      <button type="button" class="btn btn-secondary" (click)="close.emit()">Close</button>
+    </div>
+  </div>
+</div>

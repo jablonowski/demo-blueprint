@@ -1,0 +1,122 @@
+{
+  "arm": "A-prime",
+  "run": 3,
+  "model": "claude-opus-5-5",
+  "cli": "2.1.281 (Claude Code)",
+  "isolation": "session",
+  "started": "2026-09-27T19:16:22Z",
+  "overlaySha": "9eeb04e32b97",
+  "s0Sha": "c25d3e960f47",
+  "promptBytes": 15297,
+  "runDir": "/tmp/dsb-eval/opus-5-5/A-prime-3",
+  "figma": {
+    "channel": "cached",
+    "fileKey": "iJ92LuFOsPjO6avZ2anbwO",
+    "recordedAt": "2026-09-24T19:49:36Z",
+    "calls": 1,
+    "errors": 0,
+    "nodes": [
+      "22-11104"
+    ],
+    "ok": true
+  },
+  "inputTokensTotal": 2081850,
+  "outputTokens": 38436,
+  "result": {
+    "duration_api_ms": 332178,
+    "stop_reason": "end_turn",
+    "session_id": "e0f95c27-f6ed-48cc-89be-d53a87bb20c5",
+    "total_cost_usd": 2.0196144,
+    "usage": {
+      "input_tokens": 54,
+      "cache_creation_input_tokens": 106964,
+      "cache_read_input_tokens": 1974832,
+      "output_tokens": 38436,
+      "output_tokens_details": {
+        "thinking_tokens": 5417
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 106964,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "not_available",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 1001,
+          "cache_read_input_tokens": 117480,
+          "cache_creation_input_tokens": 188,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 188
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard"
+    },
+    "modelUsage": {
+      "claude-opus-5-5": {
+        "inputTokens": 54,
+        "outputTokens": 38436,
+        "cacheReadInputTokens": 1974832,
+        "cacheCreationInputTokens": 106964,
+        "webSearchRequests": 0,
+        "costUSD": 2.0196144,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 128000,
+        "thinkingTokens": 5417,
+        "canonicalModel": "claude-opus-5-5",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "subagent_stats": {
+      "spawned": 0,
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 0,
+      "spawned_by_subagents": 0,
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {}
+    },
+    "is_error": false,
+    "num_turns": 54,
+    "subtype": "success",
+    "api_error_status": null,
+    "result": "The app is built in `/private/tmp/dsb-eval/opus-5-5/A-prime-3` and it works. `ng build` passes with no errors, and I ran through it in headless Chromium: logging in with `admin` / `admin` reaches the dashboard. Create, edit and delete all go through the in-memory API and the table updates each time. All four dialogs open and close, the profile menu opens leftward inside the viewport, and there were no console errors.\n\n**What's in it**\n- Everything in the deliverables list: the config, a root file with only `<router-outlet />`, lazy routes behind guards, `AuthService`, the in-memory data service, `UsersService`, the three pages and the app shell.\n- `styles.css` holds the styleguide's `:root` values and tag CSS exactly as given. It also has shared button, field, card and avatar styles built only from those values. There are no new greys or new sizes.\n- Figma values the styleguide doesn't include were rounded to the nearest styleguide value. For example, 26px became 24px, 13px became 14px, #888 became #666 or #999, and the 12px corner radius became 10px.\n- Tag colours come from the styleguide rather than Figma's own greens and ambers:\n  - Admin is red, Editor is blue, Viewer is grey.\n  - Active is green, Inactive is grey.\n  - Positive trends and Online are green; negative trends and Offline are red.\n\n**Where I followed the spec over Figma, where the two disagree**\n- **Login card:** Figma also shows a \"Blueprint\" title and a divider line. I left both out, because the spec lists the card's exact contents and says to add nothing else.\n- **Dashboard:** Figma has only 7 tiles and different numbers and labels. I built the spec's 8 tiles and values. The layout follows Figma's proportions: four metric tiles in a row, then throughput and service health in roughly a 7:5 split, then data summary and logs. The Figma page title \"System Overview\" with its \"Last updated\" line is included.\n- **Table:** Figma combines avatar and name in one column and orders the actions Edit, Details, Delete. I used the spec's separate Avatar and Name columns and its Details, Edit, Delete order.\n- **Header and footer:** Figma shows nav links (Overview, Metrics, Logs, Settings) and a small footer. I used links to the pages that exist (Dashboard, Users), added the name-and-menu control, and built the fuller footer the spec asks for.\n\n**Choices I couldn't check against a source**\n- The footer's link columns, the logo, the log messages, and the daily bar-chart numbers are made up. So are the chart's subtitle (\"Requests per day over the last 7 days\") and the terminal's dark styling; the spec only says \"terminal-style\".\n- The small delete dialog is 420px wide, a width I picked. The medium dialogs are 560px, from Figma.\n- Figma's fields use its own font, Inter. I kept the styleguide's system font stack.",
+    "ttft_ms": 2806,
+    "type": "result",
+    "duration_ms": 468922,
+    "uuid": "c2f4732d-871d-457c-94dd-a8b8c71eb841",
+    "ttft_stream_ms": 2173,
+    "time_to_request_ms": 305,
+    "first_content_frame_ms": 2173,
+    "queued_turn_count": 0,
+    "result_index": 0
+  }
+}

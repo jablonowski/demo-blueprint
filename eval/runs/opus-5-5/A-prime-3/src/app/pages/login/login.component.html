@@ -1,0 +1,45 @@
+<main class="auth-page">
+  <form class="login-card" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    <header class="login-head">
+      <h1 class="login-title">Welcome back</h1>
+      <p class="login-subtitle">Sign in to your account to continue</p>
+    </header>
+
+    <div class="field">
+      <label class="field-label" for="username">Username</label>
+      <input id="username" class="field-control" type="text" autocomplete="username"
+             placeholder="Enter your username" formControlName="username"
+             [class.is-invalid]="invalid('username')" />
+      @if (invalid('username')) {
+        <span class="field-error">Username is required</span>
+      }
+    </div>
+
+    <div class="field">
+      <label class="field-label" for="password">Password</label>
+      <input id="password" class="field-control" type="password" autocomplete="current-password"
+             placeholder="Enter your password" formControlName="password"
+             [class.is-invalid]="invalid('password') || authError()" />
+      @if (authError()) {
+        <span class="field-error">Invalid username or password</span>
+      } @else if (invalid('password')) {
+        <span class="field-error">Password is required</span>
+      }
+    </div>
+
+    <div class="remember-row">
+      <label class="remember">
+        <input type="checkbox" />
+        <span>Remember me</span>
+      </label>
+      <a class="link" href="" (click)="$event.preventDefault()">Forgot password?</a>
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-block login-submit">Sign In</button>
+
+    <p class="signup">
+      Don't have an account?
+      <a class="link" href="" (click)="$event.preventDefault()">Sign up</a>
+    </p>
+  </form>
+</main>
