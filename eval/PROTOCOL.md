@@ -688,11 +688,130 @@ Estimated cost of a three-arm round on Opus, from the pilots: A $2.3, B ~$3.7, D
 about **$11**. Close enough to the ceiling that a round wants a fresh window and no other
 Claude usage beside it.
 
-### Results
+### Results — stage one, 2026-09-27
 
+Sixteen scored runs. Claude Opus at n=3 across four arms, Claude Sonnet at n=1 as a second
+harness on the same specification. Every row comes from
+[`results/`](results); nothing below is judged by eye.
 
-Filled in after the runs. Do not edit anything above this line.
+Arm C was not in the original three-arm grid. It was run because this protocol committed, in
+advance, that **"if D beats B, C stops being optional"** — D did, so C ran, and it is the
+experiment that attributes the gap.
 
-| Metric | A | A′ | B | C | D |
-|---|---|---|---|---|---|
-| | | | | | |
+#### Opus, n = 3
+
+| | A | B | C | D |
+|---|---|---|---|---|
+| Library components used (of 13) | 0 · 0 · 0 | 13 · 13 · 13 | 13 · 13 · 13 | 13 · 13 · 13 |
+| Hand-reimplemented | 13 · 12 · 12 | 0 · 0 · 0 | 0 · 0 · 0 | 0 · 0 · 0 |
+| Scattered raw values | 6 · 0 · 0 | 0 · 0 · 0 | 0 · 0 · 0 | 0 · 2 · 0 |
+| Custom properties owned | 90 · 99 · 91 | 0 · 0 · 0 | 0 · 0 · 0 | 0 · 0 · 2 |
+| Tier crossings | 0 | 0 | 0 | 0 |
+| Decision tokens used | 0 · 0 · 0 | 60 · 57 · 60 | 61 · 62 · 59 | 77 · 56 · 59 |
+| Hallucinated API refs | 0 | 0 | 0 | 0 |
+| Checks passed (of 8) | n/a | 6 · 8 · 7 | 7 · 7 · 7 | 7 · 8 · 8 |
+| Colour conformance | .91 · .85 · .79 | n/a | n/a | n/a |
+| **axe — serious** | **3 · 3 · 3** | **0 · 0 · 0** | **0 · 0 · 0** | **0 · 0 · 0** |
+| Builds | 3/3 | 3/3 | 3/3 | 3/3 |
+| Cost, median | $2.17 | $3.19 | $2.83 | $2.88 |
+
+#### Sonnet, n = 1
+
+| | A | B | C | D |
+|---|---|---|---|---|
+| Library components used | 0/13 | 13/13 | 13/13 | **12/13** |
+| Scattered raw values | 46 | 17 | 5 | 2 |
+| Custom properties owned | 71 | 0 | 0 | 0 |
+| Tier crossings | 0 | **2** | 0 | 0 |
+| Decision tokens used | 0 | 49 | 54 | 58 |
+| Checks passed | n/a | 6/8 | 7/8 | 6/8 |
+| axe — serious | 3 | 1 | 0 | 0 |
+| Cost | $4.75 | $6.63 | $7.21 | $8.82 |
+
+#### Findings, ordered by how well the data supports them
+
+**1. Shipping the design system as a typed, installable package is a step function.**
+Sixteen runs, no overlap. Without it: 12–13 components hand-written and ~90 custom
+properties the application now owns. With it: zero and zero. This does not need more runs.
+
+**2. The agent gets the colours right and ships inaccessible screens anyway.** Arm A's colour
+conformance was 0.79–0.91 — it copied the palette correctly out of Figma — and produced
+**three serious contrast violations in all four of its runs, on both models**. Arms with the
+library produced none in eleven of twelve. A design source carries values; it does not carry
+which value goes on which surface. That pairing lives in the component library, and no
+improvement in model capability supplies information that is absent from the input.
+
+**3. The token resolver earns nothing measurable.** This was the pre-registered decisive
+comparison and it is the finding that goes against the author's interest.
+
+| | C (document) | D (document + resolver) |
+|---|---|---|
+| Decision tokens, median | 61 | 59 |
+| Checks | 7 · 7 · 7 | 7 · 8 · 8 |
+| Cost, median | $2.83 | $2.88 |
+
+On Sonnet, **D did worse than C**: 12 of 13 components instead of 13, one reimplementation,
+6/8 checks instead of 7/8, and $1.61 more. It is the only run in the study where an arm
+holding the design system failed to use all thirteen components.
+
+**4. The agent-facing document earns exactly one check, and it replicates across models.**
+
+```
+9.2 — <dsb-column> requires #cell and let-row="row"
+   B    fail · pass · fail  (Opus)     fail  (Sonnet)     3 failures in 4
+   C    pass · pass · pass             pass               0 in 4
+   D    pass · pass · pass             pass               0 in 4
+```
+
+A template convention that cannot be read off the type declarations. Prose carries it; a
+token resolver has no opinion about it.
+
+Visible only on the weaker model: **B scattered 17 raw values and crossed the tier boundary
+twice, C scattered 5 and crossed none.** On Opus both were zero. The document appears to buy
+discipline as well as the one check, and to buy more of it the weaker the model.
+
+**5. The cheaper model was 2.3× more expensive.** Sonnet's arm A cost $4.75 against Opus's
+$2.17, on the same specification, and the gap widened with infrastructure ($8.82 against
+$2.88 for arm D). Per token Sonnet is far cheaper; it needed two to three times the turns,
+and each turn re-reads the whole context. On an agentic task the bill is turns × context,
+not price per token.
+
+Worth stating because it is easy to get the mechanism wrong: this is **not** the prompt being
+bigger. The overlays differ by 4.7 kB, about 1,200 tokens. Input per turn nearly doubles
+between A and D (38k → 72k on Opus) because using a library means reading it, and everything
+read stays in context and is paid for again on every subsequent turn.
+
+#### What this does to the thesis
+
+| Claim | After stage one |
+|---|---|
+| The token pipeline changes what an agent writes | **supported**, step function, no variance |
+| Agent-facing documentation earns its keep | **supported narrowly** — one check, replicated on two models, plus discipline on the weaker one |
+| The token resolver / MCP layer earns its keep | **not supported** — two models, six runs |
+| A design system is a firewall against UI hallucinations | **not supported** — zero hallucinated API references in sixteen runs, arm A included |
+
+The claim the data carries is narrower than the one this study set out to test:
+
+> A design system does not make the agent more capable or more correct. It makes the output
+> **ownable** — and it catches the one class of defect the agent cannot see, because nobody
+> wrote it down.
+
+#### Still open
+
+- **A′**, the styleguide-document arm, committed to earlier in this protocol and not yet run.
+  If a document without an installable artifact matches C, then what matters is writing the
+  decision down rather than shipping a package, and that is a different book.
+- **Drift**: change one token value, count the files that must change. Costs nothing to run
+  and supplies the maintenance term the cost table has no column for.
+- **Cost per accepted screen**, rather than per generation.
+- `9.6` came back `na` — never built — in four of twelve runs, spread across B, C and D. It
+  does not discriminate between arms and either `S0` must force it or the check goes.
+
+### Results — appendix
+
+The empty table that used to stand here was the placeholder written before any run. It is
+replaced by the stage-one section above rather than deleted, so that the shape of what was
+promised can still be compared with what was delivered.
+
+Per-run rows, including every void and every pilot, are in `results/`. Nothing was removed
+from that directory.

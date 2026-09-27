@@ -1,0 +1,46 @@
+.system-logs__terminal {
+  height: 220px;
+  overflow-y: auto;
+  background: #0d0d0d;
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.system-logs__line {
+  display: flex;
+  gap: var(--space-3);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.system-logs__time {
+  color: #6b7280;
+  flex-shrink: 0;
+}
+
+.system-logs__level {
+  flex-shrink: 0;
+  font-weight: var(--weight-semibold);
+  width: 42px;
+}
+
+.system-logs__level--INFO {
+  color: #7dd3a8;
+}
+
+.system-logs__level--WARN {
+  color: #f0c060;
+}
+
+.system-logs__level--ERROR {
+  color: #f28b82;
+}
+
+.system-logs__message {
+  color: #e5e5e5;
+}

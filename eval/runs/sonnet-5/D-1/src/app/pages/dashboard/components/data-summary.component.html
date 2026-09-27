@@ -1,0 +1,11 @@
+<section class="dashboard-card summary-card">
+  <h2 class="summary-title">Data Summary</h2>
+  <dl class="summary-list">
+    @for (item of items; track item.label) {
+      <div class="summary-row">
+        <dt class="summary-label">{{ item.label }}</dt>
+        <dd class="summary-value">{{ item.value }}</dd>
+      </div>
+    }
+  </dl>
+</section>

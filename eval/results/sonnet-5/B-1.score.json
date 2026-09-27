@@ -1,0 +1,637 @@
+{
+  "arm": "B",
+  "run": 1,
+  "scoredAt": "2026-09-27T08:20:17Z",
+  "model": "claude-sonnet-5",
+  "isolation": "session",
+  "s0Sha": "c25d3e960f47",
+  "overlaySha": "0d513945591a",
+  "covered": {
+    "slotsUsed": 13,
+    "slotsOf": 13,
+    "reimplemented": 0,
+    "absent": 0,
+    "hadLibrary": true,
+    "falsifierTriggered": false,
+    "hallucinatedApi": 0,
+    "hallucinatedProps": 0,
+    "hallucinatedImports": 0
+  },
+  "gap": {
+    "rawValues": 17,
+    "chromatic": 3,
+    "dimensional": 14,
+    "declaredLocalTokens": 0,
+    "breakpoints": 2,
+    "tierCrossings": 2,
+    "tier1": 0,
+    "tier3": 2
+  },
+  "conformance": {
+    "authored": 17,
+    "matched": 16,
+    "divergent": 0,
+    "novel": 1,
+    "rate": 0.941,
+    "colour": {
+      "authored": 3,
+      "matched": 3,
+      "divergent": 0,
+      "novel": 0,
+      "rate": 1
+    },
+    "length": {
+      "authored": 14,
+      "matched": 13,
+      "divergent": 0,
+      "novel": 1,
+      "rate": 0.929
+    },
+    "byOrigin": {
+      "declared": {
+        "matched": 0,
+        "divergent": 0,
+        "novel": 0
+      },
+      "scattered": {
+        "matched": 16,
+        "divergent": 0,
+        "novel": 1
+      }
+    },
+    "reference": "@jablonowski/dsb-tokens@1.0.10",
+    "tolerances": {
+      "colour": 24,
+      "length": 2
+    }
+  },
+  "tokens": {
+    "decisionsUsed": 49,
+    "imports": [
+      "@jablonowski/dsb-tokens/css"
+    ],
+    "importedPublicSurface": true
+  },
+  "checks": {
+    "applicable": true,
+    "passed": 6,
+    "failed": 1,
+    "na": 1,
+    "of": 8
+  },
+  "a11y": {
+    "total": 1,
+    "critical": 0,
+    "serious": 1,
+    "moderate": 0,
+    "minor": 0
+  },
+  "build": {
+    "ok": true,
+    "durationMs": 1062,
+    "bundle": "337.87 kB"
+  },
+  "cost": {
+    "inputTokensTotal": 23815661,
+    "outputTokens": 93616,
+    "usd": 6.6312333999999975,
+    "durationMs": 1032878,
+    "turns": 152,
+    "permissionDenials": []
+  },
+  "detail": {
+    "slots": [
+      {
+        "id": 1,
+        "slot": "login — username field",
+        "selector": "dsb-input",
+        "verdict": "used"
+      },
+      {
+        "id": 2,
+        "slot": "login — password field",
+        "selector": "dsb-input",
+        "verdict": "used"
+      },
+      {
+        "id": 3,
+        "slot": "login — remember me",
+        "selector": "dsb-checkbox",
+        "verdict": "used"
+      },
+      {
+        "id": 4,
+        "slot": "login — submit",
+        "selector": "dsb-button",
+        "verdict": "used"
+      },
+      {
+        "id": 5,
+        "slot": "shell — header",
+        "selector": "dsb-header",
+        "verdict": "used"
+      },
+      {
+        "id": 6,
+        "slot": "shell — footer",
+        "selector": "dsb-footer",
+        "verdict": "used"
+      },
+      {
+        "id": 7,
+        "slot": "shell — profile avatar",
+        "selector": "dsb-avatar",
+        "verdict": "used"
+      },
+      {
+        "id": 8,
+        "slot": "users — page action",
+        "selector": "dsb-button",
+        "verdict": "used"
+      },
+      {
+        "id": 9,
+        "slot": "users — the table",
+        "selector": "dsb-table",
+        "verdict": "used"
+      },
+      {
+        "id": 10,
+        "slot": "users — avatar cell",
+        "selector": "dsb-avatar",
+        "verdict": "used"
+      },
+      {
+        "id": 11,
+        "slot": "users — role/status badge",
+        "selector": "dsb-tag",
+        "verdict": "used"
+      },
+      {
+        "id": 12,
+        "slot": "dialogs — all four",
+        "selector": "dsb-modal",
+        "verdict": "used"
+      },
+      {
+        "id": 13,
+        "slot": "edit/invite — role selector",
+        "selector": "dsb-dropdown",
+        "verdict": "used",
+        "defensible": true
+      }
+    ],
+    "rawValues": {
+      "chromatic": [
+        {
+          "file": "app/features/dashboard/components/stat-tile/stat-tile.component.css",
+          "line": 9,
+          "value": "rgba(0, 0, 0, 0.06)"
+        },
+        {
+          "file": "app/features/dashboard/dashboard.component.css",
+          "line": 24,
+          "value": "rgba(0, 0, 0, 0.06)"
+        },
+        {
+          "file": "app/features/login/login.component.css",
+          "line": 20,
+          "value": "rgba(0, 0, 0, 0.08)"
+        }
+      ],
+      "dimensional": [
+        {
+          "file": "app/features/dashboard/components/log-viewer/log-viewer.component.css",
+          "line": 2,
+          "value": "200px"
+        },
+        {
+          "file": "app/features/dashboard/components/stat-tile/stat-tile.component.css",
+          "line": 9,
+          "value": "2px"
+        },
+        {
+          "file": "app/features/dashboard/components/stat-tile/stat-tile.component.css",
+          "line": 9,
+          "value": "8px"
+        },
+        {
+          "file": "app/features/dashboard/components/throughput-chart/throughput-chart.component.css",
+          "line": 2,
+          "value": "160px"
+        },
+        {
+          "file": "app/features/dashboard/components/throughput-chart/throughput-chart.component.css",
+          "line": 24,
+          "value": "36px"
+        },
+        {
+          "file": "app/features/dashboard/components/throughput-chart/throughput-chart.component.css",
+          "line": 27,
+          "value": "4px"
+        },
+        {
+          "file": "app/features/dashboard/dashboard.component.css",
+          "line": 24,
+          "value": "2px"
+        },
+        {
+          "file": "app/features/dashboard/dashboard.component.css",
+          "line": 24,
+          "value": "8px"
+        },
+        {
+          "file": "app/features/login/login.component.css",
+          "line": 11,
+          "value": "400px"
+        },
+        {
+          "file": "app/features/login/login.component.css",
+          "line": 20,
+          "value": "4px"
+        },
+        {
+          "file": "app/features/login/login.component.css",
+          "line": 20,
+          "value": "16px"
+        },
+        {
+          "file": "app/layout/profile-menu/profile-menu.component.css",
+          "line": 34,
+          "value": "10px"
+        },
+        {
+          "file": "app/layout/profile-menu/profile-menu.component.css",
+          "line": 35,
+          "value": "6px"
+        },
+        {
+          "file": "app/layout/profile-menu/profile-menu.component.css",
+          "line": 49,
+          "value": "180px"
+        }
+      ],
+      "declared": [],
+      "breakpoints": [
+        {
+          "file": "app/features/dashboard/dashboard.component.css",
+          "value": "900px"
+        },
+        {
+          "file": "app/features/dashboard/dashboard.component.css",
+          "value": "560px"
+        }
+      ]
+    },
+    "tiers": {
+      "tier1": [],
+      "tier3": [
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 22,
+          "name": "--ds-component-header-max-width"
+        },
+        {
+          "file": "app/layout/shell/shell.component.css",
+          "line": 29,
+          "name": "--ds-component-header-height"
+        }
+      ],
+      "decisions": [
+        "--ds-decisions-border-radius-2xl",
+        "--ds-decisions-border-radius-lg",
+        "--ds-decisions-border-radius-md",
+        "--ds-decisions-border-radius-xs",
+        "--ds-decisions-border-width-control",
+        "--ds-decisions-border-width-hairline",
+        "--ds-decisions-color-border-control",
+        "--ds-decisions-color-border-hairline",
+        "--ds-decisions-color-border-subtle",
+        "--ds-decisions-color-feedback-error-text",
+        "--ds-decisions-color-surface-base",
+        "--ds-decisions-color-surface-emphasis",
+        "--ds-decisions-color-surface-hover",
+        "--ds-decisions-color-surface-subtle",
+        "--ds-decisions-color-text-body",
+        "--ds-decisions-color-text-disabled",
+        "--ds-decisions-color-text-inverse",
+        "--ds-decisions-color-text-muted",
+        "--ds-decisions-color-text-placeholder",
+        "--ds-decisions-color-text-primary",
+        "--ds-decisions-font-line-height-relaxed",
+        "--ds-decisions-font-size-2xl",
+        "--ds-decisions-font-size-2xs",
+        "--ds-decisions-font-size-3xl",
+        "--ds-decisions-font-size-lg",
+        "--ds-decisions-font-size-md",
+        "--ds-decisions-font-size-sm",
+        "--ds-decisions-font-size-xl",
+        "--ds-decisions-font-size-xs",
+        "--ds-decisions-font-tracking-caps",
+        "--ds-decisions-font-tracking-heading",
+        "--ds-decisions-font-weight-medium",
+        "--ds-decisions-font-weight-semibold",
+        "--ds-decisions-layout-width-3xl",
+        "--ds-decisions-motion-duration-base",
+        "--ds-decisions-motion-easing-standard",
+        "--ds-decisions-shadow-dropdown",
+        "--ds-decisions-shadow-focus",
+        "--ds-decisions-space-2xl",
+        "--ds-decisions-space-2xs",
+        "--ds-decisions-space-3xl",
+        "--ds-decisions-space-3xs",
+        "--ds-decisions-space-4xl",
+        "--ds-decisions-space-5xl",
+        "--ds-decisions-space-lg",
+        "--ds-decisions-space-md",
+        "--ds-decisions-space-sm",
+        "--ds-decisions-space-xl",
+        "--ds-decisions-z-index-dropdown"
+      ]
+    },
+    "hallucinations": {
+      "unknownProps": [],
+      "unknownImports": []
+    },
+    "checks": [
+      {
+        "id": "9.1",
+        "what": "import names carry no Dsb prefix",
+        "verdict": "pass"
+      },
+      {
+        "id": "9.2",
+        "what": "dsb-column uses #cell and let-row=\"row\"",
+        "verdict": "fail",
+        "detail": [
+          "3 of 5 columns"
+        ]
+      },
+      {
+        "id": "9.3",
+        "what": "nothing is projected into dsb-header",
+        "verdict": "pass"
+      },
+      {
+        "id": "9.4",
+        "what": "FooterColumn uses heading, not title",
+        "verdict": "na",
+        "detail": [
+          "no footer columns declared"
+        ]
+      },
+      {
+        "id": "9.5",
+        "what": "no dsb-modal uses both the title input and the [modal-title] slot",
+        "verdict": "pass"
+      },
+      {
+        "id": "9.6",
+        "what": "a split modal footer sets flex:1 on the projected element",
+        "verdict": "pass"
+      },
+      {
+        "id": "9.7",
+        "what": "the right-edge profile menu avoids dsb-dropdown",
+        "verdict": "pass"
+      },
+      {
+        "id": "standalone",
+        "what": "every library component used is in the component imports array",
+        "verdict": "pass"
+      }
+    ],
+    "conformance": {
+      "matched": [
+        {
+          "file": "app/features/dashboard/components/stat-tile/stat-tile.component.css",
+          "line": 9,
+          "value": "rgba(0, 0, 0, 0.06)",
+          "origin": "scattered",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-color-options-black-a06",
+            "value": "rgba(0, 0, 0, 0.06)",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/features/dashboard/dashboard.component.css",
+          "line": 24,
+          "value": "rgba(0, 0, 0, 0.06)",
+          "origin": "scattered",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-color-options-black-a06",
+            "value": "rgba(0, 0, 0, 0.06)",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/features/login/login.component.css",
+          "line": 20,
+          "value": "rgba(0, 0, 0, 0.08)",
+          "origin": "scattered",
+          "kind": "colour",
+          "nearest": {
+            "name": "--ds-color-options-black-a06",
+            "value": "rgba(0, 0, 0, 0.06)",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/features/dashboard/components/log-viewer/log-viewer.component.css",
+          "line": 2,
+          "value": "200px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-layout-options-200",
+            "value": "200px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/features/dashboard/components/stat-tile/stat-tile.component.css",
+          "line": 9,
+          "value": "2px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-width-options-2",
+            "value": "2px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/features/dashboard/components/stat-tile/stat-tile.component.css",
+          "line": 9,
+          "value": "8px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-8",
+            "value": "8px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/features/dashboard/components/throughput-chart/throughput-chart.component.css",
+          "line": 24,
+          "value": "36px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-size-options-36",
+            "value": "36px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/features/dashboard/components/throughput-chart/throughput-chart.component.css",
+          "line": 27,
+          "value": "4px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-4",
+            "value": "4px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/features/dashboard/dashboard.component.css",
+          "line": 24,
+          "value": "2px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-width-options-2",
+            "value": "2px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/features/dashboard/dashboard.component.css",
+          "line": 24,
+          "value": "8px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-8",
+            "value": "8px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/features/login/login.component.css",
+          "line": 11,
+          "value": "400px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-layout-options-400",
+            "value": "400px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/features/login/login.component.css",
+          "line": 20,
+          "value": "4px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-4",
+            "value": "4px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/features/login/login.component.css",
+          "line": 20,
+          "value": "16px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-font-size-options-16",
+            "value": "16px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/profile-menu/profile-menu.component.css",
+          "line": 34,
+          "value": "10px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-10",
+            "value": "10px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/profile-menu/profile-menu.component.css",
+          "line": 35,
+          "value": "6px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-border-radius-options-6",
+            "value": "6px",
+            "distance": 0
+          }
+        },
+        {
+          "file": "app/layout/profile-menu/profile-menu.component.css",
+          "line": 49,
+          "value": "180px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-layout-options-180",
+            "value": "180px",
+            "distance": 0
+          }
+        }
+      ],
+      "divergent": [],
+      "novel": [
+        {
+          "file": "app/features/dashboard/components/throughput-chart/throughput-chart.component.css",
+          "line": 2,
+          "value": "160px",
+          "origin": "scattered",
+          "kind": "length",
+          "nearest": {
+            "name": "--ds-layout-options-180",
+            "value": "180px",
+            "distance": 20
+          }
+        }
+      ]
+    },
+    "a11yPages": [
+      {
+        "route": "/login",
+        "violations": []
+      },
+      {
+        "route": "/dashboard",
+        "violations": [
+          {
+            "id": "aria-prohibited-attr",
+            "impact": "serious",
+            "nodes": 7,
+            "help": "Elements must only use permitted ARIA attributes"
+          }
+        ]
+      },
+      {
+        "route": "/users",
+        "violations": []
+      }
+    ]
+  }
+}

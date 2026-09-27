@@ -1,0 +1,68 @@
+<div class="users-page">
+  <div class="users-header">
+    <h1 class="users-title">Team Members</h1>
+    <dsb-button variant="primary" (click)="openInvite()">Invite Member</dsb-button>
+  </div>
+
+  <dsb-table [rows]="$any(members)" [loading]="loading" [hoverable]="true" emptyMessage="No team members yet.">
+    <dsb-column key="avatar" header="Avatar" width="72px">
+      <ng-template #cell let-row="row">
+        <dsb-avatar [src]="$any(row).avatar" [name]="$any(row).name" size="sm" />
+      </ng-template>
+    </dsb-column>
+
+    <dsb-column key="name" header="Name" />
+    <dsb-column key="email" header="Email" />
+
+    <dsb-column key="role" header="Role">
+      <ng-template #cell let-row="row">
+        <dsb-tag [variant]="roleTagVariant($any(row).role)" size="sm">{{ $any(row).role }}</dsb-tag>
+      </ng-template>
+    </dsb-column>
+
+    <dsb-column key="status" header="Status">
+      <ng-template #cell let-row="row">
+        <dsb-tag [variant]="statusTagVariant($any(row).status)" size="sm">{{ $any(row).status }}</dsb-tag>
+      </ng-template>
+    </dsb-column>
+
+    <dsb-column key="joinedDate" header="Joined" />
+
+    <dsb-column key="actions" header="Actions" align="right">
+      <ng-template #cell let-row="row">
+        <div class="row-actions">
+          <dsb-button variant="ghost" size="sm" (click)="openDetails($any(row))">Details</dsb-button>
+          <dsb-button variant="secondary" size="sm" (click)="openEdit($any(row))">Edit</dsb-button>
+          <dsb-button variant="danger" size="sm" (click)="openDelete($any(row))">Delete</dsb-button>
+        </div>
+      </ng-template>
+    </dsb-column>
+  </dsb-table>
+</div>
+
+<app-member-details-dialog
+  [open]="detailsOpen"
+  [member]="selectedMember"
+  (openChange)="detailsOpen = $event"
+/>
+
+<app-member-edit-dialog
+  [open]="editOpen"
+  [member]="selectedMember"
+  (openChange)="editOpen = $event"
+  (save)="onSaveEdit($event)"
+  (deleteRequested)="onEditDeleteRequested($event)"
+/>
+
+<app-member-invite-dialog
+  [open]="inviteOpen"
+  (openChange)="inviteOpen = $event"
+  (invite)="onInviteSubmit($event)"
+/>
+
+<app-delete-confirm-dialog
+  [open]="deleteOpen"
+  [member]="selectedMember"
+  (openChange)="deleteOpen = $event"
+  (confirmed)="onDeleteConfirmed()"
+/>

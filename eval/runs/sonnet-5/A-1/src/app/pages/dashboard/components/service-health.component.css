@@ -1,0 +1,26 @@
+.service-health__list {
+  display: flex;
+  flex-direction: column;
+}
+
+.service-health__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--color-hairline);
+}
+
+.service-health__row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.service-health__row:first-child {
+  padding-top: 0;
+}
+
+.service-health__name {
+  font-size: var(--text-base);
+  color: var(--color-text);
+}

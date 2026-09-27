@@ -1,0 +1,92 @@
+.app-footer {
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border-subtle);
+  padding: var(--space-7);
+  margin-top: auto;
+}
+
+.app-footer__top {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-7);
+  flex-wrap: wrap;
+}
+
+.app-footer__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.app-footer__logo {
+  width: 20px;
+  height: 20px;
+  border-radius: var(--radius-sm);
+  background: var(--color-primary);
+}
+
+.app-footer__brand-name {
+  font-size: var(--text-md);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text);
+}
+
+.app-footer__columns {
+  display: flex;
+  gap: var(--space-8);
+  flex-wrap: wrap;
+}
+
+.app-footer__column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  min-width: 120px;
+}
+
+.app-footer__column-title {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+}
+
+.app-footer__link {
+  font-size: var(--text-base);
+  color: var(--color-text-muted);
+  text-decoration: none;
+}
+
+.app-footer__link:hover {
+  color: var(--color-text);
+}
+
+.app-footer__divider {
+  height: 1px;
+  background: var(--color-border-subtle);
+  max-width: var(--content-max-width);
+  margin: var(--space-7) auto;
+}
+
+.app-footer__bottom {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.app-footer__copyright {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.app-footer__legal {
+  display: flex;
+  gap: var(--space-6);
+}

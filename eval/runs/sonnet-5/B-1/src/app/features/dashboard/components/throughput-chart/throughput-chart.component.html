@@ -1,0 +1,8 @@
+<div class="chart">
+  <div class="chart-bars">
+    <div class="chart-col" *ngFor="let bar of bars">
+      <div class="chart-bar" [style.height.%]="heightPercent(bar.value)" [attr.aria-label]="bar.label + ': ' + bar.value"></div>
+      <span class="chart-label">{{ bar.label }}</span>
+    </div>
+  </div>
+</div>

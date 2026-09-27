@@ -421,10 +421,18 @@ one() {
   assert_isolation "$arm" "$dir" "after the run"
 
   local figma_calls figma_errors figma_nodes
-  # Piped into wc rather than `grep -c ... || echo 0`: grep prints its zero AND exits 1 on
-  # no match, so the fallback appended a second zero and the note read "figma: 0\n0 calls".
+  # awk on both sides, and the reason is worth keeping. `grep -c` prints its zero AND exits
+  # 1 when nothing matches. With `pipefail` that status survives the pipe, and with `set -e`
+  # it kills the script — silently, with no message, right after the prompt line.
+  #
+  # It never showed up in a round, because `round` calls `one` inside `if ! ( ... )` and a
+  # condition suspends errexit for the whole call. It only bit `./run.sh <arm> <n>`, where
+  # `one` runs directly. Tested the dispatcher on that path, never the function body: the
+  # stub harness replaced `one` entirely, so this line was never executed outside a round.
+  #
+  # awk exits 0 whether or not it matched, so neither count can take the run with it.
   figma_calls="$(awk 'NF' "$FIGMA_CALL_LOG" 2>/dev/null | wc -l | tr -d ' ')"
-  figma_errors="$(grep -c '"ok":false' "$FIGMA_CALL_LOG" 2>/dev/null | tr -d ' ')"
+  figma_errors="$(awk '/"ok":false/' "$FIGMA_CALL_LOG" 2>/dev/null | wc -l | tr -d ' ')"
   figma_nodes="$(node -e '
     const fs=require("fs"); const f=process.argv[1];
     if(!fs.existsSync(f)) { console.log(""); process.exit(0); }
@@ -676,6 +684,78 @@ case "${1:-}" in
     ls -1 "$shots_dir"
     note "open them with: open $shots_dir"
     ;;
+  recover)
+    # Rebuild the record for a run that finished but was never written down.
+    #
+    # `one` holds the agent's whole result in a shell variable and writes it after the
+    # measurement counts. A bug in those counts killed the script between the two, so the
+    # application exists on disk and the record does not. The variable is gone with the
+    # shell: turns, tokens, cost and the session id cannot be recovered by anything.
+    #
+    # So this reconstructs what disk still knows, marks the rest unknown rather than zero,
+    # and refuses unless the application is complete on evidence independent of any scored
+    # metric — the same bar a run aborted by an API error has to clear.
+    [[ $# -eq 3 ]] || die "Usage: ./run.sh recover <arm> <n>"
+    recover_dir="$RUNS_ROOT/$MODEL_SLUG/$2-$3"
+    [[ -d "$recover_dir" ]] || die "Nothing at $recover_dir"
+    [[ ! -f "$RESULTS/$2-$3.json" ]] || die "$RESULTS/$2-$3.json already exists. Recovery would
+  overwrite a real record with a reconstructed one. Remove it first if that is what you want."
+
+    note "$2/$3 — recovering $recover_dir"
+    measure "$2" "$3" "$recover_dir"
+    archive "$2" "$3" "$recover_dir"
+
+    node -e '"'"'
+      const fs = require("fs"), path = require("path"), crypto = require("crypto");
+      const [out, arm, run, model, dir, evalDir, cli] = process.argv.slice(1);
+      const sha = (f) => crypto.createHash("sha256").update(fs.readFileSync(f)).digest("hex").slice(0, 12);
+      const readIf = (f) => (fs.existsSync(f) ? JSON.parse(fs.readFileSync(f, "utf8")) : null);
+
+      const build = readIf(path.join(dir, "build.json"));
+      const a11y  = readIf(path.join(dir, "a11y.json"));
+      const routes = a11y && a11y.available ? (a11y.pages || []).map((p) => p.route) : [];
+      const want = ["/login", "/dashboard", "/users"];
+      const missing = want.filter((r) => !routes.includes(r));
+
+      // The same bar as an API-aborted run: builds, every route S0 names rendered under the
+      // measurement pass, and that pass completed. Nothing here is a scored metric.
+      if (!build || build.ok !== true) { console.error("  refusing: the application does not build"); process.exit(3); }
+      if (!a11y || !a11y.available)    { console.error("  refusing: the measurement pass did not run"); process.exit(3); }
+      if (missing.length)              { console.error("  refusing: routes never rendered: " + missing.join(", ")); process.exit(3); }
+
+      const log = path.join(dir, "figma-calls.jsonl");
+      const lines = fs.existsSync(log) ? fs.readFileSync(log, "utf8").split("\n").filter(Boolean) : [];
+      const calls = lines.map((l) => { try { return JSON.parse(l); } catch { return null; } }).filter(Boolean);
+      const prompt = path.join(dir, ".prompt.md");
+
+      fs.writeFileSync(out, JSON.stringify({
+        arm, run: Number(run), model, cli,
+        isolation: "session",
+        started: fs.existsSync(prompt) ? new Date(fs.statSync(prompt).mtimeMs).toISOString().slice(0,19)+"Z" : null,
+        overlaySha: sha(path.join(evalDir, "arms", arm + ".md")),
+        s0Sha: sha(path.join(evalDir, "S0.md")),
+        promptBytes: fs.existsSync(prompt) ? fs.statSync(prompt).size : null,
+        runDir: dir,
+        figma: { channel: "cached", ok: true, calls: calls.length,
+                 errors: calls.filter((c) => c.ok === false).length,
+                 nodes: [...new Set(calls.map((c) => c.args && c.args.nodeId).filter(Boolean))] },
+        reconstructed: {
+          at: new Date().toISOString().slice(0,19) + "Z",
+          why: "run.sh died between the agent finishing and the record being written — a grep exit "
+             + "status under pipefail killed the script silently on the single-arm path. The "
+             + "agent output lived in a shell variable and is unrecoverable.",
+          lost: ["num_turns", "total_cost_usd", "usage", "session_id", "permission_denials", "final message"],
+          evidence: { builds: true, routesRendered: routes, bundle: build.bundle },
+        },
+        inputTokensTotal: null,
+        outputTokens: null,
+        result: { is_error: false, permission_denials: [], num_turns: null, total_cost_usd: null,
+                  note: "not recorded — see reconstructed.why" },
+      }, null, 2) + "\n");
+      console.log("  record reconstructed. Lost for good: turns, tokens, cost, session id.");
+    '"'"' "$RESULTS/$2-$3.json" "$2" "$3" "$MODEL" "$recover_dir" "$EVAL_DIR" "$(claude --version 2>&1 | head -1)"
+    note "$2/$3 — done, $RESULTS/$2-$3.json"
+    ;;
   remeasure)
     # Re-run measurement and archiving over a run directory that is still on disk, without
     # regenerating anything. Exists because a harness bug can throw away a good run, and
@@ -740,6 +820,7 @@ case "${1:-}" in
     ./run.sh preflight      check credentials, flags and permissions
     ./run.sh status         what has been run so far
     ./run.sh remeasure <arm> <n>   re-score a run still on disk, without regenerating it
+    ./run.sh recover <arm> <n>     rebuild the record for a run that finished but was never written
     ./run.sh import <arm> <n> <dir>  score a run made by another agent (set MODEL)
     ./run.sh serve <arm> <n>       install and serve an archived application
     ./run.sh shots <arm> <n>       list the screenshots captured for a run

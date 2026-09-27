@@ -1,0 +1,126 @@
+{
+  "arm": "A",
+  "run": 1,
+  "model": "claude-sonnet-5",
+  "cli": "2.1.281 (Claude Code)",
+  "isolation": "session",
+  "started": "2026-09-26T09:41:15Z",
+  "overlaySha": "40dd762a0ef7",
+  "s0Sha": "c25d3e960f47",
+  "promptBytes": 13108,
+  "runDir": "/tmp/dsb-eval/sonnet-5/A-1",
+  "figma": {
+    "channel": "cached",
+    "fileKey": "iJ92LuFOsPjO6avZ2anbwO",
+    "recordedAt": "2026-09-24T19:49:36Z",
+    "calls": 3,
+    "errors": 0,
+    "nodes": [
+      "22-11104",
+      "22:11448",
+      "22:11492"
+    ],
+    "ok": true
+  },
+  "inputTokensTotal": 12809900,
+  "outputTokens": 108741,
+  "result": {
+    "duration_api_ms": 1273845,
+    "stop_reason": "end_turn",
+    "session_id": "d55e85c3-e89e-420e-a858-0de29fe93cbd",
+    "total_cost_usd": 4.750422100000001,
+    "usage": {
+      "input_tokens": 190,
+      "cache_creation_input_tokens": 188924,
+      "cache_read_input_tokens": 12620786,
+      "output_tokens": 108741,
+      "output_tokens_details": {
+        "thinking_tokens": 44484
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 188924,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "not_available",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 771,
+          "cache_read_input_tokens": 206465,
+          "cache_creation_input_tokens": 1568,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 1568
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard"
+    },
+    "modelUsage": {
+      "claude-sonnet-5": {
+        "inputTokens": 210,
+        "outputTokens": 127064,
+        "cacheReadInputTokens": 12827643,
+        "cacheCreationInputTokens": 252179,
+        "webSearchRequests": 0,
+        "costUSD": 4.750422100000001,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 64000,
+        "thinkingTokens": 49758,
+        "canonicalModel": "claude-sonnet-5",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "subagent_stats": {
+      "spawned": 2,
+      "requested": {
+        "background": 2,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 2,
+      "max_depth": 1,
+      "spawned_by_subagents": 0,
+      "completed": 2,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {
+        "general-purpose": 2
+      }
+    },
+    "is_error": false,
+    "num_turns": 153,
+    "subtype": "success",
+    "api_error_status": null,
+    "result": "The app is complete, built successfully (dev and production), and verified end-to-end in a real browser. Summary:\n\n**Built:** Full Angular 19 standalone app per spec — login guard/auth guard, `angular-in-memory-web-api` CRUD backend, dashboard with 8 tiles (incl. a hand-rolled bar chart and a live-appending terminal log viewer), and a full Users CRUD table with all 4 dialogs (details/edit/delete/invite).\n\n**Consistency approach (Arm A had no design system provided):** rather than one-off literals, I centralized every color/spacing/radius/shadow/font value as CSS custom properties in `styles.css`, and built small reusable primitives (`ui-badge`, `ui-avatar`, `ui-modal`, `[uiButton]` directive, shared form/card/dialog CSS classes) that every page composes from.\n\n**Bugs I found and fixed while testing in a real browser:**\n- The in-memory API's PUT handler keys off the request *body's* `id`, not the URL — `UsersService.update()` wasn't including it, causing every save to silently 404.\n- That same PUT replaces the whole record, so saving from the Edit dialog was about to wipe `avatar`/`status`/`joinedDate` since only the changed fields were sent — fixed to merge into the full user object first.\n- The header profile menu's outside-click check used the whole `<app-header>` as the boundary, so clicking anywhere in the header (not just outside the menu) failed to close it — scoped the check to just the profile control.\n\n**Visual choices made where Figma and the spec conflicted (this Figma file is a generic reused template):** the login card's copy, the dashboard's tile content/values, and the exact footer content follow the spec's literal text since Figma showed different placeholder copy/values; Figma governed all structural sizing, spacing, colors, and type scale. Role/status badge colors (including red for \"Admin\") come directly from the Figma data. A few hairline/border values reported as pure black were rendered at low opacity per the research agent's own caveat that Figma's raw fill data likely omits applied opacity. Dashboard row heights for the two 3fr:2fr card rows are my own layout choice, since spec lists 8 discrete tiles but the Figma frame showed some of them merged into fewer visual cards.",
+    "ttft_ms": 2413,
+    "type": "result",
+    "duration_ms": 1270391,
+    "uuid": "14cef6c6-31cd-4f0a-a5d5-38ee6bd8702e",
+    "ttft_stream_ms": 1401,
+    "time_to_request_ms": 241,
+    "first_content_frame_ms": 1402,
+    "queued_turn_count": 0,
+    "result_index": 0
+  }
+}

@@ -1,0 +1,61 @@
+<div class="auth-shell">
+  <div class="auth-card">
+    <h1 class="auth-card__heading">Welcome back</h1>
+    <p class="auth-card__subtitle">Sign in to your account to continue</p>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+      <div class="field">
+        <label class="field__label" for="username">Username</label>
+        <input
+          id="username"
+          type="text"
+          class="field__control"
+          [class.field__control--error]="username.invalid && username.touched"
+          formControlName="username"
+          placeholder="Enter your username"
+          autocomplete="username"
+        />
+        @if (username.invalid && username.touched) {
+          <span class="field__error">Username is required.</span>
+        }
+      </div>
+
+      <div class="field field--spaced">
+        <label class="field__label" for="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          class="field__control"
+          [class.field__control--error]="password.invalid && password.touched"
+          formControlName="password"
+          placeholder="Enter your password"
+          autocomplete="current-password"
+        />
+        @if (password.invalid && password.touched) {
+          <span class="field__error">Password is required.</span>
+        }
+      </div>
+
+      @if (submitError) {
+        <p class="auth-card__form-error">Invalid username or password.</p>
+      }
+
+      <div class="auth-card__row">
+        <label class="auth-card__remember">
+          <input type="checkbox" />
+          <span>Remember me</span>
+        </label>
+        <a class="auth-card__link" href="#" (click)="$event.preventDefault()">Forgot password?</a>
+      </div>
+
+      <button uiButton variant="primary" type="submit" class="auth-card__submit">Sign In</button>
+    </form>
+
+    <div class="auth-card__divider"></div>
+
+    <p class="auth-card__signup">
+      Don't have an account?
+      <a class="auth-card__link" href="#" (click)="$event.preventDefault()">Sign up</a>
+    </p>
+  </div>
+</div>

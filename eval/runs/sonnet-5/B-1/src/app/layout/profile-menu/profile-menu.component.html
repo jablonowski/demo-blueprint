@@ -1,0 +1,21 @@
+<div class="profile-menu">
+  <button
+    type="button"
+    class="profile-trigger"
+    (click)="toggle()"
+    [attr.aria-expanded]="open"
+    aria-haspopup="menu"
+  >
+    <dsb-avatar [name]="userName" size="sm" shape="circle" />
+    <span class="profile-name">{{ userName }}</span>
+    <svg class="profile-caret" [class.profile-caret--open]="open" viewBox="0 0 10 6" fill="none" aria-hidden="true">
+      <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+  </button>
+
+  <div class="profile-panel" *ngIf="open" role="menu">
+    <a class="profile-item" role="menuitem" href="#" (click)="$event.preventDefault(); close()">My Profile</a>
+    <div class="profile-divider"></div>
+    <button type="button" class="profile-item" role="menuitem" (click)="onSignOut()">Sign Out</button>
+  </div>
+</div>

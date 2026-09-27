@@ -1,0 +1,32 @@
+/* Tokens are loaded via angular.json (@jablonowski/dsb-tokens/css → dist/css/public.css). */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  /* No font-family token in @jablonowski/dsb-tokens/css (no-coverage). Figma uses Inter. */
+  font-family: Inter, system-ui, sans-serif;
+  font-size: var(--ds-decisions-font-size-md);
+  line-height: var(--ds-decisions-font-line-height-tight);
+  color: var(--ds-decisions-color-text-primary);
+  background: var(--ds-decisions-color-surface-subtle);
+}
+
+/* Visually hidden, still announced by assistive technology. */
+.sr-only {
+  position: absolute;
+  width: var(--ds-decisions-space-4xs);
+  height: var(--ds-decisions-space-4xs);
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

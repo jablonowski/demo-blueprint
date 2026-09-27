@@ -1,0 +1,29 @@
+.ui-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: var(--space-4);
+}
+
+.ui-modal {
+  width: 560px;
+  max-width: 100%;
+  max-height: calc(100vh - 64px);
+  overflow-y: auto;
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-modal);
+}
+
+.ui-modal--sm {
+  width: 420px;
+}
+
+.ui-modal__divider {
+  height: 1px;
+  background: var(--color-hairline);
+}

@@ -1,0 +1,37 @@
+{
+  "available": true,
+  "total": 1,
+  "critical": 0,
+  "serious": 1,
+  "moderate": 0,
+  "minor": 0,
+  "pages": [
+    {
+      "route": "/login",
+      "violations": []
+    },
+    {
+      "route": "/dashboard",
+      "violations": [
+        {
+          "id": "aria-prohibited-attr",
+          "impact": "serious",
+          "nodes": 7,
+          "help": "Elements must only use permitted ARIA attributes"
+        }
+      ]
+    },
+    {
+      "route": "/users",
+      "violations": []
+    }
+  ],
+  "shots": [
+    "login-desktop.png",
+    "login-mobile.png",
+    "dashboard-desktop.png",
+    "dashboard-mobile.png",
+    "users-desktop.png",
+    "users-mobile.png"
+  ]
+}

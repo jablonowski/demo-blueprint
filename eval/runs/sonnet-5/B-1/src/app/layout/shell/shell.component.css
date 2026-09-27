@@ -1,0 +1,46 @@
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-header {
+  position: relative;
+}
+
+.app-header-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.app-header-overlay-inner {
+  position: relative;
+  width: 100%;
+  max-width: var(--ds-component-header-max-width);
+}
+
+.app-header-overlay-inner app-profile-menu {
+  position: absolute;
+  top: 0;
+  right: var(--ds-decisions-space-3xl);
+  height: var(--ds-component-header-height);
+  display: flex;
+  align-items: center;
+  pointer-events: auto;
+}
+
+.app-main {
+  flex: 1;
+  background: var(--ds-decisions-color-surface-subtle);
+  display: flex;
+  justify-content: center;
+  padding: var(--ds-decisions-space-4xl) var(--ds-decisions-space-3xl);
+}
+
+.app-main-inner {
+  width: 100%;
+  max-width: var(--ds-decisions-layout-width-3xl);
+}

@@ -1,0 +1,13 @@
+<section class="dashboard-card health-card">
+  <h2 class="health-title">Service Health</h2>
+  <ul class="health-list">
+    @for (service of services; track service.name) {
+      <li class="health-row">
+        <span class="health-name">{{ service.name }}</span>
+        <dsb-tag [variant]="service.online ? 'success' : 'danger'" size="sm">
+          {{ service.online ? 'Online' : 'Offline' }}
+        </dsb-tag>
+      </li>
+    }
+  </ul>
+</section>

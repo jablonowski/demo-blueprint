@@ -1,0 +1,8 @@
+<div class="stat-tile">
+  <span class="stat-title">{{ title }}</span>
+  <div class="stat-value-row">
+    <span class="stat-value">{{ value }}</span>
+    <dsb-tag *ngIf="trend" [variant]="trendPositive ? 'success' : 'danger'" size="sm">{{ trend }}</dsb-tag>
+  </div>
+  <span *ngIf="subLabel" class="stat-sublabel">{{ subLabel }}</span>
+</div>

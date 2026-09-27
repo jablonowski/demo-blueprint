@@ -1,0 +1,40 @@
+<div class="dashboard">
+  <div class="dashboard-row dashboard-row--stats">
+    <app-metric-tile
+      title="Active Users"
+      value="1,284"
+      trend="+12%"
+      [trendPositive]="true"
+      subLabel="vs last 7 days"
+    />
+    <app-metric-tile
+      title="Avg Response Time"
+      value="142ms"
+      trend="-8ms"
+      [trendPositive]="true"
+      subLabel="vs last 7 days"
+    />
+    <app-metric-tile
+      title="Error Rate"
+      value="0.04%"
+      trend="+0.01%"
+      [trendPositive]="false"
+      subLabel="vs last 7 days"
+    />
+    <app-metric-tile
+      title="Uptime (30d)"
+      value="99.97%"
+      trend="Stable"
+      [trendPositive]="true"
+      subLabel="last 30 days"
+    />
+  </div>
+
+  <div class="dashboard-row dashboard-row--panels">
+    <app-throughput-chart />
+    <app-service-health />
+    <app-data-summary />
+  </div>
+
+  <app-system-logs />
+</div>

@@ -1,0 +1,64 @@
+<div class="dashboard-grid">
+  <app-stat-tile
+    class="grid-span-1"
+    title="Active Users"
+    value="1,284"
+    trend="+12%"
+    [trendPositive]="true"
+    subLabel="vs last 7 days"
+  />
+  <app-stat-tile
+    class="grid-span-1"
+    title="Avg Response Time"
+    value="142ms"
+    trend="-8ms"
+    [trendPositive]="true"
+    subLabel="vs last 7 days"
+  />
+  <app-stat-tile
+    class="grid-span-1"
+    title="Error Rate"
+    value="0.04%"
+    trend="+0.01%"
+    [trendPositive]="false"
+    subLabel="vs last 7 days"
+  />
+  <app-stat-tile
+    class="grid-span-1"
+    title="Uptime (30d)"
+    value="99.97%"
+    trend="Stable"
+    [trendPositive]="true"
+    subLabel="last 30 days"
+  />
+
+  <div class="dashboard-card grid-span-2">
+    <h2 class="card-title">Request Throughput</h2>
+    <app-throughput-chart />
+  </div>
+
+  <div class="dashboard-card grid-span-2">
+    <h2 class="card-title">Service Health</h2>
+    <dsb-list [bordered]="true">
+      <dsb-list-item
+        *ngFor="let service of services"
+        [label]="service.name"
+        [meta]="service.online ? 'Online' : 'Offline'"
+        [variant]="service.online ? 'success' : 'error'"
+        [indicator]="true"
+      />
+    </dsb-list>
+  </div>
+
+  <div class="dashboard-card grid-span-4">
+    <h2 class="card-title">Data Summary</h2>
+    <dsb-list [bordered]="true">
+      <dsb-list-item *ngFor="let row of summaryRows" [label]="row.label" [meta]="row.value" />
+    </dsb-list>
+  </div>
+
+  <div class="dashboard-card grid-span-4">
+    <h2 class="card-title">System Logs</h2>
+    <app-log-viewer />
+  </div>
+</div>

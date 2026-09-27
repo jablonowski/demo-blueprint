@@ -1,0 +1,122 @@
+{
+  "arm": "C",
+  "run": 2,
+  "model": "claude-opus-5-5",
+  "cli": "2.1.281 (Claude Code)",
+  "isolation": "session",
+  "started": "2026-09-27T06:34:52Z",
+  "overlaySha": "b0826b551c35",
+  "s0Sha": "c25d3e960f47",
+  "promptBytes": 17273,
+  "runDir": "/tmp/dsb-eval/opus-5-5/C-2",
+  "figma": {
+    "channel": "cached",
+    "fileKey": "iJ92LuFOsPjO6avZ2anbwO",
+    "recordedAt": "2026-09-24T19:49:36Z",
+    "calls": 1,
+    "errors": 0,
+    "nodes": [
+      "22-11104"
+    ],
+    "ok": true
+  },
+  "inputTokensTotal": 3763122,
+  "outputTokens": 40645,
+  "result": {
+    "duration_api_ms": 442318,
+    "stop_reason": "end_turn",
+    "session_id": "cef0adb5-48e4-4e68-8af3-871115d1a033",
+    "total_cost_usd": 2.6887016,
+    "usage": {
+      "input_tokens": 72,
+      "cache_creation_input_tokens": 143962,
+      "cache_read_input_tokens": 3619088,
+      "output_tokens": 40645,
+      "output_tokens_details": {
+        "thinking_tokens": 7755
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 143962,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "not_available",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 1337,
+          "cache_read_input_tokens": 153812,
+          "cache_creation_input_tokens": 854,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 854
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard"
+    },
+    "modelUsage": {
+      "claude-opus-5-5": {
+        "inputTokens": 72,
+        "outputTokens": 40645,
+        "cacheReadInputTokens": 3619088,
+        "cacheCreationInputTokens": 143962,
+        "webSearchRequests": 0,
+        "costUSD": 2.6887016,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 128000,
+        "thinkingTokens": 7755,
+        "canonicalModel": "claude-opus-5-5",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "subagent_stats": {
+      "spawned": 0,
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 0,
+      "spawned_by_subagents": 0,
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {}
+    },
+    "is_error": false,
+    "num_turns": 40,
+    "subtype": "success",
+    "api_error_status": null,
+    "result": "The app is built and working. It's scaffolded as an Angular 19 project in the working directory, uses `@jablonowski/dsb-components` for every UI primitive that has one, and styles everything with `--ds-decisions-*` tokens only. `npx @angular/cli@19 serve` runs it, and logging in with `admin` / `admin` reaches the dashboard.\n\n**How I checked it.** I drove the running app in headless Chromium at 1280px and 420px:\n- The login guard and auth guard both redirect correctly, and an empty submit puts both fields into their error state.\n- Details, edit, invite and delete all open and close, including closing on the backdrop.\n- Edit, invite (which adds a row), and \"Delete user\" → confirm (which removes it) all go through the in-memory API, and the table updates each time.\n- The profile menu opens leftward and stays inside the viewport at both widths, and closes on an outside click.\n- Sign Out goes to `/login`.\n- A new log line appears every 3 s.\n- There were no console errors, and the production build has no warnings.\n\n**Where Figma and the spec disagree, I followed the spec:**\n- **Dashboard tiles:** Figma has 7 tiles (no Data Summary, Health on the left, Throughput hourly). I built the spec's 8, in the spec's order: Throughput and Service Health on row 2, Data Summary and System Logs on row 3. The Data Summary position is my own choice, because Figma has nowhere for it.\n- **Text:** tile values, service names, login copy and the order of the Details/Edit/Delete buttons come from the spec, not the Figma text.\n- **Error Rate trend:** it shows as negative (red). Figma uses a warning (amber) badge.\n- **Login card:** I left out Figma's \"Blueprint\" heading and divider element because the spec says to add nothing else. The divider is now a top border on the sign-up line.\n- **Header navigation:** it links to Dashboard and Team Members rather than Figma's placeholder links (Overview, Metrics, Logs, Settings).\n- **Footer:** it has columns and a brand, as the spec asks. Figma's footer is a single bar.\n\n**Things the tokens can't express, so they don't match Figma exactly:**\n- **Fonts:** there's no font-family token. I set Inter for the page and a system monospace stack for the logs as literals.\n- **Card shadow:** there's no shadow token for cards, so cards have none (Figma's is very faint).\n- **Sizes:** the largest font token is 22px, so the metric values are 22px instead of Figma's 26. The login card corner is 10px rather than 12, and dialogs are 540px wide rather than 560.\n- **Breakpoints:** there are no breakpoint tokens, so the media queries use raw widths.\n- **Chart and log heights:** these are multiples of spacing tokens, because no size token fits.\n- **Dialogs:** they don't have Figma's divider lines around the header and footer, because the library's modal component doesn't draw them.\n\n**Limitations of the library that I had to work around:**\n- The header component has no place for extra content, so the profile control is positioned over its right edge. Below 720px the name is visually hidden and only the avatar shows.\n- The header and footer render plain links, which would reload the whole page. I intercept those clicks and pass them to the Angular router instead.\n- The Details dialog shows its read-only boxes by using disabled form controls in the library's input component.\n\n**Facts the shipped guide (`llms.client.txt`) doesn't carry, which I had to read from the package source:**\n- The header can't hold extra content.\n- The modal's custom title slot only renders when `title` is left empty.\n- The modal footer is a right-aligned flex row, so a split footer needs a full-width wrapper.\n- The input's `value` isn't an input binding.\n- There are no font-family or breakpoint tokens.",
+    "ttft_ms": 5162,
+    "type": "result",
+    "duration_ms": 585829,
+    "uuid": "fde98b5d-3625-4b10-8bde-3d9f370f7ec9",
+    "ttft_stream_ms": 4494,
+    "time_to_request_ms": 338,
+    "first_content_frame_ms": 4494,
+    "queued_turn_count": 0,
+    "result_index": 0
+  }
+}

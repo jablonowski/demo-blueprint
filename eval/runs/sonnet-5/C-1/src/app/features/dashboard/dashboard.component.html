@@ -1,0 +1,49 @@
+<div class="dashboard">
+  <div class="dashboard-header">
+    <h1 class="dashboard-title">System Overview</h1>
+  </div>
+
+  <div class="metrics-grid">
+    <app-metric-tile title="Active Users" value="1,284" trend="+12%" [positive]="true" subLabel="vs last 7 days"></app-metric-tile>
+    <app-metric-tile title="Avg Response Time" value="142ms" trend="-8ms" [positive]="true" subLabel="vs last 7 days"></app-metric-tile>
+    <app-metric-tile title="Error Rate" value="0.04%" trend="+0.01%" [positive]="false" subLabel="vs last 7 days"></app-metric-tile>
+    <app-metric-tile title="Uptime (30d)" value="99.97%" trend="Stable" [positive]="true" subLabel="last 30 days"></app-metric-tile>
+  </div>
+
+  <div class="tiles-row">
+    <section class="tile tile-chart">
+      <h2 class="tile-title">Request Throughput</h2>
+      <div class="chart">
+        <div class="chart-bar-col" *ngFor="let bar of throughput">
+          <div class="chart-bar" [style.height.%]="bar.pct"></div>
+          <span class="chart-day">{{ bar.day }}</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="tile tile-services">
+      <h2 class="tile-title">Service Health</h2>
+      <dsb-list [divided]="true">
+        <dsb-list-item *ngFor="let svc of services" [label]="svc.name">
+          <dsb-tag list-trailing [variant]="svc.online ? 'success' : 'danger'" size="sm">
+            {{ svc.online ? 'Online' : 'Offline' }}
+          </dsb-tag>
+        </dsb-list-item>
+      </dsb-list>
+    </section>
+
+    <section class="tile tile-summary">
+      <h2 class="tile-title">Data Summary</h2>
+      <dsb-list [divided]="true">
+        <dsb-list-item *ngFor="let row of summary" [label]="row.label" [meta]="row.value"></dsb-list-item>
+      </dsb-list>
+    </section>
+  </div>
+
+  <section class="tile tile-logs">
+    <h2 class="tile-title">System Logs</h2>
+    <div class="terminal" #terminal>
+      <div class="terminal-line" *ngFor="let line of logLines">{{ line }}</div>
+    </div>
+  </section>
+</div>

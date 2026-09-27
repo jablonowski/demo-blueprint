@@ -1,0 +1,8 @@
+<section class="dashboard-card logs-card">
+  <h2 class="logs-title">System Logs</h2>
+  <div class="logs-viewport" #viewport>
+    @for (line of lines; track $index) {
+      <p class="logs-line">{{ line }}</p>
+    }
+  </div>
+</section>

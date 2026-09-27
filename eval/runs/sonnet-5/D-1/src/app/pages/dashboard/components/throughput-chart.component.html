@@ -1,0 +1,13 @@
+<section class="dashboard-card chart-card">
+  <h2 class="chart-title">Request Throughput</h2>
+  <div class="chart-bars">
+    @for (day of data; track day.label) {
+      <div class="chart-col">
+        <div class="chart-bar-track">
+          <div class="chart-bar" [style.height.%]="heightPercent(day.value)"></div>
+        </div>
+        <span class="chart-day-label">{{ day.label }}</span>
+      </div>
+    }
+  </div>
+</section>

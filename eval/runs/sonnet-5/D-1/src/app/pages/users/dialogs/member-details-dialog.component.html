@@ -1,0 +1,55 @@
+<dsb-modal
+  [open]="open"
+  size="md"
+  ariaLabel="Member Details"
+  [closeOnBackdrop]="true"
+  (openChange)="onOpenChange($event)"
+>
+  <div modal-title class="details-header">
+    <span class="details-header-title">Member Details</span>
+    <dsb-tag variant="default" size="sm">Read only</dsb-tag>
+  </div>
+
+  @if (member) {
+    <div class="details-body">
+      <div class="user-row">
+        <dsb-avatar [name]="member.name" size="md" />
+        <div class="user-row-info">
+          <span class="user-row-name">{{ member.name }}</span>
+          <span class="user-row-meta">Member since {{ memberSince }}</span>
+        </div>
+      </div>
+
+      <div class="field-grid">
+        <div class="field">
+          <span class="field-label">First name</span>
+          <div class="field-box">{{ firstName }}</div>
+        </div>
+        <div class="field">
+          <span class="field-label">Last name</span>
+          <div class="field-box">{{ lastName }}</div>
+        </div>
+      </div>
+
+      <div class="field">
+        <span class="field-label">Email address</span>
+        <div class="field-box">{{ member.email }}</div>
+      </div>
+
+      <div class="field">
+        <span class="field-label">Role</span>
+        <div class="field-box">{{ member.role }}</div>
+      </div>
+
+      <div class="status-row">
+        <span class="field-label">Status</span>
+        <dsb-tag [variant]="statusTagVariant(member.status)" size="sm">{{ member.status }}</dsb-tag>
+      </div>
+    </div>
+  }
+
+  <div modal-footer class="details-footer">
+    <span class="details-footer-note">To make changes, request Admin access.</span>
+    <dsb-button variant="secondary" (click)="close()">Close</dsb-button>
+  </div>
+</dsb-modal>

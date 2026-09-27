@@ -1,0 +1,31 @@
+@import '@jablonowski/dsb-tokens/css';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  /* No font-family decision exists in @jablonowski/dsb-tokens (no-coverage); the Figma
+     frames are set in Inter, so the family is named here with a system fallback. */
+  font-family: Inter, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: var(--ds-decisions-font-size-md);
+  line-height: var(--ds-decisions-font-line-height-normal);
+  color: var(--ds-decisions-color-text-body);
+  background: var(--ds-decisions-color-surface-subtle);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}

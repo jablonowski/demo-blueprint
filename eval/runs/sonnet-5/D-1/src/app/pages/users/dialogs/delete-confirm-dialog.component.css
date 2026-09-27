@@ -1,0 +1,13 @@
+.delete-body {
+  margin: 0;
+  font-size: var(--ds-decisions-font-size-md);
+  color: var(--ds-decisions-color-text-body);
+  line-height: var(--ds-decisions-font-line-height-normal);
+}
+
+.delete-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--ds-decisions-space-sm);
+  width: 100%;
+}

@@ -1,0 +1,46 @@
+<dsb-modal
+  [open]="open"
+  title="Invite Member"
+  size="md"
+  [closeOnBackdrop]="true"
+  (openChange)="onOpenChange($event)"
+>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="invite-body" novalidate>
+    <div class="field-grid">
+      <dsb-input
+        label="First name"
+        formControlName="firstName"
+        [hasError]="submitted && form.controls.firstName.invalid"
+        errorMessage="First name is required."
+      />
+      <dsb-input
+        label="Last name"
+        formControlName="lastName"
+        [hasError]="submitted && form.controls.lastName.invalid"
+        errorMessage="Last name is required."
+      />
+    </div>
+
+    <dsb-input
+      label="Email address"
+      type="email"
+      formControlName="email"
+      [hasError]="submitted && form.controls.email.invalid"
+      errorMessage="A valid email address is required."
+    />
+
+    <dsb-dropdown
+      label="Role"
+      placeholder="Select role…"
+      [options]="roleOptions"
+      formControlName="role"
+      [hasError]="submitted && form.controls.role.invalid"
+      errorMessage="Role is required."
+    />
+  </form>
+
+  <div modal-footer class="invite-footer">
+    <dsb-button variant="secondary" (click)="cancel()">Cancel</dsb-button>
+    <dsb-button variant="primary" (click)="onSubmit()">Send Invite</dsb-button>
+  </div>
+</dsb-modal>

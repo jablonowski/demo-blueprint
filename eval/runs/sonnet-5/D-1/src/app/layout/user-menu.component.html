@@ -1,0 +1,22 @@
+<div class="user-menu">
+  <button
+    type="button"
+    class="user-menu-trigger"
+    (click)="toggle()"
+    [attr.aria-expanded]="open"
+    aria-haspopup="menu"
+  >
+    <dsb-avatar [name]="userName" size="sm" />
+    <span class="user-menu-name">{{ userName }}</span>
+    <svg class="user-menu-chevron" viewBox="0 0 10 6" fill="none" aria-hidden="true">
+      <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+  </button>
+
+  @if (open) {
+    <div class="user-menu-popover" role="menu">
+      <button type="button" class="user-menu-item" role="menuitem" (click)="open = false">My Profile</button>
+      <button type="button" class="user-menu-item user-menu-item--danger" role="menuitem" (click)="signOut()">Sign Out</button>
+    </div>
+  }
+</div>

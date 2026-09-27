@@ -1,0 +1,30 @@
+<header class="app-header">
+  <div class="app-header__brand">
+    <span class="app-header__logo" aria-hidden="true"></span>
+    <span class="app-header__brand-name">Blueprint</span>
+  </div>
+
+  <nav class="app-header__nav">
+    <a routerLink="/dashboard" routerLinkActive="app-header__nav-link--active" class="app-header__nav-link"
+      >Dashboard</a
+    >
+    <a routerLink="/users" routerLinkActive="app-header__nav-link--active" class="app-header__nav-link"
+      >Team Members</a
+    >
+  </nav>
+
+  <div class="app-header__profile" #profile>
+    <button class="app-header__profile-trigger" type="button" (click)="toggleMenu()">
+      <ui-avatar name="Admin User" size="sm" />
+      <span class="app-header__profile-name">Admin User</span>
+      <span class="app-header__chevron" [class.app-header__chevron--open]="menuOpen">▾</span>
+    </button>
+
+    @if (menuOpen) {
+      <div class="app-header__menu">
+        <button class="app-header__menu-item" type="button">My Profile</button>
+        <button class="app-header__menu-item" type="button" (click)="onSignOut()">Sign Out</button>
+      </div>
+    }
+  </div>
+</header>

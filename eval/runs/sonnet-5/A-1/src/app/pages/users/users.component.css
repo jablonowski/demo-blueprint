@@ -1,0 +1,87 @@
+.users-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.users-page__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.users-page__title {
+  margin: 0;
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text);
+}
+
+.users-table-container {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  overflow-x: auto;
+}
+
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.users-table thead {
+  background: var(--color-thead-bg);
+}
+
+.users-table th {
+  text-align: left;
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  border-bottom: 1px solid var(--color-border-subtle);
+  white-space: nowrap;
+}
+
+.users-table__actions-head {
+  text-align: right;
+}
+
+.users-table td {
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--text-base);
+  color: var(--color-text-secondary);
+  border-bottom: 1px solid var(--color-divider);
+  vertical-align: middle;
+}
+
+.users-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.users-table__avatar-cell {
+  width: 1%;
+  padding-right: 0;
+}
+
+.users-table__name-cell {
+  font-weight: var(--weight-medium);
+  color: var(--color-text);
+  white-space: nowrap;
+}
+
+.users-table__muted-cell {
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.users-table__actions-cell {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-2);
+  white-space: nowrap;
+}

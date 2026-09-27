@@ -1,0 +1,6 @@
+<div class="log-viewer" #scrollRegion>
+  <div class="log-line" *ngFor="let line of lines">
+    <span class="log-timestamp">[{{ line.timestamp }}]</span>
+    <span class="log-message">{{ line.message }}</span>
+  </div>
+</div>

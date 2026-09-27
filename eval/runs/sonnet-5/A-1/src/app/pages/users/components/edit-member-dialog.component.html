@@ -1,0 +1,27 @@
+<ui-modal (closed)="cancelled.emit()">
+  <div modalHeader class="dialog-header">
+    <h2 class="dialog-header__title">Edit Member</h2>
+    <button class="dialog-header__close" type="button" (click)="cancelled.emit()">✕</button>
+  </div>
+
+  <form modalBody [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+    <app-user-summary-row [user]="user" />
+
+    <app-member-form [group]="form" />
+
+    <div class="dialog-status-row">
+      <span class="dialog-status-row__label">Status</span>
+      <ui-badge [tone]="user.status === 'Active' ? 'positive' : 'neutral'">{{ user.status }}</ui-badge>
+    </div>
+  </form>
+
+  <div modalFooter class="dialog-footer dialog-footer--split">
+    <button uiButton variant="destructive-outline" type="button" (click)="deleteRequested.emit()">
+      Delete user
+    </button>
+    <div class="dialog-footer__group">
+      <button uiButton variant="secondary" type="button" (click)="cancelled.emit()">Cancel</button>
+      <button uiButton variant="primary" type="button" (click)="onSubmit()">Save changes</button>
+    </div>
+  </div>
+</ui-modal>

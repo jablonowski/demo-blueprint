@@ -1,7 +1,7 @@
 {
   "arm": "A",
   "run": 3,
-  "scoredAt": "2026-09-25T16:59:28Z",
+  "scoredAt": "2026-09-27T08:20:15Z",
   "model": "claude-opus-5-5",
   "isolation": "session",
   "s0Sha": "c25d3e960f47",
@@ -86,7 +86,7 @@
   },
   "build": {
     "ok": true,
-    "durationMs": 1718,
+    "durationMs": 2040,
     "bundle": "314.20 kB"
   },
   "cost": {

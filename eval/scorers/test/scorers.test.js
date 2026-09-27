@@ -337,3 +337,22 @@ test('an arm that chose not to call Figma is a result, not a void', () => {
   assert.equal(voidReason({ figma: { channel: 'cached', ok: true, calls: 0 },
                             result: { is_error: false } }), null);
 });
+
+test('a denied MCP tool voids the run; a denied base tool does not, on its own', () => {
+  // D-1 on Sonnet was voided over two `rm -rf` calls tidying its own scratch directory at
+  // the end of a finished run, while it had the resolver throughout. An arm is defined by
+  // its overlay, and an overlay adds MCP servers — Bash is common ground S0 gives everyone.
+  const resolver = voidReason({ figma: { ok: true }, result: { is_error: false,
+    permission_denials: [{ tool_name: 'mcp__dsb-tokens__resolve_token' }] } });
+  assert.match(resolver, /resolve_token/, 'the arm did not have the thing it is the arm for');
+
+  const tidying = voidReason({ figma: { ok: true }, result: { is_error: false,
+    permission_denials: [{ tool_name: 'Bash' }, { tool_name: 'Bash' }] } });
+  assert.equal(tidying, null, 'a refused rm -rf is not a missing capability');
+});
+
+test('a denied base tool still voids when the application is incomplete', () => {
+  const reason = voidReason({ figma: { ok: true }, completeness: { ok: false, why: 'does not build' },
+    result: { is_error: false, permission_denials: [{ tool_name: 'Bash' }] } });
+  assert.match(reason, /does not build/);
+});

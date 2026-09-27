@@ -1,0 +1,63 @@
+<div class="shell">
+  <div class="shell__header">
+    <dsb-header
+      [brandName]="brandName"
+      logoAlt="Blueprint home"
+      logoHref="/dashboard"
+      [navItems]="navItems()"
+      (click)="onLinkClick($event)"
+    />
+
+    <!-- dsb-header has no slot for a user control, so it is laid over the header's right edge. -->
+    <div class="shell__header-overlay">
+      <div class="profile">
+        <button
+          type="button"
+          class="profile__trigger"
+          aria-haspopup="menu"
+          [attr.aria-expanded]="menuOpen()"
+          aria-controls="profile-menu"
+          (click)="toggleMenu()"
+        >
+          <dsb-avatar [name]="userName" size="sm" />
+          <span class="profile__name">{{ userName }}</span>
+          <svg
+            class="profile__chevron"
+            [class.profile__chevron--open]="menuOpen()"
+            viewBox="0 0 10 6"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+
+        @if (menuOpen()) {
+          <ul id="profile-menu" class="profile__menu" role="menu" aria-label="Account">
+            <li role="none">
+              <button type="button" role="menuitem" class="profile__item" (click)="openProfile()">My Profile</button>
+            </li>
+            <li role="none">
+              <button type="button" role="menuitem" class="profile__item" (click)="signOut()">Sign Out</button>
+            </li>
+          </ul>
+        }
+      </div>
+    </div>
+  </div>
+
+  <main class="shell__main">
+    <div class="shell__content">
+      <router-outlet />
+    </div>
+  </main>
+
+  <dsb-footer
+    [brandName]="brandName"
+    logoHref="/dashboard"
+    [columns]="footerColumns"
+    [copyright]="copyright"
+    [legalLinks]="legalLinks"
+    (click)="onLinkClick($event)"
+  />
+</div>

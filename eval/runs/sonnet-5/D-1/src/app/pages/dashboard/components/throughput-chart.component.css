@@ -1,0 +1,64 @@
+:host {
+  display: block;
+}
+
+.chart-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-decisions-space-xl);
+}
+
+.chart-title {
+  margin: 0;
+  font-size: var(--ds-decisions-font-size-md);
+  font-weight: var(--ds-decisions-font-weight-semibold);
+  color: var(--ds-decisions-color-text-primary);
+}
+
+.chart-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--ds-decisions-space-sm);
+  /*
+   * No decision token covers a custom chart's plot-area height. resolve_token
+   * matched "size.bar.md" (56px, the application bar height) purely on the
+   * word "bar" — a lexical false positive, not a semantic fit — so it is
+   * rejected here in favour of a literal sized for this chart specifically.
+   */
+  height: 160px;
+}
+
+.chart-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--ds-decisions-space-2xs);
+  height: 100%;
+}
+
+.chart-bar-track {
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+}
+
+.chart-bar {
+  width: 100%;
+  min-height: var(--ds-decisions-space-2xs);
+  border-radius: var(--ds-decisions-border-radius-xs);
+  /*
+   * The token contract has no decision for a plain informational chart fill —
+   * resolve_token returned no-coverage for it. text-primary is the darkest
+   * token in the correct (non-interactive, foreground) family, so it composes
+   * the "darkest available foreground colour" the spec asks for without
+   * reaching into action-* (interactive-only) or a raw literal.
+   */
+  background: var(--ds-decisions-color-text-primary);
+}
+
+.chart-day-label {
+  font-size: var(--ds-decisions-font-size-xs);
+  color: var(--ds-decisions-color-text-subtle);
+}

@@ -1,0 +1,41 @@
+<div class="dashboard">
+  <div class="dashboard__heading">
+    <h1 class="dashboard__title">System Overview</h1>
+    <p class="dashboard__subtitle">Last updated: {{ lastUpdated | date: "d MMM y, HH:mm" }} UTC</p>
+  </div>
+
+  <div class="dashboard__metrics">
+    <app-metric-tile
+      title="Active Users"
+      value="1,284"
+      trend="+12%"
+      trendTone="positive"
+      subLabel="vs last 7 days"
+    />
+    <app-metric-tile
+      title="Avg Response Time"
+      value="142ms"
+      trend="-8ms"
+      trendTone="positive"
+      subLabel="vs last 7 days"
+    />
+    <app-metric-tile
+      title="Error Rate"
+      value="0.04%"
+      trend="+0.01%"
+      trendTone="negative"
+      subLabel="vs last 7 days"
+    />
+    <app-metric-tile title="Uptime (30d)" value="99.97%" trend="Stable" trendTone="positive" subLabel="last 30 days" />
+  </div>
+
+  <div class="dashboard__row">
+    <app-throughput-chart [data]="throughput" />
+    <app-service-health [services]="services" />
+  </div>
+
+  <div class="dashboard__row dashboard__row--reverse">
+    <app-data-summary [items]="summary" />
+    <app-system-logs />
+  </div>
+</div>

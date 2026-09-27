@@ -1,0 +1,122 @@
+{
+  "arm": "C",
+  "run": 3,
+  "model": "claude-opus-5-5",
+  "cli": "2.1.281 (Claude Code)",
+  "isolation": "session",
+  "started": "2026-09-27T07:35:44Z",
+  "overlaySha": "b0826b551c35",
+  "s0Sha": "c25d3e960f47",
+  "promptBytes": 17273,
+  "runDir": "/tmp/dsb-eval/opus-5-5/C-3",
+  "figma": {
+    "channel": "cached",
+    "fileKey": "iJ92LuFOsPjO6avZ2anbwO",
+    "recordedAt": "2026-09-24T19:49:36Z",
+    "calls": 1,
+    "errors": 0,
+    "nodes": [
+      "22-11104"
+    ],
+    "ok": true
+  },
+  "inputTokensTotal": 3809289,
+  "outputTokens": 45396,
+  "result": {
+    "duration_api_ms": 460143,
+    "stop_reason": "end_turn",
+    "session_id": "c7f0e591-d181-48e3-a970-f563aaf94d27",
+    "total_cost_usd": 2.8340762,
+    "usage": {
+      "input_tokens": 76,
+      "cache_creation_input_tokens": 149232,
+      "cache_read_input_tokens": 3659981,
+      "output_tokens": 45396,
+      "output_tokens_details": {
+        "thinking_tokens": 10572
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 149232,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "not_available",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 1283,
+          "cache_read_input_tokens": 159649,
+          "cache_creation_input_tokens": 287,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 287
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard"
+    },
+    "modelUsage": {
+      "claude-opus-5-5": {
+        "inputTokens": 76,
+        "outputTokens": 45396,
+        "cacheReadInputTokens": 3659981,
+        "cacheCreationInputTokens": 149232,
+        "webSearchRequests": 0,
+        "costUSD": 2.8340762,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 128000,
+        "thinkingTokens": 10572,
+        "canonicalModel": "claude-opus-5-5",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "subagent_stats": {
+      "spawned": 0,
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 0,
+      "spawned_by_subagents": 0,
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {}
+    },
+    "is_error": false,
+    "num_turns": 46,
+    "subtype": "success",
+    "api_error_status": null,
+    "result": "The app is built. It runs with `npx @angular/cli@19 serve`, and logging in with `admin` / `admin` reaches the dashboard. The production build finishes with no warnings.\n\nI tested it in a headless browser at 1280×900:\n- **Login:** empty-field errors appear, and sign-in and sign-out both work.\n- **Profile menu:** it opens leftward and stays fully on screen (it ends at x=1216 in a 1280px viewport). It closes on an outside click.\n- **CRUD:** edit, invite, delete from a row, delete from inside the edit dialog, and backdrop/Escape closing all work, and the table updates each time.\n- **Console:** no errors.\n\nEvery page and dialog uses the design-system components, and styles use only the tier-2 decision tokens: no hex values, no tier-1 or tier-3 variables.\n\nThe project wasn't scaffolded, so I generated an Angular 19 app into the folder. The `node_modules` I found had Angular 21 in it, so I reinstalled.\n\n## Where the spec and Figma disagree\nThe Figma data loaded fine, but it differs from the spec in a few places. Where they conflict, I followed the spec for content and Figma for layout and proportions:\n- **Login card:** Figma also shows a \"Blueprint\" title and a divider line. I left both out because the spec says \"add nothing else\".\n- **Dashboard:** Figma has different numbers and service names; I used the spec's. There is no separate Data Summary tile in Figma, so I put it next to System Logs on a third row (4 + 8 of 12 columns). The \"System Overview\" heading and \"Last updated\" line are in Figma, so I kept them.\n- **Log viewer:** Figma shows it as a styled list, but the spec asks for a terminal look in a monospace face, so it's a dark monospace panel.\n- **Users table:** Figma combines avatar and name into one \"User\" column; I kept them separate as the spec's columns do. Figma styles Edit as the plainest button and Details as outlined; I followed the spec, so Details is plainest and Edit is outlined. Joined dates show as \"Jan 2024\", as in Figma.\n- **Header:** Figma's \"Online\" badge is left out. I used \"Dashboard\" and \"Team Members\" as nav links instead of Figma's four placeholder links, which have no pages.\n\n## Workarounds\n- **Header profile control:** `dsb-header` has no slot for extra content, so the avatar, name and menu sit on top of its right edge.\n- **Role dropdown in dialogs:** `dsb-modal` clipped the open Role menu. One global rule in `src/styles.css` lets the menu overflow only while it is open. It targets the library's internal class names, which could break in a future release.\n- **Header and footer links:** these components render plain links, which reload the page. I send in-app links through the Angular router instead.\n\n## Design choices with no token\nThe token set has nothing for these, so I either left them out or used the closest value:\n- **Fonts:** there's no font token. Inter (the Figma font) is set once in `src/styles.css`, and the log viewer uses a generic monospace stack.\n- **Card shadows:** Figma's card shadows are left out, since the only shadow tokens are for menus and modals. Cards have a border only.\n- **Borrowed sizes:** there are no height tokens, so the chart and log viewer heights reuse layout-width tokens. Large sizes use the nearest step: 26px values render at 22px and 12px corners at 10px.\n- **Breakpoints:** the dashboard's two media queries use plain pixel values, because CSS variables can't be used in media queries.\n\nThe built-in dialog chrome also follows the library rather than Figma: no divider lines, 540px wide instead of 560px, and slightly different padding.",
+    "ttft_ms": 2910,
+    "type": "result",
+    "duration_ms": 577721,
+    "uuid": "5fa3860b-f891-4e78-8458-eb6f88a27216",
+    "ttft_stream_ms": 2177,
+    "time_to_request_ms": 236,
+    "first_content_frame_ms": 2177,
+    "queued_turn_count": 0,
+    "result_index": 0
+  }
+}

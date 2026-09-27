@@ -48,7 +48,34 @@ function voidReason(harness) {
            'every arm treats the frames as the visual truth';
   }
 
-  const denials = [...new Set((r.permission_denials || []).map((d) => d.tool_name))];
+  // Which denials matter, and the distinction is not "was a tool refused".
+  //
+  // An arm is defined by its overlay, and an overlay adds MCP servers — the Figma channel,
+  // the token resolver. Read, Write, Edit and Bash are common ground that S0 gives every
+  // arm. So a denied MCP tool is fatal: that arm did not have the thing it is the arm for.
+  // A denied general tool is not automatically fatal, because the agent may simply have
+  // asked for something the CLI refuses on principle.
+  //
+  // This rule exists because D-1 on Sonnet was voided over two `rm -rf` calls the agent
+  // made to tidy up its own scratch directory at the end of a finished run. It had the
+  // resolver throughout, wrote seventy files, built, and rendered clean. Voiding that is
+  // the same mistake as scoring a half-run: a gate reporting on a property next to the one
+  // it was meant to guard, this time by being too strict rather than too lax.
+  const BASE_TOOLS = ['Read', 'Write', 'Edit', 'Bash'];
+  const allDenied = [...new Set((r.permission_denials || []).map((d) => d.tool_name))];
+  const denials = allDenied.filter((name) => !BASE_TOOLS.includes(name));
+
+  // A denied base tool still has to clear the completeness bar, on evidence independent of
+  // any scored metric — the same bar an API-aborted run has to clear.
+  const deniedBase = allDenied.filter((name) => BASE_TOOLS.includes(name));
+  if (deniedBase.length > 0 && denials.length === 0) {
+    const ev = (harness.reconstructed && harness.reconstructed.evidence) || null;
+    const complete = harness.completeness;
+    if (complete && complete.ok === false) {
+      return `${deniedBase.join(', ')} was denied and the application is incomplete: ${complete.why}`;
+    }
+  }
+
   if (denials.length > 0 && !(harness.scoring && harness.scoring.ignoreDenials)) {
     return `tools the arm is defined by were denied: ${denials.join(', ')}`;
   }

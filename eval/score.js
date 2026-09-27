@@ -87,6 +87,9 @@ function scoreRun(arm, run) {
     model: harness && harness.model,
     isolation: harness && harness.isolation,
     s0Sha: harness && harness.s0Sha,
+    // A reconstructed record carries the application but not what it cost. Surfaced here so
+    // the row cannot be quietly averaged into a cost column.
+    reconstructed: harness && harness.reconstructed ? harness.reconstructed : undefined,
     denialsIgnored: harness.scoring && harness.scoring.ignoreDenials
       ? { tools: [...new Set(((harness.result || {}).permission_denials || []).map((d) => d.tool_name))],
           why: harness.scoring.why }
@@ -197,7 +200,7 @@ function line(r) {
     `api ${r.covered.hallucinatedApi}`.padEnd(8),
     (r.checks.applicable ? `checks ${r.checks.passed}/${r.checks.of}` : 'checks n/a').padEnd(12),
     (r.build && r.build.ok === true ? 'builds' : r.build && r.build.ok === false ? 'BROKEN' : 'build?').padEnd(8),
-    r.cost && r.cost.usd ? `$${r.cost.usd.toFixed(2)}` : '',
+    r.reconstructed ? 'cost lost' : (r.cost && r.cost.usd ? `$${r.cost.usd.toFixed(2)}` : ''),
     c.falsifierTriggered === true ? '  FALSIFIER' : '',
     r.denialsIgnored ? '  (denials ignored by record)' : '',
   ].join('');

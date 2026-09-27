@@ -1,0 +1,34 @@
+:host {
+  display: block;
+}
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-decisions-space-2xs);
+}
+
+.tile-title {
+  font-size: var(--ds-decisions-font-size-2xs);
+  font-weight: var(--ds-decisions-font-weight-semibold);
+  letter-spacing: var(--ds-decisions-font-tracking-caps);
+  text-transform: uppercase;
+  color: var(--ds-decisions-color-text-secondary);
+}
+
+.tile-value-row {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-decisions-space-md);
+}
+
+.tile-value {
+  font-size: var(--ds-decisions-font-size-3xl);
+  font-weight: var(--ds-decisions-font-weight-semibold);
+  color: var(--ds-decisions-color-text-primary);
+}
+
+.tile-sublabel {
+  font-size: var(--ds-decisions-font-size-xs);
+  color: var(--ds-decisions-color-text-subtle);
+}

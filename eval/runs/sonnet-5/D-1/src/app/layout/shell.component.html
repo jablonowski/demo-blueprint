@@ -1,0 +1,36 @@
+<div class="app-shell">
+  <header class="app-topbar">
+    <div class="app-topbar-inner">
+      <a routerLink="/dashboard" class="app-brand">
+        <svg class="app-brand-mark" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+          <rect width="28" height="28" rx="6" fill="var(--ds-decisions-color-text-primary)" />
+          <path d="M8 20V8h5.5a4.5 4.5 0 010 9H8m0 0h6" stroke="var(--ds-decisions-color-text-inverse)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <span class="app-brand-name">Blueprint</span>
+      </a>
+
+      <nav class="app-nav" aria-label="Main navigation">
+        <a routerLink="/dashboard" routerLinkActive="app-nav-link--active" class="app-nav-link">Dashboard</a>
+        <a routerLink="/users" routerLinkActive="app-nav-link--active" class="app-nav-link">Team Members</a>
+      </nav>
+
+      <div class="app-topbar-actions">
+        <app-user-menu />
+      </div>
+    </div>
+  </header>
+
+  <main class="app-main">
+    <div class="app-main-inner">
+      <router-outlet />
+    </div>
+  </main>
+
+  <dsb-footer
+    brandName="Blueprint"
+    tagline="A visual-first design system demo."
+    [columns]="footerColumns"
+    copyright="© 2026 Blueprint. All rights reserved."
+    [legalLinks]="legalLinks"
+  />
+</div>

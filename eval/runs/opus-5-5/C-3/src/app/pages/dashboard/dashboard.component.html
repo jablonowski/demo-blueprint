@@ -1,0 +1,87 @@
+<header class="page-head">
+  <h1 class="page-head__title">System Overview</h1>
+  <p class="page-head__meta">Last updated: {{ lastUpdated }}</p>
+</header>
+
+<div class="dashboard-grid">
+  @for (metric of metrics; track metric.title) {
+    <section class="tile tile--metric" [attr.aria-label]="metric.title">
+      <h2 class="tile__label">{{ metric.title }}</h2>
+      <div class="tile__value-row">
+        <span class="tile__value">{{ metric.value }}</span>
+        @if (metric.trend) {
+          <dsb-tag size="sm" [variant]="trendVariant(metric.trend.direction)">
+            <span class="visually-hidden">{{ metric.trend.direction === 'positive' ? 'Improving:' : 'Worsening:' }}</span>
+            {{ metric.trend.label }}
+          </dsb-tag>
+        }
+      </div>
+      @if (metric.subLabel) {
+        <p class="tile__sub">{{ metric.subLabel }}</p>
+      }
+    </section>
+  }
+
+  <section class="tile tile--health" aria-labelledby="health-title">
+    <h2 id="health-title" class="tile__title">Service Health</h2>
+    <dsb-list [divided]="true">
+      @for (service of services; track service.name) {
+        <dsb-list-item [label]="service.name">
+          <dsb-tag list-trailing size="sm" [variant]="service.online ? 'success' : 'danger'">
+            {{ service.online ? 'Online' : 'Offline' }}
+          </dsb-tag>
+        </dsb-list-item>
+      }
+    </dsb-list>
+  </section>
+
+  <section class="tile tile--throughput" aria-labelledby="throughput-title">
+    <div class="tile__head">
+      <h2 id="throughput-title" class="tile__title">Request Throughput</h2>
+      <p class="tile__caption">Requests per minute, peak by day over the last 7 days</p>
+    </div>
+    <div class="chart" role="img" aria-label="Bar chart of request throughput from Monday to Sunday">
+      @for (bar of throughputBars; track bar.day) {
+        <div class="chart__col">
+          <div class="chart__track">
+            <div class="chart__bar" [style.height.%]="bar.percent" [attr.title]="bar.day + ': ' + bar.value + ' rpm'"></div>
+          </div>
+          <span class="chart__label">{{ bar.day }}</span>
+        </div>
+      }
+    </div>
+    <dl class="chart-stats">
+      @for (stat of throughputStats; track stat.label) {
+        <div class="chart-stats__item">
+          <dt class="chart-stats__label">{{ stat.label }}</dt>
+          <dd class="chart-stats__value">{{ stat.value }}</dd>
+        </div>
+      }
+    </dl>
+  </section>
+
+  <section class="tile tile--summary" aria-labelledby="summary-title">
+    <h2 id="summary-title" class="tile__title">Data Summary</h2>
+    <dsb-list [divided]="true">
+      @for (row of summary; track row.label) {
+        <dsb-list-item [label]="row.label" [meta]="row.value" />
+      }
+    </dsb-list>
+  </section>
+
+  <section class="tile tile--logs" aria-labelledby="logs-title">
+    <div class="tile__head tile__head--row">
+      <h2 id="logs-title" class="tile__title">System Logs</h2>
+      <dsb-tag size="sm" variant="success">Live</dsb-tag>
+    </div>
+    <div #logViewer class="terminal" role="log" aria-live="polite" aria-label="System log output" tabindex="0">
+      @for (line of logs(); track line.id) {
+        <div class="terminal__line">
+          <span class="terminal__time">{{ line.time }}</span>
+          <span class="terminal__level" [attr.data-level]="line.level">[{{ line.level }}]</span>
+          <span class="terminal__message">{{ line.message }}</span>
+        </div>
+      }
+    </div>
+  </section>
+</div>

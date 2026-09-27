@@ -1,0 +1,12 @@
+<article class="dashboard-card tile">
+  <span class="tile-title">{{ title }}</span>
+  <div class="tile-value-row">
+    <span class="tile-value">{{ value }}</span>
+    @if (trend) {
+      <dsb-tag [variant]="trendPositive ? 'success' : 'danger'" size="sm">{{ trend }}</dsb-tag>
+    }
+  </div>
+  @if (subLabel) {
+    <span class="tile-sublabel">{{ subLabel }}</span>
+  }
+</article>

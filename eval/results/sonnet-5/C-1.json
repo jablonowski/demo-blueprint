@@ -1,0 +1,122 @@
+{
+  "arm": "C",
+  "run": 1,
+  "model": "claude-sonnet-5",
+  "cli": "2.1.281 (Claude Code)",
+  "isolation": "session",
+  "started": "2026-09-27T07:46:12Z",
+  "overlaySha": "b0826b551c35",
+  "s0Sha": "c25d3e960f47",
+  "promptBytes": 17273,
+  "runDir": "/tmp/dsb-eval/sonnet-5/C-1",
+  "figma": {
+    "channel": "cached",
+    "fileKey": "iJ92LuFOsPjO6avZ2anbwO",
+    "recordedAt": "2026-09-24T19:49:36Z",
+    "calls": 1,
+    "errors": 0,
+    "nodes": [
+      "22-11104"
+    ],
+    "ok": true
+  },
+  "inputTokensTotal": 24593887,
+  "outputTokens": 119817,
+  "result": {
+    "duration_api_ms": 1251025,
+    "stop_reason": "end_turn",
+    "session_id": "348d3a4e-22d6-445e-854f-54bd053bd344",
+    "total_cost_usd": 7.212490999999999,
+    "usage": {
+      "input_tokens": 230,
+      "cache_creation_input_tokens": 288192,
+      "cache_read_input_tokens": 24305465,
+      "output_tokens": 119817,
+      "output_tokens_details": {
+        "thinking_tokens": 66367
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 288192,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "not_available",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 965,
+          "cache_read_input_tokens": 307168,
+          "cache_creation_input_tokens": 133,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 133
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard"
+    },
+    "modelUsage": {
+      "claude-sonnet-5": {
+        "inputTokens": 230,
+        "outputTokens": 119817,
+        "cacheReadInputTokens": 24305465,
+        "cacheCreationInputTokens": 288192,
+        "webSearchRequests": 0,
+        "costUSD": 7.212490999999999,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 64000,
+        "thinkingTokens": 66367,
+        "canonicalModel": "claude-sonnet-5",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "subagent_stats": {
+      "spawned": 0,
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 0,
+      "spawned_by_subagents": 0,
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {}
+    },
+    "is_error": false,
+    "num_turns": 165,
+    "subtype": "success",
+    "api_error_status": null,
+    "result": "The build is clean. The application is complete and fully verified end-to-end in a real browser.\n\n## Summary\n\nBuilt the Angular 19 CRUD demo per S0, informed by the Figma frames (fetched via MCP for the Auth Layout, Main Dashboard, and both modal nodes) and the `@jablonowski/dsb-components`/`dsb-tokens` packages, using only tier-2 `--ds-decisions-*` tokens throughout.\n\n**What's implemented:** standalone routing with `loginGuard`/`authGuard`, `AuthService` over `localStorage`, `angular-in-memory-web-api` seeded per spec, full `/login` → `/dashboard` + `/users` flow, all 8 dashboard tiles (custom bar chart, ticking terminal-style log feed), and the full CRUD table with all four modals (delete/details/edit/invite) built from `dsb-table`, `dsb-modal`, `dsb-dropdown`, etc.\n\n**Verified by actually running it** (Playwright against the dev server, not just `ng build`): login validation, guard redirects both directions, wildcard route, profile-menu open/close/outside-click, nav, and a full invite → edit → delete round trip against the in-memory API, checking `page.on('console')` for errors at each step.\n\nThat run caught two real bugs I fixed before calling this done:\n1. `UsersService.update()` wasn't sending `id` in the PUT body — `angular-in-memory-web-api` 404s a PUT without a body `id` (only found by inspecting its source).\n2. The same PUT only sent the edited fields; the library *replaces* the record wholesale rather than merging, so `avatar`/`joinedDate`/`status` were getting wiped, causing a runtime crash in the date formatter. Fixed by spreading the full existing user into the update payload.\n\nI also swapped `href=\"javascript:void(0)\"` placeholder links (which Angular's sanitizer flags with a console warning) for `href=\"#\"` with a click-interceptor.\n\n**Unverified/judgment calls** (Figma access token env wasn't directly used; MCP tool data was sufficient):\n- The Figma dashboard frame's example tile (chart + Peak/Average/Total stats merged into one \"Data Summary\"-named card) didn't match S0's literal 8-tile content contract, so I followed S0's exact tile list/copy/numbers and only borrowed Figma's structural proportions (card style, row layout, chart-bar look).\n- The header's profile menu (avatar+name+dropdown) has no equivalent slot in `dsb-header`, so it's a custom overlay composed alongside it — not visible in the static Figma capture, which only showed a closed-state avatar.\n- `dsb-avatar` only falls back to initials when `src` is empty, not on image load failure — worth adding to `llms.client.txt` if avatar URLs are ever offline in a scored run.",
+    "ttft_ms": 2830,
+    "type": "result",
+    "duration_ms": 1511157,
+    "uuid": "d9bbfe3e-9d43-4948-b32e-b444336afcbc",
+    "ttft_stream_ms": 2009,
+    "time_to_request_ms": 246,
+    "first_content_frame_ms": 2009,
+    "queued_turn_count": 0,
+    "result_index": 0
+  }
+}

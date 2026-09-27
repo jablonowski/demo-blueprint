@@ -1,0 +1,80 @@
+.dialog-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-5) var(--space-6);
+}
+
+.dialog-header__title-group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.dialog-header__title {
+  margin: 0;
+  font-size: var(--text-xl);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text);
+}
+
+.dialog-header__close {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: none;
+  border-radius: var(--radius-icon);
+  color: var(--color-text-muted);
+  font-size: var(--text-md);
+  cursor: pointer;
+}
+
+.dialog-header__close:hover {
+  background: var(--color-bg);
+}
+
+.dialog-body {
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.dialog-footer {
+  padding: var(--space-4) var(--space-6);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  justify-content: flex-end;
+}
+
+.dialog-footer--split {
+  justify-content: space-between;
+}
+
+.dialog-footer__group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.dialog-footer__note {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.dialog-status-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.dialog-status-row__label {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--color-text);
+}

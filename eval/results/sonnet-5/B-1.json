@@ -1,0 +1,122 @@
+{
+  "arm": "B",
+  "run": 1,
+  "model": "claude-sonnet-5",
+  "cli": "2.1.281 (Claude Code)",
+  "isolation": "session",
+  "started": "2026-09-26T14:35:04Z",
+  "overlaySha": "0d513945591a",
+  "s0Sha": "c25d3e960f47",
+  "promptBytes": 14252,
+  "runDir": "/tmp/dsb-eval/sonnet-5/B-1",
+  "figma": {
+    "channel": "cached",
+    "fileKey": "iJ92LuFOsPjO6avZ2anbwO",
+    "recordedAt": "2026-09-24T19:49:36Z",
+    "calls": 1,
+    "errors": 0,
+    "nodes": [
+      "22-11104"
+    ],
+    "ok": true
+  },
+  "inputTokensTotal": 23815661,
+  "outputTokens": 93616,
+  "result": {
+    "duration_api_ms": 1032878,
+    "stop_reason": "end_turn",
+    "session_id": "e386bae3-d4aa-4f67-acd5-542960e25110",
+    "total_cost_usd": 6.6312333999999975,
+    "usage": {
+      "input_tokens": 278,
+      "cache_creation_input_tokens": 245116,
+      "cache_read_input_tokens": 23570267,
+      "output_tokens": 93616,
+      "output_tokens_details": {
+        "thinking_tokens": 44425
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 245116,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "not_available",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 1034,
+          "cache_read_input_tokens": 263276,
+          "cache_creation_input_tokens": 949,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 949
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard"
+    },
+    "modelUsage": {
+      "claude-sonnet-5": {
+        "inputTokens": 278,
+        "outputTokens": 93616,
+        "cacheReadInputTokens": 23570267,
+        "cacheCreationInputTokens": 245116,
+        "webSearchRequests": 0,
+        "costUSD": 6.6312333999999975,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 64000,
+        "thinkingTokens": 44425,
+        "canonicalModel": "claude-sonnet-5",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "subagent_stats": {
+      "spawned": 0,
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 0,
+      "spawned_by_subagents": 0,
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {}
+    },
+    "is_error": false,
+    "num_turns": 152,
+    "subtype": "success",
+    "api_error_status": null,
+    "result": "The app is complete and fully verified end-to-end. Summary:\n\n**Built:** A full Angular 19 standalone app in `/private/tmp/dsb-eval/sonnet-5/B-1` — auth (login guard/route guard backed by `localStorage`), a dashboard with 4 stat tiles, a no-library bar chart, service health/data summary lists, and a live-updating (3s) log viewer, plus a full Team Members CRUD screen with all 4 dialogs (Details, Edit, Delete, Invite), all backed by `angular-in-memory-web-api`.\n\n**Component-library usage (`@jablonowski/dsb-components` + `dsb-tokens`):** worked entirely from the `.d.ts` files, compiled `.mjs` source, and the tokens' `decisions.json`/`public.css`, since `llms.client.txt` was absent as this arm specifies. Used `dsb-header`/`dsb-footer`/`dsb-table`/`dsb-modal`/`dsb-dropdown`/`dsb-tag`/`dsb-avatar`/`dsb-list(-item)`/`dsb-input`/`dsb-checkbox`/`dsb-button` throughout, styling only against the `--ds-decisions-*` layer per the README's explicit warning against touching `--ds-component-*`.\n\n**Gaps the library didn't cover (built locally):** the header's user-profile dropdown (`dsb-header` has no slot for it — overlaid a custom `ProfileMenuComponent`, anchored right so it opens leftward and never clips), the bar chart, the log viewer, and all dashboard card chrome (no generic \"card\" component exists in the library).\n\n**One real bug caught by testing, not review:** `angular-in-memory-web-api`'s `PUT` requires the body to carry the matching `id` and does a full replace, not a merge — my first pass sent only the changed fields, which 404'd silently and left the Edit dialog stuck open. Fixed by sending the full merged record. Caught this by actually driving the app with Playwright rather than trusting the build.\n\n**Verified live** (screenshots, zero console errors): login + validation, dashboard with all tiles and ticking logs, profile menu opening/closing correctly, and the full users CRUD loop (edit role → persists, invite → new row appears, delete → row and dialog both gone).\n\n**Unverified/adapted choices** (Figma MCP data pulled fine, but a few conflicts needed a judgment call, noted here since there was no one to ask): login copy follows S0's literal strings over Figma's placeholder text (\"Blueprint\" wordmark dropped, since S0 says \"add nothing else\"); card/divider borders use the tokens' `border.subtle` gray rather than Figma's literal `#000000` 1px strokes, since no such token exists and it reads as a design-file artifact; the Figma frame's \"Data Summary\" card actually contained the throughput chart with no true data-summary list anywhere in the file, so I built the list tile from S0's explicit content instead; Service Health uses S0's 5-service list rather than Figma's 6.",
+    "ttft_ms": 2111,
+    "type": "result",
+    "duration_ms": 1188921,
+    "uuid": "132893d5-c076-450c-8a5b-ba3af2dc0aac",
+    "ttft_stream_ms": 1908,
+    "time_to_request_ms": 346,
+    "first_content_frame_ms": 1909,
+    "queued_turn_count": 0,
+    "result_index": 0
+  }
+}

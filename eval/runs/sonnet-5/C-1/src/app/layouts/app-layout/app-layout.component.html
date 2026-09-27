@@ -1,0 +1,40 @@
+<div class="app-shell">
+  <div class="app-header">
+    <dsb-header brandName="Blueprint" [navItems]="navItems"></dsb-header>
+
+    <div class="header-profile">
+      <div class="profile-wrap">
+        <button
+          type="button"
+          class="profile-trigger"
+          (click)="toggleMenu()"
+          [attr.aria-expanded]="menuOpen"
+          aria-haspopup="menu"
+        >
+          <dsb-avatar name="Admin User" size="sm"></dsb-avatar>
+          <span class="profile-name">Admin User</span>
+          <span class="chevron" aria-hidden="true">▾</span>
+        </button>
+
+        <div class="profile-menu" *ngIf="menuOpen" role="menu">
+          <button type="button" class="profile-menu-item" role="menuitem" (click)="onMyProfile()">My Profile</button>
+          <button type="button" class="profile-menu-item" role="menuitem" (click)="onSignOut()">Sign Out</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main class="app-main">
+    <div class="app-main-inner">
+      <router-outlet />
+    </div>
+  </main>
+
+  <dsb-footer
+    brandName="Blueprint"
+    tagline="Design System Blueprint demo workspace."
+    [columns]="footerColumns"
+    copyright="© 2026 Blueprint. All rights reserved."
+    [legalLinks]="footerLegalLinks"
+  ></dsb-footer>
+</div>

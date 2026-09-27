@@ -1,0 +1,22 @@
+.user-summary-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.user-summary-row__info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.user-summary-row__name {
+  font-size: var(--text-lg);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text);
+}
+
+.user-summary-row__since {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}

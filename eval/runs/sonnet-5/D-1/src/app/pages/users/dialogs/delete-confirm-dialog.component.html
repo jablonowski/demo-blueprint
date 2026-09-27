@@ -1,0 +1,19 @@
+<dsb-modal
+  [open]="open"
+  title="Confirm Deletion"
+  size="sm"
+  [closeOnBackdrop]="true"
+  (openChange)="onOpenChange($event)"
+>
+  @if (member) {
+    <p class="delete-body">
+      Are you sure you want to remove <strong>{{ member.name }}</strong>? This action cannot be
+      undone.
+    </p>
+  }
+
+  <div modal-footer class="delete-footer">
+    <dsb-button variant="secondary" (click)="cancel()">Cancel</dsb-button>
+    <dsb-button variant="danger" (click)="confirm()">Delete</dsb-button>
+  </div>
+</dsb-modal>

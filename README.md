@@ -7,43 +7,74 @@ The design system under test is [**design-system-blueprint**](https://github.com
 a three-tier token pipeline, an Angular component library, machine-readable contracts for
 agents, and npm publishing.
 
-> **Status: the study is still running.** It's rather an initial state - stay tuned and give it a ⭐ if you like it! Thanks 👍
+> **Status: stage one complete, the study continues.** Sixteen scored runs — four arms at
+> n = 3 on Claude Opus, and the same four at n = 1 on Claude Sonnet as a second model. One
+> arm (A′, a styleguide document with no installable package) has not run yet, and the
+> drift and acceptance-rate measurements are still open.
+>
+> The raw data and the method are below. The readings — including the pre-registered
+> comparison that went against this repository's own premise — are in
+> [`eval/PROTOCOL.md`](eval/PROTOCOL.md), kept there rather than here so that the numbers
+> and the interpretation stay separable. They will move as runs accumulate.
+
 
 ---
 
 ## Raw results
 
-Claude Opus (`claude-opus-5-5`), three runs per arm, one sitting per round, identical
-specification and identical design data in every run.
+Two models, sixteen scored runs, identical specification and identical design data in every
+one. Per-run records: [`eval/results/`](eval/results) — one `<arm>-<n>.json` with the harness
+record and one `<arm>-<n>.score.json` with every metric and its detail. The generated
+applications and their screenshots are in [`eval/runs/`](eval/runs).
 
-Per-run records: [`eval/results/opus-5-5/`](eval/results/opus-5-5) — one `<arm>-<n>.json`
-with the harness record and one `<arm>-<n>.score.json` with every metric and its detail.
-The generated applications are in [`eval/runs/opus-5-5/`](eval/runs/opus-5-5).
+### Claude Opus, n = 3 per arm
 
-| Metric | A-1 | A-2 | A-3 | B-1 | B-2 | B-3 | D-1 | D-2 | D-3 |
-|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| Library components used (of 13) | 0 | 0 | 0 | 13 | 13 | 13 | 13 | 13 | 13 |
-| Components hand-reimplemented | 13 | 12 | 12 | 0 | 0 | 0 | 0 | 0 | 0 |
-| Scattered raw values | 6 | 0 | 0 | 0 | 0 | 0 | 0 | 2 | 0 |
-| Custom properties declared locally | 90 | 99 | 91 | 0 | 0 | 0 | 0 | 0 | 2 |
-| Tier boundary crossings | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| Design-system decision tokens used | 0 | 0 | 0 | 60 | 57 | 60 | 77 | 56 | 59 |
-| Hallucinated API references | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| Convention checks passed (of 8) | n/a | n/a | n/a | 6 | 8 | 7 | 7 | 8 | 8 |
-| Colour conformance rate | 0.91 | 0.85 | 0.79 | n/a | n/a | n/a | n/a | n/a | n/a |
-| Near-miss values | 2 | 2 | 3 | 0 | 0 | 0 | 0 | 0 | 0 |
-| axe violations — serious | 3 | 3 | 3 | 0 | 0 | 0 | 0 | 0 | 0 |
-| axe violations — critical | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| Builds | yes | yes | yes | yes | yes | yes | yes | yes | yes |
-| Cost (USD) | 2.06 | 2.54 | 2.17 | 3.20 | 3.19 | 2.82 | 3.15 | 2.88 | 2.86 |
+| Metric | A-1 | A-2 | A-3 | B-1 | B-2 | B-3 | C-1 | C-2 | C-3 | D-1 | D-2 | D-3 |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| Library components used (of 13) | 0 | 0 | 0 | 13 | 13 | 13 | 13 | 13 | 13 | 13 | 13 | 13 |
+| Components hand-reimplemented | 13 | 12 | 12 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| Scattered raw values | 6 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 2 | 0 |
+| Custom properties declared locally | 90 | 99 | 91 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 2 |
+| Tier boundary crossings | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| Design-system decision tokens used | 0 | 0 | 0 | 60 | 57 | 60 | 61 | 62 | 59 | 77 | 56 | 59 |
+| Hallucinated API references | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| Convention checks passed (of 8) | n/a | n/a | n/a | 6 | 8 | 7 | 7 | 7 | 7 | 7 | 8 | 8 |
+| Colour conformance rate | 0.91 | 0.85 | 0.79 | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |
+| Near-miss values | 2 | 2 | 3 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| axe violations — serious | 3 | 3 | 3 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| axe violations — critical | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| Builds | yes | yes | yes | yes | yes | yes | yes | yes | yes | yes | yes | yes |
+| Cost (USD) | 2.06 | 2.54 | 2.17 | 3.20 | 3.19 | 2.82 | 3.13 | 2.69 | 2.83 | 3.15 | 2.88 | 2.86 |
 
-Which convention checks failed, run by run:
+### Claude Sonnet, n = 1 per arm
 
-| | B-1 | B-2 | B-3 | D-1 | D-2 | D-3 |
-|---|---|---|---|---|---|---|
-| 9.2 `#cell` + `let-row="row"` | fail | pass | fail | pass | pass | pass |
-| 9.6 split modal footer | not built | pass | pass | not built | pass | pass |
-| all other checks | pass | pass | pass | pass | pass | pass |
+A second model on the same specification, the same scorers and the same recorded design
+channel. One run each, so every cell is a single observation.
+
+| Metric | A-1 | B-1 | C-1 | D-1 |
+|---|---:|---:|---:|---:|
+| Library components used (of 13) | 0 | 13 | 13 | 12 |
+| Components hand-reimplemented | 13 | 0 | 0 | 1 |
+| Scattered raw values | 46 | 17 | 5 | 2 |
+| Custom properties declared locally | 71 | 0 | 0 | 0 |
+| Tier boundary crossings | 0 | 2 | 0 | 0 |
+| Design-system decision tokens used | 0 | 49 | 54 | 58 |
+| Hallucinated API references | 0 | 0 | 0 | 0 |
+| Convention checks passed (of 8) | n/a | 6 | 7 | 6 |
+| Colour conformance rate | 0.73 | n/a | n/a | n/a |
+| axe violations — serious | 3 | 1 | 0 | 0 |
+| Builds | yes | yes | yes | yes |
+| Cost (USD) | 4.75 | 6.63 | 7.21 | 8.82 |
+
+### Which convention checks failed, run by run
+
+| | B-1 | B-2 | B-3 | C-1 | C-2 | C-3 | D-1 | D-2 | D-3 |
+|---|---|---|---|---|---|---|---|---|---|
+| 9.2 `#cell` + `let-row="row"` | fail | pass | fail | pass | pass | pass | pass | pass | pass |
+| 9.6 split modal footer | not built | pass | pass | not built | not built | not built | not built | pass | pass |
+| all other checks | pass | pass | pass | pass | pass | pass | pass | pass | pass |
+
+On Sonnet, the same pattern on `9.2`: B fails it, C and D pass.
 
 `n/a` is not a pass. The eight checks are all about the component library's API, so they do
 not apply to an arm that has no library; the colour conformance rate is `n/a` for arms that
@@ -52,10 +83,10 @@ authored no values of their own.
 ### Screenshots
 
 Every run's screens as the harness rendered them, at 1280px and 390px:
-[`eval/runs/opus-5-5/<arm>-<n>/shots/`](eval/runs/opus-5-5). Login, dashboard and users
-table for each run, captured in the same pass that runs axe.
+[`eval/runs/<model>/<arm>-<n>/shots/`](eval/runs). Login, dashboard and users table for each
+run, captured in the same pass that runs axe.
 
----
+![Same spec, same Figma frames, same model — with and without the design system](docs/design-system-vs-not.png)
 
 ## What the columns mean
 
@@ -92,12 +123,16 @@ overlay differs.
 | **A** | the specification and the design frames, nothing else | yes |
 | **A′** | plus a styleguide document — palette, scale, component CSS, as prose | not yet run |
 | **B** | plus the two npm packages installed; READMEs and type declarations readable | yes |
-| **C** | plus `llms.client.txt`, the guide written for agents | not yet run |
+| **C** | plus `llms.client.txt`, the guide written for agents | yes, as the attribution experiment |
 | **D** | plus the token resolver, connected as an MCP server | yes |
 
 A, B and D form a cumulative ladder with nothing skipped, which is what makes the two gaps
 readable: **A→B** isolates shipping the system as an installable package, **B→D** isolates
 the agent-facing layer on top of it.
+
+**C splits that second gap.** D is C plus the resolver, so a B→D difference cannot be
+attributed between the document and the tool without it. The protocol committed in advance
+that if D beat B then C stopped being optional; D did, so C ran.
 
 Three arms rather than five because five runs do not fit inside one usage window, and a
 round split across windows reintroduces the confound that running in rounds exists to
@@ -166,7 +201,7 @@ that changed the design mid-study and why, and every run that was discarded.
 ### What is not claimed
 
 - **One application, one design system, one model.** A case study, not a benchmark.
-- **n = 3 of a planned 5**, and two arms of five have not run.
+- **n = 3 on the primary model, n = 1 on the second**, and one arm of five (A′) has not run.
 - **The author of the design system wrote the evaluation.** Pre-registration, committed
   scorers and published raw data are the mitigation, not a substitute for independent
   replication.

@@ -1,0 +1,228 @@
+<div class="page-header">
+  <h1 class="page-header__title">Team Members</h1>
+  <dsb-button variant="primary" (click)="openInvite()">+ Invite Member</dsb-button>
+</div>
+
+<dsb-table [rows]="$any(users())" [loading]="loading()" [hoverable]="true" emptyMessage="No team members yet.">
+  <dsb-column key="avatar" header="Avatar" headerAriaLabel="Avatar">
+    <ng-template #cell let-row="row">
+      <dsb-avatar [src]="row.avatar" [name]="row.name" [alt]="row.name" size="sm" />
+    </ng-template>
+  </dsb-column>
+
+  <dsb-column key="name" header="Name">
+    <ng-template #cell let-row="row">
+      <span class="cell-name">{{ row.name }}</span>
+    </ng-template>
+  </dsb-column>
+
+  <dsb-column key="email" header="Email">
+    <ng-template #cell let-row="row">
+      <span class="cell-muted">{{ row.email }}</span>
+    </ng-template>
+  </dsb-column>
+
+  <dsb-column key="role" header="Role">
+    <ng-template #cell let-row="row">
+      <dsb-tag size="sm" [variant]="roleTone(row.role)">{{ row.role }}</dsb-tag>
+    </ng-template>
+  </dsb-column>
+
+  <dsb-column key="status" header="Status">
+    <ng-template #cell let-row="row">
+      <dsb-tag size="sm" [variant]="statusTone(row.status)">{{ row.status }}</dsb-tag>
+    </ng-template>
+  </dsb-column>
+
+  <dsb-column key="joinedDate" header="Joined">
+    <ng-template #cell let-row="row">{{ row.joinedDate | date: 'MMM y' }}</ng-template>
+  </dsb-column>
+
+  <dsb-column key="actions" header="Actions" headerAriaLabel="Actions" align="right">
+    <ng-template #cell let-row="row">
+      <div class="row-actions">
+        <dsb-button variant="ghost" size="sm" (click)="openDetails(asUser(row))">Details</dsb-button>
+        <dsb-button variant="secondary" size="sm" (click)="openEdit(asUser(row))">Edit</dsb-button>
+        <dsb-button variant="danger" size="sm" (click)="openDelete(asUser(row))">Delete</dsb-button>
+      </div>
+    </ng-template>
+  </dsb-column>
+</dsb-table>
+
+<!-- Member details (read only) -->
+<dsb-modal
+  [open]="dialog() === 'details'"
+  size="md"
+  ariaLabel="Member Details"
+  [closeOnBackdrop]="true"
+  (closed)="closeDialog()"
+>
+  <div modal-title class="dialog-title-row">
+    <h2 class="dialog-title">Member Details</h2>
+    <dsb-tag size="sm">Read only</dsb-tag>
+  </div>
+
+  @if (selected(); as user) {
+    <div class="dialog-body">
+      <div class="user-row">
+        <dsb-avatar [name]="user.name" size="md" />
+        <div class="user-row__info">
+          <span class="user-row__name">{{ user.name }}</span>
+          <span class="user-row__since">Member since {{ user.joinedDate | date: 'MMMM y' }}</span>
+        </div>
+      </div>
+
+      <form class="member-fields member-fields--readonly" [formGroup]="detailsForm">
+        <div class="member-fields__pair">
+          <dsb-input formControlName="firstName" label="First name" />
+          <dsb-input formControlName="lastName" label="Last name" />
+        </div>
+        <dsb-input formControlName="email" type="email" label="Email address" />
+        <dsb-input formControlName="role" label="Role" />
+      </form>
+
+      <div class="status-row">
+        <span class="status-row__label">Status</span>
+        <dsb-tag size="sm" [variant]="statusTone(user.status)">{{ user.status }}</dsb-tag>
+      </div>
+    </div>
+  }
+
+  <div modal-footer class="dialog-footer dialog-footer--split">
+    <span class="dialog-footer__note">To make changes, request Admin access.</span>
+    <dsb-button variant="secondary" (click)="closeDialog()">Close</dsb-button>
+  </div>
+</dsb-modal>
+
+<!-- Edit member -->
+<dsb-modal
+  [open]="dialog() === 'edit'"
+  size="md"
+  title="Edit Member"
+  [closeOnBackdrop]="true"
+  (closed)="closeDialog()"
+>
+  @if (selected(); as user) {
+    <div class="dialog-body">
+      <div class="user-row">
+        <dsb-avatar [name]="user.name" size="md" />
+        <div class="user-row__info">
+          <span class="user-row__name">{{ user.name }}</span>
+          <span class="user-row__since">Member since {{ user.joinedDate | date: 'MMMM y' }}</span>
+        </div>
+      </div>
+
+      <form id="edit-member-form" class="member-fields" [formGroup]="editForm" (ngSubmit)="saveEdit()" novalidate>
+        <div class="member-fields__pair">
+          <dsb-input
+            formControlName="firstName"
+            label="First name"
+            [hasError]="showError(editForm, 'firstName')"
+            [errorMessage]="errorFor(editForm, 'firstName', 'First name')"
+          />
+          <dsb-input
+            formControlName="lastName"
+            label="Last name"
+            [hasError]="showError(editForm, 'lastName')"
+            [errorMessage]="errorFor(editForm, 'lastName', 'Last name')"
+          />
+        </div>
+        <dsb-input
+          formControlName="email"
+          type="email"
+          label="Email address"
+          [hasError]="showError(editForm, 'email')"
+          [errorMessage]="errorFor(editForm, 'email', 'Email address')"
+        />
+        <dsb-dropdown
+          formControlName="role"
+          label="Role"
+          placeholder="Select role…"
+          [options]="roleOptions"
+          [hasError]="showError(editForm, 'role')"
+          [errorMessage]="errorFor(editForm, 'role', 'Role')"
+        />
+      </form>
+
+      <div class="status-row">
+        <span class="status-row__label">Status</span>
+        <dsb-tag size="sm" [variant]="statusTone(user.status)">{{ user.status }}</dsb-tag>
+      </div>
+    </div>
+  }
+
+  <div modal-footer class="dialog-footer dialog-footer--split">
+    <dsb-button variant="danger" (click)="editToDelete()">Delete user</dsb-button>
+    <div class="dialog-footer__actions">
+      <dsb-button variant="secondary" (click)="closeDialog()">Cancel</dsb-button>
+      <dsb-button variant="primary" [loading]="saving()" (click)="saveEdit()">Save changes</dsb-button>
+    </div>
+  </div>
+</dsb-modal>
+
+<!-- Invite member -->
+<dsb-modal
+  [open]="dialog() === 'invite'"
+  size="md"
+  title="Invite Member"
+  [closeOnBackdrop]="true"
+  (closed)="closeDialog()"
+>
+  <form class="member-fields" [formGroup]="inviteForm" (ngSubmit)="sendInvite()" novalidate>
+    <div class="member-fields__pair">
+      <dsb-input
+        formControlName="firstName"
+        label="First name"
+        placeholder="First name"
+        [hasError]="showError(inviteForm, 'firstName')"
+        [errorMessage]="errorFor(inviteForm, 'firstName', 'First name')"
+      />
+      <dsb-input
+        formControlName="lastName"
+        label="Last name"
+        placeholder="Last name"
+        [hasError]="showError(inviteForm, 'lastName')"
+        [errorMessage]="errorFor(inviteForm, 'lastName', 'Last name')"
+      />
+    </div>
+    <dsb-input
+      formControlName="email"
+      type="email"
+      label="Email address"
+      placeholder="name@example.com"
+      [hasError]="showError(inviteForm, 'email')"
+      [errorMessage]="errorFor(inviteForm, 'email', 'Email address')"
+    />
+    <dsb-dropdown
+      formControlName="role"
+      label="Role"
+      placeholder="Select role…"
+      [options]="roleOptions"
+      [hasError]="showError(inviteForm, 'role')"
+      [errorMessage]="errorFor(inviteForm, 'role', 'Role')"
+    />
+  </form>
+
+  <div modal-footer class="dialog-footer">
+    <dsb-button variant="secondary" (click)="closeDialog()">Cancel</dsb-button>
+    <dsb-button variant="primary" [loading]="saving()" (click)="sendInvite()">Send Invite</dsb-button>
+  </div>
+</dsb-modal>
+
+<!-- Delete confirmation -->
+<dsb-modal
+  [open]="dialog() === 'delete'"
+  size="sm"
+  title="Confirm Deletion"
+  [closeOnBackdrop]="true"
+  (closed)="closeDialog()"
+>
+  <p class="confirm-text">
+    Are you sure you want to remove <strong>{{ selected()?.name }}</strong>? This action cannot be undone.
+  </p>
+
+  <div modal-footer class="dialog-footer">
+    <dsb-button variant="secondary" (click)="closeDialog()">Cancel</dsb-button>
+    <dsb-button variant="danger" [loading]="saving()" (click)="confirmDelete()">Delete</dsb-button>
+  </div>
+</dsb-modal>

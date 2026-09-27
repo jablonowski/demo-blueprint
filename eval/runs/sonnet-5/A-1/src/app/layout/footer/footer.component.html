@@ -1,0 +1,30 @@
+<footer class="app-footer">
+  <div class="app-footer__top">
+    <div class="app-footer__brand">
+      <span class="app-footer__logo" aria-hidden="true"></span>
+      <span class="app-footer__brand-name">Blueprint</span>
+    </div>
+
+    <div class="app-footer__columns">
+      @for (column of columns; track column.title) {
+        <div class="app-footer__column">
+          <span class="app-footer__column-title">{{ column.title }}</span>
+          @for (link of column.links; track link) {
+            <a class="app-footer__link" href="#" (click)="$event.preventDefault()">{{ link }}</a>
+          }
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="app-footer__divider"></div>
+
+  <div class="app-footer__bottom">
+    <span class="app-footer__copyright">© 2026 Blueprint. All rights reserved.</span>
+    <div class="app-footer__legal">
+      @for (link of legalLinks; track link) {
+        <a class="app-footer__link" href="#" (click)="$event.preventDefault()">{{ link }}</a>
+      }
+    </div>
+  </div>
+</footer>

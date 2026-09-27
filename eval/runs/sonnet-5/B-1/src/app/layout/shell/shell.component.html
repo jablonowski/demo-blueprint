@@ -1,0 +1,23 @@
+<div class="app-shell">
+  <div class="app-header">
+    <dsb-header brandName="Blueprint" [navItems]="navItems" />
+    <div class="app-header-overlay">
+      <div class="app-header-overlay-inner">
+        <app-profile-menu (signOut)="signOut()" />
+      </div>
+    </div>
+  </div>
+
+  <main class="app-main">
+    <div class="app-main-inner">
+      <router-outlet />
+    </div>
+  </main>
+
+  <dsb-footer
+    brandName="Blueprint"
+    copyright="© 2026 Blueprint. All rights reserved."
+    [columns]="footerColumns"
+    [legalLinks]="legalLinks"
+  />
+</div>

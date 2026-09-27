@@ -1,0 +1,38 @@
+<div class="login-page">
+  <div class="login-card">
+    <h1 class="login-heading">Welcome back</h1>
+    <p class="login-subtitle">Sign in to your account to continue</p>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+      <div class="field-group">
+        <dsb-input
+          label="Username"
+          placeholder="Enter your username"
+          [formControl]="usernameControl"
+          [hasError]="usernameControl.invalid && usernameControl.touched"
+          errorMessage="Username is required"
+        ></dsb-input>
+
+        <dsb-input
+          label="Password"
+          type="password"
+          placeholder="Enter your password"
+          [formControl]="passwordControl"
+          [hasError]="passwordControl.invalid && passwordControl.touched"
+          errorMessage="Password is required"
+        ></dsb-input>
+
+        <div class="remember-row">
+          <dsb-checkbox label="Remember me"></dsb-checkbox>
+          <button type="button" class="link">Forgot password?</button>
+        </div>
+
+        <p class="login-error" *ngIf="loginFailed">Invalid username or password.</p>
+
+        <dsb-button type="submit" variant="primary" size="lg" [fullWidth]="true">Sign In</dsb-button>
+      </div>
+    </form>
+
+    <p class="signup-row">Don't have an account? <button type="button" class="link">Sign up</button></p>
+  </div>
+</div>

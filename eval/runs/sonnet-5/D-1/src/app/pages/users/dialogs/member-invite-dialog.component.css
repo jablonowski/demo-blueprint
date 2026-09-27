@@ -1,0 +1,18 @@
+.invite-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-decisions-space-xl);
+}
+
+.field-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--ds-decisions-space-lg);
+}
+
+.invite-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--ds-decisions-space-sm);
+  width: 100%;
+}

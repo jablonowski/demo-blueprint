@@ -1,0 +1,44 @@
+<ui-modal (closed)="closed.emit()">
+  <div modalHeader class="dialog-header">
+    <div class="dialog-header__title-group">
+      <h2 class="dialog-header__title">Member Details</h2>
+      <ui-badge tone="neutral">Read only</ui-badge>
+    </div>
+    <button class="dialog-header__close" type="button" (click)="closed.emit()">✕</button>
+  </div>
+
+  <div modalBody>
+    <app-user-summary-row [user]="user" />
+
+    <div class="field-row">
+      <div class="field">
+        <label class="field__label field__label--muted">First name</label>
+        <div class="field__static">{{ firstName }}</div>
+      </div>
+      <div class="field">
+        <label class="field__label field__label--muted">Last name</label>
+        <div class="field__static">{{ lastName }}</div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="field__label field__label--muted">Email address</label>
+      <div class="field__static">{{ user.email }}</div>
+    </div>
+
+    <div class="field">
+      <label class="field__label field__label--muted">Role</label>
+      <div class="field__static">{{ user.role }}</div>
+    </div>
+
+    <div class="dialog-status-row">
+      <span class="dialog-status-row__label">Status</span>
+      <ui-badge [tone]="user.status === 'Active' ? 'positive' : 'neutral'">{{ user.status }}</ui-badge>
+    </div>
+  </div>
+
+  <div modalFooter class="dialog-footer dialog-footer--split">
+    <span class="dialog-footer__note">To make changes, request Admin access.</span>
+    <button uiButton variant="secondary" type="button" (click)="closed.emit()">Close</button>
+  </div>
+</ui-modal>
