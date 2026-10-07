@@ -1,0 +1,58 @@
+<!-- Generated with Claude (Opus 5) for demo-blueprint.
+     Hand-written SVG, no raster assets, no external fonts. Edit freely. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 320" width="1200" height="320" role="img" aria-label="demo-blueprint — does a design system change what a coding agent writes? A pre-registered experiment, thirty scored runs, five arms, two models.">
+  <defs>
+    <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse">
+      <path d="M24 0H0V24" fill="none" stroke="#c8c8c8" stroke-opacity="0.18" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="320" fill="#f9f9f9"/>
+  <rect width="1200" height="320" fill="url(#grid)"/>
+
+  <!-- the ladder, right -->
+  <g>
+    <text x="1148" y="56" text-anchor="end" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" letter-spacing="1.6" fill="#97a29b">FIVE ARMS · ONE SPECIFICATION</text>
+
+    <rect x="1028" y="70"  width="120" height="28" rx="7" fill="#ffffff" stroke="#e6e8e5"/>
+    <text x="1040" y="89" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12.5" fill="#455049">A   frames</text>
+
+    <rect x="1000" y="106" width="148" height="28" rx="7" fill="#fdf3d4" stroke="#f5d98a"/>
+    <text x="1012" y="125" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12.5" fill="#6b4e0a">A′  + styleguide</text>
+
+    <rect x="972" y="142" width="176" height="28" rx="7" fill="#eef7f1" stroke="#c3ded0"/>
+    <text x="984" y="161" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12.5" fill="#1d3a28">B   + the package</text>
+
+    <rect x="944" y="178" width="204" height="28" rx="7" fill="#dff0e5" stroke="#c3ded0"/>
+    <text x="956" y="197" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12.5" fill="#1d3a28">C   + the agent guide</text>
+
+    <rect x="916" y="214" width="232" height="28" rx="7" fill="#c3ded0" stroke="#5b8a6b"/>
+    <text x="928" y="233" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12.5" fill="#1d3a28">D   + the token resolver</text>
+
+    <text x="1148" y="266" text-anchor="end" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#455049">each rung adds exactly one thing</text>
+  </g>
+
+  <!-- spine -->
+  <line x1="64" y1="46" x2="64" y2="274" stroke="#c3ded0" stroke-width="2" stroke-dasharray="5 7"/>
+  <circle cx="64" cy="81"  r="7" fill="#5b8a6b" stroke="#f9f9f9" stroke-width="3"/>
+  <circle cx="64" cy="200" r="7" fill="#2f5a3f" stroke="#f9f9f9" stroke-width="3"/>
+  <circle cx="64" cy="245" r="7" fill="#2f5a3f" stroke="#f9f9f9" stroke-width="3"/>
+
+  <text x="104" y="86" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="14" letter-spacing="2.5" fill="#2f5a3f">PRE-REGISTERED EXPERIMENT · DEMO-BLUEPRINT</text>
+
+  <text x="102" y="138" font-family="Georgia, 'Iowan Old Style', Palatino, serif" font-size="40" fill="#161a17">Does a design system change</text>
+  <text x="102" y="184" font-family="Georgia, 'Iowan Old Style', Palatino, serif" font-size="40" fill="#161a17">what a coding agent writes?</text>
+
+  <text x="104" y="222" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="19" fill="#455049">Scorers committed before the first run. Raw data published per run.</text>
+
+  <g font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="13">
+    <rect x="102" y="250" width="156" height="34" rx="17" fill="#2f5a3f"/>
+    <text x="180" y="272" text-anchor="middle" fill="#ffffff">30 scored runs</text>
+
+    <rect x="270" y="250" width="124" height="34" rx="17" fill="#ffffff" stroke="#c3ded0"/>
+    <text x="332" y="272" text-anchor="middle" fill="#1d3a28">two models</text>
+
+    <rect x="406" y="250" width="212" height="34" rx="17" fill="#ffffff" stroke="#c3ded0"/>
+    <text x="512" y="272" text-anchor="middle" fill="#1d3a28">including the null results</text>
+  </g>
+</svg>

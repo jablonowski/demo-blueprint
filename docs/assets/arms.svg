@@ -1,0 +1,80 @@
+<!-- Generated with Claude (Opus 5) for demo-blueprint.
+     Hand-written SVG, no raster assets, no external fonts. Edit freely. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 560" width="1200" height="560" role="img" aria-label="The five arms. A holds the specification and Figma frames. A-prime adds a styleguide written as prose, as a branch off A. B adds the installed npm packages, C adds the agent-facing document, D adds the token resolver over MCP. Each gap isolates one thing.">
+  <defs>
+    <pattern id="g2" width="24" height="24" patternUnits="userSpaceOnUse">
+      <path d="M24 0H0V24" fill="none" stroke="#c8c8c8" stroke-opacity="0.16" stroke-width="1"/>
+    </pattern>
+    <marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#5b8a6b"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="560" fill="#f9f9f9"/>
+  <rect width="1200" height="560" fill="url(#g2)"/>
+
+  <text x="60" y="44" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" letter-spacing="1.6" fill="#97a29b">THE ARM</text>
+  <text x="240" y="44" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" letter-spacing="1.6" fill="#97a29b">WHAT THE AGENT HOLDS, ON TOP OF THE ONE ABOVE</text>
+  <text x="836" y="44" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" letter-spacing="1.6" fill="#97a29b">WHAT THE GAP ISOLATES</text>
+  <line x1="40" y1="58" x2="1160" y2="58" stroke="#e6e8e5" stroke-width="1"/>
+
+  <!-- spine A -> B -> C -> D -->
+  <g stroke="#5b8a6b" stroke-width="2" fill="none" marker-end="url(#a2)">
+    <path d="M150 150 L150 268"/>
+    <path d="M150 352 L150 370"/>
+    <path d="M150 454 L150 472"/>
+  </g>
+  <!-- branch to A' -->
+  <path d="M150 150 L150 196 L218 196" stroke="#f5d98a" stroke-width="2" fill="none" stroke-dasharray="6 5" marker-end="url(#a2)"/>
+
+  <!-- A -->
+  <text x="112" y="112" text-anchor="end" font-family="Georgia, 'Iowan Old Style', Palatino, serif" font-size="30" fill="#161a17">A</text>
+  <rect x="170" y="82" width="600" height="68" rx="12" fill="#ffffff" stroke="#e6e8e5" stroke-width="1.5"/>
+  <text x="192" y="110" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="16" fill="#161a17">The specification and the Figma frames. Nothing else.</text>
+  <text x="192" y="134" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12.5" fill="#97a29b">the floor: what an agent does with a design file and no system</text>
+
+  <!-- A' -->
+  <text x="212" y="226" text-anchor="end" font-family="Georgia, 'Iowan Old Style', Palatino, serif" font-size="30" fill="#6b4e0a">A′</text>
+  <rect x="232" y="196" width="538" height="68" rx="12" fill="#fdf3d4" stroke="#f5d98a" stroke-width="1.5"/>
+  <text x="254" y="224" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="16" fill="#6b4e0a">+ a styleguide document — palette, scale, component CSS, as prose</text>
+  <text x="254" y="248" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12.5" fill="#8a6a1c">a branch off A, not a rung: the system written down but not shipped</text>
+
+  <!-- B -->
+  <text x="112" y="314" text-anchor="end" font-family="Georgia, 'Iowan Old Style', Palatino, serif" font-size="30" fill="#161a17">B</text>
+  <rect x="170" y="284" width="600" height="68" rx="12" fill="#eef7f1" stroke="#c3ded0" stroke-width="1.5"/>
+  <text x="192" y="312" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="16" fill="#161a17">+ the two npm packages installed</text>
+  <text x="192" y="336" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12.5" fill="#5b8a6b">READMEs and .d.ts readable · llms.client.txt deliberately removed</text>
+
+  <!-- C -->
+  <text x="112" y="416" text-anchor="end" font-family="Georgia, 'Iowan Old Style', Palatino, serif" font-size="30" fill="#161a17">C</text>
+  <rect x="170" y="386" width="600" height="68" rx="12" fill="#dff0e5" stroke="#c3ded0" stroke-width="1.5"/>
+  <text x="192" y="414" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="16" fill="#161a17">+ llms.client.txt, the guide written for agents</text>
+  <text x="192" y="438" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12.5" fill="#5b8a6b">3 kB of prose, shipped inside the package</text>
+
+  <!-- D -->
+  <text x="112" y="518" text-anchor="end" font-family="Georgia, 'Iowan Old Style', Palatino, serif" font-size="30" fill="#161a17">D</text>
+  <rect x="170" y="488" width="600" height="60" rx="12" fill="#c3ded0" stroke="#5b8a6b" stroke-width="1.5"/>
+  <text x="192" y="514" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="16" fill="#161a17">+ the token resolver, connected as an MCP server</text>
+  <text x="192" y="536" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12.5" fill="#2f5a3f">the pre-registered decisive comparison: C versus D</text>
+
+  <!-- gap brackets -->
+  <g stroke="#97a29b" stroke-width="1.5" fill="none">
+    <path d="M806 92 L820 92 L820 254 L806 254"/>
+    <path d="M806 294 L820 294 L820 342 L806 342"/>
+    <path d="M806 396 L820 396 L820 444 L806 444"/>
+    <path d="M806 498 L820 498 L820 538 L806 538"/>
+  </g>
+
+  <text x="836" y="168" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="15" fill="#6b4e0a">A → A′</text>
+  <text x="836" y="190" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="15" fill="#455049">writing it down instead</text>
+  <text x="836" y="210" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="15" fill="#455049">of shipping it</text>
+
+  <text x="836" y="312" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="15" fill="#2f5a3f">A → B</text>
+  <text x="836" y="334" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="15" fill="#455049">shipping it as a package</text>
+
+  <text x="836" y="414" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="15" fill="#2f5a3f">B → C</text>
+  <text x="836" y="436" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="15" fill="#455049">the agent-facing document</text>
+
+  <text x="836" y="514" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="15" fill="#2f5a3f">C → D</text>
+  <text x="836" y="536" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="15" fill="#455049">the resolver, on top of the document</text>
+</svg>
