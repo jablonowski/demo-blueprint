@@ -1,0 +1,367 @@
+/*
+ * Design tokens — every value below is taken from the Figma "Design System Blueprint"
+ * file (node 22-11104). Components reference these variables only; change a value here
+ * and it changes everywhere.
+ */
+:root {
+  /* Neutral palette */
+  --color-white: #ffffff;
+  --color-gray-25: #fafafa;
+  --color-gray-50: #f5f5f5;
+  --color-gray-75: #f0f0f0;
+  --color-gray-100: #ebebeb;
+  --color-gray-150: #e8e8e8;
+  --color-gray-200: #d4d4d4;
+  --color-gray-400: #aaaaaa;
+  --color-gray-450: #999999;
+  --color-gray-500: #888888;
+  --color-gray-600: #666666;
+  --color-gray-700: #555555;
+  --color-gray-800: #333333;
+  --color-gray-900: #111111;
+
+  /* Semantic text */
+  --text-primary: var(--color-gray-900);
+  --text-body: var(--color-gray-800);
+  --text-secondary: var(--color-gray-700);
+  --text-muted: var(--color-gray-500);
+  --text-subtle: var(--color-gray-400);
+  --text-disabled: var(--color-gray-450);
+  --text-on-primary: var(--color-white);
+
+  /* Surfaces & borders */
+  --surface-page: var(--color-gray-50);
+  --surface-card: var(--color-white);
+  --surface-sunken: var(--color-gray-25);
+  --surface-disabled: var(--color-gray-50);
+  --surface-hover: var(--color-gray-50);
+  --border-subtle: var(--color-gray-75);
+  --border-default: var(--color-gray-100);
+  --border-control: var(--color-gray-200);
+  --overlay-backdrop: rgba(0, 0, 0, 0.45);
+
+  /* Brand / action */
+  --action-primary: var(--color-gray-900);
+  --action-primary-hover: var(--color-gray-800);
+
+  /* Status tones (background / foreground) */
+  --tone-success-bg: #e6f4ea;
+  --tone-success-fg: #1a7f3c;
+  --tone-warning-bg: #fef3cd;
+  --tone-warning-fg: #92600a;
+  --tone-danger-bg: #fce8e6;
+  --tone-danger-fg: #c5221f;
+  --tone-info-bg: #e8f0fe;
+  --tone-info-fg: #1a56db;
+  --tone-neutral-bg: var(--color-gray-75);
+  --tone-neutral-fg: var(--color-gray-700);
+  --danger-text: #d93025;
+  --danger-border: #f0a9a4;
+
+  /* Terminal (log viewer) */
+  --terminal-bg: var(--color-gray-900);
+  --terminal-fg: var(--color-gray-200);
+  --terminal-muted: var(--color-gray-500);
+  --terminal-source: var(--color-gray-400);
+  --terminal-info: #8ab4f8;
+  --terminal-warn: #fdd663;
+  --terminal-error: var(--danger-border);
+
+  /* Typography */
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --font-size-2xs: 10px;
+  --font-size-xs: 11px;
+  --font-size-sm: 12px;
+  --font-size-md: 13px;
+  --font-size-base: 14px;
+  --font-size-lg: 15px;
+  --font-size-xl: 16px;
+  --font-size-2xl: 18px;
+  --font-size-3xl: 20px;
+  --font-size-4xl: 22px;
+  --font-size-5xl: 26px;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --letter-spacing-caps: 0.06em;
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+
+  /* Spacing scale */
+  --space-0-5: 2px;
+  --space-0-75: 3px;
+  --space-1: 4px;
+  --space-1-25: 5px;
+  --space-1-5: 6px;
+  --space-2: 8px;
+  --space-2-5: 10px;
+  --space-3: 12px;
+  --space-3-5: 14px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+
+  /* Radii */
+  --radius-xs: 3px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 10px;
+  --radius-2xl: 12px;
+  --radius-full: 9999px;
+
+  /* Borders */
+  --border-width: 1px;
+  --border-width-control: 1.5px;
+
+  /* Elevation */
+  --shadow-card: 0 2px 8px 0 rgba(0, 0, 0, 0.06);
+  --shadow-auth-card: 0 4px 16px 0 rgba(0, 0, 0, 0.08);
+  --shadow-popover: 0 8px 24px 0 rgba(0, 0, 0, 0.12);
+  --shadow-modal: 0 12px 40px 0 rgba(0, 0, 0, 0.22);
+  --focus-ring: 0 0 0 3px rgba(17, 17, 17, 0.12);
+
+  /* Sizes */
+  --size-checkbox: 16px;
+  --size-avatar-sm: 32px;
+  --size-avatar-md: 40px;
+  --size-status-dot: 8px;
+  --size-control-lg: 42px;
+  --size-bar-chart: 96px;
+  --size-header: 56px;
+  --size-footer-min: 56px;
+  --size-content-max: 1216px;
+  --size-auth-card: 400px;
+  --size-modal-sm: 420px;
+  --size-modal-md: 560px;
+  --size-menu: 200px;
+  --size-log-viewport: 280px;
+
+  /* Motion */
+  --duration-fast: 120ms;
+  --easing-standard: cubic-bezier(0.2, 0, 0, 1);
+
+  /* Layers */
+  --z-header: 10;
+  --z-menu: 20;
+  --z-modal: 100;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  color: var(--text-primary);
+  background: var(--surface-page);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+}
+
+button,
+input,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1-5);
+  padding: var(--space-2) var(--space-3-5);
+  border: var(--border-width-control) solid transparent;
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-tight);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--easing-standard),
+    border-color var(--duration-fast) var(--easing-standard);
+}
+
+.btn:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.btn--primary {
+  background: var(--action-primary);
+  border-color: var(--action-primary);
+  color: var(--text-on-primary);
+}
+.btn--primary:hover { background: var(--action-primary-hover); border-color: var(--action-primary-hover); }
+
+.btn--secondary {
+  background: var(--surface-card);
+  border-color: var(--border-control);
+  color: var(--text-primary);
+}
+.btn--secondary:hover { background: var(--surface-hover); }
+
+.btn--ghost {
+  background: var(--surface-card);
+  color: var(--text-secondary);
+}
+.btn--ghost:hover { background: var(--surface-hover); color: var(--text-primary); }
+
+.btn--danger {
+  background: var(--surface-card);
+  border-color: var(--danger-border);
+  color: var(--danger-text);
+}
+.btn--danger:hover { background: var(--tone-danger-bg); }
+
+.btn--danger-solid {
+  background: var(--danger-text);
+  border-color: var(--danger-text);
+  color: var(--text-on-primary);
+}
+.btn--danger-solid:hover { background: var(--tone-danger-fg); border-color: var(--tone-danger-fg); }
+
+.btn--block {
+  width: 100%;
+  height: var(--size-control-lg);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ---------- Form fields ---------- */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1-25);
+  min-width: 0;
+}
+
+.field__label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-primary);
+}
+
+.field__control {
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  border: var(--border-width-control) solid var(--border-control);
+  border-radius: var(--radius-md);
+  background: var(--surface-card);
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-normal);
+  color: var(--text-primary);
+  outline: none;
+  transition: border-color var(--duration-fast) var(--easing-standard);
+}
+
+.field__control::placeholder {
+  color: var(--text-subtle);
+}
+
+.field__control:focus {
+  border-color: var(--action-primary);
+  box-shadow: var(--focus-ring);
+}
+
+select.field__control {
+  appearance: none;
+  padding-right: var(--space-8);
+  background-image: linear-gradient(45deg, transparent 50%, var(--text-muted) 50%),
+    linear-gradient(135deg, var(--text-muted) 50%, transparent 50%);
+  background-position: calc(100% - 17px) 50%, calc(100% - 12px) 50%;
+  background-size: 5px 5px;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+select.field__control:invalid,
+select.field__control.is-placeholder {
+  color: var(--text-subtle);
+}
+
+.field--error .field__control {
+  border-color: var(--danger-text);
+}
+
+.field__error {
+  font-size: var(--font-size-sm);
+  color: var(--tone-danger-fg);
+}
+
+.field--readonly .field__label {
+  color: var(--text-disabled);
+}
+
+.field--readonly .field__control {
+  background: var(--surface-disabled);
+  color: var(--text-disabled);
+  min-height: calc(var(--font-size-md) * var(--line-height-normal) + 2 * var(--space-2) + 2 * var(--border-width-control));
+}
+
+.field-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+/* ---------- Modal title (also used by custom modal headers) ---------- */
+.modal-title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-tight);
+  color: var(--text-primary);
+}
+
+/* ---------- Card ---------- */
+.card {
+  background: var(--surface-card);
+  border: var(--border-width) solid var(--border-default);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
+}
+
+.divider {
+  height: var(--border-width);
+  border: 0;
+  margin: 0;
+  background: var(--border-default);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}

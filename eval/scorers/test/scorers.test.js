@@ -53,7 +53,7 @@ test('one defensible reimplementation does not trigger the falsifier', () => {
 });
 
 test('the checks are not applied to an arm that had no library', () => {
-  // The eight checks are all about the library's API. Arm A declaring its own FooterColumn
+  // The seven checks are all about the library's API. Arm A declaring its own FooterColumn
   // with a title field is correct for arm A, and the first version scored it as a failure.
   const result = checks.score(BAD, 'A');
   assert.equal(result.applicable, false);
@@ -186,9 +186,13 @@ test('every check fails on a fixture built to fail it', () => {
   assert.equal(by['standalone'].verdict, 'fail', 'components used without being imported');
 });
 
-test('9.6 fails when a split footer has no flex:1', () => {
-  const by = Object.fromEntries(checks.score(BAD, 'D').results.map((r) => [r.id, r]));
-  assert.equal(by['9.6'].verdict, 'fail');
+test('9.6 is gone, and the grid is seven checks', () => {
+  // Removed 2026-10-07: it fired only when the agent happened to build a split modal
+  // footer, so it measured what was built rather than what was known. See the note in
+  // scorers/checks.js. This test exists so the removal cannot be undone by accident.
+  const ids = checks.score(BAD, 'D').results.map((r) => r.id);
+  assert.ok(!ids.includes('9.6'), '9.6 must not come back without a decision');
+  assert.equal(ids.length, 7);
 });
 
 test('a check reports na rather than pass when the thing was never built', () => {

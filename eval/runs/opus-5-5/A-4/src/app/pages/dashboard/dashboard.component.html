@@ -1,0 +1,85 @@
+<header class="page-head">
+  <h1 class="page-head__title">System Overview</h1>
+  <p class="page-head__meta">Last updated: {{ lastUpdated.toUTCString().slice(5, 22) }} UTC</p>
+</header>
+
+<div class="dashboard">
+  @for (m of metrics; track m.title) {
+    <section class="card tile tile--metric">
+      <h2 class="tile__label">{{ m.title }}</h2>
+      <div class="tile__value-row">
+        <span class="tile__value">{{ m.value }}</span>
+        @if (m.trend) {
+          <app-badge [tone]="m.trend.tone">{{ m.trend.label }}</app-badge>
+        }
+      </div>
+      @if (m.subLabel) {
+        <span class="tile__sub">{{ m.subLabel }}</span>
+      }
+    </section>
+  }
+
+  <div class="dashboard__split">
+    <section class="card tile tile--health">
+    <h2 class="tile__heading">Service Health</h2>
+    <ul class="service-list">
+      @for (s of services; track s.name) {
+        <li class="service-list__row">
+          <span>{{ s.name }}</span>
+          <app-badge [tone]="s.online ? 'success' : 'danger'">{{ s.online ? 'Online' : 'Offline' }}</app-badge>
+        </li>
+      }
+    </ul>
+  </section>
+
+  <section class="card tile tile--throughput">
+    <div class="tile__heading-group">
+      <h2 class="tile__heading">Request Throughput</h2>
+      <p class="tile__caption">Requests per minute, last 7 days</p>
+    </div>
+    <hr class="divider" />
+    <div class="chart" role="img" aria-label="Bar chart of request throughput, Monday to Sunday">
+      @for (b of bars(); track b.day) {
+        <div class="chart__col">
+          <div class="chart__track">
+            <div class="chart__bar" [style.height.%]="b.percent" [attr.title]="b.value + ' rpm'"></div>
+          </div>
+          <span class="chart__label">{{ b.day }}</span>
+        </div>
+      }
+    </div>
+  </section>
+
+  </div>
+
+  <section class="card tile tile--summary">
+    <h2 class="tile__heading">Data Summary</h2>
+    <hr class="divider" />
+    <dl class="summary">
+      @for (item of summary; track item.label) {
+        <div class="summary__item">
+          <dt class="summary__label">{{ item.label }}</dt>
+          <dd class="summary__value">{{ item.value }}</dd>
+        </div>
+      }
+    </dl>
+  </section>
+
+  <section class="card tile tile--logs">
+    <div class="tile__heading-row">
+      <h2 class="tile__heading">System Logs</h2>
+      <app-badge tone="success">Live</app-badge>
+    </div>
+    <hr class="divider" />
+    <div class="logs" #logViewport (scroll)="onLogScroll()" role="log" aria-live="polite">
+      @for (line of logs(); track line.id) {
+        <div class="logs__line" [attr.data-level]="line.level">
+          <span class="logs__time">{{ line.time }}</span>
+          <span class="logs__level">{{ line.level }}</span>
+          <span class="logs__source">{{ line.source }}</span>
+          <span class="logs__message">{{ line.message }}</span>
+        </div>
+      }
+    </div>
+  </section>
+</div>

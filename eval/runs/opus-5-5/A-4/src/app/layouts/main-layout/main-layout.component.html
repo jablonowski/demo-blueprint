@@ -1,0 +1,75 @@
+<div class="shell">
+  <header class="header">
+    <div class="header__inner">
+      <a class="brand" routerLink="/dashboard" aria-label="Blueprint home">
+        <svg class="brand__logo" viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="1" y="1" width="22" height="22" rx="6" />
+          <path d="M8 6.5h5a3 3 0 0 1 0 6H8zM8 12.5h5.5a3 3 0 0 1 0 6H8z" />
+        </svg>
+        <span class="brand__name">Blueprint</span>
+      </a>
+
+      <nav class="nav" aria-label="Primary">
+        @for (link of navLinks; track link.path) {
+          <a class="nav__link" [routerLink]="link.path" routerLinkActive="nav__link--active">{{ link.label }}</a>
+        }
+      </nav>
+
+      <div class="profile" #profile>
+        <button
+          type="button"
+          class="profile__trigger"
+          aria-haspopup="menu"
+          [attr.aria-expanded]="menuOpen()"
+          aria-controls="profile-menu"
+          (click)="toggleMenu()"
+        >
+          <app-avatar [name]="userName" />
+          <span class="profile__name">{{ userName }}</span>
+          <span class="profile__caret" aria-hidden="true">▾</span>
+        </button>
+
+        @if (menuOpen()) {
+          <div class="menu" id="profile-menu" role="menu">
+            <button type="button" class="menu__item" role="menuitem" (click)="closeMenu()">My Profile</button>
+            <hr class="divider" />
+            <button type="button" class="menu__item" role="menuitem" (click)="signOut()">Sign Out</button>
+          </div>
+        }
+      </div>
+    </div>
+  </header>
+
+  <main class="content">
+    <div class="content__grid">
+      <router-outlet />
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__top">
+        <div class="footer__brand">
+          <span class="brand__name">Blueprint</span>
+          <span class="footer__muted">© {{ year }} Blueprint. All rights reserved.</span>
+        </div>
+        <div class="footer__columns">
+          @for (col of footerColumns; track col.heading) {
+            <div class="footer__column">
+              <span class="footer__heading">{{ col.heading }}</span>
+              @for (link of col.links; track link) {
+                <a class="footer__link" href="#" (click)="$event.preventDefault()">{{ link }}</a>
+              }
+            </div>
+          }
+        </div>
+      </div>
+      <hr class="divider" />
+      <div class="footer__legal">
+        @for (link of legalLinks; track link) {
+          <a class="footer__link" href="#" (click)="$event.preventDefault()">{{ link }}</a>
+        }
+      </div>
+    </div>
+  </footer>
+</div>

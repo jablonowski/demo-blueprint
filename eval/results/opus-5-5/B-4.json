@@ -1,0 +1,122 @@
+{
+  "arm": "B",
+  "run": 4,
+  "model": "claude-opus-5-5",
+  "cli": "2.1.281 (Claude Code)",
+  "isolation": "session",
+  "started": "2026-10-05T08:17:29Z",
+  "overlaySha": "0d513945591a",
+  "s0Sha": "c25d3e960f47",
+  "promptBytes": 14252,
+  "runDir": "/tmp/dsb-eval/opus-5-5/B-4",
+  "figma": {
+    "channel": "cached",
+    "fileKey": "iJ92LuFOsPjO6avZ2anbwO",
+    "recordedAt": "2026-09-24T19:49:36Z",
+    "calls": 1,
+    "errors": 0,
+    "nodes": [
+      "22-11104"
+    ],
+    "ok": true
+  },
+  "inputTokensTotal": 5139389,
+  "outputTokens": 61130,
+  "result": {
+    "duration_api_ms": 565721,
+    "stop_reason": "end_turn",
+    "session_id": "3e6fea9a-21c7-4287-a1c5-08b38afb26b5",
+    "total_cost_usd": 3.6121304000000003,
+    "usage": {
+      "input_tokens": 90,
+      "cache_creation_input_tokens": 174527,
+      "cache_read_input_tokens": 4964772,
+      "output_tokens": 61130,
+      "output_tokens_details": {
+        "thinking_tokens": 19093
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 174527,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "not_available",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 1570,
+          "cache_read_input_tokens": 184445,
+          "cache_creation_input_tokens": 786,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 786
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard"
+    },
+    "modelUsage": {
+      "claude-opus-5-5": {
+        "inputTokens": 90,
+        "outputTokens": 61130,
+        "cacheReadInputTokens": 4964772,
+        "cacheCreationInputTokens": 174527,
+        "webSearchRequests": 0,
+        "costUSD": 3.6121304000000003,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 128000,
+        "thinkingTokens": 19093,
+        "canonicalModel": "claude-opus-5-5",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "subagent_stats": {
+      "spawned": 0,
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 0,
+      "spawned_by_subagents": 0,
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {}
+    },
+    "is_error": false,
+    "num_turns": 55,
+    "subtype": "success",
+    "api_error_status": null,
+    "result": "The app is built and working. `npx @angular/cli@19 serve` runs it, `admin` / `admin` gets you to the dashboard, and the production build is clean. I drove it in headless Chromium at 1280px and 375px:\n\n- **Login:** empty fields show a required error, wrong credentials show an error, and a good login writes `isLoggedIn: true` and redirects to `/dashboard`.\n- **Guards:** a signed-out visit to `/users` redirects to `/login`, and a signed-in visit to `/login` redirects to `/dashboard`.\n- **Profile menu:** it opens leftward and stays inside the viewport at both widths. It closes on an outside click, and Sign Out logs you out.\n- **CRUD:** create, read, update and delete all go through the in-memory API, and the table updates. Edit → **Delete user** keeps the selected member. The invite form is empty when reopened.\n- **Dialogs:** all four close with ✕, Escape, the backdrop or their own buttons.\n- **Console:** no errors.\n\nThe file the setup withholds, `llms.client.txt`, is still absent. I didn't read it, and reinstalling packages didn't bring it back.\n\n## What I learned about the packages without docs\nEverything came from the type declarations and the compiled bundle. These findings shaped the build:\n- **Tokens stylesheet:** it's imported once with `@import '@jablonowski/dsb-tokens/css'`. The app's own CSS uses only `--ds-decisions-*` variables, plus four app-level variables for a font, a monospace font and two card shadows that have no token.\n- **Built locally because the library has no slot or component for them:** the profile menu (laid over the header's right edge), the metric tiles, the bar chart, the log viewer and the split dialog footers.\n- **Dropdown menu was clipped inside dialogs:** the modal body scrolls, so the Role menu was cut off. On viewports at least 760px tall I override the modal body's overflow for the two form dialogs. Shorter screens keep the scrolling body, so the menu can still be clipped there.\n- **List `compact` setting does nothing:** it doesn't reach the list items because of how the styles are scoped, so I don't use it.\n- **Avatar fallback:** the avatar only shows initials when the image URL is empty, not when the image fails to load. I check each URL first and fall back to initials if it doesn't load.\n- **Header and footer links:** they're plain links, so I route the in-app ones through the Angular router to avoid full page reloads.\n- **Package setup:** the pre-installed lockfile had pulled in Angular 21, so I deleted it and reinstalled on Angular 19.2. I also raised the per-component style budget warning from 4 kB to 6 kB, because the dashboard's CSS is 4.3 kB.\n\n## Where I didn't follow Figma exactly\nWhere the spec and Figma disagree, I followed the spec. All of these are unverified against design intent:\n- **Dashboard has 8 tiles, Figma has 7.** Figma has no separate Data Summary tile, so the spec's tile is new. Layout: four metric tiles, then Throughput and Service Health, then Data Summary and System Logs. Figma puts health on the left, throughput on the right, and logs full width.\n- **Content follows the spec:** tile titles and values, a dark \"terminal\" log viewer instead of Figma's list, Mon–Sun bars, and nav items Dashboard/Users instead of Overview/Metrics/Logs/Settings. I left out Figma's throughput stats row (Peak/Average/Total).\n- **Users table:** Avatar and Name are separate columns as the spec says, where Figma combines them. Figma's ghost / secondary / danger button styles are kept but assigned to Details / Edit / Delete per the spec.\n- **Login card:** only the spec's elements, so Figma's \"Blueprint\" brand line and divider are left out.\n- **Footer:** the spec's version with link columns, which makes it taller than Figma's single 56px row.\n- **Error Rate badge:** red, to read as negative. Figma uses yellow.\n- **Token values instead of Figma's:** the large values are 22px (Figma: 26px), corners are 10px (Figma: 12px), muted text is #6f6f6f (Figma: #888) and the page background is #fafafa (Figma: #f5f5f5). Dialogs are 540px wide (Figma: 560px) and have no divider lines between sections. Inter loads from Google Fonts.\n\nThe app code is in `src/app/`: `core/`, `layouts/main-layout/`, and `pages/` with `login`, `dashboard` and `users`.",
+    "ttft_ms": 2165,
+    "type": "result",
+    "duration_ms": 692039,
+    "uuid": "43242e7c-bef7-474d-a209-c4b953599188",
+    "ttft_stream_ms": 1485,
+    "time_to_request_ms": 238,
+    "first_content_frame_ms": 1486,
+    "queued_turn_count": 0,
+    "result_index": 0
+  }
+}

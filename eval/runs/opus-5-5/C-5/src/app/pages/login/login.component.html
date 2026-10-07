@@ -1,0 +1,47 @@
+<main class="auth-page">
+  <section class="login-card" aria-labelledby="login-heading">
+    <header class="login-head">
+      <h1 id="login-heading" class="login-title">Welcome back</h1>
+      <p class="login-subtitle">Sign in to your account to continue</p>
+    </header>
+
+    <form class="login-form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <dsb-input
+        formControlName="username"
+        label="Username"
+        placeholder="Enter your username"
+        [hasError]="showError('username') || invalidCredentials"
+        [errorMessage]="showError('username') ? 'Username is required' : ''"
+      />
+
+      <dsb-input
+        formControlName="password"
+        type="password"
+        label="Password"
+        placeholder="Enter your password"
+        [hasError]="showError('password') || invalidCredentials"
+        [errorMessage]="
+          showError('password')
+            ? 'Password is required'
+            : invalidCredentials
+              ? 'Invalid username or password'
+              : ''
+        "
+      />
+
+      <div class="remember-row">
+        <dsb-checkbox label="Remember me" />
+        <a class="text-link" href="#" (click)="$event.preventDefault()">Forgot password?</a>
+      </div>
+
+      <dsb-button type="submit" variant="primary" size="lg" [fullWidth]="true">Sign In</dsb-button>
+    </form>
+
+    <hr class="login-divider" />
+
+    <p class="signup-row">
+      <span>Don't have an account?</span>
+      <a class="text-link" href="#" (click)="$event.preventDefault()">Sign up</a>
+    </p>
+  </section>
+</main>

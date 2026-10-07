@@ -1,0 +1,53 @@
+:host {
+  display: block;
+}
+
+.shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header-bar {
+  position: sticky;
+  top: 0;
+  z-index: var(--ds-decisions-z-index-dropdown);
+}
+
+/*
+ * Mirrors the header's inner container (same max width and inset) so the profile
+ * control lines up with the header's right edge at every viewport width.
+ */
+.header-actions {
+  position: absolute;
+  inset: 0;
+  max-width: var(--ds-decisions-layout-width-3xl);
+  margin: 0 auto;
+  padding: 0 var(--ds-decisions-space-3xl);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  pointer-events: none;
+}
+
+.header-actions > * {
+  pointer-events: auto;
+}
+
+/* Responsive grid container for the routed page. */
+.content {
+  flex: 1;
+  width: 100%;
+  max-width: var(--ds-decisions-layout-width-3xl);
+  margin: 0 auto;
+  padding: var(--ds-decisions-space-3xl);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-content: start;
+}
+
+@media (max-width: 640px) {
+  .content {
+    padding: var(--ds-decisions-space-xl);
+  }
+}

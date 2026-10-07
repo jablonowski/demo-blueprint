@@ -1,0 +1,100 @@
+.login {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.login__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1-5);
+}
+
+.login__title {
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-tight);
+  color: var(--text-primary);
+}
+
+.login__subtitle {
+  font-size: var(--font-size-md);
+  color: var(--text-muted);
+}
+
+.login__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.login__link {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.login__link--underlined,
+.login__link:hover {
+  text-decoration: underline;
+}
+
+.login__signup {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-1-5);
+  font-size: var(--font-size-md);
+  color: var(--text-muted);
+}
+
+/* Checkbox — native input kept for a11y, visually replaced by the box */
+.checkbox {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-md);
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.checkbox input {
+  position: absolute;
+  opacity: 0;
+  width: var(--size-checkbox);
+  height: var(--size-checkbox);
+  margin: 0;
+  cursor: pointer;
+}
+
+.checkbox__box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--size-checkbox);
+  height: var(--size-checkbox);
+  border: var(--border-width-control) solid var(--border-control);
+  border-radius: var(--radius-sm);
+  background: var(--surface-card);
+}
+
+.checkbox input:checked + .checkbox__box {
+  background: var(--action-primary);
+  border-color: var(--action-primary);
+}
+
+.checkbox input:checked + .checkbox__box::after {
+  content: '';
+  width: var(--space-1);
+  height: var(--space-2);
+  margin-top: calc(-1 * var(--space-0-5));
+  border: solid var(--text-on-primary);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.checkbox input:focus-visible + .checkbox__box {
+  box-shadow: var(--focus-ring);
+}

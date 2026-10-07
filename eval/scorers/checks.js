@@ -104,18 +104,17 @@ const CHECKS = [
       return bad.length ? { verdict: 'fail', detail: bad } : { verdict: 'pass' };
     },
   },
-  {
-    id: '9.6',
-    what: 'a split modal footer sets flex:1 on the projected element',
-    run: ({ html, css }) => {
-      const split = html.filter((t) => /modal-footer[^>]*>[\s\S]{0,600}?(space-between|justify-content\s*:\s*space-between)/.test(t.source)
-        || /\.modal-footer-split|footer-split/.test(t.source));
-      if (split.length === 0) return { verdict: 'na', detail: ['no split footer'] };
-      const styles = css.map((c) => stripCssComments(c.source)).join('\n');
-      const ok = /flex\s*:\s*1/.test(styles) || html.some((t) => /style=["'][^"']*flex\s*:\s*1/.test(t.source));
-      return ok ? { verdict: 'pass' } : { verdict: 'fail', detail: ['split footer without flex:1'] };
-    },
-  },
+  // 9.6 — "a split modal footer sets flex:1 on the projected element" — removed 2026-10-07.
+  //
+  // It returned `na` in five of fifteen library-arm runs, spread across B, C and D, because
+  // it only applies when the agent happens to build a split footer at all. That made it a
+  // check on what the agent felt like building rather than on what it knew about the API,
+  // and it was the sole source of a spurious C-versus-D gap: with 9.6 counted, D looked
+  // better than C (31/32 against 29/32); without it, C and D are identical at 35/35 across
+  // ten runs. Forcing a split footer in S0 was the alternative and was rejected — it would
+  // add a requirement to the specification that exists only so a scorer has something to
+  // measure. The original definition is in git history.
+
   {
     id: '9.7',
     what: 'the right-edge profile menu avoids dsb-dropdown',

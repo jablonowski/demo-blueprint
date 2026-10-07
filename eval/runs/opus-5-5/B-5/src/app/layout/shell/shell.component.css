@@ -1,0 +1,46 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/*
+ * The library header has no slot for a user control, so the profile menu sits on an
+ * overlay aligned to the header's own content box (same max width and gutter).
+ */
+.header-bar {
+  position: sticky;
+  top: 0;
+  z-index: var(--ds-decisions-z-index-dropdown);
+}
+
+.header-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.header-overlay-inner {
+  max-width: var(--ds-decisions-layout-width-3xl);
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 var(--ds-decisions-space-3xl);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.header-overlay-inner > * {
+  pointer-events: auto;
+}
+
+.content {
+  flex: 1;
+  width: 100%;
+  max-width: var(--ds-decisions-layout-width-3xl);
+  margin: 0 auto;
+  padding: var(--ds-decisions-space-3xl);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-content: start;
+}

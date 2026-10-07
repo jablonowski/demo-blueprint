@@ -1,0 +1,27 @@
+<div class="header-bar" (click)="interceptLinks($event)">
+  <dsb-header
+    [brandName]="brandName"
+    logoHref="/dashboard"
+    logoAlt="Blueprint home"
+    [navItems]="navItems()"
+  />
+  <div class="header-overlay">
+    <div class="header-overlay-inner">
+      <app-user-menu [userName]="userName" (profile)="openProfile()" (signOut)="signOut()" />
+    </div>
+  </div>
+</div>
+
+<main class="content">
+  <router-outlet />
+</main>
+
+<div (click)="interceptLinks($event)">
+  <dsb-footer
+    [brandName]="brandName"
+    logoHref="/dashboard"
+    [columns]="footerColumns"
+    [copyright]="copyright"
+    [legalLinks]="legalLinks"
+  />
+</div>

@@ -1,0 +1,30 @@
+/* Tier 2 tokens are loaded from @jablonowski/dsb-tokens/css via angular.json. */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  /* No font-family token exists in the public layer; see README notes. */
+  font-family: Inter, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: var(--ds-decisions-font-size-md);
+  line-height: var(--ds-decisions-font-line-height-tight);
+  color: var(--ds-decisions-color-text-primary);
+  background: var(--ds-decisions-color-surface-subtle);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Shared card surface used by dashboard tiles. */
+.card {
+  background: var(--ds-decisions-color-surface-base);
+  border: var(--ds-decisions-border-width-hairline) solid var(--ds-decisions-color-border-subtle);
+  border-radius: var(--ds-decisions-border-radius-2xl);
+}

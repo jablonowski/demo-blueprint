@@ -24,12 +24,16 @@ MODEL="${MODEL:-claude-opus-5-5}"
 # silently overwrites the expensive one and the only trace is a field inside the JSON.
 MODEL_SLUG="$(printf '%s' "$MODEL" | sed 's/^claude-//; s/-\?20[0-9]\{6\}$//')"
 RUNS="${RUNS:-5}"
-# The grid is three arms, not five. A round of five does not fit inside one session window
-# — measured three times — and a round split across windows is the confound the round design
-# exists to remove. A, B and D are a cumulative ladder with nothing skipped: nothing, then
-# the typed installable package, then the agent-facing layer on top of it. A-prime and C
-# stay runnable on their own (`./run.sh C 1`) and are a separate, smaller study; see
-# PROTOCOL.md for what dropping them costs.
+# The default grid is three arms, not five. A, B and D are a cumulative ladder with nothing
+# skipped: nothing, then the typed installable package, then the agent-facing layer on top
+# of it. Rounds 1-3 ran this default only, because a round of five did not fit inside one
+# session window - measured three times - and a round split across windows is the confound
+# the round design exists to remove.
+#
+# Rounds 4 and 5 did fit all five, by running this script three times back to back inside
+# one sitting: `./run.sh round 1`, then `./run.sh A-prime 1`, then `./run.sh C 1`.
+# That is the preferred shape from now on; A-prime and C each still carry three earlier
+# observations that were taken outside any round. See PROTOCOL.md.
 ARMS=(A B D)
 
 EVAL_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

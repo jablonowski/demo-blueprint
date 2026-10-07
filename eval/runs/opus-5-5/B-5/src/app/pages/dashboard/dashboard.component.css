@@ -1,0 +1,206 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-decisions-space-2xl);
+}
+
+.page-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-decisions-space-2xs);
+}
+
+.page-title {
+  margin: 0;
+  font-size: var(--ds-decisions-font-size-3xl);
+  font-weight: var(--ds-decisions-font-weight-semibold);
+  letter-spacing: var(--ds-decisions-font-tracking-heading);
+  line-height: var(--ds-decisions-font-line-height-tight);
+  color: var(--ds-decisions-color-text-primary);
+}
+
+.page-subtitle {
+  margin: 0;
+  font-size: var(--ds-decisions-font-size-sm);
+  color: var(--ds-decisions-color-text-subtle);
+}
+
+/* 12-column responsive grid: 4 metrics, then chart + two lists, then logs. */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--ds-decisions-space-2xl);
+}
+
+.tile {
+  grid-column: span 12;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-decisions-space-sm);
+  padding: var(--ds-decisions-space-2xl);
+  background: var(--ds-decisions-color-surface-base);
+  border: var(--ds-decisions-border-width-hairline) solid var(--ds-decisions-color-border-subtle);
+  border-radius: var(--ds-decisions-border-radius-2xl);
+  box-shadow: var(--ds-decisions-shadow-dropdown);
+}
+
+@media (min-width: 640px) {
+  .tile--metric,
+  .tile--half {
+    grid-column: span 6;
+  }
+}
+
+@media (min-width: 1024px) {
+  .tile--metric,
+  .tile--half {
+    grid-column: span 3;
+  }
+
+  .tile--chart {
+    grid-column: span 6;
+  }
+}
+
+.tile-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tile-title {
+  margin: 0;
+  font-size: var(--ds-decisions-font-size-xs);
+  font-weight: var(--ds-decisions-font-weight-medium);
+  letter-spacing: var(--ds-decisions-font-tracking-caps);
+  text-transform: uppercase;
+  color: var(--ds-decisions-color-text-subtle);
+}
+
+.metric-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--ds-decisions-space-md);
+}
+
+.metric-value {
+  font-size: var(--ds-decisions-font-size-3xl);
+  font-weight: var(--ds-decisions-font-weight-semibold);
+  letter-spacing: var(--ds-decisions-font-tracking-heading);
+  line-height: var(--ds-decisions-font-line-height-tight);
+  color: var(--ds-decisions-color-text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.metric-sub {
+  margin: 0;
+  font-size: var(--ds-decisions-font-size-xs);
+  color: var(--ds-decisions-color-text-subtle);
+}
+
+/* Bar chart — plain CSS, no charting library. */
+.chart {
+  flex: 1;
+  display: flex;
+  align-items: stretch;
+  gap: var(--ds-decisions-space-sm);
+  min-height: calc(4 * var(--ds-decisions-space-6xl));
+  padding-top: var(--ds-decisions-space-sm);
+}
+
+.chart-col {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--ds-decisions-space-2xs);
+}
+
+.chart-track {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+}
+
+.chart-bar {
+  width: 100%;
+  background: var(--ds-decisions-color-text-primary);
+  border-radius: var(--ds-decisions-border-radius-xs);
+}
+
+.chart-label {
+  font-size: var(--ds-decisions-font-size-2xs);
+  color: var(--ds-decisions-color-text-subtle);
+}
+
+/* Lists sit flush with the tile padding. */
+.flush-list {
+  display: block;
+  margin: 0 calc(-1 * var(--ds-decisions-space-lg));
+}
+
+.summary-value {
+  font-size: var(--ds-decisions-font-size-md);
+  font-weight: var(--ds-decisions-font-weight-semibold);
+  color: var(--ds-decisions-color-text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Terminal-style log viewer. */
+.log-viewer {
+  height: calc(5 * var(--ds-decisions-space-6xl));
+  overflow-y: auto;
+  padding: var(--ds-decisions-space-lg) var(--ds-decisions-space-xl);
+  background: var(--ds-decisions-color-surface-emphasis);
+  border-radius: var(--ds-decisions-border-radius-xl);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
+  font-size: var(--ds-decisions-font-size-xs);
+  line-height: var(--ds-decisions-font-line-height-relaxed);
+  color: var(--ds-decisions-color-text-inverse);
+}
+
+.log-viewer:focus-visible {
+  outline: none;
+  box-shadow: var(--ds-decisions-shadow-focus);
+}
+
+.log-line {
+  display: flex;
+  gap: var(--ds-decisions-space-lg);
+  white-space: nowrap;
+}
+
+.log-time,
+.log-source {
+  color: var(--ds-decisions-color-text-disabled);
+}
+
+.log-level {
+  min-width: 5ch;
+  font-weight: var(--ds-decisions-font-weight-semibold);
+}
+
+.log-level[data-level='INFO'] {
+  color: var(--ds-decisions-color-feedback-success-surface);
+}
+
+.log-level[data-level='WARN'] {
+  color: var(--ds-decisions-color-feedback-warning-surface);
+}
+
+.log-level[data-level='ERROR'] {
+  color: var(--ds-decisions-color-feedback-error-border);
+}
+
+.log-level[data-level='DEBUG'] {
+  color: var(--ds-decisions-color-feedback-info-surface);
+}
+
+.log-message {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
