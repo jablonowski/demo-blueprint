@@ -1,0 +1,20 @@
+<div class="shell" (click)="interceptLinks($event)">
+  <div class="header-bar">
+    <dsb-header [brandName]="headerBrand()" logoHref="/dashboard" [logoAlt]="brandName" [navItems]="navItems()" />
+    <div class="header-actions">
+      <app-user-menu [name]="userName" (signOut)="signOut()" />
+    </div>
+  </div>
+
+  <main class="content">
+    <router-outlet />
+  </main>
+
+  <dsb-footer
+    [brandName]="brandName"
+    logoHref="/dashboard"
+    [columns]="footerColumns"
+    [copyright]="copyright"
+    [legalLinks]="legalLinks"
+  />
+</div>

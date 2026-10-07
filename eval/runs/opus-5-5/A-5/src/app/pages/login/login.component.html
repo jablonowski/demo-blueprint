@@ -1,0 +1,51 @@
+<form class="login-card" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+  <h1 class="login-card__title">Welcome back</h1>
+  <p class="login-card__subtitle">Sign in to your account to continue</p>
+
+  <div class="field" [class.field--invalid]="showError('username') || credentialsRejected()">
+    <label class="field__label" for="username">Username</label>
+    <input
+      id="username"
+      class="field__control"
+      type="text"
+      autocomplete="username"
+      placeholder="Enter your username"
+      formControlName="username"
+    />
+    @if (showError('username')) {
+      <span class="field__error">Username is required.</span>
+    }
+  </div>
+
+  <div class="field" [class.field--invalid]="showError('password') || credentialsRejected()">
+    <label class="field__label" for="password">Password</label>
+    <input
+      id="password"
+      class="field__control"
+      type="password"
+      autocomplete="current-password"
+      placeholder="Enter your password"
+      formControlName="password"
+    />
+    @if (showError('password')) {
+      <span class="field__error">Password is required.</span>
+    } @else if (credentialsRejected()) {
+      <span class="field__error">Invalid username or password.</span>
+    }
+  </div>
+
+  <div class="login-card__row">
+    <label class="checkbox">
+      <input type="checkbox" />
+      <span>Remember me</span>
+    </label>
+    <a class="login-card__link" href="#" (click)="$event.preventDefault()">Forgot password?</a>
+  </div>
+
+  <button type="submit" class="btn btn--primary btn--block">Sign In</button>
+
+  <p class="login-card__signup">
+    Don't have an account?
+    <a class="login-card__link login-card__link--plain" href="#" (click)="$event.preventDefault()">Sign up</a>
+  </p>
+</form>

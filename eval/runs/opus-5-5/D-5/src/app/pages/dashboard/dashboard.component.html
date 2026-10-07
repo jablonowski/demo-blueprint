@@ -1,0 +1,82 @@
+<section class="dashboard">
+  <header class="dashboard-head">
+    <h1 class="dashboard-title">System Overview</h1>
+    <p class="dashboard-updated">Last updated: {{ lastUpdated | date: 'd MMM y, HH:mm' }}</p>
+  </header>
+
+  <div class="dashboard-grid">
+    @for (metric of metrics; track metric.title) {
+      <article class="tile tile--metric">
+        <h2 class="tile-label">{{ metric.title }}</h2>
+        <div class="tile-value-row">
+          <span class="tile-value">{{ metric.value }}</span>
+          @if (metric.trend) {
+            <dsb-tag [variant]="metric.trend.variant" size="sm">{{ metric.trend.label }}</dsb-tag>
+          }
+        </div>
+        @if (metric.subLabel) {
+          <p class="tile-sub">{{ metric.subLabel }}</p>
+        }
+      </article>
+    }
+
+    <article class="tile tile--chart">
+      <div class="tile-head">
+        <h2 class="tile-heading">Request Throughput</h2>
+        <p class="tile-caption">Requests per minute, last 7 days</p>
+      </div>
+      <div class="chart" role="img" aria-label="Request throughput by day, Monday to Sunday">
+        @for (bar of throughput; track bar.day) {
+          <div class="chart-col">
+            <div class="chart-track">
+              <div class="chart-bar" [style.height.%]="bar.percent" [attr.title]="bar.day + ': ' + bar.value + ' rpm'"></div>
+            </div>
+            <span class="chart-label">{{ bar.day }}</span>
+          </div>
+        }
+      </div>
+    </article>
+
+    <article class="tile tile--health">
+      <h2 class="tile-heading">Service Health</h2>
+      <dsb-list [divided]="true" [compact]="true" class="health-list">
+        @for (service of services; track service.name) {
+          <dsb-list-item [label]="service.name">
+            <dsb-tag list-trailing [variant]="service.online ? 'success' : 'danger'" size="sm">
+              {{ service.online ? 'Online' : 'Offline' }}
+            </dsb-tag>
+          </dsb-list-item>
+        }
+      </dsb-list>
+    </article>
+
+    <article class="tile tile--summary">
+      <h2 class="tile-heading">Data Summary</h2>
+      <dl class="summary">
+        @for (item of summary; track item.label) {
+          <div class="summary-item">
+            <dt class="summary-label">{{ item.label }}</dt>
+            <dd class="summary-value">{{ item.value }}</dd>
+          </div>
+        }
+      </dl>
+    </article>
+
+    <article class="tile tile--logs">
+      <div class="tile-head tile-head--row">
+        <h2 class="tile-heading">System Logs</h2>
+        <dsb-tag variant="success" size="sm">Live</dsb-tag>
+      </div>
+      <div class="terminal" role="log" aria-live="polite" aria-label="System logs" #terminal>
+        @for (line of logs(); track line.id) {
+          <div class="terminal-line">
+            <span class="terminal-time">{{ line.time | date: 'HH:mm:ss' }}</span>
+            <span class="terminal-level">[{{ line.level }}]</span>
+            <span class="terminal-source">{{ line.source }}</span>
+            <span class="terminal-message">{{ line.message }}</span>
+          </div>
+        }
+      </div>
+    </article>
+  </div>
+</section>

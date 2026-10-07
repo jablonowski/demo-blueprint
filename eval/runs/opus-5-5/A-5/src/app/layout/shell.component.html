@@ -1,0 +1,79 @@
+<header class="header">
+  <div class="header__inner">
+    <a class="brand" routerLink="/dashboard">
+      <span class="brand__logo" aria-hidden="true">
+        <svg viewBox="0 0 20 20" width="20" height="20">
+          <rect x="1" y="1" width="8" height="8" rx="2" fill="currentColor" />
+          <rect x="11" y="1" width="8" height="8" rx="2" fill="currentColor" opacity="0.35" />
+          <rect x="1" y="11" width="8" height="8" rx="2" fill="currentColor" opacity="0.35" />
+          <rect x="11" y="11" width="8" height="8" rx="2" fill="currentColor" />
+        </svg>
+      </span>
+      Blueprint
+    </a>
+
+    <nav class="nav" aria-label="Primary">
+      @for (item of nav; track item.path) {
+        <a class="nav__link" [routerLink]="item.path" routerLinkActive="nav__link--active">{{ item.label }}</a>
+      }
+    </nav>
+
+    <div class="profile" #profile>
+      <button
+        type="button"
+        class="profile__trigger"
+        aria-haspopup="menu"
+        [attr.aria-expanded]="menuOpen()"
+        (click)="toggleMenu()"
+      >
+        <app-avatar [name]="userName" size="sm" />
+        <span class="profile__name">{{ userName }}</span>
+        <span class="profile__caret" [class.profile__caret--open]="menuOpen()" aria-hidden="true">
+          <svg viewBox="0 0 10 6" width="10" height="6">
+            <path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </span>
+      </button>
+
+      @if (menuOpen()) {
+        <div class="menu" role="menu">
+          <button type="button" class="menu__item" role="menuitem" (click)="menuOpen.set(false)">My Profile</button>
+          <div class="menu__divider" role="separator"></div>
+          <button type="button" class="menu__item menu__item--danger" role="menuitem" (click)="signOut()">Sign Out</button>
+        </div>
+      }
+    </div>
+  </div>
+</header>
+
+<main class="main">
+  <router-outlet />
+</main>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <span class="footer__name">Blueprint</span>
+        <p class="footer__tagline">Infrastructure monitoring and team management.</p>
+      </div>
+      <div class="footer__columns">
+        @for (column of footerColumns; track column.heading) {
+          <div class="footer__column">
+            <h3>{{ column.heading }}</h3>
+            @for (link of column.links; track link) {
+              <a href="#" (click)="$event.preventDefault()">{{ link }}</a>
+            }
+          </div>
+        }
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© {{ year }} Blueprint. All rights reserved.</span>
+      <div class="footer__legal">
+        <a href="#" (click)="$event.preventDefault()">Privacy Policy</a>
+        <a href="#" (click)="$event.preventDefault()">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+</footer>

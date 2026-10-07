@@ -1,0 +1,116 @@
+.shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--ds-decisions-color-surface-hover);
+}
+
+.shell-header {
+  position: relative;
+  z-index: var(--ds-decisions-z-index-dropdown);
+}
+
+/* The profile control is pinned to the header's right edge, independent of the header's inner width. */
+.user-menu {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: var(--ds-decisions-space-3xl);
+  display: flex;
+  align-items: center;
+}
+
+.user-menu-trigger {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-decisions-space-sm);
+  height: var(--ds-decisions-size-control-md);
+  padding: 0 var(--ds-decisions-space-sm) 0 var(--ds-decisions-space-2xs);
+  font-family: inherit;
+  font-size: var(--ds-decisions-font-size-md);
+  font-weight: var(--ds-decisions-font-weight-medium);
+  color: var(--ds-decisions-color-text-primary);
+  background: var(--ds-decisions-color-action-ghost-background);
+  border: none;
+  border-radius: var(--ds-decisions-border-radius-lg);
+  cursor: pointer;
+  transition: background var(--ds-decisions-motion-duration-base) var(--ds-decisions-motion-easing-standard);
+}
+
+.user-menu-trigger:hover {
+  background: var(--ds-decisions-color-action-ghost-background-hover);
+}
+
+.user-menu-trigger:focus-visible {
+  outline: none;
+  box-shadow: var(--ds-decisions-shadow-focus);
+}
+
+.user-menu-chevron {
+  width: var(--ds-decisions-size-glyph-sm);
+  height: var(--ds-decisions-size-glyph-sm);
+  color: var(--ds-decisions-color-text-subtle);
+  transition: transform var(--ds-decisions-motion-duration-fast) var(--ds-decisions-motion-easing-standard);
+}
+
+.user-menu-chevron--open {
+  transform: rotate(180deg);
+}
+
+/* Anchored to the trigger's right edge so it grows leftward and stays inside the viewport. */
+.user-menu-panel {
+  position: absolute;
+  top: calc(50% + var(--ds-decisions-size-control-md) / 2 + var(--ds-decisions-space-2xs));
+  right: 0;
+  z-index: var(--ds-decisions-z-index-dropdown);
+  min-width: var(--ds-decisions-layout-width-2xs);
+  margin: 0;
+  padding: var(--ds-decisions-space-2xs);
+  list-style: none;
+  background: var(--ds-decisions-color-surface-base);
+  border: var(--ds-decisions-border-width-hairline) solid var(--ds-decisions-color-border-subtle);
+  border-radius: var(--ds-decisions-border-radius-lg);
+  box-shadow: var(--ds-decisions-shadow-dropdown);
+}
+
+.user-menu-item {
+  display: block;
+  width: 100%;
+  padding: var(--ds-decisions-space-sm) var(--ds-decisions-space-md);
+  font-family: inherit;
+  font-size: var(--ds-decisions-font-size-md);
+  text-align: left;
+  color: var(--ds-decisions-color-text-body);
+  background: var(--ds-decisions-color-action-ghost-background);
+  border: none;
+  border-radius: var(--ds-decisions-border-radius-sm);
+  cursor: pointer;
+}
+
+.user-menu-item:hover {
+  background: var(--ds-decisions-color-action-ghost-background-hover);
+  color: var(--ds-decisions-color-action-ghost-text-hover);
+}
+
+.user-menu-item:focus-visible {
+  outline: none;
+  box-shadow: var(--ds-decisions-shadow-focus);
+}
+
+.shell-main {
+  flex: 1;
+  padding: var(--ds-decisions-space-3xl) var(--ds-decisions-space-4xl) var(--ds-decisions-space-5xl);
+}
+
+.shell-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--ds-decisions-space-2xl);
+  max-width: var(--ds-decisions-layout-width-3xl);
+  margin: 0 auto;
+}
+
+/* The outlet element itself is empty; keep it from taking a grid slot and gap. */
+.shell-grid > router-outlet {
+  display: none;
+}

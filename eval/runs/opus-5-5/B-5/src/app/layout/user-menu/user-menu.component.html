@@ -1,0 +1,25 @@
+<button
+  type="button"
+  class="trigger"
+  aria-haspopup="menu"
+  [attr.aria-expanded]="open()"
+  aria-controls="user-menu"
+  (click)="toggle()"
+>
+  <dsb-avatar size="sm" [name]="userName()" />
+  <span class="name">{{ userName() }}</span>
+  <svg class="chevron" [class.chevron--open]="open()" viewBox="0 0 10 6" fill="none" aria-hidden="true">
+    <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+  </svg>
+</button>
+
+@if (open()) {
+  <ul id="user-menu" class="menu" role="menu">
+    <li role="none">
+      <button type="button" role="menuitem" class="menu-item" (click)="select('profile')">My Profile</button>
+    </li>
+    <li role="none">
+      <button type="button" role="menuitem" class="menu-item" (click)="select('signOut')">Sign Out</button>
+    </li>
+  </ul>
+}

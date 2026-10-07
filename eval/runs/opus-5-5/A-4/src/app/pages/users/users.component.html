@@ -1,0 +1,185 @@
+<div class="toolbar">
+  <h1 class="toolbar__title">Team Members</h1>
+  <button type="button" class="btn btn--primary" (click)="openInvite()">
+    <span aria-hidden="true">+</span> Invite Member
+  </button>
+</div>
+
+<div class="card table-card">
+  <div class="table-scroll">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col" class="col-avatar"><span class="sr-only">Avatar</span></th>
+          <th scope="col">Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Role</th>
+          <th scope="col">Status</th>
+          <th scope="col">Joined</th>
+          <th scope="col" class="col-actions"><span class="sr-only">Actions</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (user of users(); track user.id) {
+          <tr>
+            <td class="col-avatar"><app-avatar [name]="user.name" [src]="user.avatar" /></td>
+            <td class="cell-name">{{ user.name }}</td>
+            <td class="cell-muted">{{ user.email }}</td>
+            <td><app-badge [tone]="roleTone[user.role]">{{ user.role }}</app-badge></td>
+            <td><app-badge [tone]="statusTone[user.status]">{{ user.status }}</app-badge></td>
+            <td>{{ user.joinedDate | date: 'MMM y' }}</td>
+            <td class="col-actions">
+              <div class="actions">
+                <button type="button" class="btn btn--ghost" (click)="openDetails(user)">Details</button>
+                <button type="button" class="btn btn--secondary" (click)="openEdit(user)">Edit</button>
+                <button type="button" class="btn btn--danger" (click)="openDelete(user)">Delete</button>
+              </div>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td class="table__empty" colspan="7">{{ loading() ? 'Loading members…' : 'No team members yet.' }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Shared: user summary row (details + edit) -->
+<ng-template #userRow let-user>
+  <div class="user-row">
+    <app-avatar size="md" [name]="user.name" />
+    <div class="user-row__text">
+      <span class="user-row__name">{{ user.name }}</span>
+      <span class="user-row__meta">Member since {{ user.joinedDate | date: 'MMMM y' }}</span>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Shared: editable member fields (edit + invite) -->
+<ng-template #memberFields let-form let-kind="kind">
+  <ng-container [formGroup]="form">
+    <div class="field-grid">
+      <div class="field" [class.field--error]="hasError(kind, 'firstName')">
+        <label class="field__label" [for]="kind + '-first'">First name</label>
+        <input class="field__control" [id]="kind + '-first'" formControlName="firstName" placeholder="First name" autocomplete="given-name" />
+        @if (hasError(kind, 'firstName')) {
+          <span class="field__error">First name is required</span>
+        }
+      </div>
+      <div class="field" [class.field--error]="hasError(kind, 'lastName')">
+        <label class="field__label" [for]="kind + '-last'">Last name</label>
+        <input class="field__control" [id]="kind + '-last'" formControlName="lastName" placeholder="Last name" autocomplete="family-name" />
+        @if (hasError(kind, 'lastName')) {
+          <span class="field__error">Last name is required</span>
+        }
+      </div>
+    </div>
+    <div class="field" [class.field--error]="hasError(kind, 'email')">
+      <label class="field__label" [for]="kind + '-email'">Email address</label>
+      <input class="field__control" type="email" [id]="kind + '-email'" formControlName="email" placeholder="name@example.com" autocomplete="email" />
+      @if (hasError(kind, 'email')) {
+        <span class="field__error">Enter a valid email address</span>
+      }
+    </div>
+    <div class="field" [class.field--error]="hasError(kind, 'role')">
+      <label class="field__label" [for]="kind + '-role'">Role</label>
+      <select class="field__control" [id]="kind + '-role'" formControlName="role" [class.is-placeholder]="!form.value.role">
+        <option value="" disabled>Select role…</option>
+        @for (role of roles; track role) {
+          <option [value]="role">{{ role }}</option>
+        }
+      </select>
+      @if (hasError(kind, 'role')) {
+        <span class="field__error">Role is required</span>
+      }
+    </div>
+  </ng-container>
+</ng-template>
+
+@if (dialog() === 'details' && selected(); as user) {
+  <app-modal footerAlign="split" (closed)="closeDialog()">
+    <ng-container modalHeader>
+      <h2 class="modal-title">Member Details</h2>
+      <app-badge>Read only</app-badge>
+    </ng-container>
+
+    <ng-container *ngTemplateOutlet="userRow; context: { $implicit: user }" />
+
+    <div class="field-grid">
+      <div class="field field--readonly">
+        <span class="field__label">First name</span>
+        <div class="field__control">{{ firstName(user) }}</div>
+      </div>
+      <div class="field field--readonly">
+        <span class="field__label">Last name</span>
+        <div class="field__control">{{ lastName(user) }}</div>
+      </div>
+    </div>
+    <div class="field field--readonly">
+      <span class="field__label">Email address</span>
+      <div class="field__control">{{ user.email }}</div>
+    </div>
+    <div class="field field--readonly">
+      <span class="field__label">Role</span>
+      <div class="field__control">{{ user.role }}</div>
+    </div>
+    <div class="status-row">
+      <span class="status-row__label">Status</span>
+      <app-badge [tone]="statusTone[user.status]">{{ user.status }}</app-badge>
+    </div>
+
+    <ng-container modalFooter>
+      <span class="footer-note">To make changes, request Admin access.</span>
+      <button type="button" class="btn btn--secondary" (click)="closeDialog()">Close</button>
+    </ng-container>
+  </app-modal>
+}
+
+@if (dialog() === 'edit' && selected(); as user) {
+  <app-modal heading="Edit Member" footerAlign="split" (closed)="closeDialog()">
+    <form id="edit-form" class="dialog-form" [formGroup]="editForm" (ngSubmit)="saveEdit()" novalidate>
+      <ng-container *ngTemplateOutlet="userRow; context: { $implicit: user }" />
+      <ng-container *ngTemplateOutlet="memberFields; context: { $implicit: editForm, kind: 'edit' }" />
+      <div class="status-row">
+        <span class="status-row__label">Status</span>
+        <app-badge [tone]="statusTone[user.status]">{{ user.status }}</app-badge>
+      </div>
+    </form>
+
+    <ng-container modalFooter>
+      <button type="button" class="btn btn--danger" (click)="editToDelete()">Delete user</button>
+      <div class="footer-actions">
+        <button type="button" class="btn btn--secondary" (click)="closeDialog()">Cancel</button>
+        <button type="submit" form="edit-form" class="btn btn--primary" [disabled]="saving()">Save changes</button>
+      </div>
+    </ng-container>
+  </app-modal>
+}
+
+@if (dialog() === 'invite') {
+  <app-modal heading="Invite Member" (closed)="closeDialog()">
+    <form id="invite-form" class="dialog-form" [formGroup]="inviteForm" (ngSubmit)="sendInvite()" novalidate>
+      <ng-container *ngTemplateOutlet="memberFields; context: { $implicit: inviteForm, kind: 'invite' }" />
+    </form>
+
+    <ng-container modalFooter>
+      <button type="button" class="btn btn--secondary" (click)="closeDialog()">Cancel</button>
+      <button type="submit" form="invite-form" class="btn btn--primary" [disabled]="saving()">Send Invite</button>
+    </ng-container>
+  </app-modal>
+}
+
+@if (dialog() === 'delete' && selected(); as user) {
+  <app-modal heading="Confirm Deletion" size="sm" (closed)="closeDialog()">
+    <p class="confirm-text">
+      Are you sure you want to remove <strong>{{ user.name }}</strong>? This action cannot be undone.
+    </p>
+
+    <ng-container modalFooter>
+      <button type="button" class="btn btn--secondary" (click)="closeDialog()">Cancel</button>
+      <button type="button" class="btn btn--danger-solid" [disabled]="saving()" (click)="confirmDelete()">Delete</button>
+    </ng-container>
+  </app-modal>
+}

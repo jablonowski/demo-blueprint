@@ -1,0 +1,124 @@
+{
+  "arm": "C",
+  "run": 5,
+  "model": "claude-opus-5-5",
+  "cli": "2.1.281 (Claude Code)",
+  "isolation": "session",
+  "started": "2026-10-06T22:20:44Z",
+  "overlaySha": "b0826b551c35",
+  "s0Sha": "c25d3e960f47",
+  "promptBytes": 17273,
+  "runDir": "/tmp/dsb-eval/opus-5-5/C-5",
+  "figma": {
+    "channel": "cached",
+    "fileKey": "iJ92LuFOsPjO6avZ2anbwO",
+    "recordedAt": "2026-09-24T19:49:36Z",
+    "calls": 3,
+    "errors": 0,
+    "nodes": [
+      "22-11104",
+      "22:11448",
+      "22:11492"
+    ],
+    "ok": true
+  },
+  "inputTokensTotal": 5215122,
+  "outputTokens": 52473,
+  "result": {
+    "duration_api_ms": 443105,
+    "stop_reason": "end_turn",
+    "session_id": "0f1c83ed-fba2-403c-89a3-f44df34456b5",
+    "total_cost_usd": 3.4300668,
+    "usage": {
+      "input_tokens": 84,
+      "cache_creation_input_tokens": 171444,
+      "cache_read_input_tokens": 5043594,
+      "output_tokens": 52473,
+      "output_tokens_details": {
+        "thinking_tokens": 12009
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 171444,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "not_available",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 1509,
+          "cache_read_input_tokens": 181490,
+          "cache_creation_input_tokens": 658,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 658
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard"
+    },
+    "modelUsage": {
+      "claude-opus-5-5": {
+        "inputTokens": 84,
+        "outputTokens": 52473,
+        "cacheReadInputTokens": 5043594,
+        "cacheCreationInputTokens": 171444,
+        "webSearchRequests": 0,
+        "costUSD": 3.4300668,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 128000,
+        "thinkingTokens": 12009,
+        "canonicalModel": "claude-opus-5-5",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "subagent_stats": {
+      "spawned": 0,
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 0,
+      "spawned_by_subagents": 0,
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {}
+    },
+    "is_error": false,
+    "num_turns": 51,
+    "subtype": "success",
+    "api_error_status": null,
+    "result": "The app is built and working. `npx @angular/cli@19 serve` runs it, and logging in with `admin` / `admin` reaches the dashboard. The production build passes with no warnings. I ran a browser script through the whole app and every check passed with no console errors. Three checks failed on the first runs; each was my test checking before the screen had updated, and repeating them with a short wait confirmed the app behaves correctly.\n\n**What the browser checks covered**\n- **Routing and login:** the guards and redirects work. Submitting an empty login form puts both fields into an error state. A successful login writes `isLoggedIn: true` and goes to the dashboard. Sign Out clears it.\n- **Dashboard:** there are 4 metric tiles and 7 chart bars, and a new log line appears every 3 seconds.\n- **User menu:** it opens leftward and stays fully on screen at 1280px and 420px widths. It closes on an outside click or Escape.\n- **Team Members, all four operations:**\n  - **Edit:** splits the name, saves with `PUT`, and the table updates.\n  - **Invite:** shows required-field errors, adds the member with `POST`, and the form resets.\n  - **Delete:** removes the row with `DELETE`, and closes on a backdrop click.\n  - **Details:** shows \"Member since January 2024\", and its fields are read-only.\n  - **Edit → Delete user:** keeps the selected member.\n\n**Where the spec and Figma disagreed:** the spec's wording decided the text and the Figma frames decided the layout.\n- **Data Summary:** Figma has 7 dashboard cards, while the spec lists 8 tiles. The Figma card named \"Data Summary\" holds the throughput chart plus a stats row. I followed that, so Request Throughput and Data Summary share one card (with a small \"Data Summary\" label) instead of adding a card that isn't in the design.\n- **Taken from Figma:** the \"System Overview\" heading and \"Last updated\" line on the dashboard, the divider above \"Don't have an account?\" on the login card, and dates shown as `Jan 2024` in the table.\n- **Taken from the spec:** separate Avatar and Name columns, Details as the least-emphasised action, uppercase tile titles, monospace logs, and nav items \"Dashboard\" and \"Team Members\" (Figma shows Overview, Metrics, Logs, Settings).\n- **Badge colours from Figma:** Admin red, Editor blue, Viewer grey; Active green, Inactive grey. The Error Rate trend is amber, as in Figma, rather than red.\n- **Not included:** the \"Online\" badge in the Figma dashboard header, because it doesn't appear on the Users frame.\n\n**Problems in the component library**\n- **List dividers don't render.** The `divided` option on the list never draws its lines. I add the dividers from the app's own styles without touching the library's internals.\n- **No header slot.** The header has no place to put the user menu, so I position the menu over its right edge.\n- **Header and footer links reload the page,** which would reset the mock data. I catch those clicks and route them inside the app instead.\n- **Broken avatar images stay broken.** The avatar component doesn't fall back to initials when an image fails to load. I detect failed images on the users page and show initials instead.\n- **Modal dividers left out.** Figma draws lines between the modal header, body and footer. The library's modal has none, and I didn't add them.\n\n**Values the design tokens don't cover:** I used no raw colours, and every spacing, size and colour comes from a design token, except:\n- **Large text:** Figma's 26px metric values and 20px dashboard title have no token. I used the 22px and 18px tokens instead.\n- **Fonts:** there's no font-family token, so the Inter and monospace stacks are written directly.\n- **Shapes:** Figma's 12px modal and login-card corners have no token (I used the 10px one), and there's no token for its card shadows, so I left them out.\n- **Breakpoints:** CSS can't use variables in media queries, so the two breakpoints are plain pixel values.\n- **Chart and log heights:** these are worked out from spacing tokens, because no height token fits.\n\n**Setup notes**\n- The folder had a lockfile that had pulled in Angular 21. I removed it and pinned Angular to 19.2.\n- I raised the per-component style size limit in `angular.json` so the dashboard stylesheet doesn't trigger a build warning.\n\nAll the Figma data loaded, so nothing visual was built without checking the frames.",
+    "ttft_ms": 2567,
+    "type": "result",
+    "duration_ms": 529318,
+    "uuid": "21227823-dc31-41dc-a95f-b89cb5b781f4",
+    "ttft_stream_ms": 1795,
+    "time_to_request_ms": 861,
+    "first_content_frame_ms": 1796,
+    "queued_turn_count": 0,
+    "result_index": 0
+  }
+}

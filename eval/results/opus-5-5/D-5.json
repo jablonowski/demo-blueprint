@@ -1,0 +1,122 @@
+{
+  "arm": "D",
+  "run": 5,
+  "model": "claude-opus-5-5",
+  "cli": "2.1.281 (Claude Code)",
+  "isolation": "session",
+  "started": "2026-10-06T21:51:47Z",
+  "overlaySha": "f1c1277bd1e5",
+  "s0Sha": "c25d3e960f47",
+  "promptBytes": 17832,
+  "runDir": "/tmp/dsb-eval/opus-5-5/D-5",
+  "figma": {
+    "channel": "cached",
+    "fileKey": "iJ92LuFOsPjO6avZ2anbwO",
+    "recordedAt": "2026-09-24T19:49:36Z",
+    "calls": 1,
+    "errors": 0,
+    "nodes": [
+      "22-11104"
+    ],
+    "ok": true
+  },
+  "inputTokensTotal": 4405753,
+  "outputTokens": 48629,
+  "result": {
+    "duration_api_ms": 414648,
+    "stop_reason": "end_turn",
+    "session_id": "f19041f0-977b-48a2-aa96-0b7977849c48",
+    "total_cost_usd": 3.0350326,
+    "usage": {
+      "input_tokens": 80,
+      "cache_creation_input_tokens": 151410,
+      "cache_read_input_tokens": 4254263,
+      "output_tokens": 48629,
+      "output_tokens_details": {
+        "thinking_tokens": 12745
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 151410,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "not_available",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 1499,
+          "cache_read_input_tokens": 161790,
+          "cache_creation_input_tokens": 324,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 324
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard"
+    },
+    "modelUsage": {
+      "claude-opus-5-5": {
+        "inputTokens": 80,
+        "outputTokens": 48629,
+        "cacheReadInputTokens": 4254263,
+        "cacheCreationInputTokens": 151410,
+        "webSearchRequests": 0,
+        "costUSD": 3.0350326,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 128000,
+        "thinkingTokens": 12745,
+        "canonicalModel": "claude-opus-5-5",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "subagent_stats": {
+      "spawned": 0,
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 0,
+      "spawned_by_subagents": 0,
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {}
+    },
+    "is_error": false,
+    "num_turns": 63,
+    "subtype": "success",
+    "api_error_status": null,
+    "result": "I built the app in `/private/tmp/dsb-eval/opus-5-5/D-5`. It builds cleanly, and you can run it with `npx @angular/cli@19 serve` and log in with `admin` / `admin`.\n\n**How I checked it.** I ran a Playwright script against the running app at 1280px and 390px wide:\n- **Login:** an empty submit shows \"required\" errors on both fields, wrong credentials show an error, and correct credentials write `isLoggedIn` and land on `/dashboard`.\n- **Guards:** opening `/login` while logged in sends you to `/dashboard`; `/users` after signing out and any unknown URL go to `/login`.\n- **Profile menu:** it opens leftward and stays fully on screen at both widths, closes on an outside click, and Sign Out works.\n- **Users page, all four dialogs:** create, edit (name split and rejoined), delete from the row, and \"Delete user\" from the edit dialog all go through the in-memory API and the table updates. Backdrop clicks close dialogs, and an empty invite shows errors on all four fields.\n- **No console errors.**\n\n**Setup note.** The installed packages had pulled in Angular 21, so I scaffolded with CLI 19, reinstalled (Angular 19.2), and added the token stylesheet in `angular.json`. npm skipped some install scripts (esbuild's postinstall among them); builds and the dev server still work.\n\n**Design system use.** Everything is built from the `dsb-*` components. The only token variables used are tier 2 `--ds-decisions-*`; there are no raw colours and no tier 1 or tier 3 variables. A grep of `src/` confirms this.\n\n**What the token resolver changed**\n- **Chart bars.** I asked for \"the darkest foreground colour available\" and it returned no-coverage. Asking for a \"filled high-contrast emphasis surface\" resolved firmly to `color-surface-emphasis` (#111), so I used that. The token set has no pure black. I did not borrow the button's pressed colour (#000), even though it is in the public set, because it means something else.\n- **Answers I rejected.** Some suggestions matched on a shared word rather than meaning:\n  - Chart height → `size-bar-md`, which is the app bar's height.\n  - Muted text on the dark log panel → `action-secondary-text`, which is #111 on #111 and would be invisible.\n  - Card shadow → the modal shadow, at its lowest confidence.\n  - Large stat value → `font-size-lg` (15px). I used `font-size-3xl` (22px), the largest size available.\n\n  These look like a problem with the resolver rather than gaps in the token set.\n- **Genuine gaps, filled with commented literals:** a font family (the token set has none, including monospace for the logs), a fixed chart height and log-panel height, and two layout breakpoints (CSS variables can't be used in media queries).\n- **Left out because no token fits:** the soft shadow Figma puts on cards and the login card. They have borders only.\n\n**Where I followed the written spec over Figma (unverified against the design)**\n- **Content:** text, values and tiles come from the spec. Figma has different numbers, service names and a brand line on the login card.\n- **Login card:** Figma also has a divider line; the spec says to add nothing else, so it's left out.\n- **Users table:** separate Avatar and Name columns, with the action order Details / Edit / Delete as the spec lists them.\n- **Dashboard layout is my own arrangement, since Figma has 7 cards and the spec has 8 tiles:** four stat tiles across, then Throughput and Service Health side by side, then Data Summary and System Logs each full width.\n- **Kept from Figma:** the \"System Overview\" heading and its \"Last updated\" line.\n\n**Known limitations**\n- **Header links:** the header and footer components render plain links. The layout intercepts clicks so navigation doesn't reload the page and wipe the in-memory data.\n- **Profile control:** the header component has no space for it, so it sits on top of the header's right edge. Below 600px it drops to its own strip under the header, because otherwise it covered the nav.\n- **Dialogs:** they use the modal component's own sizes and padding (540px wide) rather than Figma's 560px, and there are no divider lines between dialog sections.\n- **Delete buttons:** \"Delete\" in the confirmation dialog is the outlined danger button, the only destructive style available.",
+    "ttft_ms": 1515,
+    "type": "result",
+    "duration_ms": 568710,
+    "uuid": "dac4f800-6487-430c-9416-7e74518ab574",
+    "ttft_stream_ms": 860,
+    "time_to_request_ms": 33,
+    "first_content_frame_ms": 860,
+    "queued_turn_count": 0,
+    "result_index": 0
+  }
+}

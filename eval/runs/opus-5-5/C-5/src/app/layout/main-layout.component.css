@@ -1,0 +1,40 @@
+.shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--ds-decisions-color-surface-subtle);
+}
+
+/* The header spans the viewport; the profile control sits in its top-right corner. */
+.shell-header {
+  position: relative;
+}
+
+.shell-header-end {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: var(--ds-decisions-size-bar-md);
+  display: flex;
+  align-items: center;
+  padding: 0 var(--ds-decisions-space-3xl);
+}
+
+.shell-main {
+  flex: 1;
+  width: 100%;
+  max-width: var(--ds-decisions-layout-width-3xl);
+  margin: 0 auto;
+  padding: var(--ds-decisions-space-2xl) var(--ds-decisions-space-3xl) var(--ds-decisions-space-5xl);
+}
+
+.shell-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--ds-decisions-space-2xl);
+}
+
+/* The outlet marker itself must not occupy a grid track. */
+.shell-grid router-outlet {
+  display: none;
+}

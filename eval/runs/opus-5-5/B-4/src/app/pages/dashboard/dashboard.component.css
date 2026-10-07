@@ -1,0 +1,237 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-decisions-space-xl);
+  min-width: 0;
+}
+
+.page-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-decisions-space-2xs);
+}
+
+.page-title {
+  font-size: var(--ds-decisions-font-size-2xl);
+  font-weight: var(--ds-decisions-font-weight-semibold);
+  letter-spacing: var(--ds-decisions-font-tracking-heading);
+  color: var(--ds-decisions-color-text-primary);
+}
+
+.page-meta {
+  font-size: var(--ds-decisions-font-size-sm);
+  color: var(--ds-decisions-color-text-subtle);
+}
+
+/* 12-column grid: four metric tiles, then two rows pairing a wide tile with a narrow one. */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--ds-decisions-space-2xl);
+}
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-decisions-space-sm);
+}
+
+.tile--metric {
+  grid-column: span 3;
+}
+
+.tile--wide {
+  grid-column: span 7;
+}
+
+.tile--narrow {
+  grid-column: span 5;
+}
+
+
+.tile--summary {
+  grid-column: span 4;
+}
+
+.tile--logs {
+  grid-column: span 8;
+}
+
+@media (max-width: 1024px) {
+  .tile--metric {
+    grid-column: span 6;
+  }
+
+  .tile--wide,
+  .tile--narrow,
+  .tile--summary,
+  .tile--logs {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 560px) {
+  .tile--metric {
+    grid-column: 1 / -1;
+  }
+}
+
+.tile-label {
+  font-size: var(--ds-decisions-font-size-2xs);
+  font-weight: var(--ds-decisions-font-weight-semibold);
+  letter-spacing: var(--ds-decisions-font-tracking-caps);
+  text-transform: uppercase;
+  color: var(--ds-decisions-color-text-subtle);
+}
+
+.tile-title {
+  font-size: var(--ds-decisions-font-size-sm);
+  font-weight: var(--ds-decisions-font-weight-semibold);
+  color: var(--ds-decisions-color-text-primary);
+}
+
+.tile-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ds-decisions-space-sm);
+}
+
+.tile-caption {
+  font-size: var(--ds-decisions-font-size-xs);
+  color: var(--ds-decisions-color-text-subtle);
+}
+
+.metric-row {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-decisions-space-md);
+}
+
+.metric-value {
+  font-size: var(--ds-decisions-font-size-3xl);
+  font-weight: var(--ds-decisions-font-weight-semibold);
+  letter-spacing: var(--ds-decisions-font-tracking-heading);
+  line-height: var(--ds-decisions-font-line-height-tight);
+  color: var(--ds-decisions-color-text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.divider {
+  width: 100%;
+  height: 0;
+  margin: var(--ds-decisions-space-2xs) 0;
+  border: none;
+  border-top: var(--ds-decisions-border-width-hairline) solid var(--ds-decisions-color-border-hairline);
+}
+
+/* Bar chart — plain elements, no charting library. */
+.chart {
+  flex: 1;
+  display: flex;
+  align-items: stretch;
+  gap: var(--ds-decisions-space-sm);
+  min-height: calc(4 * var(--ds-decisions-size-bar-md));
+  padding-top: var(--ds-decisions-space-sm);
+}
+
+.chart-col {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--ds-decisions-space-2xs);
+}
+
+.chart-track {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+}
+
+.chart-bar {
+  width: 100%;
+  background: var(--ds-decisions-color-text-primary);
+  border-radius: var(--ds-decisions-border-radius-xs) var(--ds-decisions-border-radius-xs) 0 0;
+  transition: height var(--ds-decisions-motion-duration-slow) var(--ds-decisions-motion-easing-standard);
+}
+
+.chart-label {
+  font-size: var(--ds-decisions-font-size-2xs);
+  color: var(--ds-decisions-color-text-subtle);
+}
+
+/*
+ * Lists sit flush with the card's own padding. (The list's \`compact\` flag does not reach
+ * its items through view encapsulation, so items keep their default inset.)
+ */
+.flush-list {
+  display: block;
+  margin: 0 calc(-1 * var(--ds-decisions-space-xl));
+}
+
+.summary-value {
+  font-size: var(--ds-decisions-font-size-md);
+  font-weight: var(--ds-decisions-font-weight-semibold);
+  color: var(--ds-decisions-color-text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Terminal-style log viewer. */
+.terminal {
+  height: calc(4 * var(--ds-decisions-size-bar-md));
+  overflow-y: auto;
+  padding: var(--ds-decisions-space-lg) var(--ds-decisions-space-xl);
+  background: var(--ds-decisions-color-surface-emphasis);
+  border-radius: var(--ds-decisions-border-radius-xl);
+  font-family: var(--app-font-family-mono);
+  font-size: var(--ds-decisions-font-size-xs);
+  line-height: var(--ds-decisions-font-line-height-relaxed);
+  color: var(--ds-decisions-color-text-inverse);
+}
+
+.terminal:focus-visible {
+  outline: none;
+  box-shadow: var(--ds-decisions-shadow-focus);
+}
+
+.terminal-line {
+  display: flex;
+  gap: var(--ds-decisions-space-lg);
+  white-space: nowrap;
+}
+
+.terminal-time,
+.terminal-source {
+  flex-shrink: 0;
+  color: var(--ds-decisions-color-text-disabled);
+}
+
+.terminal-level {
+  flex-shrink: 0;
+  width: 5ch;
+  font-weight: var(--ds-decisions-font-weight-semibold);
+}
+
+.terminal-level[data-level='INFO'] {
+  color: var(--ds-decisions-color-feedback-info-surface);
+}
+
+.terminal-level[data-level='OK'] {
+  color: var(--ds-decisions-color-feedback-success-surface);
+}
+
+.terminal-level[data-level='WARN'] {
+  color: var(--ds-decisions-color-feedback-warning-surface);
+}
+
+.terminal-level[data-level='ERROR'] {
+  color: var(--ds-decisions-color-feedback-error-surface);
+}
+
+.terminal-message {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

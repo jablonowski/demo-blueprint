@@ -70,7 +70,7 @@ For every `dsb-*` element in the generated templates, check each bound `@Input` 
 An agent writing `<dsb-button type="primary">` where the input is `variant` is the UI
 hallucination claim made concrete and countable.
 
-## 3. The nine gotchas
+## 3. The gotchas
 
 The old `SPEC.md` §9 told the agent each answer. Removed from the prompt, each becomes
 a binary check. These are the highest-signal items in the whole evaluation, because each
@@ -83,10 +83,21 @@ one is a place where the machine-readable layer is known to be thin.
 | 9.3 | Nothing projected into `dsb-header` | no child content inside `<dsb-header>` |
 | 9.4 | `FooterColumn.heading`, not `.title` | every footer column object uses `heading` |
 | 9.5 | `[modal-title]` and `title` not both used | no `<dsb-modal>` has both |
-| 9.6 | Split modal footer sets `flex:1` | projected `[modal-footer]` carries it |
+| ~~9.6~~ | ~~Split modal footer sets `flex:1`~~ | **removed 2026-10-07 — see below** |
 | 9.7 | Right-edge menu avoids `dsb-dropdown` | profile menu is not a `dsb-dropdown` |
 | 9.8 | Chart bar fill — see note below | — |
 | — | `dsb-input` etc. imported standalone | present in the component's `imports` array |
+
+**9.6 was removed after thirty runs.** It passed only when the run had built a split modal
+footer, and returned `na` when it had not — five of the fifteen runs that held the library, on
+the primary model, spread across all three of those arms. A check that fires only when the
+agent happens to build a particular shape measures what the agent chose to build, not what it
+knew about the component API. It was also carrying a false signal: counted, arm D appeared to
+beat arm C; removed, the two arms are identical on every verdict in ten runs. Forcing a split
+footer in `S0` was the alternative and was rejected, because it would add a requirement to the
+specification that exists only so that a scorer has something to measure. The grid is seven
+checks. `scorers/checks.js` carries a note where 9.6 stood, `scorers/test/scorers.test.js`
+asserts it does not come back, and the definition is in git history.
 
 **9.8 is not a gotcha. It is a hole in the token set.** The spec says:
 

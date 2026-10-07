@@ -1,0 +1,49 @@
+.login { display: flex; flex-direction: column; gap: 20px; }
+
+.intro { display: flex; flex-direction: column; gap: 6px; }
+.title {
+  margin: 0;
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.2;
+}
+.subtitle { margin: 0; font-size: var(--font-size-base); color: var(--color-text-secondary); }
+
+.remember-row { display: flex; align-items: center; justify-content: space-between; }
+.remember {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--font-size-base);
+  cursor: pointer;
+}
+.remember input {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  accent-color: var(--color-primary);
+}
+
+.link {
+  color: var(--color-text-primary);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.submit {
+  width: 100%;
+  height: 42px;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+}
+
+.signup {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+}

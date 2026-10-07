@@ -1,0 +1,47 @@
+<div class="shell" (click)="onShellClick($event)">
+  <div class="shell-header">
+    <dsb-header brandName="Blueprint" logoAlt="Blueprint home" logoHref="/dashboard" [navItems]="navItems()" />
+
+    <div class="user-menu">
+      <button
+        type="button"
+        class="user-menu-trigger"
+        aria-haspopup="menu"
+        [attr.aria-expanded]="menuOpen()"
+        aria-controls="user-menu-panel"
+        (click)="toggleMenu()"
+      >
+        <dsb-avatar [name]="userName" size="sm" />
+        <span class="user-menu-name">{{ userName }}</span>
+        <svg class="user-menu-chevron" [class.user-menu-chevron--open]="menuOpen()" viewBox="0 0 10 6" fill="none" aria-hidden="true">
+          <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </button>
+
+      @if (menuOpen()) {
+        <ul id="user-menu-panel" class="user-menu-panel" role="menu" aria-label="User menu">
+          <li role="none">
+            <button type="button" role="menuitem" class="user-menu-item" (click)="closeMenu()">My Profile</button>
+          </li>
+          <li role="none">
+            <button type="button" role="menuitem" class="user-menu-item" (click)="signOut()">Sign Out</button>
+          </li>
+        </ul>
+      }
+    </div>
+  </div>
+
+  <main class="shell-main">
+    <div class="shell-grid">
+      <router-outlet />
+    </div>
+  </main>
+
+  <dsb-footer
+    brandName="Blueprint"
+    logoHref="/dashboard"
+    [columns]="footerColumns"
+    [copyright]="copyright"
+    [legalLinks]="legalLinks"
+  />
+</div>

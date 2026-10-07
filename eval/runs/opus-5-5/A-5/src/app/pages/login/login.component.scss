@@ -1,0 +1,105 @@
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: var(--space-4);
+  background: var(--color-bg-page);
+}
+
+.login-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  width: 100%;
+  max-width: var(--auth-card-width);
+  padding: var(--space-10);
+  background: var(--color-bg-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-raised);
+}
+
+.login-card__title {
+  font-size: var(--text-4xl);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-tight);
+  color: var(--color-fg);
+}
+
+.login-card__subtitle {
+  font-size: var(--text-md);
+  color: var(--color-fg-muted);
+}
+
+.login-card__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-md);
+  color: var(--color-fg);
+  cursor: pointer;
+
+  input {
+    appearance: none;
+    display: grid;
+    place-content: center;
+    width: var(--checkbox-size);
+    height: var(--checkbox-size);
+    margin: 0;
+    border: var(--border-width-control) solid var(--color-border-control);
+    border-radius: var(--radius-sm);
+    background: var(--color-bg-surface);
+    cursor: pointer;
+
+    &:checked {
+      background: var(--color-bg-inverse);
+      border-color: var(--color-bg-inverse);
+
+      &::after {
+        content: '';
+        width: 8px;
+        height: 4px;
+        margin-top: -2px;
+        border-left: 2px solid var(--color-fg-on-inverse);
+        border-bottom: 2px solid var(--color-fg-on-inverse);
+        transform: rotate(-45deg);
+      }
+    }
+
+    &:focus-visible {
+      outline: var(--focus-ring-width) solid var(--color-fg);
+      outline-offset: var(--focus-ring-width);
+    }
+  }
+}
+
+.login-card__link {
+  font-size: var(--text-md);
+  font-weight: var(--weight-medium);
+  color: var(--color-fg);
+  text-decoration: underline;
+  text-underline-offset: var(--space-0-5);
+}
+
+.login-card__link--plain {
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.login-card__signup {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-1-5);
+  font-size: var(--text-md);
+  color: var(--color-fg-muted);
+}

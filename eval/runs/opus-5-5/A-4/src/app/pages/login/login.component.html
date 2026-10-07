@@ -1,0 +1,58 @@
+<form class="login" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+  <header class="login__intro">
+    <h1 class="login__title">Welcome back</h1>
+    <p class="login__subtitle">Sign in to your account to continue</p>
+  </header>
+
+  <div class="field" [class.field--error]="showError('username')">
+    <label class="field__label" for="login-username">Username</label>
+    <input
+      id="login-username"
+      class="field__control"
+      type="text"
+      formControlName="username"
+      placeholder="Enter your username"
+      autocomplete="username"
+      [attr.aria-invalid]="showError('username')"
+      aria-describedby="login-username-error"
+    />
+    @if (showError('username')) {
+      <span id="login-username-error" class="field__error">Username is required</span>
+    }
+  </div>
+
+  <div class="field" [class.field--error]="showError('password') || authError()">
+    <label class="field__label" for="login-password">Password</label>
+    <input
+      id="login-password"
+      class="field__control"
+      type="password"
+      formControlName="password"
+      placeholder="Enter your password"
+      autocomplete="current-password"
+      [attr.aria-invalid]="showError('password') || authError()"
+      aria-describedby="login-password-error"
+    />
+    @if (showError('password')) {
+      <span id="login-password-error" class="field__error">Password is required</span>
+    } @else if (authError()) {
+      <span id="login-password-error" class="field__error">Invalid username or password</span>
+    }
+  </div>
+
+  <div class="login__row">
+    <label class="checkbox">
+      <input type="checkbox" formControlName="remember" />
+      <span class="checkbox__box" aria-hidden="true"></span>
+      <span>Remember me</span>
+    </label>
+    <a class="login__link login__link--underlined" href="#" (click)="$event.preventDefault()">Forgot password?</a>
+  </div>
+
+  <button type="submit" class="btn btn--primary btn--block">Sign In</button>
+
+  <p class="login__signup">
+    Don't have an account?
+    <a class="login__link" href="#" (click)="$event.preventDefault()">Sign up</a>
+  </p>
+</form>

@@ -1,0 +1,62 @@
+/* Design tokens: decisions + the component layer @jablonowski/dsb-components reads at runtime. */
+@import '@jablonowski/dsb-tokens/css';
+
+/*
+ * Values the Figma frames use that the decisions layer has no name for.
+ * Kept here, in one place, rather than scattered as literals.
+ */
+:root {
+  --app-font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --app-font-family-mono: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  --app-shadow-card: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --app-shadow-auth-card: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: var(--app-font-family);
+  font-size: var(--ds-decisions-font-size-md);
+  line-height: var(--ds-decisions-font-line-height-tight);
+  color: var(--ds-decisions-color-text-primary);
+  background: var(--ds-decisions-color-surface-subtle);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+/* Shared card surface for dashboard tiles. */
+.app-card {
+  background: var(--ds-decisions-color-surface-base);
+  border: var(--ds-decisions-border-width-hairline) solid var(--ds-decisions-color-border-subtle);
+  border-radius: var(--ds-decisions-border-radius-2xl);
+  box-shadow: var(--app-shadow-card);
+  padding: var(--ds-decisions-space-2xl);
+  min-width: 0;
+}
+
+/*
+ * Dialogs holding a dropdown: the modal body scrolls (overflow-y: auto), which clips the
+ * dropdown's floating menu. Where the viewport is tall enough for the whole dialog plus the
+ * open menu, let the body overflow instead; shorter viewports keep the scrolling body.
+ */
+@media (min-height: 760px) {
+  dsb-modal.app-modal-menus .modal-body {
+    overflow: visible;
+  }
+}
