@@ -1,3 +1,14 @@
 .env
 
 node_modules/
+
+# macOS
+.DS_Store
+
+# scratch that is not part of the study
+Claude outputs/
+
+# generated, never committed
+eval/runs/**/node_modules/
+eval/runs/**/dist/
+eval/runs/**/.angular/
