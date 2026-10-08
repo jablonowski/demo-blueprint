@@ -1,0 +1,62 @@
+<dsb-modal [open]="open" title="Edit Member" size="md" [closeOnBackdrop]="true" (closed)="closed.emit()">
+  @if (user) {
+    <form class="dialog-fields" [formGroup]="form" (ngSubmit)="onSave()">
+      <div class="user-row">
+        <dsb-avatar [name]="user.name" size="lg" />
+        <div>
+          <div class="user-row-name">{{ user.name }}</div>
+          <div class="user-row-meta">{{ user.email }}</div>
+        </div>
+      </div>
+
+      <div class="form-grid-2">
+        <div class="form-row">
+          <dsb-input
+            label="First name"
+            formControlName="firstName"
+            [hasError]="hasError('firstName')"
+            errorMessage="First name is required."
+          />
+        </div>
+        <div class="form-row">
+          <dsb-input
+            label="Last name"
+            formControlName="lastName"
+            [hasError]="hasError('lastName')"
+            errorMessage="Last name is required."
+          />
+        </div>
+      </div>
+
+      <dsb-input
+        label="Email address"
+        type="email"
+        formControlName="email"
+        [hasError]="hasError('email')"
+        errorMessage="A valid email address is required."
+      />
+
+      <dsb-dropdown
+        label="Role"
+        placeholder="Select role…"
+        [options]="roleOptions"
+        formControlName="role"
+        [hasError]="hasError('role')"
+        errorMessage="Role is required."
+      />
+
+      <div class="status-row">
+        <span class="status-row-label">Status</span>
+        <dsb-tag [variant]="statusVariant" size="sm">{{ user.status }}</dsb-tag>
+      </div>
+    </form>
+  }
+
+  <div modal-footer class="dialog-footer dialog-footer--split">
+    <dsb-button variant="danger" (click)="deleteRequested.emit()">Delete user</dsb-button>
+    <div class="dialog-footer-actions">
+      <dsb-button variant="secondary" (click)="closed.emit()">Cancel</dsb-button>
+      <dsb-button variant="primary" (click)="onSave()">Save changes</dsb-button>
+    </div>
+  </div>
+</dsb-modal>

@@ -1,0 +1,124 @@
+{
+  "arm": "A-prime",
+  "run": 2,
+  "model": "claude-sonnet-5",
+  "cli": "2.1.281 (Claude Code)",
+  "isolation": "session",
+  "started": "2026-10-08T18:14:13Z",
+  "overlaySha": "9eeb04e32b97",
+  "s0Sha": "c25d3e960f47",
+  "promptBytes": 15297,
+  "runDir": "/tmp/dsb-eval/sonnet-5/A-prime-2",
+  "figma": {
+    "channel": "cached",
+    "fileKey": "iJ92LuFOsPjO6avZ2anbwO",
+    "recordedAt": "2026-09-24T19:49:36Z",
+    "calls": 3,
+    "errors": 0,
+    "nodes": [
+      "22-11104",
+      "22-11448",
+      "22-11492"
+    ],
+    "ok": true
+  },
+  "inputTokensTotal": 14285261,
+  "outputTokens": 69987,
+  "result": {
+    "duration_api_ms": 793519,
+    "stop_reason": "end_turn",
+    "session_id": "50af3d22-0be7-406a-a8a1-12cd2d414a35",
+    "total_cost_usd": 4.1843664,
+    "usage": {
+      "input_tokens": 232,
+      "cache_creation_input_tokens": 165007,
+      "cache_read_input_tokens": 14120022,
+      "output_tokens": 69987,
+      "output_tokens_details": {
+        "thinking_tokens": 21344
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 165007,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "not_available",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 1782,
+          "cache_read_input_tokens": 183500,
+          "cache_creation_input_tokens": 620,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 620
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard"
+    },
+    "modelUsage": {
+      "claude-sonnet-5": {
+        "inputTokens": 232,
+        "outputTokens": 69987,
+        "cacheReadInputTokens": 14120022,
+        "cacheCreationInputTokens": 165007,
+        "webSearchRequests": 0,
+        "costUSD": 4.1843664,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 64000,
+        "thinkingTokens": 21344,
+        "canonicalModel": "claude-sonnet-5",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "subagent_stats": {
+      "spawned": 0,
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 0,
+      "spawned_by_subagents": 0,
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {}
+    },
+    "is_error": false,
+    "num_turns": 124,
+    "subtype": "success",
+    "api_error_status": null,
+    "result": "The Angular 19 CRUD demo is complete and fully tested end-to-end. Summary:\n\n**Built:** standalone Angular 19 app at `/private/tmp/dsb-eval/sonnet-5/A-prime-2/app` with lazy-loaded auth/main layouts, `authGuard`/`loginGuard`, `AuthService` (localStorage-backed), `angular-in-memory-web-api` seeded with the 5 users, `UsersService` CRUD, and all required pages/dialogs.\n\n**Verified in a real browser (Playwright-driven Chromium)**, not just build output:\n- Login: all 7 required elements, required-field validation errors, wrong-credential handling, successful login → `/dashboard`\n- Guards: unauth → `/login`, unknown route → `/login`, authed visiting `/login` → `/dashboard`, sign-out clears session and re-guards\n- Dashboard: all 8 tiles with spec'd values, bar chart, live log ticker (confirmed appending every 3s), profile menu opens leftward and is never clipped\n- Users page: full CRUD round-trip (create via Invite, update via Edit, delete via confirm) actually hits the in-memory API and the table reflects changes; backdrop-click-to-close works; Edit→\"Delete user\" correctly hands off to the delete dialog with the selection intact\n- Zero console errors throughout\n\n**Judgment calls where S0's explicit content differed from the Figma mock's literal content** (S0 took precedence since it's the normative data/text source; Figma governed structure, spacing, and chrome):\n- Login card omits Figma's \"Blueprint\" logo line — S0 lists exactly 7 elements and says \"add nothing else\"\n- Header nav links point to this app's actual two routes (Dashboard, Team Members) rather than Figma's decorative Overview/Metrics/Logs/Settings labels, which don't correspond to any route here\n- Dashboard's Figma mock combines \"Health Check\" + a chart/stats card into two wide cards; S0 asks for 4 distinct tiles there with different values — I kept Figma's wide/narrow grid proportions but split content per S0\n- System Logs uses a dark monospace terminal panel (S0 says \"terminal-style...monospace\") rather than Figma's light activity-feed styling\n- Footer is fuller than Figma's single bar, since S0 explicitly requires link *columns* separate from a legal-links *row*\n- Badge colors are mapped to the arm's provided `.tag-*` token classes rather than Figma's literal hex values, per the styleguide-as-source-of-truth intent of this arm\n\nDev server has been stopped; no leftover background processes.",
+    "ttft_ms": 3041,
+    "type": "result",
+    "duration_ms": 863460,
+    "uuid": "b6f26cf3-d4cd-45e8-b87c-1ffae3225b10",
+    "ttft_stream_ms": 2368,
+    "time_to_request_ms": 515,
+    "first_content_frame_ms": 2368,
+    "queued_turn_count": 0,
+    "result_index": 0
+  }
+}

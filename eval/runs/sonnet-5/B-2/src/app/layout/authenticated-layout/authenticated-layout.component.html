@@ -1,0 +1,22 @@
+<div class="shell">
+  <div class="header-bar">
+    <dsb-header brandName="Blueprint" [navItems]="navItems" />
+    <div class="header-user-slot">
+      <app-user-menu userName="Admin User" (signOut)="onSignOut()" />
+    </div>
+  </div>
+
+  <main class="main">
+    <div class="main-inner">
+      <router-outlet />
+    </div>
+  </main>
+
+  <dsb-footer
+    brandName="Blueprint"
+    tagline="Design System Blueprint demo application."
+    [columns]="footerColumns"
+    copyright="© 2026 Blueprint. All rights reserved."
+    [legalLinks]="legalLinks"
+  />
+</div>

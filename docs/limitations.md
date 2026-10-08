@@ -19,10 +19,15 @@ What this study excludes, what it throws away, and what it does not claim.
 ## What is not claimed
 
 - **One application, one design system, one model.** A case study, not a benchmark.
-- **n = 5 on the primary model, n = 1 on the second.** All five arms have run. Rounds 1–3
-  held A, B and D only; C and A′ were added afterwards as single-arm blocks and first ran
-  inside a round at 4 and 5. Three of each of their five observations therefore carry a
-  between-sitting confound that no A, B or D observation carries.
+- **n = 5 on the primary model, n = 2 on the second.** All five arms have run. On Opus,
+  rounds 1–3 held A, B and D only; C and A′ were added afterwards as single-arm blocks and
+  first ran inside a round at 4 and 5, so three of each of their five observations carry a
+  between-sitting confound that no A, B or D observation carries. **On Sonnet neither round
+  was a single sitting**, so every Sonnet comparison carries that confound.
+- **Two claims were withdrawn at Sonnet n = 2, both of which this repository had published.**
+  The B-versus-C discipline gap rested on one run and did not replicate; the single
+  reimplementation in arm D did not replicate either. A third was narrowed: `9.2` now has one
+  counter-example in arm C. The 2026-10-08 entry in the protocol has the detail.
 - **The convention grid changed mid-study.** `9.6` was removed on 2026-10-07, after thirty
   runs, because it returned `n/a` whenever the agent had not built a split modal footer and
   so measured what was built rather than what was known. Removing it changed one reading in
@@ -43,6 +48,6 @@ What this study excludes, what it throws away, and what it does not claim.
 
 ## And one more, about the instrument itself
 
-The gates in this harness were wrong eleven times, in ways that each looked like success.
+The gates in this harness were wrong twelve times, in ways that each looked like success.
 That is not a footnote about craft — it bounds how much any single number here should be
 trusted. [A note on the instrument](instrument.md).

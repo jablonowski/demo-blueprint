@@ -1,0 +1,19 @@
+<dsb-modal
+  [open]="open"
+  title="Confirm Deletion"
+  size="sm"
+  [closeOnBackdrop]="true"
+  (closed)="closed.emit()"
+>
+  @if (user) {
+    <p class="dialog-body-text">
+      Are you sure you want to remove <strong>{{ user.name }}</strong>? This action cannot be
+      undone.
+    </p>
+  }
+
+  <div modal-footer class="dialog-footer dialog-footer--end">
+    <dsb-button variant="secondary" (click)="closed.emit()">Cancel</dsb-button>
+    <dsb-button variant="danger" (click)="confirmed.emit()">Delete</dsb-button>
+  </div>
+</dsb-modal>

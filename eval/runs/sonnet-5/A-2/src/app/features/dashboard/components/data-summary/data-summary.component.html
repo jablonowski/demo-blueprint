@@ -1,0 +1,12 @@
+<div class="summary card">
+  <span class="summary__title">Data Summary</span>
+
+  <dl class="summary__list">
+    @for (row of rows; track row.label) {
+      <div class="summary__row">
+        <dt class="summary__label">{{ row.label }}</dt>
+        <dd class="summary__value">{{ row.value }}</dd>
+      </div>
+    }
+  </dl>
+</div>

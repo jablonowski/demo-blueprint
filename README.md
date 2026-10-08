@@ -3,10 +3,10 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/stage%20one-complete%20at%20n%20%3D%205-2f5a3f" alt="Stage one complete at n = 5">
-  <img src="https://img.shields.io/badge/scored%20runs-30-2f5a3f" alt="30 scored runs">
+  <img src="https://img.shields.io/badge/stage%20one-complete-2f5a3f" alt="Stage one complete">
+  <img src="https://img.shields.io/badge/scored%20runs-35-2f5a3f" alt="35 scored runs">
   <img src="https://img.shields.io/badge/arms-5-5b8a6b" alt="5 arms">
-  <img src="https://img.shields.io/badge/models-Opus%20%C2%B7%20Sonnet-5b8a6b" alt="Two models">
+  <img src="https://img.shields.io/badge/models-Opus%20n%3D5%20%C2%B7%20Sonnet%20n%3D2-5b8a6b" alt="Opus n=5, Sonnet n=2">
   <img src="https://img.shields.io/badge/design-pre--registered-6b4e0a" alt="Pre-registered">
   <a href="https://github.com/jablonowski/design-system-blueprint"><img src="https://img.shields.io/badge/system%20under%20test-design--system--blueprint-97a29b" alt="System under test"></a>
 </p>
@@ -23,11 +23,12 @@ The design system under test is
 three-tier token pipeline, an Angular component library, machine-readable contracts for
 agents, and npm publishing.
 
-> **Status: stage one complete at n = 5, the study continues.** Thirty scored runs — five
-> arms at n = 5 on Claude Opus, the same five at n = 1 on Claude Sonnet. Drift and
-> cost-per-accepted-screen are still open; arms A′ and C each have three runs taken outside
-> the round structure; and the convention grid dropped from eight checks to seven on
-> 2026-10-07, for a reason recorded in the protocol.
+> **Status: stage one complete, the study continues.** Thirty-five scored runs — five arms at
+> n = 5 on Claude Opus, the same five at n = 2 on Claude Sonnet. Drift and
+> cost-per-accepted-screen are still open; arms A′ and C each have three Opus runs taken
+> outside the round structure, and the Sonnet rounds were never one sitting; the convention
+> grid dropped from eight checks to seven on 2026-10-07; and the second Sonnet round withdrew
+> two claims that had rested on a single run. All of it is in the protocol.
 >
 > **Numbers here, readings elsewhere.** This README and [`docs/results.md`](docs/results.md)
 > carry the data. The interpretation lives in [`eval/PROTOCOL.md`](eval/PROTOCOL.md), kept
@@ -51,8 +52,8 @@ received byte-identical frames.
 
 ## Headline numbers
 
-Claude Opus, median of five runs per arm. Full per-run tables — thirty runs, every metric,
-both models — are in **[`docs/results.md`](docs/results.md)**.
+Claude Opus, median of five runs per arm. Full per-run tables — thirty-five runs, every
+metric, both models — are in **[`docs/results.md`](docs/results.md)**.
 
 | | A | A′ | B | C | D |
 |---|---|---|---|---|---|
@@ -82,7 +83,7 @@ so they do not apply to an arm that has no library.
 | [Pre-registration](docs/pre-registration.md) | The falsifier and the predictions, recorded before the runs |
 | [Scorers](docs/scorers.md) | What each column counts and the judgements baked into it |
 | [Limitations](docs/limitations.md) | What is excluded, what is void, and what is not claimed |
-| [A note on the instrument](docs/instrument.md) | Eleven times a gate reported on the wrong proposition |
+| [A note on the instrument](docs/instrument.md) | Twelve times a gate reported on the wrong proposition |
 | [Running it](docs/running-it.md) | Commands, repository layout, what a run needs |
 
 And, kept whole rather than split: **[`eval/PROTOCOL.md`](eval/PROTOCOL.md)** — the

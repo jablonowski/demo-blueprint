@@ -1,0 +1,135 @@
+:host {
+  display: contents;
+}
+
+.page-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.page-title {
+  margin: 0;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.invite-btn {
+  padding: 10px 18px;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-surface-card);
+  background: var(--color-primary);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.invite-btn:hover {
+  opacity: 0.9;
+}
+
+.table-card {
+  background: var(--color-surface-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  overflow-x: auto;
+}
+
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.users-table thead {
+  background: var(--color-surface-subtle);
+}
+
+.users-table th {
+  text-align: left;
+  padding: 12px 16px;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  border-bottom: 1px solid var(--color-border);
+  white-space: nowrap;
+}
+
+.users-table td {
+  padding: 12px 16px;
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+  border-bottom: 1px solid var(--color-border);
+  vertical-align: middle;
+}
+
+.users-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.col-avatar {
+  width: 56px;
+}
+
+.cell-name {
+  font-weight: var(--font-weight-medium);
+}
+
+.cell-muted {
+  color: var(--color-text-secondary);
+}
+
+.col-actions {
+  width: 1%;
+  white-space: nowrap;
+}
+
+.row-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.action-btn {
+  padding: 6px 12px;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.action-btn--ghost {
+  background: transparent;
+  border: none;
+  color: var(--color-text-secondary);
+}
+
+.action-btn--ghost:hover {
+  background: var(--color-surface-subtle);
+}
+
+.action-btn--secondary {
+  background: var(--color-surface-card);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+}
+
+.action-btn--secondary:hover {
+  background: var(--color-surface-subtle);
+}
+
+.action-btn--danger {
+  background: var(--color-surface-card);
+  border: 1px solid #f0a9a4;
+  color: var(--color-danger);
+}
+
+.action-btn--danger:hover {
+  background: #fef2f2;
+}

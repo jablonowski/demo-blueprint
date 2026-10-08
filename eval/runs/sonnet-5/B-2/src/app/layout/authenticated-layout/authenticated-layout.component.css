@@ -1,0 +1,40 @@
+.shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header-bar {
+  position: relative;
+}
+
+.header-bar dsb-header {
+  display: block;
+}
+
+.header-user-slot {
+  position: absolute;
+  inset: 0;
+  max-width: var(--ds-decisions-layout-width-3xl);
+  margin: 0 auto;
+  padding: 0 var(--ds-decisions-space-3xl);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  pointer-events: none;
+}
+
+.header-user-slot app-user-menu {
+  pointer-events: auto;
+}
+
+.main {
+  flex: 1;
+  background: var(--ds-decisions-color-surface-hover);
+}
+
+.main-inner {
+  max-width: var(--ds-decisions-layout-width-3xl);
+  margin: 0 auto;
+  padding: var(--ds-decisions-space-3xl);
+}

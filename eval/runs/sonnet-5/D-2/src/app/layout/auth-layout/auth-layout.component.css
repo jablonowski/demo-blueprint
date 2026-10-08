@@ -1,0 +1,99 @@
+.shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header-bar {
+  position: relative;
+}
+
+.header-overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: var(--ds-decisions-space-3xl);
+  display: flex;
+  align-items: center;
+}
+
+.user-menu {
+  position: relative;
+}
+
+.user-menu-trigger {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-decisions-space-sm);
+  padding: var(--ds-decisions-space-2xs) var(--ds-decisions-space-sm);
+  background: transparent;
+  border: none;
+  border-radius: var(--ds-decisions-border-radius-lg);
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.user-menu-trigger:hover {
+  background: var(--ds-decisions-color-surface-hover);
+}
+
+.user-name {
+  font-size: var(--ds-decisions-font-size-sm);
+  font-weight: var(--ds-decisions-font-weight-medium);
+  color: var(--ds-decisions-color-text-primary);
+}
+
+.chevron {
+  font-size: var(--ds-decisions-font-size-xs);
+  color: var(--ds-decisions-color-text-secondary);
+}
+
+.user-menu-panel {
+  position: absolute;
+  top: calc(100% + var(--ds-decisions-space-2xs));
+  right: 0;
+  min-width: var(--ds-decisions-layout-width-sm);
+  display: flex;
+  flex-direction: column;
+  padding: var(--ds-decisions-space-2xs);
+  background: var(--ds-decisions-color-surface-base);
+  border: var(--ds-decisions-border-width-hairline) solid var(--ds-decisions-color-border-subtle);
+  border-radius: var(--ds-decisions-border-radius-lg);
+  box-shadow: var(--ds-decisions-shadow-dropdown);
+  z-index: var(--ds-decisions-z-index-dropdown);
+}
+
+.user-menu-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: var(--ds-decisions-space-sm) var(--ds-decisions-space-md);
+  background: transparent;
+  border: none;
+  border-radius: var(--ds-decisions-border-radius-md);
+  font-family: inherit;
+  font-size: var(--ds-decisions-font-size-sm);
+  color: var(--ds-decisions-color-text-primary);
+  cursor: pointer;
+}
+
+.user-menu-item:hover {
+  background: var(--ds-decisions-color-surface-hover);
+}
+
+.user-menu-item--danger {
+  color: var(--ds-decisions-color-action-danger-text);
+}
+
+.main-content {
+  flex: 1;
+  background: var(--ds-decisions-color-surface-subtle);
+  padding: var(--ds-decisions-space-4xl) var(--ds-decisions-space-3xl);
+}
+
+.content-container {
+  max-width: var(--ds-decisions-layout-width-3xl);
+  margin: 0 auto;
+  display: grid;
+  gap: var(--ds-decisions-space-xl);
+}

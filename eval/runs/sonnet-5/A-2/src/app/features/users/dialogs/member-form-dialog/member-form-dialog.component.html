@@ -1,0 +1,79 @@
+<app-modal-shell [title]="title" (close)="cancel.emit()">
+    <div modal-body [formGroup]="form">
+      @if (mode === 'edit' && user) {
+        <div class="user-row">
+          <app-user-avatar [name]="user.name" [size]="40" />
+          <div class="user-row__info">
+            <span class="user-row__name">{{ user.name }}</span>
+            <span class="user-row__since">Member since {{ memberSince }}</span>
+          </div>
+        </div>
+      }
+
+      <div class="field-row">
+        <div class="field">
+          <label class="field__label" for="firstName">First name</label>
+          <input
+            id="firstName"
+            type="text"
+            class="field__control"
+            [class.field__control--invalid]="f.firstName.invalid && f.firstName.touched"
+            formControlName="firstName"
+          />
+        </div>
+        <div class="field">
+          <label class="field__label" for="lastName">Last name</label>
+          <input
+            id="lastName"
+            type="text"
+            class="field__control"
+            [class.field__control--invalid]="f.lastName.invalid && f.lastName.touched"
+            formControlName="lastName"
+          />
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="field__label" for="email">Email address</label>
+        <input
+          id="email"
+          type="email"
+          class="field__control"
+          [class.field__control--invalid]="f.email.invalid && f.email.touched"
+          formControlName="email"
+        />
+      </div>
+
+      <div class="field">
+        <label class="field__label" for="role">Role</label>
+        <select
+          id="role"
+          class="field__control"
+          [class.field__control--invalid]="f.role.invalid && f.role.touched"
+          formControlName="role"
+        >
+          <option value="" disabled>Select role&hellip;</option>
+          @for (role of roles; track role) {
+            <option [value]="role">{{ role }}</option>
+          }
+        </select>
+      </div>
+
+      @if (mode === 'edit' && user) {
+        <div class="status-row">
+          <span class="status-row__label">Status</span>
+          <app-badge [status]="user.status" />
+        </div>
+      }
+    </div>
+
+    <div modal-footer class="footer-split">
+      @if (mode === 'edit') {
+        <button type="button" class="btn btn--danger" (click)="deleteRequested.emit()">Delete user</button>
+      }
+      <div class="footer-split__actions">
+        <button type="button" class="btn btn--secondary" (click)="cancel.emit()">Cancel</button>
+        <button type="button" class="btn btn--primary" (click)="submit()">{{ mode === 'edit' ? 'Save changes' : 'Send Invite' }}</button>
+      </div>
+    </div>
+</app-modal-shell>

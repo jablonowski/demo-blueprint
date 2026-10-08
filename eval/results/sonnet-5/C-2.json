@@ -1,0 +1,126 @@
+{
+  "arm": "C",
+  "run": 2,
+  "model": "claude-sonnet-5",
+  "cli": "2.1.281 (Claude Code)",
+  "isolation": "session",
+  "started": "2026-10-08T19:17:27Z",
+  "overlaySha": "b0826b551c35",
+  "s0Sha": "c25d3e960f47",
+  "promptBytes": 17273,
+  "runDir": "/tmp/dsb-eval/sonnet-5/C-2",
+  "figma": {
+    "channel": "cached",
+    "fileKey": "iJ92LuFOsPjO6avZ2anbwO",
+    "recordedAt": "2026-09-24T19:49:36Z",
+    "calls": 3,
+    "errors": 0,
+    "nodes": [
+      "22-11104",
+      "22:11448",
+      "22:11492"
+    ],
+    "ok": true
+  },
+  "inputTokensTotal": 18293318,
+  "outputTokens": 92279,
+  "result": {
+    "duration_api_ms": 1272473,
+    "stop_reason": "end_turn",
+    "session_id": "0df0f19b-c655-4604-b946-9f84da7f4f83",
+    "total_cost_usd": 5.800519500000001,
+    "usage": {
+      "input_tokens": 248,
+      "cache_creation_input_tokens": 209879,
+      "cache_read_input_tokens": 18083191,
+      "output_tokens": 92279,
+      "output_tokens_details": {
+        "thinking_tokens": 45880
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 209879,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "not_available",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 1021,
+          "cache_read_input_tokens": 228283,
+          "cache_creation_input_tokens": 709,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 709
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard"
+    },
+    "modelUsage": {
+      "claude-sonnet-5": {
+        "inputTokens": 264,
+        "outputTokens": 114148,
+        "cacheReadInputTokens": 18335090,
+        "cacheCreationInputTokens": 270670,
+        "webSearchRequests": 0,
+        "costUSD": 5.800519500000001,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 64000,
+        "thinkingTokens": 57192,
+        "canonicalModel": "claude-sonnet-5",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "subagent_stats": {
+      "spawned": 1,
+      "requested": {
+        "background": 0,
+        "foreground": 1,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 1,
+      "spawned_by_subagents": 0,
+      "completed": 1,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {
+        "general-purpose": 1
+      }
+    },
+    "is_error": false,
+    "num_turns": 125,
+    "subtype": "success",
+    "api_error_status": null,
+    "result": "Clean structure, all files accounted for, no debug code left behind. The app is complete and verified end-to-end.\n\n## Summary\n\nBuilt the Angular 19 CRUD demo per spec, using `@jablonowski/dsb-components` + `dsb-tokens` guided by `llms.client.txt`:\n\n- **Routing/auth**: standalone lazy routes, `loginGuard`/`authGuard`, `AuthService` wrapping `localStorage`\n- **Data**: `angular-in-memory-web-api` seeded per spec, `UsersService` doing full CRUD over `/api/users`\n- **Login**: dsb-input/checkbox/button, reactive validation, wrong-credential error state\n- **Dashboard**: 4 stat tiles + custom CSS bar chart + service health + data summary + live-updating log viewer, laid out in a 4-column grid\n- **Users/CRUD**: dsb-table with custom cell templates, all 4 dialogs (delete/details/edit/invite) using dsb-modal with the Figma-matched split footers and the custom title+badge header for Details\n- **Shell**: dsb-header/footer reused as-is; the profile menu (avatar+name+\"My Profile\"/\"Sign Out\") was hand-built since dsb-header has no slot for it — it opens leftward anchored to the viewport edge and closes on outside click, verified not clipped at 1440px width\n\nAll colors/spacing/radii/shadows map to tier-2 `--ds-decisions-*` tokens only, following the component guide's rules (role/status badges use `dsb-tag` variants rather than custom colors).\n\n**Bugs found and fixed via live browser testing** (Playwright, since `chromium-cli` wasn't available in this environment):\n1. `UsersService.update()` wasn't sending `id` in the PUT body — the in-memory API 404s without it, and a naive fix would have wiped out `avatar`/`status`/`joinedDate` on every edit (full-replace semantics), so the fix merges the existing record.\n2. The library's modal body has a hardcoded `overflow-y: auto` that clipped the Role dropdown's options panel in Edit/Invite dialogs — fixed with a scoped `:host ::ng-deep dsb-modal .modal-body { overflow: visible }` in `users.component.css`, justified since modal content here is always short enough to never need scrolling.\n\n**Unverified visual choices** (no exact token/Figma match existed): page backdrop color (`surface-subtle`), card/login shadows (mapped to `shadow-dropdown`), the \"Data Summary\" tile's exact grid position (not present in the fetched Figma frame dump, placed logically in the 4-column grid), and the system-log monospace font stack (no font-family token exists in the system at all).\n\nLive avatar images come from the public `dicebear.com` API and occasionally fail to load under rapid concurrent requests (confirmed intermittent, not a code defect) — the library's `AvatarComponent` has no `onerror`-to-initials fallback for that case, only for an empty `src`.",
+    "ttft_ms": 2147,
+    "type": "result",
+    "duration_ms": 1459774,
+    "uuid": "59c09d6e-269b-4da6-9daa-e87883b60999",
+    "ttft_stream_ms": 1463,
+    "time_to_request_ms": 231,
+    "first_content_frame_ms": 1464,
+    "queued_turn_count": 0,
+    "result_index": 0
+  }
+}

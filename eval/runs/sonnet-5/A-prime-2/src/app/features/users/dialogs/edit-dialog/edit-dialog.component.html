@@ -1,0 +1,75 @@
+<app-modal size="md" (dismiss)="dismiss.emit()">
+  <div class="dialog-header">
+    <h2>Edit Member</h2>
+    <button type="button" class="dialog-close" (click)="dismiss.emit()">✕</button>
+  </div>
+
+  <form class="dialog-body" [formGroup]="form" (ngSubmit)="onSave()">
+    <div class="user-row">
+      <app-avatar [name]="user.name" [size]="48" />
+      <div class="user-row-info">
+        <span class="user-row-name">{{ user.name }}</span>
+        <span class="user-row-meta">Member since {{ memberSince }}</span>
+      </div>
+    </div>
+
+    <div class="field-row">
+      <div class="field-group">
+        <label class="field-label" for="edit-first-name">First name</label>
+        <input
+          id="edit-first-name"
+          class="field-input"
+          [class.field-input--error]="form.controls.firstName.invalid && form.controls.firstName.touched"
+          formControlName="firstName"
+        />
+      </div>
+      <div class="field-group">
+        <label class="field-label" for="edit-last-name">Last name</label>
+        <input
+          id="edit-last-name"
+          class="field-input"
+          [class.field-input--error]="form.controls.lastName.invalid && form.controls.lastName.touched"
+          formControlName="lastName"
+        />
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label" for="edit-email">Email address</label>
+      <input
+        id="edit-email"
+        type="email"
+        class="field-input"
+        [class.field-input--error]="form.controls.email.invalid && form.controls.email.touched"
+        formControlName="email"
+      />
+    </div>
+
+    <div class="field-group">
+      <label class="field-label" for="edit-role">Role</label>
+      <select
+        id="edit-role"
+        class="field-select"
+        [class.field-input--error]="form.controls.role.invalid && form.controls.role.touched"
+        formControlName="role"
+      >
+        @for (role of roles; track role) {
+          <option [value]="role">{{ role }}</option>
+        }
+      </select>
+    </div>
+
+    <div class="status-row">
+      <span class="field-label">Status</span>
+      <span class="tag" [class]="'tag-' + statusTone">{{ user.status }}</span>
+    </div>
+  </form>
+
+  <div class="dialog-footer dialog-footer--split dialog-footer--bordered">
+    <button type="button" class="btn btn--danger" (click)="requestDelete.emit()">Delete user</button>
+    <div class="dialog-footer-right">
+      <button type="button" class="btn btn--secondary" (click)="dismiss.emit()">Cancel</button>
+      <button type="button" class="btn btn--primary" (click)="onSave()">Save changes</button>
+    </div>
+  </div>
+</app-modal>

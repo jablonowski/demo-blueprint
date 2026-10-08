@@ -1,0 +1,64 @@
+<div class="page-head">
+  <h1 class="page-title">System Overview</h1>
+  <p class="page-subtitle">Last updated: {{ lastUpdated }}</p>
+</div>
+
+<div class="dash-grid">
+  @for (metric of metrics; track metric.title) {
+    <div class="card metric-tile">
+      <span class="metric-title">{{ metric.title }}</span>
+      <div class="metric-value-row">
+        <span class="metric-value">{{ metric.value }}</span>
+        <app-badge [tone]="metric.trendTone">{{ metric.trend }}</app-badge>
+      </div>
+      <span class="metric-sublabel">{{ metric.sublabel }}</span>
+    </div>
+  }
+
+  <div class="card tile-throughput">
+    <h2 class="card-title">Request Throughput</h2>
+    <div class="chart">
+      @for (bar of throughput; track bar.day) {
+        <div class="chart-col">
+          <div class="chart-bar" [style.height.%]="bar.pct"></div>
+          <span class="chart-label">{{ bar.day }}</span>
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="card tile-health">
+    <h2 class="card-title">Service Health</h2>
+    <div class="health-list">
+      @for (service of services; track service.name) {
+        <div class="health-row">
+          <span class="health-name">{{ service.name }}</span>
+          <app-badge [tone]="service.online ? 'success' : 'danger'">
+            {{ service.online ? 'Online' : 'Offline' }}
+          </app-badge>
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="card tile-summary">
+    <h2 class="card-title">Data Summary</h2>
+    <div class="summary-list">
+      @for (row of summary; track row.label) {
+        <div class="summary-row">
+          <span class="summary-label">{{ row.label }}</span>
+          <span class="summary-value">{{ row.value }}</span>
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="card tile-logs">
+    <h2 class="card-title">System Logs</h2>
+    <div class="log-viewport" #logViewport>
+      @for (line of logs; track $index) {
+        <div class="log-line">{{ line }}</div>
+      }
+    </div>
+  </div>
+</div>

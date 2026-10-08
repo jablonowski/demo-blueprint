@@ -1,0 +1,126 @@
+{
+  "arm": "A",
+  "run": 2,
+  "model": "claude-sonnet-5",
+  "cli": "2.1.281 (Claude Code)",
+  "isolation": "session",
+  "started": "2026-10-08T09:17:16Z",
+  "overlaySha": "40dd762a0ef7",
+  "s0Sha": "c25d3e960f47",
+  "promptBytes": 13108,
+  "runDir": "/tmp/dsb-eval/sonnet-5/A-2",
+  "figma": {
+    "channel": "cached",
+    "fileKey": "iJ92LuFOsPjO6avZ2anbwO",
+    "recordedAt": "2026-09-24T19:49:36Z",
+    "calls": 3,
+    "errors": 0,
+    "nodes": [
+      "22-11104",
+      "22:11448",
+      "22:11492"
+    ],
+    "ok": true
+  },
+  "inputTokensTotal": 13678198,
+  "outputTokens": 75429,
+  "result": {
+    "duration_api_ms": 1043035,
+    "stop_reason": "end_turn",
+    "session_id": "037f8d82-0c64-4532-b649-55f44085bb97",
+    "total_cost_usd": 4.4322189000000005,
+    "usage": {
+      "input_tokens": 274,
+      "cache_creation_input_tokens": 151898,
+      "cache_read_input_tokens": 13526026,
+      "output_tokens": 75429,
+      "output_tokens_details": {
+        "thinking_tokens": 22517
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 151898,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "not_available",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 699,
+          "cache_read_input_tokens": 170828,
+          "cache_creation_input_tokens": 183,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 183
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard"
+    },
+    "modelUsage": {
+      "claude-sonnet-5": {
+        "inputTokens": 284,
+        "outputTokens": 94451,
+        "cacheReadInputTokens": 13637982,
+        "cacheCreationInputTokens": 212679,
+        "webSearchRequests": 0,
+        "costUSD": 4.4322189000000005,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 64000,
+        "thinkingTokens": 33369,
+        "canonicalModel": "claude-sonnet-5",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "subagent_stats": {
+      "spawned": 1,
+      "requested": {
+        "background": 0,
+        "foreground": 1,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 1,
+      "spawned_by_subagents": 0,
+      "completed": 1,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {
+        "general-purpose": 1
+      }
+    },
+    "is_error": false,
+    "num_turns": 138,
+    "subtype": "success",
+    "api_error_status": null,
+    "result": "## Summary\n\nBuilt a complete Angular 19 standalone CRUD demo at `/private/tmp/dsb-eval/sonnet-5/A-2/blueprint-crud` per the spec: login (hardcoded `admin`/`admin`, guards both ways), an authenticated shell (header with leftward-opening profile menu, footer with link columns), an 8-tile dashboard (custom bar chart, live-updating log viewer), and a full `/users` CRUD table with all four modals (delete confirm, read-only details, edit, invite) wired to `angular-in-memory-web-api`.\n\nSince this is the \"no infrastructure\" arm, I pulled real values from the Figma file (via a subagent, since the raw payload was too large for direct reading) and consolidated them into one `:root` CSS custom-property system in `styles.scss` (colors, spacing, radii, type scale) plus global atomic classes (`.btn`, `.badge`, `.field`, `.card`), so every component draws from a single source instead of scattering literals — directly addressing the stated failure mode for this arm.\n\nI verified the build and the running app with Playwright (no local `chromium-cli`, so I installed `playwright` + Chromium in a temp dir): login validation, dashboard, profile menu, users table, and all four dialogs render correctly, and a full create → edit → delete round-trip against the in-memory API works with zero console errors. One real bug surfaced and was fixed during this: wrapping the edit/invite form body and footer in a shared `<ng-container [formGroup]>` silently dropped all projected content, since Angular's content-projection `select` doesn't recurse into `ng-container`'s children when picking a slot — moved `[formGroup]` onto the `modal-body` div directly instead.\n\n**Unverified / invented (flagged per instructions):** the header's nav labels (\"Dashboard\"/\"Team Members\"), the footer's link columns and legal links (S0 required them but the fetched Figma frame only showed a minimal footer), and the dashboard's two-column responsive breakpoints (no mobile frame existed in the fetched Figma data).",
+    "ttft_ms": 2475,
+    "type": "result",
+    "duration_ms": 1261588,
+    "uuid": "cbbd1676-199d-4ff3-b524-0abc510f494f",
+    "ttft_stream_ms": 1739,
+    "time_to_request_ms": 389,
+    "first_content_frame_ms": 1740,
+    "queued_turn_count": 0,
+    "result_index": 0
+  }
+}

@@ -1,0 +1,12 @@
+<div class="tile card">
+  <div class="tile__header">
+    <span class="tile__title">{{ title }}</span>
+    @if (trend) {
+      <span class="badge" [class.badge--success]="trendPositive" [class.badge--danger]="!trendPositive">{{ trend }}</span>
+    }
+  </div>
+  <span class="tile__value">{{ value }}</span>
+  @if (subLabel) {
+    <span class="tile__sub">{{ subLabel }}</span>
+  }
+</div>

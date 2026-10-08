@@ -1,10 +1,11 @@
 # Evaluating a design system as AI infrastructure
 
-Status: **stage one complete at n = 5, 2026-10-07.** Five arms, thirty scored runs — n = 5 on
-the primary model and n = 1 on the second. The numbers are under “Results — stage one”;
-everything above it is the pre-registration and the log of every rule that changed, with what
-the change cost. The convention grid is seven checks since 2026-10-07; `9.6` was removed and
-the entry below says why. Drift and cost-per-accepted-screen are still open.
+Status: **stage one complete, 2026-10-08.** Five arms, thirty-five scored runs — n = 5 on the
+primary model and n = 2 on the second. The numbers are under “Results — stage one”; everything
+above it is the pre-registration and the log of every rule that changed, with what the change
+cost. The convention grid is seven checks since 2026-10-07; `9.6` was removed and the entry
+below says why. The second Sonnet round withdrew two claims that had rested on a single run —
+see the entry for 2026-10-08. Drift and cost-per-accepted-screen are still open.
 
 ## What this measures, and what it does not
 
@@ -734,7 +735,7 @@ the first one introduced while cleaning up rather than while building.
 Two more rounds took the primary model to n = 5 on every arm. Unlike rounds 1–3, these ran
 all five arms inside one sitting — A, B, D, then A′, then C, within an hour — so A′ and C now
 have two observations each that are controlled the way A, B and D have always been, and three
-that are not. Thirty scored runs in total.
+that are not. Thirty scored runs at that point; thirty-five after the second Sonnet round.
 
 **Round 5 broke a claim that round 4 would have let me publish.** At n = 4 the accessibility
 ladder was identical in every run of every arm: A failed contrast on all three routes, A′ on
@@ -783,10 +784,76 @@ definition is in git history; `scorers/checks.js` carries a note where it stood,
 `scorers/test/scorers.test.js` now asserts that the grid is seven checks and that `9.6` does
 not come back by accident.
 
-### Results — stage one, revised at n = 5, 2026-10-07
+### Sonnet round 2, and the twelfth gate: the accessibility pass suppressed its own failure, 2026-10-08
 
-Thirty scored runs. Claude Opus at n = 5 across five arms, Claude Sonnet at n = 1 as a second
-harness on the same specification. Arms A′ and C were added on 2026-09-27, after the other three
+The second Sonnet round was run for two claims that rested on a single observation each:
+check `9.2`, and the B-versus-C discipline gap. It settled both, in opposite directions, and
+cost a morning to a harness bug first.
+
+**The round did not survive one sitting.** A, B and D ran 09:17–10:05. A′ and C were started
+at 11:57 and 12:21 and both died immediately on `HTTP 429 — session limit`, A′ at 49 turns and
+C at one. `void.js` recorded both as void rather than as bad scores, which is what it is for.
+They were re-run the same evening, 18:14 and 19:17. Sonnet's first round had never been one
+sitting either — A-1 at 09:41, B-1 and D-1 five hours later, C-1 the next day, A′-1 the day
+after that — so for this model the round discipline has never actually held, and that is
+recorded here rather than implied by the word "round" in the file names.
+
+**The twelfth gate.** A, B and D built cleanly and were then unscorable: `a11y.json` was
+**zero bytes** in all three. The scorer refused them — *"the measurement pass did not run"* —
+which is the repair made after the tenth gate working exactly as intended. The cause was one
+line of the harness:
+
+```bash
+A11Y_SHOTS_DIR="$dir/shots" node "$scorers/a11y.js" "$root" > "$dir/a11y.json" 2>/dev/null || true
+```
+
+`2>/dev/null || true` discards both the error output and the exit status. **The gate that
+measures accessibility was built so that its own failure is invisible**, and the only symptom
+is an empty file one step downstream. Had `a11y.js` instead written a well-formed document
+with an empty violations array, three runs would have been published showing zero accessibility
+violations for arms that have never produced zero.
+
+The cause of the crash itself is **not known**. Running `a11y.js` by hand against the same run
+directory afterwards worked — `available: true`, three serious violations on arm A, six
+screenshots — and `./run.sh remeasure` recovered all three runs at no cost. It failed three
+times consecutively during the round and has not failed since. The line now captures stderr
+and turns a silent failure into a recorded reason:
+
+```bash
+A11Y_SHOTS_DIR="$dir/shots" node "$scorers/a11y.js" "$root" > "$dir/a11y.json" 2>"$dir/a11y.stderr" \
+  || printf '{"available":false,"reason":"a11y.js exited %s; see a11y.stderr"}\n' "$?" > "$dir/a11y.json"
+[[ -s "$dir/a11y.json" ]] || printf '{"available":false,"reason":"a11y.js wrote nothing; see a11y.stderr"}\n' > "$dir/a11y.json"
+```
+
+The second line is the one that matters: the observed failure exited **zero** and printed
+nothing, so only an emptiness check catches it. `a11y.stderr` was also added to the archived
+file list, because a diagnostic that stays in `/tmp` dies with it.
+
+Twelfth documented instance of a gate reporting on a property next to the one it guards, and
+the first where the gate's defect was that it hid its own.
+
+**What the round did to the findings.** Two claims were withdrawn and one was narrowed:
+
+- `9.2` held — B fails it in both Sonnet runs — but **C-2 fails it too**, the first time any
+  arm holding the agent-facing document has. The finding is now stated as a ratio, 6 failures
+  in 7 against 1 in 7, rather than as *the document earns exactly one check*.
+- The **B-versus-C discipline gap is withdrawn.** B-1 scattered 17 raw values and crossed the
+  tier boundary twice; B-2 scattered two and crossed none, which is better than C-1. The claim
+  rested entirely on B-1.
+- D-1's single reimplementation — *the only run in the study where an arm holding the design
+  system failed to use all thirteen components* — **did not replicate.** D-2 used all thirteen
+  and returned the first 7/7 grid on Sonnet. The evidence against the resolver is accordingly
+  thinner than it was, not thicker.
+- Cost on Sonnet ordered the library arms **opposite ways in the two rounds** (B < C < D, then
+  C < D < B). The Opus ordering stands at n = 5; the mechanism behind it does not yet.
+
+Three of those four cut against a reading this repository had already published. That is the
+point of running the second observation.
+
+### Results — stage one, revised 2026-10-08
+
+Thirty-five scored runs. Claude Opus at n = 5 across five arms, Claude Sonnet at n = 2 as a
+second harness on the same specification. Arms A′ and C were added on 2026-09-27, after the other three
 had been scored, and only joined the rounds at 4 and 5 — see “A′ and C ran late, and what that
 costs” below. The convention grid is seven
 checks; the n = 3 reading of this section, with eight, is in git history. Every row comes from
@@ -820,40 +887,44 @@ declared two — so the handful of rates those produce are computed over two to 
 are not reported. Zero authored values is the result worth reading, and it is in the two rows
 above.
 
-#### Sonnet, n = 1
+#### Sonnet, n = 2
 
 | | A | A′ | B | C | D |
 |---|---|---|---|---|---|
-| Library components used | 0/13 | 0/13 | 13/13 | 13/13 | **12/13** |
-| Scattered raw values | 46 | **117** | 17 | 5 | 2 |
-| Custom properties owned | 71 | 27 | 0 | 0 | 0 |
-| Tier crossings | 0 | 0 | **2** | 0 | 0 |
-| Decision tokens used | 0 | 0 | 49 | 54 | 58 |
-| **Checks passed (of 7)** | n/a | n/a | **5/7** ‡ | **6/7** ‡ | **6/7** ‡ |
-| Colour conformance | .73 | .69 | n/a | n/a | n/a |
-| axe — serious | 3 | 2 | 1 † | 0 | 0 |
-| Cost | $4.75 | $4.18 | $6.63 | $7.21 | $8.82 |
+| Library components used | 0/13 ×2 | 0/13 ×2 | 13/13 ×2 | 13/13 ×2 | **12/13** · 13/13 |
+| Hand-reimplemented | 13 ×2 | 13 ×2 | 0 ×2 | 0 ×2 | **1** · 0 |
+| Scattered raw values | 46 · 41 | **117 · 133** | 17 · 2 | 5 · 3 | 2 · 3 |
+| Custom properties owned | 71 · 61 | 27 · 27 | 0 ×2 | 0 ×2 | 0 ×2 |
+| Tier crossings | 0 ×2 | 0 ×2 | **2** · 0 | 0 ×2 | 0 ×2 |
+| Decision tokens used | 0 ×2 | 0 ×2 | 49 · 54 | 54 · 48 | 58 · 56 |
+| **Checks passed (of 7)** | n/a | n/a | **5/7 · 5/7** ‡ | **6/7 · 6/7** ‡ | **6/7 · 7/7** ‡ |
+| Colour conformance | .73 · .88 | .69 · .70 | n/a § | n/a § | n/a § |
+| axe — serious | 3 ×2 | 2 ×2 | 1 † · 0 | 0 ×2 | 0 ×2 |
+| Cost | $4.75 · $4.43 | $4.18 · $4.18 | $6.63 · $9.32 | $7.21 · $5.80 | $8.82 · $8.88 |
+| Turns | 153 · 138 | 129 · 124 | 152 · 185 | 165 · 125 | 192 · 171 |
 
-† `aria-prohibited-attr`, not a contrast failure. **Across all eighteen runs of the three arms
-holding the library, on both models, `color-contrast` never fired once.**
+† `aria-prohibited-attr`, not a contrast failure. **Across all twenty-one runs of the three
+arms holding the library, on both models, `color-contrast` never fired once.**
 
-‡ One check returns `na` in each Sonnet run — `9.4` in B and C, `9.3` in D — because the run
-never built the surface the check applies to. Opus returned no `na` at all in fifteen library
-runs. B's only outright failure is `9.2`, the same check it fails on Opus.
+‡ The `na` verdicts are not failures: `9.4` in B-1 and C-1, `9.3` in D-1 — the run never built
+the surface the check applies to. Run 2 produced no `na` at all. B's failures are `9.2` in both
+runs; **C-2 also fails `9.2`**, the first time any arm holding the agent-facing document has
+failed it. See finding 4.
 
-Conformance is omitted for the Sonnet library arms for the same reason as on Opus: B authored
-17 values, C five and D two, against 117 in A and 144 in A′. The rates those produce (0.94, 0.40,
-0.50 overall) are ratios over a handful of observations and are in
+§ Conformance is omitted for the Sonnet library arms for the same reason as on Opus: they
+authored between two and 17 values, against 102–117 in A and 144–160 in A′. The rates those
+produce are ratios over a handful of observations and are in
 [`results/sonnet-5/`](results/sonnet-5) rather than here, where they would read as comparable.
 
 #### Findings, ordered by how well the data supports them
 
 **1. Shipping the design system as a typed, installable package is a step function.**
-Thirty runs, no overlap. Without the package — arms A and A′ alike — 12 or 13 of the 13
-components are hand-written every time, and the application ends up owning the CSS: 88–99
-custom properties in A, 132–146 scattered literals in A′. With the package: zero
-reimplementations in seventeen of eighteen runs across two models, and one in the eighteenth
-(Sonnet D-1, a single component). No condition without the package produced fewer than twelve.
+Thirty-five runs, no overlap. Without the package — arms A and A′ alike — 12 or 13 of the 13
+components are hand-written every time, and the application ends up owning the CSS: 61–99
+custom properties in A, 117–146 scattered literals in A′. With the package: zero
+reimplementations in twenty of twenty-one runs across two models, and one in the twenty-first
+(Sonnet D-1, a single component, which did not recur in D-2). No condition without the package
+produced fewer than twelve.
 
 **2. Writing the palette down does not fix accessibility. It industrialises the error.**
 
@@ -861,10 +932,10 @@ This is the finding arm A′ changed, and the fifth round changed it again.
 
 ```
 color-contrast, serious, by route        /login   /dashboard   /users
-A   — Figma frames only       6 runs      fail         fail      fail
-A′  — plus a styleguide       5 runs        ok         fail      fail
+A   — Figma frames only       7 runs      fail         fail      fail
+A′  — plus a styleguide       6 runs        ok         fail      fail
 A′  — plus a styleguide       1 run       fail         fail      fail
-B/C/D — the library          18 runs        ok           ok        ok
+B/C/D — the library          21 runs        ok           ok        ok
 
    both models · the single A′ run in the third row is Opus A′-5
 ```
@@ -909,8 +980,9 @@ worth reporting rather than fixing.
 The mechanism, which survives both the caveat and the fifth run: **a document can carry a wrong
 pairing perfectly.** An agent reading it has no way to notice, because nothing in prose fails.
 A component that is itself tested carries a pairing that passed a test. Arm A invents pairings
-and fails all three routes in six runs of six; arm A′ inherits pairings and fails two routes
-in five runs and three in the sixth; the library arms fail zero times in eighteen runs. Capability is not the variable — none
+and fails all three routes in seven runs of seven; arm A′ inherits pairings and fails two
+routes in six runs and three in the seventh; the library arms fail zero times in twenty-one
+runs. Capability is not the variable — none
 of the three conditions differ in the model.
 
 **3. The token resolver earns nothing measurable.** This was the pre-registered decisive
@@ -927,39 +999,55 @@ comparison and it is the finding that goes against the author's interest.
 
 On Opus the two arms are indistinguishable on the convention grid: ten runs, seventy verdicts,
 every one a pass. Where they differ at all, D is the worse of the two — two runs scattered
-literals where C scattered none, and the median run costs 7% more. On Sonnet, D used 12 of 13
-components and cost $1.61 more; it is the only run in the study where an arm holding the design
-system failed to use all thirteen.
+literals where C scattered none, and the median run costs 7% more.
+
+**The Sonnet evidence against the resolver got weaker at n = 2, not stronger.** At n = 1, D-1
+used 12 of 13 components — the only run in the study where an arm holding the design system
+failed to use all thirteen — and scored 6/7. D-2 used all thirteen and scored **7/7**, the first
+Sonnet run with a complete clean grid. The single reimplementation did not recur, so it is one
+run, not a pattern. In the other direction, C-2 fails `9.2` (finding 4) while both D runs pass
+it. On Sonnet the two arms now trade one defect each.
 
 With check `9.6` still counted this comparison read the other way — at n = 4, D 31/32 against
 C 29/32; at n = 5, D 39/40 against C 37/40 — and the whole gap was that check's `na`
 distribution, not a difference in behaviour. Removing it removed the gap. The dated entry above
 records how close that came to being published as a reversal of the pre-registered finding.
 
-**4. The agent-facing document earns exactly one check, and it replicates across models.**
+**4. The agent-facing document shifts one check heavily. It does not guarantee it.**
 
 ```
 9.2 — <dsb-column> requires #cell and let-row="row"
-   B    fail · pass · fail · fail · fail  (Opus)    fail  (Sonnet)    5 failures in 6
-   C    pass ×5                                     pass              0 in 6
-   D    pass ×5                                     pass              0 in 6
+                       Opus (5 runs)              Sonnet (2 runs)      total
+   B    fail·pass·fail·fail·fail                  fail·fail            6 failures in 7
+   C    pass ×5                                   pass·fail            1 in 7
+   D    pass ×5                                   pass·pass            0 in 7
 ```
 
 A template convention that cannot be read off the type declarations. Prose carries it; a token
-resolver has no opinion about it. At n = 3 this was 3 failures in 4; two more rounds made it 5
-in 6, and produced no counter-example in C or D.
+resolver has no opinion about it.
 
-Visible only on the weaker model: **B scattered 17 raw values and crossed the tier boundary
-twice, C scattered 5 and crossed none.** On Opus both were zero. The document appears to buy
-discipline as well as the one check, and to buy more of it the weaker the model.
+**The counter-example arrived with the second Sonnet round.** Until C-2 the tally was 5
+failures in 6 for B and zero for C and D, and this finding was written as *the document earns
+exactly one check*. C-2 fails `9.2`, so the honest statement is the ratio: **6 failures in 7
+runs without the document, 1 in 7 with it.** That is a large effect and not an absolute one.
+A reader is entitled to the difference, and so is a team deciding whether 3 kB of prose is
+worth writing.
+
+What also failed to replicate is the discipline claim. At n = 1 it read: *B scattered 17 raw
+values and crossed the tier boundary twice, C scattered 5 and crossed none* — the document
+buying order as well as the check, and buying more of it the weaker the model. **B-2 scattered
+two raw values and crossed nothing**, which is better than C-1. On Opus both arms were zero
+throughout. So that claim rested entirely on B-1 and is withdrawn; what is left is one check,
+at the ratio above.
 
 **5. Cost does not behave the way the pitch deck says.** Two results, both uncomfortable.
 
-The cheaper model was 2.1× more expensive. Sonnet's arm A cost $4.75 against Opus's median of
-$2.29 on the same specification, and the gap widened with infrastructure ($8.82 against $3.04
-for arm D). Per token Sonnet is far cheaper; it needed 129–192 turns where Opus needed 36–69,
-and each turn re-reads the whole context. On an agentic task the bill is turns × context, not
-price per token.
+The cheaper model was about twice as expensive. Sonnet's arm A cost $4.75 and $4.43 against
+Opus's median of $2.29 on the same specification, and the gap widened with infrastructure
+($8.82 and $8.88 against $3.04 for arm D). Per token Sonnet is far cheaper; it needed 124–192
+turns where Opus needed 36–69, and each turn re-reads the whole context. On an agentic task the
+bill is turns × context, not price per token. This is the one cost result that replicated
+cleanly in both Sonnet rounds.
 
 And within one model, cost is not monotonic in how much design system the agent holds:
 
@@ -967,15 +1055,26 @@ And within one model, cost is not monotonic in how much design system the agent 
 |---|---|---|---|---|---|
 | median cost | $2.02 | $2.29 | $2.83 | $3.04 | **$3.19** |
 
-**B — the library with no agent-facing document — is the most expensive arm in the study.**
-Adding `llms.client.txt`, about 3 kB, takes 11% off it. The ordering has held at n = 3, n = 4
-and n = 5. The readable story is that an agent handed an undocumented library pays to discover
-it, and 3 kB of prose is cheaper than the discovery. That is a mechanism worth one experiment
-of its own before it becomes a claim — the arms differ in what they produce as well as in what
-they read — but the direction has not reversed across three rounds of added runs.
+**On Opus, B — the library with no agent-facing document — is the most expensive arm in the
+study.** Adding `llms.client.txt`, about 3 kB, takes 11% off it, and the ordering has held at
+n = 3, n = 4 and n = 5. The readable story is that an agent handed an undocumented library pays
+to discover it, and 3 kB of prose is cheaper than the discovery.
 
-What does not survive is the simpler version written at n = 3: *cost rises as you add
-infrastructure.* It rises from A to B, and then falls.
+**The second Sonnet round says do not bank on it.** Sonnet's two rounds order the library arms
+in opposite directions:
+
+```
+   run 1    B $6.63  <  C $7.21  <  D $8.82
+   run 2    C $5.80  <  D $8.88  <  B $9.32
+```
+
+B swings by $2.69 and C by $1.41 between two runs of the same arm, which is more than the gap
+the Opus ordering rests on. So the within-model ordering is stable on Opus at n = 5 and not yet
+established on Sonnet at n = 2; treat it as an observation with a hypothesis attached, not a
+finding, and do not publish the mechanism until an experiment aimed at it has run.
+
+What does not survive in any version is the simpler claim written at n = 3: *cost rises as you
+add infrastructure.* On Opus it rises from A to B and then falls.
 
 **6. A written styleguide produced less consistent CSS than no styleguide at all.** The
 uncomfortable arm turned out to be uncomfortable in the other direction.
@@ -985,7 +1084,8 @@ uncomfortable arm turned out to be uncomfortable in the other direction.
 | Custom properties declared | 90 · 99 · 91 · 89 · 88 | 28 · 27 · 27 · 27 · 27 |
 | Raw values scattered in declarations | 6 · 0 · 0 · 6 · 4 | 139 · 132 · 133 · 146 · 138 |
 
-Sonnet the same: 71 declared and 46 scattered without the document, 27 and 117 with it.
+Sonnet the same, in both rounds: 71 and 61 declared with 46 and 41 scattered without the
+document; 27 and 27 declared with 117 and 133 scattered with it.
 
 Given nothing, the agent invents a complete internal vocabulary and uses it — roughly ninety
 properties and almost no literals. Given a partial document, it declares exactly the properties
@@ -1028,12 +1128,12 @@ in rounds from scratch. Rounds 4 and 5 are two fifths of it.
 
 | Claim | After stage one |
 |---|---|
-| The token pipeline changes what an agent writes | **supported** — step function, no overlap, one single-component exception in thirty runs |
-| Agent-facing documentation earns its keep | **supported narrowly** — one check, 5 failures in 6 without it against 0 in 12 with it, plus discipline on the weaker model and ~11% off the bill |
-| The token resolver / MCP layer earns its keep | **not supported** — two models, twelve runs, identical grids, higher cost |
-| A design system is a firewall against UI hallucinations | **not supported** — zero hallucinated API references in thirty runs, arms A and A′ included |
-| Shipping the system beats documenting it | **supported** — A′ scored nowhere near C on any dimension |
-| A design system lowers the cost of a generation | **not supported** — and the ordering is not even monotonic |
+| The token pipeline changes what an agent writes | **supported** — step function, no overlap, one single-component exception in thirty-five runs |
+| Agent-facing documentation earns its keep | **supported narrowly** — one check, 6 failures in 7 without it against 1 in 7 with it. The discipline claim beside it was withdrawn at n = 2 |
+| The token resolver / MCP layer earns its keep | **not supported** — two models, fourteen runs, no advantage on any dimension; the one run that argued against it did not replicate either |
+| A design system is a firewall against UI hallucinations | **not supported** — zero hallucinated API references in thirty-five runs, arms A and A′ included |
+| Shipping the system beats documenting it | **supported** — A′ scored nowhere near C on any dimension, in seven runs across two models |
+| A design system lowers the cost of a generation | **not supported** — and on Opus the ordering is not even monotonic |
 
 The claim the data carries is narrower than the one this study set out to test:
 
@@ -1053,11 +1153,13 @@ as the two that did not.
 - **Drift**: change one token value, count the files that must change. Costs nothing to run and
   supplies the maintenance term the cost table has no column for.
 - **Cost per accepted screen**, rather than per generation.
-- **Sonnet at n > 1.** Every cross-model claim here rests on one run per arm. The two that
-  matter most — `9.2`, and the B-versus-C discipline gap — would be cheap to make solid.
-- **Why B is the most expensive arm.** Finding 5 offers a mechanism and no instrumentation
-  behind it. Turn counts and per-turn input tokens are already in `results/`; nobody has read
-  them that way yet.
+- **Sonnet at n > 2.** The second round settled the two claims it was run for: `9.2` held and
+  gained a counter-example, the B-versus-C discipline gap did not hold at all. What it did not
+  settle is cost — the two rounds order the library arms in opposite directions, so a third
+  round is the cheapest thing on this list that would change a published number.
+- **Why B is the most expensive arm on Opus.** Finding 5 offers a mechanism and no
+  instrumentation behind it, and Sonnet does not reproduce the ordering. Turn counts and
+  per-turn input tokens are already in `results/`; nobody has read them that way yet.
 - **The five-arm grid in rounds**, three more rounds of it, so that C and A′ stop being the
   weakest-controlled columns in the table.
 

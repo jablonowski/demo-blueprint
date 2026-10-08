@@ -1,0 +1,55 @@
+<div class="login-card">
+  <h1 class="login-heading">Welcome back</h1>
+  <p class="login-subtitle">Sign in to your account to continue</p>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+    <div class="field-group">
+      <label class="field-label" for="username">Username</label>
+      <input
+        id="username"
+        type="text"
+        class="field-input"
+        [class.field-input--error]="username.invalid && username.touched"
+        placeholder="Enter your username"
+        formControlName="username"
+      />
+      @if (username.invalid && username.touched) {
+        <span class="field-error">Username is required</span>
+      }
+    </div>
+
+    <div class="field-group">
+      <label class="field-label" for="password">Password</label>
+      <input
+        id="password"
+        type="password"
+        class="field-input"
+        [class.field-input--error]="password.invalid && password.touched"
+        placeholder="Enter your password"
+        formControlName="password"
+      />
+      @if (password.invalid && password.touched) {
+        <span class="field-error">Password is required</span>
+      }
+    </div>
+
+    <div class="remember-row">
+      <label class="remember-check">
+        <input type="checkbox" />
+        <span>Remember me</span>
+      </label>
+      <a class="forgot-link" href="javascript:void(0)">Forgot password?</a>
+    </div>
+
+    @if (credentialsError) {
+      <p class="credentials-error">Invalid username or password.</p>
+    }
+
+    <button type="submit" class="submit-btn">Sign In</button>
+
+    <p class="signup-row">
+      Don't have an account?
+      <a class="signup-link" href="javascript:void(0)">Sign up</a>
+    </p>
+  </form>
+</div>

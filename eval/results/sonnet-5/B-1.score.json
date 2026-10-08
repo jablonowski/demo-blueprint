@@ -1,7 +1,7 @@
 {
   "arm": "B",
   "run": 1,
-  "scoredAt": "2026-10-07T09:19:45Z",
+  "scoredAt": "2026-10-08T20:00:49Z",
   "model": "claude-sonnet-5",
   "isolation": "session",
   "s0Sha": "c25d3e960f47",
@@ -129,19 +129,22 @@
         "id": 5,
         "slot": "shell — header",
         "selector": "dsb-header",
-        "verdict": "used"
+        "verdict": "used",
+        "note": "found outside the layout templates"
       },
       {
         "id": 6,
         "slot": "shell — footer",
         "selector": "dsb-footer",
-        "verdict": "used"
+        "verdict": "used",
+        "note": "found outside the layout templates"
       },
       {
         "id": 7,
         "slot": "shell — profile avatar",
         "selector": "dsb-avatar",
-        "verdict": "used"
+        "verdict": "used",
+        "note": "found outside the layout templates"
       },
       {
         "id": 8,

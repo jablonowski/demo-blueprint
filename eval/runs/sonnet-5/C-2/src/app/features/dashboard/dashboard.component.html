@@ -1,0 +1,70 @@
+<div class="dashboard">
+  <div class="dashboard-header">
+    <h1 class="dashboard-title">System Overview</h1>
+    <p class="dashboard-subtitle">Last updated: {{ lastUpdated | date: 'd MMM y, HH:mm' }} UTC</p>
+  </div>
+
+  <div class="dashboard-grid">
+    @for (tile of statTiles; track tile.label) {
+      <div class="card stat-tile">
+        <span class="stat-label">{{ tile.label }}</span>
+        <div class="stat-value-row">
+          <span class="stat-value">{{ tile.value }}</span>
+          <dsb-tag [variant]="tile.trendVariant" size="sm">{{ tile.trend }}</dsb-tag>
+        </div>
+        <span class="stat-caption">{{ tile.caption }}</span>
+      </div>
+    }
+
+    <div class="card span-2">
+      <h2 class="card-title">Request Throughput</h2>
+      <p class="card-subtitle">Requests per minute over the last 7 days</p>
+      <div class="chart" role="img" aria-label="Bar chart of request throughput, Monday through Sunday">
+        @for (bar of throughputBars; track bar.day) {
+          <div class="chart-col">
+            <div class="chart-bar-track">
+              <div class="chart-bar" [style.height.%]="bar.pct"></div>
+            </div>
+            <span class="chart-label">{{ bar.day }}</span>
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 class="card-title">Service Health</h2>
+      <div class="service-list">
+        @for (svc of services; track svc.name) {
+          <div class="service-row">
+            <span class="service-name">{{ svc.name }}</span>
+            <dsb-tag [variant]="svc.status === 'Online' ? 'success' : 'danger'" size="sm">{{ svc.status }}</dsb-tag>
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 class="card-title">Data Summary</h2>
+      <div class="summary-list">
+        @for (row of summary; track row.label) {
+          <div class="summary-row">
+            <span class="summary-label">{{ row.label }}</span>
+            <span class="summary-value">{{ row.value }}</span>
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="card span-4">
+      <div class="logs-header">
+        <h2 class="card-title">System Logs</h2>
+        <dsb-tag variant="success" size="sm">Live</dsb-tag>
+      </div>
+      <div class="log-viewport" #logViewport>
+        @for (line of logs; track $index) {
+          <div class="log-line">{{ line }}</div>
+        }
+      </div>
+    </div>
+  </div>
+</div>

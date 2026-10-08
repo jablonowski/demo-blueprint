@@ -1,0 +1,44 @@
+<app-modal-shell title="Member Details" (close)="close.emit()">
+  <span modal-header-extra class="badge badge--neutral">Read only</span>
+
+  <div modal-body>
+    <div class="user-row">
+      <app-user-avatar [name]="user.name" [size]="40" />
+      <div class="user-row__info">
+        <span class="user-row__name">{{ user.name }}</span>
+        <span class="user-row__since">Member since {{ memberSince }}</span>
+      </div>
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <span class="field__label">First name</span>
+        <div class="field__control field__control--disabled">{{ firstName }}</div>
+      </div>
+      <div class="field">
+        <span class="field__label">Last name</span>
+        <div class="field__control field__control--disabled">{{ lastName }}</div>
+      </div>
+    </div>
+
+    <div class="field">
+      <span class="field__label">Email address</span>
+      <div class="field__control field__control--disabled">{{ user.email }}</div>
+    </div>
+
+    <div class="field">
+      <span class="field__label">Role</span>
+      <div class="field__control field__control--disabled">{{ user.role }}</div>
+    </div>
+
+    <div class="status-row">
+      <span class="status-row__label">Status</span>
+      <app-badge [status]="user.status" />
+    </div>
+  </div>
+
+  <div modal-footer class="footer-split">
+    <span class="footer-split__note">To make changes, request Admin access.</span>
+    <button type="button" class="btn btn--secondary" (click)="close.emit()">Close</button>
+  </div>
+</app-modal-shell>

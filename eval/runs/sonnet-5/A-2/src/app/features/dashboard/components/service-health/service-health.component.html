@@ -1,0 +1,14 @@
+<div class="health card">
+  <span class="health__title">Service Health</span>
+
+  <ul class="health__list">
+    @for (service of services; track service.name) {
+      <li class="health__row">
+        <span class="health__name">{{ service.name }}</span>
+        <span class="badge" [class.badge--success]="service.online" [class.badge--danger]="!service.online">
+          {{ service.online ? 'Online' : 'Offline' }}
+        </span>
+      </li>
+    }
+  </ul>
+</div>

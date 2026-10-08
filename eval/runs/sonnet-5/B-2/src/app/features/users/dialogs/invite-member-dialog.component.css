@@ -1,0 +1,22 @@
+.invite-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-decisions-space-lg);
+}
+
+.field-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--ds-decisions-space-lg);
+}
+
+.dialog-footer {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-decisions-space-md);
+  width: 100%;
+}
+
+.dialog-footer--right {
+  justify-content: flex-end;
+}

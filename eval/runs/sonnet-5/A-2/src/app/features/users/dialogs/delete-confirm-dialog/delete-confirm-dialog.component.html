@@ -1,0 +1,10 @@
+<app-modal-shell title="Confirm Deletion" size="sm" (close)="cancel.emit()">
+  <p modal-body>
+    Are you sure you want to remove <strong>{{ memberName }}</strong>? This action cannot be undone.
+  </p>
+
+  <ng-container modal-footer>
+    <button type="button" class="btn btn--secondary" (click)="cancel.emit()">Cancel</button>
+    <button type="button" class="btn btn--danger" (click)="confirm.emit()">Delete</button>
+  </ng-container>
+</app-modal-shell>

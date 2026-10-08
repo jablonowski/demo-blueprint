@@ -1,0 +1,90 @@
+.details-header {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-decisions-space-md);
+}
+
+.details-title {
+  font-size: var(--ds-decisions-font-size-xl);
+  font-weight: var(--ds-decisions-font-weight-semibold);
+  color: var(--ds-decisions-color-text-primary);
+}
+
+.user-row {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-decisions-space-lg);
+  margin-bottom: var(--ds-decisions-space-xl);
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-decisions-space-3xs);
+}
+
+.user-name {
+  font-size: var(--ds-decisions-font-size-lg);
+  font-weight: var(--ds-decisions-font-weight-semibold);
+  color: var(--ds-decisions-color-text-primary);
+}
+
+.user-meta {
+  font-size: var(--ds-decisions-font-size-xs);
+  color: var(--ds-decisions-color-text-subtle);
+}
+
+.field-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--ds-decisions-space-lg);
+  margin-bottom: var(--ds-decisions-space-lg);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-decisions-space-xs);
+  margin-bottom: var(--ds-decisions-space-lg);
+}
+
+.field-label {
+  font-size: var(--ds-decisions-font-size-sm);
+  font-weight: var(--ds-decisions-font-weight-medium);
+  color: var(--ds-decisions-color-text-secondary);
+}
+
+.field-box {
+  padding: var(--ds-decisions-space-sm) var(--ds-decisions-space-md);
+  border: var(--ds-decisions-border-width-control) solid var(--ds-decisions-color-border-control);
+  border-radius: var(--ds-decisions-border-radius-md);
+  font-size: var(--ds-decisions-font-size-md);
+  color: var(--ds-decisions-color-text-primary);
+}
+
+.field-box--disabled {
+  background: var(--ds-decisions-color-surface-subtle);
+  color: var(--ds-decisions-color-text-disabled);
+}
+
+.status-row {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-decisions-space-md);
+}
+
+.dialog-footer {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-decisions-space-md);
+  width: 100%;
+}
+
+.dialog-footer--split {
+  justify-content: space-between;
+}
+
+.footer-note {
+  font-size: var(--ds-decisions-font-size-sm);
+  color: var(--ds-decisions-color-text-subtle);
+}

@@ -1,0 +1,75 @@
+<div class="users-page">
+  <div class="page-header">
+    <h1 class="page-heading">Team Members</h1>
+    <dsb-button variant="primary" (click)="openInvite()">Invite Member</dsb-button>
+  </div>
+
+  <dsb-table [rows]="tableRows" [hoverable]="true" emptyMessage="No team members found.">
+    <dsb-column key="avatar" header="" width="64px">
+      <ng-template #cell let-row="row">
+        <dsb-avatar [src]="asUser(row).avatar" [name]="asUser(row).name" size="sm" />
+      </ng-template>
+    </dsb-column>
+
+    <dsb-column key="name" header="Name">
+      <ng-template #cell let-row="row">{{ asUser(row).name }}</ng-template>
+    </dsb-column>
+
+    <dsb-column key="email" header="Email">
+      <ng-template #cell let-row="row">{{ asUser(row).email }}</ng-template>
+    </dsb-column>
+
+    <dsb-column key="role" header="Role">
+      <ng-template #cell let-row="row">
+        <dsb-tag [variant]="roleVariant(asUser(row).role)" size="sm">{{ asUser(row).role }}</dsb-tag>
+      </ng-template>
+    </dsb-column>
+
+    <dsb-column key="status" header="Status">
+      <ng-template #cell let-row="row">
+        <dsb-tag [variant]="statusVariant(asUser(row).status)" size="sm">{{ asUser(row).status }}</dsb-tag>
+      </ng-template>
+    </dsb-column>
+
+    <dsb-column key="joinedDate" header="Joined">
+      <ng-template #cell let-row="row">{{ asUser(row).joinedDate | date: 'MMM d, y' }}</ng-template>
+    </dsb-column>
+
+    <dsb-column key="actions" header="" align="right" width="220px">
+      <ng-template #cell let-row="row">
+        <div class="row-actions">
+          <dsb-button variant="ghost" size="sm" (click)="openDetails(asUser(row))">Details</dsb-button>
+          <dsb-button variant="secondary" size="sm" (click)="openEdit(asUser(row))">Edit</dsb-button>
+          <dsb-button variant="danger" size="sm" (click)="openDelete(asUser(row))">Delete</dsb-button>
+        </div>
+      </ng-template>
+    </dsb-column>
+  </dsb-table>
+</div>
+
+<app-member-details-dialog
+  [open]="detailsOpen()"
+  [user]="selectedUser()"
+  (closed)="closeDetails()"
+/>
+
+<app-edit-member-dialog
+  [open]="editOpen()"
+  [user]="selectedUser()"
+  (closed)="closeEdit()"
+  (saved)="onEditSaved($event)"
+  (deleteRequested)="onEditDeleteRequested()"
+/>
+
+<app-delete-confirm-dialog
+  [open]="deleteOpen()"
+  [user]="selectedUser()"
+  (closed)="closeDelete()"
+  (confirmed)="onDeleteConfirmed()"
+/>
+
+<app-invite-member-dialog
+  [open]="inviteOpen()"
+  (closed)="closeInvite()"
+  (invited)="onInvited($event)"
+/>

@@ -1,0 +1,21 @@
+.confirm-body {
+  margin: 0;
+  font-size: var(--ds-decisions-font-size-md);
+  color: var(--ds-decisions-color-text-body);
+  line-height: var(--ds-decisions-font-line-height-normal);
+}
+
+.dialog-footer {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-decisions-space-md);
+  width: 100%;
+}
+
+.dialog-footer--right {
+  justify-content: flex-end;
+}
+
+.dialog-footer--split {
+  justify-content: space-between;
+}

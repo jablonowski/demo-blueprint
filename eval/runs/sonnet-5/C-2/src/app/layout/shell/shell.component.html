@@ -1,0 +1,33 @@
+<div class="app-shell">
+  <div class="app-header-row">
+    <dsb-header brandName="Blueprint" [navItems]="navItems" />
+
+    <div class="profile-control">
+      <button type="button" class="profile-trigger" (click)="toggleMenu()" [attr.aria-expanded]="menuOpen">
+        <dsb-avatar name="Admin User" size="sm" />
+        <span class="profile-name">Admin User</span>
+        <span class="profile-chevron" aria-hidden="true">&#9662;</span>
+      </button>
+
+      @if (menuOpen) {
+        <div class="profile-menu">
+          <dsb-list [bordered]="true">
+            <dsb-list-item label="My Profile" (click)="closeMenu()" />
+            <dsb-list-item label="Sign Out" (click)="signOut()" />
+          </dsb-list>
+        </div>
+      }
+    </div>
+  </div>
+
+  <main class="app-main">
+    <router-outlet />
+  </main>
+
+  <dsb-footer
+    brandName="Blueprint"
+    copyright="© 2026 Blueprint. All rights reserved."
+    [columns]="footerColumns"
+    [legalLinks]="legalLinks"
+  />
+</div>

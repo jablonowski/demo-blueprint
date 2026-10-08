@@ -1,0 +1,28 @@
+<header class="header">
+  <div class="header__inner">
+    <div class="header__brand">
+      <span class="header__logo" aria-hidden="true">B</span>
+      <span class="header__brand-name">Blueprint</span>
+    </div>
+
+    <nav class="header__nav">
+      <a class="header__link" routerLink="/dashboard" routerLinkActive="header__link--active">Dashboard</a>
+      <a class="header__link" routerLink="/users" routerLinkActive="header__link--active">Team Members</a>
+    </nav>
+
+    <div class="header__profile">
+      <button type="button" class="header__profile-trigger" (click)="toggleMenu(); $event.stopPropagation()">
+        <span class="header__avatar">{{ initials }}</span>
+        <span class="header__user-name">{{ userName }}</span>
+        <span class="header__chevron" aria-hidden="true">&#9662;</span>
+      </button>
+
+      @if (menuOpen) {
+        <div class="header__menu">
+          <button type="button" class="header__menu-item">My Profile</button>
+          <button type="button" class="header__menu-item header__menu-item--danger" (click)="signOut()">Sign Out</button>
+        </div>
+      }
+    </div>
+  </div>
+</header>

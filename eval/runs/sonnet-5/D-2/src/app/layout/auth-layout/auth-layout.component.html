@@ -1,0 +1,50 @@
+<div class="shell">
+  <div class="header-bar" (click)="onHeaderNavClick($event)">
+    <dsb-header brandName="Blueprint" [navItems]="navItems()" />
+
+    <div class="header-overlay">
+      <div class="user-menu">
+        <button
+          type="button"
+          class="user-menu-trigger"
+          (click)="toggleMenu()"
+          [attr.aria-expanded]="menuOpen()"
+          aria-haspopup="menu"
+        >
+          <dsb-avatar name="Admin User" size="sm" />
+          <span class="user-name">Admin User</span>
+          <span class="chevron" aria-hidden="true">▾</span>
+        </button>
+
+        @if (menuOpen()) {
+          <div class="user-menu-panel" role="menu">
+            <button type="button" role="menuitem" class="user-menu-item" (click)="onProfile()">
+              My Profile
+            </button>
+            <button
+              type="button"
+              role="menuitem"
+              class="user-menu-item user-menu-item--danger"
+              (click)="onSignOut()"
+            >
+              Sign Out
+            </button>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+
+  <main class="main-content">
+    <div class="content-container">
+      <router-outlet />
+    </div>
+  </main>
+
+  <dsb-footer
+    brandName="Blueprint"
+    [columns]="footerColumns"
+    [copyright]="copyright"
+    [legalLinks]="legalLinks"
+  />
+</div>

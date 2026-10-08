@@ -1,0 +1,7 @@
+<span class="avatar" [class.avatar--lg]="size === 40">
+  @if (src && !imageFailed) {
+    <img class="avatar__image" [src]="src" [alt]="name" (error)="onError()" />
+  } @else {
+    <span class="avatar__initials">{{ initials }}</span>
+  }
+</span>
