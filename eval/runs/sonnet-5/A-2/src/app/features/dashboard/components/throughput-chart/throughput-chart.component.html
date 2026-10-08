@@ -1,0 +1,14 @@
+<div class="chart card">
+  <span class="chart__title">Request Throughput</span>
+
+  <div class="chart__bars">
+    @for (bar of bars; track bar.label) {
+      <div class="chart__column">
+        <div class="chart__track">
+          <div class="chart__bar" [style.height.%]="bar.percent"></div>
+        </div>
+        <span class="chart__label">{{ bar.label }}</span>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,24 @@
+.users-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-decisions-space-xl);
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.page-heading {
+  font-size: var(--ds-decisions-font-size-2xl);
+  font-weight: var(--ds-decisions-font-weight-semibold);
+  color: var(--ds-decisions-color-text-primary);
+}
+
+.row-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--ds-decisions-space-sm);
+}

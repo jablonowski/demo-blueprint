@@ -549,7 +549,9 @@ measure() {
   note "$arm/$n — build: $built"
 
   if [[ "$built" == "true" ]]; then
-    A11Y_SHOTS_DIR="$dir/shots" node "$scorers/a11y.js" "$root" > "$dir/a11y.json" 2>/dev/null || true
+    A11Y_SHOTS_DIR="$dir/shots" node "$scorers/a11y.js" "$root" > "$dir/a11y.json" 2>"$dir/a11y.stderr" \
+      || printf '{"available":false,"reason":"a11y.js exited %s; see a11y.stderr"}\n' "$?" > "$dir/a11y.json"
+    [[ -s "$dir/a11y.json" ]] || printf '{"available":false,"reason":"a11y.js wrote nothing; see a11y.stderr"}\n' > "$dir/a11y.json"
     local total; total="$(node -p "const a=require('$dir/a11y.json'); a.available? a.total : a.reason" 2>/dev/null || echo '?')"
     note "$arm/$n — axe: $total"
   else
@@ -571,7 +573,7 @@ archive() {
   for item in src angular.json package.json tsconfig.json tsconfig.app.json README.md; do
     [[ -e "$root/$item" ]] && cp -R "$root/$item" "$dest/"
   done
-  for item in build.json a11y.json figma-calls.jsonl shots; do
+  for item in build.json a11y.json a11y.stderr figma-calls.jsonl shots; do
     [[ -e "$dir/$item" ]] && cp -R "$dir/$item" "$dest/"
   done
   # Where it was built is a fact about the run, not a detail to normalise away.

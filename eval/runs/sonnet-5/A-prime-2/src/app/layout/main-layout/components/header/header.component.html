@@ -1,0 +1,27 @@
+<header class="header">
+  <div class="header-left">
+    <span class="brand">
+      <span class="brand-logo">B</span>
+      <span class="brand-name">Blueprint</span>
+    </span>
+    <nav class="nav">
+      <a routerLink="/dashboard" routerLinkActive="nav-link--active" class="nav-link">Dashboard</a>
+      <a routerLink="/users" routerLinkActive="nav-link--active" class="nav-link">Team Members</a>
+    </nav>
+  </div>
+
+  <div class="profile">
+    <button type="button" class="profile-trigger" (click)="toggleMenu()">
+      <span class="profile-avatar">AU</span>
+      <span class="profile-name">Admin User</span>
+      <span class="profile-chevron">▾</span>
+    </button>
+
+    @if (menuOpen) {
+      <div class="profile-menu">
+        <button type="button" class="profile-menu-item" (click)="closeMenu()">My Profile</button>
+        <button type="button" class="profile-menu-item profile-menu-item--danger" (click)="signOut()">Sign Out</button>
+      </div>
+    }
+  </div>
+</header>

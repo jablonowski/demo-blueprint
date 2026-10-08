@@ -1,0 +1,37 @@
+.user-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.user-row-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.user-row-name {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.user-row-meta {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.field-static {
+  padding: 10px 12px;
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+  background: var(--color-surface-subtle);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.status-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}

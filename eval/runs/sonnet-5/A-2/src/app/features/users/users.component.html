@@ -1,0 +1,69 @@
+<div class="users-page">
+  <div class="users-page__header">
+    <h1 class="users-page__heading">Team Members</h1>
+    <button type="button" class="btn btn--primary" (click)="openInvite()">Invite Member</button>
+  </div>
+
+  <div class="users-table card">
+    <table>
+      <thead>
+        <tr>
+          <th class="users-table__avatar-col"></th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Status</th>
+          <th>Joined</th>
+          <th class="users-table__actions-col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (user of users; track user.id) {
+          <tr>
+            <td class="users-table__avatar-col">
+              <app-user-avatar [name]="user.name" [src]="user.avatar" />
+            </td>
+            <td>{{ user.name }}</td>
+            <td class="users-table__muted">{{ user.email }}</td>
+            <td><app-badge [role]="user.role" /></td>
+            <td><app-badge [status]="user.status" /></td>
+            <td class="users-table__muted">{{ user.joinedDate }}</td>
+            <td class="users-table__actions-col">
+              <div class="users-table__actions">
+                <button type="button" class="btn btn--ghost btn--sm" (click)="openDetails(user)">Details</button>
+                <button type="button" class="btn btn--secondary btn--sm" (click)="openEdit(user)">Edit</button>
+                <button type="button" class="btn btn--danger btn--sm" (click)="openDelete(user)">Delete</button>
+              </div>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+
+@if (dialog.kind === 'delete') {
+  <app-delete-confirm-dialog
+    [memberName]="dialog.user.name"
+    (cancel)="closeDialog()"
+    (confirm)="confirmDelete()"
+  />
+}
+
+@if (dialog.kind === 'details') {
+  <app-member-details-dialog [user]="dialog.user" (close)="closeDialog()" />
+}
+
+@if (dialog.kind === 'edit') {
+  <app-member-form-dialog
+    mode="edit"
+    [user]="dialog.user"
+    (cancel)="closeDialog()"
+    (save)="saveEdit($event)"
+    (deleteRequested)="deleteFromEdit()"
+  />
+}
+
+@if (dialog.kind === 'invite') {
+  <app-member-form-dialog mode="invite" (cancel)="closeDialog()" (save)="sendInvite($event)" />
+}

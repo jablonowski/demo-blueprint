@@ -1,0 +1,62 @@
+<div class="page-head">
+  <h1 class="page-title">Team Members</h1>
+  <button type="button" class="invite-btn" (click)="openInvite()">Invite Member</button>
+</div>
+
+<div class="table-card">
+  <table class="users-table">
+    <thead>
+      <tr>
+        <th class="col-avatar"></th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Status</th>
+        <th>Joined</th>
+        <th class="col-actions">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (user of users; track user.id) {
+        <tr>
+          <td class="col-avatar">
+            <app-avatar [name]="user.name" [src]="user.avatar" [size]="36" />
+          </td>
+          <td class="cell-name">{{ user.name }}</td>
+          <td class="cell-muted">{{ user.email }}</td>
+          <td><app-badge [tone]="roleTone(user.role)">{{ user.role }}</app-badge></td>
+          <td><app-badge [tone]="statusTone(user.status)">{{ user.status }}</app-badge></td>
+          <td class="cell-muted">{{ formatJoined(user.joinedDate) }}</td>
+          <td class="col-actions">
+            <div class="row-actions">
+              <button type="button" class="action-btn action-btn--ghost" (click)="openDetails(user)">Details</button>
+              <button type="button" class="action-btn action-btn--secondary" (click)="openEdit(user)">Edit</button>
+              <button type="button" class="action-btn action-btn--danger" (click)="openDelete(user)">Delete</button>
+            </div>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
+
+@if (showDetails && selectedUser) {
+  <app-details-dialog [user]="selectedUser" (dismiss)="closeDetails()" />
+}
+
+@if (showEdit && selectedUser) {
+  <app-edit-dialog
+    [user]="selectedUser"
+    (dismiss)="closeEdit()"
+    (save)="saveEdit($event)"
+    (requestDelete)="requestDeleteFromEdit()"
+  />
+}
+
+@if (showDelete && selectedUser) {
+  <app-delete-dialog [user]="selectedUser" (dismiss)="closeDelete()" (confirm)="confirmDelete()" />
+}
+
+@if (showInvite) {
+  <app-invite-dialog (dismiss)="closeInvite()" (invite)="sendInvite($event)" />
+}

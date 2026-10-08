@@ -1,0 +1,71 @@
+<div class="users-page">
+  <div class="page-header">
+    <h1 class="page-title">Team Members</h1>
+    <dsb-button variant="primary" (click)="openInvite()">Invite Member</dsb-button>
+  </div>
+
+  <dsb-table [rows]="users" [loading]="loading" [striped]="true" [hoverable]="true" emptyMessage="No team members yet.">
+    <dsb-column key="avatar" header="Avatar" width="72px">
+      <ng-template #cell let-row="row">
+        <dsb-avatar [src]="avatarSrc(row.avatar)" [name]="row.name" size="sm" />
+        <img
+          [src]="row.avatar"
+          (error)="onAvatarError(row.avatar)"
+          alt=""
+          aria-hidden="true"
+          class="avatar-probe"
+        />
+      </ng-template>
+    </dsb-column>
+
+    <dsb-column key="name" header="Name"></dsb-column>
+    <dsb-column key="email" header="Email"></dsb-column>
+
+    <dsb-column key="role" header="Role">
+      <ng-template #cell let-value>
+        <dsb-tag [variant]="roleVariant(value)" size="sm">{{ value }}</dsb-tag>
+      </ng-template>
+    </dsb-column>
+
+    <dsb-column key="status" header="Status">
+      <ng-template #cell let-value>
+        <dsb-tag [variant]="statusVariant(value)" size="sm">{{ value }}</dsb-tag>
+      </ng-template>
+    </dsb-column>
+
+    <dsb-column key="joinedDate" header="Joined"></dsb-column>
+
+    <dsb-column key="actions" header="Actions" width="240px">
+      <ng-template #cell let-row="row">
+        <div class="row-actions">
+          <dsb-button variant="ghost" size="sm" (click)="openDetails(row)">Details</dsb-button>
+          <dsb-button variant="secondary" size="sm" (click)="openEdit(row)">Edit</dsb-button>
+          <dsb-button variant="danger" size="sm" (click)="openDelete(row)">Delete</dsb-button>
+        </div>
+      </ng-template>
+    </dsb-column>
+  </dsb-table>
+</div>
+
+<app-member-details-dialog
+  [open]="detailsOpen"
+  [user]="selectedUser"
+  (closed)="closeDetails()"
+/>
+
+<app-edit-member-dialog
+  [open]="editOpen"
+  [user]="selectedUser"
+  (closed)="closeEdit()"
+  (saved)="onSaved()"
+  (deleteRequested)="onEditDeleteRequested()"
+/>
+
+<app-invite-member-dialog [open]="inviteOpen" (closed)="closeInvite()" (invited)="onInvited()" />
+
+<app-delete-confirm-dialog
+  [open]="deleteOpen"
+  [user]="selectedUser"
+  (closed)="closeDelete()"
+  (deleted)="onDeleted()"
+/>

@@ -1,0 +1,75 @@
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-header-row {
+  position: relative;
+  width: 100%;
+}
+
+.profile-control {
+  position: absolute;
+  top: 0;
+  right: var(--ds-decisions-space-4xl);
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.profile-trigger {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-decisions-space-sm);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: var(--ds-decisions-space-2xs) var(--ds-decisions-space-sm);
+  border-radius: var(--ds-decisions-border-radius-md);
+}
+
+.profile-trigger:hover {
+  background: var(--ds-decisions-color-surface-hover);
+}
+
+.profile-name {
+  font-size: var(--ds-decisions-font-size-sm);
+  font-weight: var(--ds-decisions-font-weight-medium);
+  color: var(--ds-decisions-color-text-primary);
+}
+
+.profile-chevron {
+  font-size: var(--ds-decisions-font-size-xs);
+  color: var(--ds-decisions-color-text-muted);
+}
+
+.profile-menu {
+  position: absolute;
+  top: calc(100% + var(--ds-decisions-space-xs));
+  right: 0;
+  width: var(--ds-decisions-layout-width-sm);
+  z-index: var(--ds-decisions-z-index-dropdown);
+  background: var(--ds-decisions-color-surface-base);
+  border-radius: var(--ds-decisions-border-radius-lg);
+  box-shadow: var(--ds-decisions-shadow-dropdown);
+  overflow: hidden;
+}
+
+.profile-menu dsb-list-item {
+  cursor: pointer;
+  display: block;
+}
+
+.profile-menu dsb-list-item:hover {
+  background: var(--ds-decisions-color-surface-hover);
+}
+
+.app-main {
+  flex: 1;
+  width: 100%;
+  max-width: var(--ds-decisions-layout-width-3xl);
+  margin: 0 auto;
+  padding: var(--ds-decisions-space-4xl) var(--ds-decisions-space-4xl);
+  box-sizing: border-box;
+}

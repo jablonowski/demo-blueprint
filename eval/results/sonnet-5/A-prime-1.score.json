@@ -1,7 +1,7 @@
 {
   "arm": "A-prime",
   "run": 1,
-  "scoredAt": "2026-10-07T09:19:45Z",
+  "scoredAt": "2026-10-08T20:00:49Z",
   "model": "claude-sonnet-5",
   "isolation": "session",
   "s0Sha": "c25d3e960f47",

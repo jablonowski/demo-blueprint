@@ -1,0 +1,43 @@
+<dsb-modal [open]="open" title="Invite Member" size="md" [closeOnBackdrop]="true" (closed)="onModalClosed()">
+  <form [formGroup]="form" class="invite-form">
+    <div class="field-grid">
+      <dsb-input
+        label="First name"
+        placeholder="Enter first name"
+        formControlName="firstName"
+        [hasError]="firstName.invalid && firstName.touched"
+        errorMessage="First name is required."
+      />
+      <dsb-input
+        label="Last name"
+        placeholder="Enter last name"
+        formControlName="lastName"
+        [hasError]="lastName.invalid && lastName.touched"
+        errorMessage="Last name is required."
+      />
+    </div>
+
+    <dsb-input
+      label="Email address"
+      type="email"
+      placeholder="Enter email address"
+      formControlName="email"
+      [hasError]="email.invalid && email.touched"
+      errorMessage="A valid email address is required."
+    />
+
+    <dsb-dropdown
+      label="Role"
+      placeholder="Select role…"
+      [options]="roleOptions"
+      formControlName="role"
+      [hasError]="role.invalid && role.touched"
+      errorMessage="Role is required."
+    />
+  </form>
+
+  <div modal-footer class="dialog-footer dialog-footer--right">
+    <dsb-button variant="secondary" (click)="onCancel()">Cancel</dsb-button>
+    <dsb-button variant="primary" [loading]="sending" (click)="onSendInvite()">Send Invite</dsb-button>
+  </div>
+</dsb-modal>

@@ -1,0 +1,85 @@
+<div class="dashboard-grid">
+  <app-metric-tile
+    class="tile-span-1"
+    label="Active Users"
+    value="1,284"
+    trend="+12%"
+    [trendPositive]="true"
+    subLabel="vs last 7 days"
+  />
+  <app-metric-tile
+    class="tile-span-1"
+    label="Avg Response Time"
+    value="142ms"
+    trend="-8ms"
+    [trendPositive]="true"
+    subLabel="vs last 7 days"
+  />
+  <app-metric-tile
+    class="tile-span-1"
+    label="Error Rate"
+    value="0.04%"
+    trend="+0.01%"
+    [trendPositive]="false"
+    subLabel="vs last 7 days"
+  />
+  <app-metric-tile
+    class="tile-span-1"
+    label="Uptime (30d)"
+    value="99.97%"
+    trend="Stable"
+    [trendPositive]="true"
+    subLabel="last 30 days"
+  />
+
+  <section class="card tile-span-2">
+    <h2 class="card-title">Request Throughput</h2>
+    <div class="chart">
+      @for (bar of throughput; track bar.day) {
+        <div class="chart-col">
+          <div class="chart-bar" [style.height.%]="barHeight(bar.value)"></div>
+          <span class="chart-day">{{ bar.day }}</span>
+        </div>
+      }
+    </div>
+  </section>
+
+  <section class="card tile-span-1">
+    <h2 class="card-title">Service Health</h2>
+    <ul class="status-list">
+      @for (service of services; track service.name) {
+        <li class="status-row">
+          <span class="status-name">{{ service.name }}</span>
+          <dsb-tag [variant]="statusVariant(service.online)" size="sm">
+            {{ service.online ? 'Online' : 'Offline' }}
+          </dsb-tag>
+        </li>
+      }
+    </ul>
+  </section>
+
+  <section class="card tile-span-1">
+    <h2 class="card-title">Data Summary</h2>
+    <ul class="summary-list">
+      @for (row of summary; track row.label) {
+        <li class="summary-row">
+          <span class="summary-label">{{ row.label }}</span>
+          <span class="summary-value">{{ row.value }}</span>
+        </li>
+      }
+    </ul>
+  </section>
+
+  <section class="card tile-span-4">
+    <h2 class="card-title">System Logs</h2>
+    <div class="logs-viewport">
+      @for (line of logs(); track $index) {
+        <div class="log-line">
+          <span class="log-dot log-dot--{{ line.level }}" aria-hidden="true"></span>
+          <span class="log-prefix">[{{ line.level.toUpperCase() }}]</span>
+          <span>{{ line.text }}</span>
+        </div>
+      }
+    </div>
+  </section>
+</div>

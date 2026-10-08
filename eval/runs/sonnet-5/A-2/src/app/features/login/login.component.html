@@ -1,0 +1,59 @@
+<div class="auth">
+  <div class="auth__card">
+    <h1 class="auth__heading">Welcome back</h1>
+    <p class="auth__subtitle">Sign in to your account to continue</p>
+
+    <form class="auth__form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <div class="field">
+        <label class="field__label" for="username">Username</label>
+        <input
+          id="username"
+          type="text"
+          class="field__control"
+          [class.field__control--invalid]="username.invalid && username.touched"
+          formControlName="username"
+          placeholder="Enter your username"
+          autocomplete="username"
+        />
+        @if (username.invalid && username.touched) {
+          <span class="field__error">Username is required.</span>
+        }
+      </div>
+
+      <div class="field">
+        <label class="field__label" for="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          class="field__control"
+          [class.field__control--invalid]="password.invalid && password.touched"
+          formControlName="password"
+          placeholder="Enter your password"
+          autocomplete="current-password"
+        />
+        @if (password.invalid && password.touched) {
+          <span class="field__error">Password is required.</span>
+        }
+      </div>
+
+      @if (loginError) {
+        <span class="field__error">Invalid username or password.</span>
+      }
+
+      <div class="auth__row">
+        <label class="auth__remember">
+          <input type="checkbox" />
+          <span>Remember me</span>
+        </label>
+        <button type="button" class="auth__forgot">Forgot password?</button>
+      </div>
+
+      <button type="submit" class="btn btn--primary btn--full auth__submit">Sign In</button>
+    </form>
+
+    <p class="auth__signup">
+      Don't have an account?
+      <button type="button" class="auth__signup-link">Sign up</button>
+    </p>
+  </div>
+</div>

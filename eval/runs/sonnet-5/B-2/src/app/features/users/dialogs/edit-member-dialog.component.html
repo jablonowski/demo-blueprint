@@ -1,0 +1,60 @@
+<dsb-modal [open]="open" title="Edit Member" size="md" [closeOnBackdrop]="true" (closed)="onModalClosed()">
+  @if (user) {
+    <div class="user-row">
+      <dsb-avatar [name]="user.name" size="md" shape="circle" />
+      <div class="user-info">
+        <span class="user-name">{{ user.name }}</span>
+        <span class="user-meta">Member since {{ memberSince }}</span>
+      </div>
+    </div>
+
+    <form [formGroup]="form" class="edit-form">
+      <div class="field-grid">
+        <dsb-input
+          label="First name"
+          placeholder="Enter first name"
+          formControlName="firstName"
+          [hasError]="firstName.invalid && firstName.touched"
+          errorMessage="First name is required."
+        />
+        <dsb-input
+          label="Last name"
+          placeholder="Enter last name"
+          formControlName="lastName"
+          [hasError]="lastName.invalid && lastName.touched"
+          errorMessage="Last name is required."
+        />
+      </div>
+
+      <dsb-input
+        label="Email address"
+        type="email"
+        placeholder="Enter email address"
+        formControlName="email"
+        [hasError]="email.invalid && email.touched"
+        errorMessage="A valid email address is required."
+      />
+
+      <dsb-dropdown
+        label="Role"
+        [options]="roleOptions"
+        formControlName="role"
+        [hasError]="role.invalid && role.touched"
+        errorMessage="Role is required."
+      />
+
+      <div class="status-row">
+        <span class="field-label">Status</span>
+        <dsb-tag [variant]="statusVariant(user.status)" size="sm">{{ user.status }}</dsb-tag>
+      </div>
+    </form>
+  }
+
+  <div modal-footer class="dialog-footer dialog-footer--split">
+    <dsb-button variant="danger" (click)="onDeleteUser()">Delete user</dsb-button>
+    <div class="dialog-footer-right">
+      <dsb-button variant="secondary" (click)="onCancel()">Cancel</dsb-button>
+      <dsb-button variant="primary" [loading]="saving" (click)="onSave()">Save changes</dsb-button>
+    </div>
+  </div>
+</dsb-modal>

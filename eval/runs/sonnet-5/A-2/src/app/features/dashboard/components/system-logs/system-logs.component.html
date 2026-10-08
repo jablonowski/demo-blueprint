@@ -1,0 +1,13 @@
+<div class="logs card">
+  <span class="logs__title">System Logs</span>
+
+  <div class="logs__viewport" #logViewport>
+    @for (log of logs; track $index) {
+      <div class="logs__line">
+        <span class="logs__time">{{ log.time }}</span>
+        <span class="logs__level" [class.logs__level--warn]="log.level === 'WARN'" [class.logs__level--error]="log.level === 'ERROR'">{{ log.level }}</span>
+        <span class="logs__message">{{ log.message }}</span>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,50 @@
+<app-modal size="md" (dismiss)="dismiss.emit()">
+  <div class="dialog-header">
+    <div class="dialog-header-left">
+      <h2>Member Details</h2>
+      <span class="tag tag-default">Read only</span>
+    </div>
+    <button type="button" class="dialog-close" (click)="dismiss.emit()">✕</button>
+  </div>
+
+  <div class="dialog-body">
+    <div class="user-row">
+      <app-avatar [name]="user.name" [size]="48" />
+      <div class="user-row-info">
+        <span class="user-row-name">{{ user.name }}</span>
+        <span class="user-row-meta">Member since {{ memberSince }}</span>
+      </div>
+    </div>
+
+    <div class="field-row">
+      <div class="field-group">
+        <span class="field-label field-label--muted">First name</span>
+        <div class="field-static">{{ firstName }}</div>
+      </div>
+      <div class="field-group">
+        <span class="field-label field-label--muted">Last name</span>
+        <div class="field-static">{{ lastName }}</div>
+      </div>
+    </div>
+
+    <div class="field-group">
+      <span class="field-label field-label--muted">Email address</span>
+      <div class="field-static">{{ user.email }}</div>
+    </div>
+
+    <div class="field-group">
+      <span class="field-label field-label--muted">Role</span>
+      <div class="field-static">{{ user.role }}</div>
+    </div>
+
+    <div class="status-row">
+      <span class="field-label">Status</span>
+      <span class="tag" [class]="'tag-' + statusTone">{{ user.status }}</span>
+    </div>
+  </div>
+
+  <div class="dialog-footer dialog-footer--split dialog-footer--bordered">
+    <p class="dialog-footer-note">To make changes, request Admin access.</p>
+    <button type="button" class="btn btn--secondary" (click)="dismiss.emit()">Close</button>
+  </div>
+</app-modal>

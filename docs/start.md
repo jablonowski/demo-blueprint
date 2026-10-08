@@ -36,7 +36,7 @@ flowchart LR
     class ROW out
 ```
 
-Everything in green is held constant across all thirty runs. Everything in yellow is the
+Everything in green is held constant across all thirty-five runs. Everything in yellow is the
 one variable. The drawn version of the arms is
 [`assets/arms.svg`](assets/arms.svg).
 
@@ -44,7 +44,7 @@ one variable. The drawn version of the arms is
 
 ### The data
 
-- **[Results](results.md)** — thirty runs, every metric, both models. The per-check grid,
+- **[Results](results.md)** — thirty-five runs, every metric, both models. The per-check grid,
   the contrast table, and where the screenshots live.
 - **[Scorers](scorers.md)** — what each column counts, which scorer produces it, and what
   it would fail to notice.
@@ -61,7 +61,7 @@ one variable. The drawn version of the arms is
 
 - **[Limitations](limitations.md)** — what is excluded, what is void, and the list of things
   this study does not claim.
-- **[A note on the instrument](instrument.md)** — eleven times a gate reported success while
+- **[A note on the instrument](instrument.md)** — twelve times a gate reported success while
   proving a different proposition than the one it was written for. Each one was green.
 
 ### The audit trail

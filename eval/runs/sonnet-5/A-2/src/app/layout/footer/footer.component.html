@@ -1,0 +1,32 @@
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <span class="footer__logo" aria-hidden="true">B</span>
+        <span class="footer__brand-name">Blueprint</span>
+      </div>
+
+      <div class="footer__columns">
+        @for (column of columns; track column.title) {
+          <div class="footer__column">
+            <span class="footer__column-title">{{ column.title }}</span>
+            @for (link of column.links; track link) {
+              <button type="button" class="footer__link">{{ link }}</button>
+            }
+          </div>
+        }
+      </div>
+    </div>
+
+    <hr class="divider" />
+
+    <div class="footer__bottom">
+      <span class="footer__copyright">&copy; {{ year }} Blueprint. All rights reserved.</span>
+      <div class="footer__legal">
+        @for (link of legalLinks; track link) {
+          <button type="button" class="footer__legal-link">{{ link }}</button>
+        }
+      </div>
+    </div>
+  </div>
+</footer>

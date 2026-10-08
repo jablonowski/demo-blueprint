@@ -1,0 +1,80 @@
+<div class="dashboard">
+  <div class="metrics-row">
+    <app-metric-tile
+      title="Active Users"
+      value="1,284"
+      trend="+12%"
+      [trendPositive]="true"
+      subLabel="vs last 7 days"
+    />
+    <app-metric-tile
+      title="Avg Response Time"
+      value="142ms"
+      trend="-8ms"
+      [trendPositive]="true"
+      subLabel="vs last 7 days"
+    />
+    <app-metric-tile
+      title="Error Rate"
+      value="0.04%"
+      trend="+0.01%"
+      [trendPositive]="false"
+      subLabel="vs last 7 days"
+    />
+    <app-metric-tile
+      title="Uptime (30d)"
+      value="99.97%"
+      trend="Stable"
+      [trendPositive]="true"
+      subLabel="last 30 days"
+    />
+  </div>
+
+  <div class="split-row">
+    <div class="card">
+      <h2 class="card-title">Service Health</h2>
+      <dsb-list [divided]="true">
+        @for (service of services; track service.name) {
+          <dsb-list-item
+            [label]="service.name"
+            [meta]="service.online ? 'Online' : 'Offline'"
+            [variant]="service.online ? 'success' : 'error'"
+            [indicator]="true"
+          />
+        }
+      </dsb-list>
+    </div>
+
+    <div class="card">
+      <h2 class="card-title">Request Throughput</h2>
+      <div class="chart">
+        @for (day of throughput; track day.label) {
+          <div class="bar-col">
+            <div class="bar" [style.height.%]="day.percent"></div>
+            <span class="bar-label">{{ day.label }}</span>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+
+  <div class="split-row">
+    <div class="card">
+      <h2 class="card-title">Data Summary</h2>
+      <dsb-list [divided]="true">
+        @for (row of summary; track row.label) {
+          <dsb-list-item [label]="row.label" [meta]="row.value" />
+        }
+      </dsb-list>
+    </div>
+
+    <div class="card">
+      <h2 class="card-title">System Logs</h2>
+      <div class="log-viewport" #logViewport>
+        @for (line of logs; track $index) {
+          <div class="log-line">{{ line }}</div>
+        }
+      </div>
+    </div>
+  </div>
+</div>

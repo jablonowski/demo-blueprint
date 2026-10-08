@@ -1,0 +1,60 @@
+<app-modal size="md" (dismiss)="dismiss.emit()">
+  <div class="dialog-header">
+    <h2>Invite Member</h2>
+    <button type="button" class="dialog-close" (click)="dismiss.emit()">✕</button>
+  </div>
+
+  <form class="dialog-body" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="field-row">
+      <div class="field-group">
+        <label class="field-label" for="invite-first-name">First name</label>
+        <input
+          id="invite-first-name"
+          class="field-input"
+          [class.field-input--error]="form.controls.firstName.invalid && form.controls.firstName.touched"
+          formControlName="firstName"
+        />
+      </div>
+      <div class="field-group">
+        <label class="field-label" for="invite-last-name">Last name</label>
+        <input
+          id="invite-last-name"
+          class="field-input"
+          [class.field-input--error]="form.controls.lastName.invalid && form.controls.lastName.touched"
+          formControlName="lastName"
+        />
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label" for="invite-email">Email address</label>
+      <input
+        id="invite-email"
+        type="email"
+        class="field-input"
+        [class.field-input--error]="form.controls.email.invalid && form.controls.email.touched"
+        formControlName="email"
+      />
+    </div>
+
+    <div class="field-group">
+      <label class="field-label" for="invite-role">Role</label>
+      <select
+        id="invite-role"
+        class="field-select"
+        [class.field-input--error]="form.controls.role.invalid && form.controls.role.touched"
+        formControlName="role"
+      >
+        <option value="" disabled>Select role…</option>
+        @for (role of roles; track role) {
+          <option [value]="role">{{ role }}</option>
+        }
+      </select>
+    </div>
+  </form>
+
+  <div class="dialog-footer dialog-footer--bordered">
+    <button type="button" class="btn btn--secondary" (click)="dismiss.emit()">Cancel</button>
+    <button type="button" class="btn btn--primary" (click)="onSubmit()">Send Invite</button>
+  </div>
+</app-modal>

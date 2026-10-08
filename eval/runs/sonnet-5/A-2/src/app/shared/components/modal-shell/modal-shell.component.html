@@ -1,0 +1,23 @@
+<div class="modal-backdrop" (click)="onBackdropClick($event)">
+  <div class="modal" [class.modal--sm]="size === 'sm'">
+    <div class="modal__header">
+      <div class="modal__header-title">
+        <h2 class="modal__title">{{ title }}</h2>
+        <ng-content select="[modal-header-extra]" />
+      </div>
+      <button type="button" class="modal__close" (click)="close.emit()" aria-label="Close">&#10005;</button>
+    </div>
+
+    <hr class="divider" />
+
+    <div class="modal__body">
+      <ng-content select="[modal-body]" />
+    </div>
+
+    <hr class="divider" />
+
+    <div class="modal__footer">
+      <ng-content select="[modal-footer]" />
+    </div>
+  </div>
+</div>

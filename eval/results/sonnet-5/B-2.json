@@ -1,0 +1,126 @@
+{
+  "arm": "B",
+  "run": 2,
+  "model": "claude-sonnet-5",
+  "cli": "2.1.281 (Claude Code)",
+  "isolation": "session",
+  "started": "2026-10-08T09:38:23Z",
+  "overlaySha": "0d513945591a",
+  "s0Sha": "c25d3e960f47",
+  "promptBytes": 14252,
+  "runDir": "/tmp/dsb-eval/sonnet-5/B-2",
+  "figma": {
+    "channel": "cached",
+    "fileKey": "iJ92LuFOsPjO6avZ2anbwO",
+    "recordedAt": "2026-09-24T19:49:36Z",
+    "calls": 4,
+    "errors": 0,
+    "nodes": [
+      "22-11104",
+      "22:11448",
+      "22:11492"
+    ],
+    "ok": true
+  },
+  "inputTokensTotal": 33590867,
+  "outputTokens": 111855,
+  "result": {
+    "duration_api_ms": 1569770,
+    "stop_reason": "end_turn",
+    "session_id": "7a074708-35cd-42a3-8fde-d174d8741c99",
+    "total_cost_usd": 9.315282999999999,
+    "usage": {
+      "input_tokens": 342,
+      "cache_creation_input_tokens": 284003,
+      "cache_read_input_tokens": 33306522,
+      "output_tokens": 111855,
+      "output_tokens_details": {
+        "thinking_tokens": 53761
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 284003,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "not_available",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 990,
+          "cache_read_input_tokens": 302141,
+          "cache_creation_input_tokens": 1153,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 1153
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard"
+    },
+    "modelUsage": {
+      "claude-sonnet-5": {
+        "inputTokens": 358,
+        "outputTokens": 132916,
+        "cacheReadInputTokens": 33506500,
+        "cacheCreationInputTokens": 343241,
+        "webSearchRequests": 0,
+        "costUSD": 9.315282999999999,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 64000,
+        "thinkingTokens": 66806,
+        "canonicalModel": "claude-sonnet-5",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "subagent_stats": {
+      "spawned": 1,
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 1
+      },
+      "started_in_background": 1,
+      "max_depth": 1,
+      "spawned_by_subagents": 0,
+      "completed": 1,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {
+        "general-purpose": 1
+      }
+    },
+    "is_error": false,
+    "num_turns": 185,
+    "subtype": "success",
+    "api_error_status": null,
+    "result": "The build is clean. The app is complete and verified end-to-end in a real browser.\n\n## Summary\n\nBuilt the full Angular 19 CRUD demo in `/private/tmp/dsb-eval/sonnet-5/B-2` using `@jablonowski/dsb-components` + `@jablonowski/dsb-tokens`, with `llms.client.txt` genuinely absent (confirmed) — the component API (inputs/outputs/templates/content-projection slots) was reverse-engineered from the shipped `.d.ts` files and the compiled `fesm2022` bundle, and the token names from the published CSS/JSON.\n\n**What's implemented:** login with guards, authenticated shell (header/footer from the library + a custom user-menu for the avatar/My Profile/Sign Out dropdown, since the library's header has no slot for one), dashboard with 4 metric tiles + custom bar chart + service health + data summary + live-updating log viewer, and the full Users CRUD (table + Details/Edit/Invite/Delete dialogs) wired to `angular-in-memory-web-api`.\n\n**Verified live** with a headless-Chromium driver (Playwright, since `chromium-cli` wasn't available): every route, all 4 dialogs, the leftward-opening user menu, and a full edit→invite→delete round-trip — zero console errors throughout.\n\n**Two real bugs found and fixed during testing** (not caught by the clean build):\n1. `angular-in-memory-web-api`'s PUT handler 404s unless the request body includes an `id` matching the URL — fixed in `UsersService.update()`.\n2. That same PUT does a full record replace, not a merge — the edit dialog was silently wiping `status`/`joinedDate`/`avatar` on save since its form only carries name/email/role. Fixed by spreading the original user into the update payload.\n3. Also hardened avatar rendering: the library's `dsb-avatar` only falls back to initials when `src` is empty, not when an image actually fails to load — added a probe-image pattern so a broken avatar URL still degrades to initials, per spec.\n\n**Unverified/judgment calls** (worth flagging since Figma access was indirect, via an agent reading the MCP data rather than me inspecting images directly):\n- Dashboard's lower 4 tiles (Throughput/Service Health/Data Summary/Logs): Figma actually showed only 3 cards in that region with different content than S0's 8-tile list demands; I kept S0's content contract and reused Figma's narrow/wide 2-column rhythm and spacing for the layout.\n- Role/status badge color mapping (Admin→danger, Editor→info, Viewer→default, Active→success, Inactive→default) is inferred from the Figma report's hex values, not pixel-verified.\n- Header nav links use real routes (Dashboard/Team Members) rather than Figma's placeholder labels (Overview/Metrics/Logs/Settings), since those don't correspond to any route in this app.",
+    "ttft_ms": 1609,
+    "type": "result",
+    "duration_ms": 1597474,
+    "uuid": "b30d9774-1cbd-433d-b1f2-efd129c891f1",
+    "ttft_stream_ms": 1367,
+    "time_to_request_ms": 370,
+    "first_content_frame_ms": 1367,
+    "queued_turn_count": 0,
+    "result_index": 0
+  }
+}

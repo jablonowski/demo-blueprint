@@ -1,0 +1,19 @@
+<dsb-modal
+  [open]="open"
+  title="Confirm Deletion"
+  size="sm"
+  [closeOnBackdrop]="true"
+  (closed)="onModalClosed()"
+>
+  @if (user) {
+    <p class="confirm-body">
+      Are you sure you want to remove <strong>{{ user.name }}</strong>? This action cannot be
+      undone.
+    </p>
+  }
+
+  <div modal-footer class="dialog-footer dialog-footer--right">
+    <dsb-button variant="secondary" (click)="onCancel()">Cancel</dsb-button>
+    <dsb-button variant="danger" [loading]="deleting" (click)="onConfirmDelete()">Delete</dsb-button>
+  </div>
+</dsb-modal>

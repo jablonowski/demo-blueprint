@@ -2,7 +2,7 @@
 
 [← docs index](start.md)
 
-**Eleven times during this work a gate reported success while proving a different
+**Twelve times during this work a gate reported success while proving a different
 proposition than the one it was written for.** Each one was green.
 
 - A visual-regression flag that disarmed the comparison it gated.
@@ -18,7 +18,8 @@ proposition than the one it was written for.** Each one was green.
 - A scorer that reduced a run aborted mid-session to a row indistinguishable from an arm
   performing badly.
 
-Two are worth more than the rest, because of *when* they happened.
+Three are worth more than the rest, because of *when* they happened and what they were
+about to cost.
 
 **The tenth was introduced while tidying, not while building.** `eval/node_modules` was
 untracked from git before the repository was made public — committed dependencies look
@@ -40,6 +41,20 @@ identical at 35/35 and every `na` in the library arms disappears.
 Nothing crashed. The table was complete and the numbers were plausible, and they said the
 opposite of the truth.
 
-Each of the eleven is recorded in [`eval/PROTOCOL.md`](../eval/PROTOCOL.md) with what it cost
+**The twelfth hid its own failure.** The line that runs the accessibility pass was written
+`... > "$dir/a11y.json" 2>/dev/null || true` — error output discarded, exit status ignored.
+On 2026-10-08 `a11y.js` crashed in three consecutive runs and left a zero-byte file each time,
+and the harness reported a successful round. The scorer refused all three — *"the measurement
+pass did not run"* — which is the tenth gate's repair doing its job. Had the crash instead
+produced a well-formed document with an empty violations list, three runs would have been
+published showing zero accessibility violations for arms that have never produced zero.
+
+The crash itself has never been reproduced: run by hand afterwards the same scorer returned
+three serious violations and six screenshots, and `remeasure` recovered all three runs at no
+cost. That is recorded as unexplained rather than fixed. What was fixed is the suppression —
+stderr is now captured, a non-zero exit writes a reason, and an empty file writes a reason too,
+because the observed failure exited zero and printed nothing.
+
+Each of the twelve is recorded in [`eval/PROTOCOL.md`](../eval/PROTOCOL.md) with what it cost
 and what replaced it — not as an aside, but because **an evaluation is only worth the
 property its gates actually test.**

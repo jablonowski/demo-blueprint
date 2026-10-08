@@ -1,0 +1,12 @@
+<app-modal size="sm" (dismiss)="dismiss.emit()">
+  <div class="dialog-body">
+    <h2 class="dialog-title">Confirm Deletion</h2>
+    <p class="dialog-text">
+      Are you sure you want to remove <strong>{{ user.name }}</strong>? This action cannot be undone.
+    </p>
+    <div class="dialog-footer">
+      <button type="button" class="btn btn--secondary" (click)="dismiss.emit()">Cancel</button>
+      <button type="button" class="btn btn--danger" (click)="confirm.emit()">Delete</button>
+    </div>
+  </div>
+</app-modal>

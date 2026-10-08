@@ -1,0 +1,10 @@
+<div class="tile-title">{{ label }}</div>
+<div class="tile-value-row">
+  <span class="tile-value">{{ value }}</span>
+  @if (trend) {
+    <dsb-tag [variant]="trendVariant" size="sm">{{ trend }}</dsb-tag>
+  }
+</div>
+@if (subLabel) {
+  <div class="tile-sublabel">{{ subLabel }}</div>
+}

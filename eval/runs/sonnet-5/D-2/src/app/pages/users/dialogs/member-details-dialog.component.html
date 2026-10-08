@@ -1,0 +1,49 @@
+<dsb-modal [open]="open" size="md" ariaLabel="Member Details" [closeOnBackdrop]="true" (closed)="closed.emit()">
+  <div modal-title class="modal-header-custom">
+    <span class="modal-header-title">Member Details</span>
+    <dsb-tag variant="default" size="sm">Read only</dsb-tag>
+  </div>
+
+  @if (user) {
+    <div class="dialog-fields">
+      <div class="user-row">
+        <dsb-avatar [name]="user.name" size="lg" />
+        <div>
+          <div class="user-row-name">{{ user.name }}</div>
+          <div class="user-row-meta">Member since {{ memberSince }}</div>
+        </div>
+      </div>
+
+      <div class="form-grid-2">
+        <div class="readonly-field-group">
+          <span class="readonly-field-label">First name</span>
+          <div class="readonly-field-value">{{ firstName }}</div>
+        </div>
+        <div class="readonly-field-group">
+          <span class="readonly-field-label">Last name</span>
+          <div class="readonly-field-value">{{ lastName }}</div>
+        </div>
+      </div>
+
+      <div class="readonly-field-group">
+        <span class="readonly-field-label">Email address</span>
+        <div class="readonly-field-value">{{ user.email }}</div>
+      </div>
+
+      <div class="readonly-field-group">
+        <span class="readonly-field-label">Role</span>
+        <div class="readonly-field-value">{{ user.role }}</div>
+      </div>
+
+      <div class="status-row">
+        <span class="status-row-label">Status</span>
+        <dsb-tag [variant]="statusVariant" size="sm">{{ user.status }}</dsb-tag>
+      </div>
+    </div>
+  }
+
+  <div modal-footer class="dialog-footer dialog-footer--split">
+    <span class="dialog-footer-note">To make changes, request Admin access.</span>
+    <dsb-button variant="secondary" (click)="closed.emit()">Close</dsb-button>
+  </div>
+</dsb-modal>

@@ -1,0 +1,168 @@
+/* The library's modal body scrolls (overflow-y: auto) so its absolutely
+   positioned dropdown menu gets clipped. Dialog content here is always
+   short enough that scrolling is never needed, so let it overflow instead. */
+:host ::ng-deep dsb-modal .modal-body {
+  overflow: visible;
+}
+
+.users-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-decisions-space-2xl);
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.page-title {
+  margin: 0;
+  font-size: var(--ds-decisions-font-size-2xl);
+  font-weight: var(--ds-decisions-font-weight-semibold);
+  color: var(--ds-decisions-color-text-primary);
+}
+
+.user-cell {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-decisions-space-md);
+}
+
+.user-name {
+  font-size: var(--ds-decisions-font-size-sm);
+  font-weight: var(--ds-decisions-font-weight-medium);
+  color: var(--ds-decisions-color-text-body);
+}
+
+.actions-cell {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--ds-decisions-space-sm);
+}
+
+/* Modal shared layout */
+.modal-title-row {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-decisions-space-sm);
+}
+
+.modal-title-text {
+  margin: 0;
+  font-size: var(--ds-decisions-font-size-xl);
+  font-weight: var(--ds-decisions-font-weight-semibold);
+  color: var(--ds-decisions-color-text-primary);
+}
+
+.user-row {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-decisions-space-lg);
+  margin-bottom: var(--ds-decisions-space-xl);
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-decisions-space-3xs);
+}
+
+.user-info-name {
+  font-size: var(--ds-decisions-font-size-lg);
+  font-weight: var(--ds-decisions-font-weight-semibold);
+  color: var(--ds-decisions-color-text-primary);
+}
+
+.user-info-meta {
+  font-size: var(--ds-decisions-font-size-xs);
+  color: var(--ds-decisions-color-text-muted);
+}
+
+.field-grid {
+  display: flex;
+  gap: var(--ds-decisions-space-xl);
+  margin-bottom: var(--ds-decisions-space-xl);
+}
+
+.field-grid > * {
+  flex: 1;
+  min-width: 0;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-decisions-space-2xs);
+  margin-bottom: var(--ds-decisions-space-xl);
+}
+
+.field-label {
+  font-size: var(--ds-decisions-font-size-xs);
+  font-weight: var(--ds-decisions-font-weight-medium);
+}
+
+.field-label.disabled {
+  color: var(--ds-decisions-color-text-disabled);
+}
+
+.field-box {
+  padding: var(--ds-decisions-space-sm) var(--ds-decisions-space-lg);
+  background: var(--ds-decisions-color-surface-hover);
+  border: var(--ds-decisions-border-width-control) solid var(--ds-decisions-color-border-control);
+  border-radius: var(--ds-decisions-border-radius-lg);
+  font-size: var(--ds-decisions-font-size-sm);
+  color: var(--ds-decisions-color-text-disabled);
+}
+
+.status-row {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-decisions-space-sm);
+}
+
+.status-label {
+  font-size: var(--ds-decisions-font-size-xs);
+  font-weight: var(--ds-decisions-font-weight-medium);
+  color: var(--ds-decisions-color-text-primary);
+}
+
+.dialog-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-decisions-space-xl);
+}
+
+.dialog-form .field-grid,
+.dialog-form dsb-input,
+.dialog-form dsb-dropdown {
+  margin-bottom: 0;
+}
+
+.delete-body {
+  margin: 0;
+  font-size: var(--ds-decisions-font-size-sm);
+  color: var(--ds-decisions-color-text-body);
+  line-height: var(--ds-decisions-font-line-height-normal);
+}
+
+.footer-split {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ds-decisions-space-sm);
+}
+
+.footer-right {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-decisions-space-sm);
+}
+
+.footer-note {
+  font-size: var(--ds-decisions-font-size-xs);
+  color: var(--ds-decisions-color-text-muted);
+}
